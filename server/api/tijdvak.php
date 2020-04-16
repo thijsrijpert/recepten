@@ -1,9 +1,9 @@
 <?php
 require_once('../model/TijdvakModel.php');
 require_once('../database/TijdvakStatement.php');
-$tijdvak = new Tijdvak();
-$tijdvak->insert();
-class Tijdvak {
+require_once('Api.php');
+
+class Tijdvak extends Api{
 
     private $model;
 
@@ -16,10 +16,23 @@ class Tijdvak {
         $this->model->setName($_GET['name']);
 
         echo $_GET['name'];
+        $code = null;
+        try{
+          $tijdvakStatement = new TijdvakStatement();
+          $code = $tijdvakStatement->insert($this->model);
+        }catch(PDOException $e){
+            $e->getCode();
+            parent::setHttpCode($e->getCode());
 
-        $tijdvakStatement = new TijdvakStatement();
-        $tijdvakStatement->insert($this->model);
+        }
 
+
+        $code = substr($code, 0, 2);
+
+        parent::setHttpCode($code);
     }
 }
+
+$tijdvak = new Tijdvak();
+$tijdvak->insert();
  ?>

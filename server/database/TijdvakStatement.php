@@ -12,6 +12,8 @@
           $name = $model->getName();
           $this->stmt->bindParam(':name', $name);
           $this->stmt->execute();
+
+          return $this->stmt->errorCode();
       }
   }
 ?>
