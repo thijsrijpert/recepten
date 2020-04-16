@@ -1,4 +1,4 @@
-package com.nl.beroepsproductblok4_recipesworldwide;
+package com.nl.beroepsproductblok4_recipesworldwide.recipe;
 
 
 import android.graphics.Color;
@@ -13,12 +13,13 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.nl.beroepsproductblok4_recipesworldwide.R;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,9 @@ public class AddRecipe extends Fragment {
     private RecyclerView recyclerview_ingredients;
     private ArrayList<String> arraylist_ingredients; // Note: This datatype has to be changed to 'Ingredient' when this class is made
     private ArrayList<String> arraylist_ingredients_recyclerview; // Note: This datatype has to be changed to 'Ingredient' when this class is made
+
+    // Variables for the database connection
+    private RecipeHTTP recipeHTTP;
 
     public AddRecipe() {
         arraylist_ingredients_recyclerview = new ArrayList<>();
@@ -67,6 +71,9 @@ public class AddRecipe extends Fragment {
         initializeRecyclerView();
         refreshIngredientsSpinner();
 
+        recipeHTTP = new RecipeHTTP(this.getContext());
+        recipeHTTP.addRecipe();
+
         return view;
     }
 
@@ -84,14 +91,14 @@ public class AddRecipe extends Fragment {
         spinner_ingredients = view.findViewById(R.id.addRecipe_spinner_bindIngredient);
 
         // Fill the ArrayLists which contain the String objects used in the dropdown lists
-//        arraylist_mealTypes = databaseHelper.getMealTypes();
-//        arraylist_countryNames = databaseHelper.getCountryNames();
-//        arraylist_religionNames = databaseHelper.getReligionNames();
-//        arraylist_daypartNames = databaseHelper.getDaypartNames();
+//        arraylist_mealTypes = ;
+//        arraylist_countryNames = ;
+//        arraylist_religionNames = ;
+//        arraylist_daypartNames = ;
 //        arraylist_ingredientNames = new ArrayList<>();
 //
 //        for (int c = 0; c < arraylist_ingredients.size(); c++) {
-//            arraylist_ingredientNames.add(arraylist_ingredients.get(c).getName());
+//            arraylist_ingredientNames.add(arraylist_ingredients.get(c));
 //        }
 
         // Create and set the adapters for the spinners

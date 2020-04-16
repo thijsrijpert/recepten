@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragmentContainer_addRecipe"
-        android:name="com.nl.beroepsproductblok4_recipesworldwide.AddRecipe"
+        android:name="com.nl.beroepsproductblok4_recipesworldwide.recipe.AddRecipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
