@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nl.beroepsproductblok4_recipesworldwide.R;
+import com.nl.beroepsproductblok4_recipesworldwide.model.Ingredient;
 
 import java.util.ArrayList;
 
@@ -39,8 +41,8 @@ public class AddRecipe extends Fragment {
 
     // Variables for the RecyclerView
     private RecyclerView recyclerview_ingredients;
-    private ArrayList<String> arraylist_ingredients; // Note: This datatype has to be changed to 'Ingredient' when this class is made
-    private ArrayList<String> arraylist_ingredients_recyclerview; // Note: This datatype has to be changed to 'Ingredient' when this class is made
+    private ArrayList<Ingredient> arraylist_ingredients;
+    private ArrayList<Ingredient> arraylist_ingredients_recyclerview;
 
     // Variables for the database connection
     private RecipeHTTP recipeHTTP;
@@ -64,6 +66,9 @@ public class AddRecipe extends Fragment {
         button_addNewIngredient = view.findViewById(R.id.addRecipe_btn_addNewIngredient);
         button_applyRecipe = view.findViewById(R.id.addRecipe_btn_applyRecipe);
 
+        // Create the connector that will pass requests towards the database
+        recipeHTTP = new RecipeHTTP(this.getContext(), view);
+
         // Launch the initialization methods
         initializeSpinners();
         initializeInputFields();
@@ -71,13 +76,8 @@ public class AddRecipe extends Fragment {
         initializeRecyclerView();
         refreshIngredientsSpinner();
 
-        recipeHTTP = new RecipeHTTP(this.getContext());
-        recipeHTTP.addRecipe();
-
         return view;
     }
-
-    // Test Data
 
     /**
      * Initializes the Spinners on this Fragment
@@ -91,31 +91,32 @@ public class AddRecipe extends Fragment {
         spinner_ingredients = view.findViewById(R.id.addRecipe_spinner_bindIngredient);
 
         // Fill the ArrayLists which contain the String objects used in the dropdown lists
-//        arraylist_mealTypes = ;
-//        arraylist_countryNames = ;
-//        arraylist_religionNames = ;
-//        arraylist_daypartNames = ;
-//        arraylist_ingredientNames = new ArrayList<>();
-//
-//        for (int c = 0; c < arraylist_ingredients.size(); c++) {
-//            arraylist_ingredientNames.add(arraylist_ingredients.get(c));
-//        }
+        arraylist_mealTypes = recipeHTTP.getMealTypes();
+        arraylist_countryNames = recipeHTTP.getCountries();
+        arraylist_religionNames = recipeHTTP.getReligions();
+        arraylist_daypartNames = recipeHTTP.getDayparts();
+        arraylist_ingredients = recipeHTTP.getIngredients();
+
+        arraylist_ingredientNames = new ArrayList<>();
+        for (int c = 0; c < arraylist_ingredients.size(); c++) {
+            arraylist_ingredientNames.add(arraylist_ingredients.get(c).getName());
+        }
 
         // Create and set the adapters for the spinners
-//        ArrayAdapter<String> mealTypesAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_mealTypes);
-//        spinner_mealTypes.setAdapter(mealTypesAdapter);
-//
-//        ArrayAdapter<String> countriesAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_countryNames);
-//        spinner_countries.setAdapter(countriesAdapter);
-//
-//        ArrayAdapter<String> religionsAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_religionNames);
-//        spinner_religions.setAdapter(religionsAdapter);
-//
-//        ArrayAdapter<String> daypartsAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_daypartNames);
-//        spinner_dayparts.setAdapter(daypartsAdapter);
-//
-//        ArrayAdapter<String> ingredientsAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_ingredientNames);
-//        spinner_ingredients.setAdapter(ingredientsAdapter);
+        ArrayAdapter<String> mealTypesAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_mealTypes);
+        spinner_mealTypes.setAdapter(mealTypesAdapter);
+
+        ArrayAdapter<String> countriesAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_countryNames);
+        spinner_countries.setAdapter(countriesAdapter);
+
+        ArrayAdapter<String> religionsAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_religionNames);
+        spinner_religions.setAdapter(religionsAdapter);
+
+        ArrayAdapter<String> daypartsAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_daypartNames);
+        spinner_dayparts.setAdapter(daypartsAdapter);
+
+        ArrayAdapter<String> ingredientsAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_ingredientNames);
+        spinner_ingredients.setAdapter(ingredientsAdapter);
 
         // Make sure there is a method available that will check which ingredients are displayed:
         // - Administrators should see all ingredients: approved as well as unapproved

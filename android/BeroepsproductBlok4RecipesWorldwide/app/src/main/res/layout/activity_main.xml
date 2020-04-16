@@ -6,13 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <fragment
-        android:id="@+id/fragmentContainer_addRecipe"
-        android:name="com.nl.beroepsproductblok4_recipesworldwide.recipe.AddRecipe"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/main_tablayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toTopOf="@id/main_view_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_viewpager"
+        app:tabBackground="@color/colorGreenBackground"
+        app:tabIndicatorColor="@color/colorBorder"
+        app:tabPaddingEnd="5dp"
+        app:tabPaddingStart="5dp"
+        app:tabSelectedTextColor="@color/colorBorder"
+        app:tabTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:tabTextColor="@color/colorText">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem_root"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem_addCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem_addTechnology"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <View
+        android:id="@+id/main_view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBorder"
+        app:layout_constraintTop_toBottomOf="@id/main_tablayout"
+        app:layout_constraintBottom_toTopOf="@id/main_textview_loggedInUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/main_textview_loggedInUser"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:background="@color/colorBorder"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/home_notLoggedIn"
+        android:textColor="@color/colorText"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/main_view_divider" />
 </androidx.constraintlayout.widget.ConstraintLayout>

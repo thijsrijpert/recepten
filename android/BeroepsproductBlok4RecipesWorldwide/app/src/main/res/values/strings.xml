@@ -1,7 +1,14 @@
 <resources>
     <string name="app_name">Beroepsproduct Blok 4 - RecipesWorldwide</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Strings for tabs -->
+    <string name="tabs_register">Registreren</string>
+    <string name="tabs_login">Inloggen</string>
+    <string name="tabs_home">Home</string>
+    <string name="tabs_addRecipe">Recept</string>
+    <string name="tabs_addIngredient">Ingrediënt</string>
+
+    <!-- Strings for AddRecipe -->
     <string name="addRecipe_title">Recept Toevoegen</string>
     <string name="addRecipe_subtext">Op deze pagina kunt u een recept toevoegen. Deze moet bestaan uit:\n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Naam\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.)\n- Beschrijving (optioneel, maar wel sterk aangeraden)\n- Ingrediënten\n\nDe ingrediënten kunt u zelf toevoegen door op de "Nieuw ingrediënt toevoegen" knop te drukken onderaan de pagina. Zodra het recept is aangemeld, zal het worden bekeken door een administrator.</string>
     <string name="addRecipe_recipeType">Maaltijdsoort</string>
@@ -19,4 +26,7 @@
     <string name="addRecipe_buttonAddIngredient">Ingrediënt toevoegen</string>
     <string name="addRecipe_buttonAddNewIngredient">Nieuw ingrediënt toevoegen</string>
     <string name="addRecipe_buttonApplyRecipe">Recept aanmelden</string>
+
+    <!-- Strings for Home -->
+    <string name="home_notLoggedIn">U bent niet ingelogd</string>
 </resources>
