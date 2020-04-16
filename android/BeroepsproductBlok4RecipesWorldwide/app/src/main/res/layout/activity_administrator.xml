@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".administrator.Administrator">
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/main_viewpager"
+        android:id="@+id/administrator_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/main_tablayout"
+        app:layout_constraintBottom_toTopOf="@id/administrator_tablayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,13 +18,13 @@
     </androidx.viewpager.widget.ViewPager>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/main_tablayout"
+        android:id="@+id/administrator_tablayout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:layout_constraintBottom_toTopOf="@id/main_view_divider"
+        app:layout_constraintBottom_toTopOf="@id/administrator_view_divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_viewpager"
+        app:layout_constraintTop_toBottomOf="@id/administrator_viewpager"
         app:tabBackground="@color/colorGreenBackground"
         app:tabIndicatorColor="@color/colorBorder"
         app:tabPaddingEnd="5dp"
@@ -49,28 +49,28 @@
             android:layout_height="wrap_content" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabItem_addRecipe"
+            android:id="@+id/tabItem_addCompany"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabItem_addIngredient"
+            android:id="@+id/tabItem_addTechnology"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </com.google.android.material.tabs.TabLayout>
 
     <View
-        android:id="@+id/main_view_divider"
+        android:id="@+id/administrator_view_divider"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorBorder"
-        app:layout_constraintTop_toBottomOf="@id/main_tablayout"
-        app:layout_constraintBottom_toTopOf="@id/main_textview_loggedInUser"
+        app:layout_constraintTop_toBottomOf="@id/administrator_tablayout"
+        app:layout_constraintBottom_toTopOf="@id/administrator_textview_loggedInUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/main_textview_loggedInUser"
+        android:id="@+id/administrator_textview_loggedInUser"
         android:layout_width="0dp"
         android:layout_height="20dp"
         android:background="@color/colorBorder"
@@ -81,5 +81,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_view_divider" />
+        app:layout_constraintTop_toBottomOf="@id/administrator_view_divider" />
 </androidx.constraintlayout.widget.ConstraintLayout>

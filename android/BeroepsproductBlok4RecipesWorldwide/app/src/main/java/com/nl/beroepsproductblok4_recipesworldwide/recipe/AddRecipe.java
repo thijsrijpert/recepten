@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nl.beroepsproductblok4_recipesworldwide.MainActivity;
 import com.nl.beroepsproductblok4_recipesworldwide.R;
 import com.nl.beroepsproductblok4_recipesworldwide.model.Ingredient;
 
@@ -45,7 +46,7 @@ public class AddRecipe extends Fragment {
     private ArrayList<Ingredient> arraylist_ingredients_recyclerview;
 
     // Variables for the database connection
-    private RecipeHTTP recipeHTTP;
+    private AddRecipe_WebserverConnector addRecipe_webserverConnector;
 
     public AddRecipe() {
         arraylist_ingredients_recyclerview = new ArrayList<>();
@@ -67,7 +68,7 @@ public class AddRecipe extends Fragment {
         button_applyRecipe = view.findViewById(R.id.addRecipe_btn_applyRecipe);
 
         // Create the connector that will pass requests towards the database
-        recipeHTTP = new RecipeHTTP(this.getContext(), view);
+        addRecipe_webserverConnector = new AddRecipe_WebserverConnector(this.getContext(), view);
 
         // Launch the initialization methods
         initializeSpinners();
@@ -91,11 +92,11 @@ public class AddRecipe extends Fragment {
         spinner_ingredients = view.findViewById(R.id.addRecipe_spinner_bindIngredient);
 
         // Fill the ArrayLists which contain the String objects used in the dropdown lists
-        arraylist_mealTypes = recipeHTTP.getMealTypes();
-        arraylist_countryNames = recipeHTTP.getCountries();
-        arraylist_religionNames = recipeHTTP.getReligions();
-        arraylist_daypartNames = recipeHTTP.getDayparts();
-        arraylist_ingredients = recipeHTTP.getIngredients();
+        arraylist_mealTypes = addRecipe_webserverConnector.getMealTypes();
+        arraylist_countryNames = addRecipe_webserverConnector.getCountries();
+        arraylist_religionNames = addRecipe_webserverConnector.getReligions();
+        arraylist_daypartNames = addRecipe_webserverConnector.getDayparts();
+        arraylist_ingredients = addRecipe_webserverConnector.getIngredients();
 
         arraylist_ingredientNames = new ArrayList<>();
         for (int c = 0; c < arraylist_ingredients.size(); c++) {
@@ -174,6 +175,13 @@ public class AddRecipe extends Fragment {
 
                 // Make sure the RecyclerView gets refreshed
                 recyclerview_ingredients.requestLayout();
+            }
+        });
+
+        button_addNewIngredient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).getViewPager().setCurrentItem(4);
             }
         });
     }

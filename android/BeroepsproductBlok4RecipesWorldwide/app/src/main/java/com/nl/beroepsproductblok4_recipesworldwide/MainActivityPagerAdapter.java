@@ -46,15 +46,15 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position){
         switch(position){
             case 0:
-                return context.getString(R.string.tabs_register);
+                return context.getString(R.string.tabs_home_register);
             case 1:
-                return context.getString(R.string.tabs_login);
+                return context.getString(R.string.tabs_home_login);
             case 2:
-                return context.getString(R.string.tabs_home);
+                return context.getString(R.string.tabs_home_home);
             case 3:
-                return context.getString(R.string.tabs_addRecipe);
+                return context.getString(R.string.tabs_home_addRecipe);
             case 4:
-                return context.getString(R.string.tabs_addIngredient);
+                return context.getString(R.string.tabs_home_addIngredient);
             default:
                 return null;
         }

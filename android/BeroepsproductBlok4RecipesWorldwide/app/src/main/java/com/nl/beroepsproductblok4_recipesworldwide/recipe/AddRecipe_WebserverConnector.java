@@ -15,7 +15,7 @@ import com.nl.beroepsproductblok4_recipesworldwide.model.Ingredient;
 
 import java.util.ArrayList;
 
-public class RecipeHTTP {
+public class AddRecipe_WebserverConnector {
     private Context context;
     private EditText edittext_recipeName;
 
@@ -24,7 +24,7 @@ public class RecipeHTTP {
      * @param context Context of the MainActivity
      * @param view The View of the Fragment that created this class. This way, objects on that Fragment can be accessed, such as EditTexts, Spinners etc.
      */
-    public RecipeHTTP(Context context, View view) {
+    public AddRecipe_WebserverConnector(Context context, View view) {
         this.context = context;
         edittext_recipeName = view.findViewById(R.id.addRecipe_edittext_recipeName);
     }
