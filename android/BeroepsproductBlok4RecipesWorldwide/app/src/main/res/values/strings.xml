@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Beroepsproduct Blok 4 - RecipesWorldwide</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="addRecipe_title">Recept Toevoegen</string>
+    <string name="addRecipe_subtext">Op deze pagina kunt u een recept toevoegen. Deze moet bestaan uit:\n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Naam\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.)\n- Beschrijving (optioneel, maar wel sterk aangeraden)\n- Ingrediënten\n\nDe ingrediënten kunt u zelf toevoegen door op de "Nieuw ingrediënt toevoegen" knop te drukken onderaan de pagina. Zodra het recept is aangemeld, zal het worden bekeken door een administrator.</string>
+    <string name="addRecipe_recipeType">Maaltijdsoort</string>
+    <string name="addRecipe_recipeName">Receptnaam</string>
+    <string name="addRecipe_recipeNameHint">vul recept naam in</string>
+    <string name="addRecipe_recipeCountry">Land</string>
+    <string name="addRecipe_recipeReligion">Religie</string>
+    <string name="addRecipe_recipeMealDaypart">Meest geschikt als</string>
+    <string name="addRecipe_recipeBindIngredient">Koppel Ingrediënt</string>
+    <string name="addRecipe_recipeBindIngredientAddition">Ingrediënt toevoeging</string>
+    <string name="addRecipe_recipeBindIngredientAdditionHint">bijv. 500 gram</string>
+    <string name="addRecipe_recipeDescriptionHint">vul hier de omschrijving voor het recept in</string>
+    <string name="addRecipe_recipeDescriptionCharacterCount">0 / 255</string>
+
+    <string name="addRecipe_buttonAddIngredient">Ingrediënt toevoegen</string>
+    <string name="addRecipe_buttonAddNewIngredient">Nieuw ingrediënt toevoegen</string>
+    <string name="addRecipe_buttonApplyRecipe">Recept aanmelden</string>
+</resources>
