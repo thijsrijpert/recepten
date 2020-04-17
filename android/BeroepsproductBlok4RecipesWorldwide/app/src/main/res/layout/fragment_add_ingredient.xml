@@ -143,7 +143,7 @@
                 android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/addIngredient_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addIngredient_edittext_description" />
+                app:layout_constraintTop_toBottomOf="@id/addIngredient_edittext_ingredientDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
