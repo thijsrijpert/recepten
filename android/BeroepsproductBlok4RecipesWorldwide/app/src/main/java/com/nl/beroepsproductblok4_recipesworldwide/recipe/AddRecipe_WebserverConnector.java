@@ -11,13 +11,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.nl.beroepsproductblok4_recipesworldwide.R;
 import com.nl.beroepsproductblok4_recipesworldwide.RequestQueueHolder;
+import com.nl.beroepsproductblok4_recipesworldwide.model.Country;
 import com.nl.beroepsproductblok4_recipesworldwide.model.Ingredient;
+import com.nl.beroepsproductblok4_recipesworldwide.model.Recipe;
 
 import java.util.ArrayList;
 
 public class AddRecipe_WebserverConnector {
     private Context context;
     private EditText edittext_recipeName;
+    private boolean succesfullyAddedRecipe;
 
     /**
      * RecipeHTTP Constructor
@@ -32,24 +35,54 @@ public class AddRecipe_WebserverConnector {
     /**
      * Adds a recipe to the database
      */
-    public void addRecipe() {
+    public boolean addRecipe(Recipe recipe) {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Recept '" + edittext_recipeName.getText() + "'succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Recept '" + edittext_recipeName.getText() + "' succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
+//              System.out.println(response);
+                succesfullyAddedRecipe = true;
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "RecipeHTTP: Het recept '" + edittext_recipeName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
+//                System.out.println(error.getMessage());
+                succesfullyAddedRecipe = false;
+            }
+        });
+
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
+        return succesfullyAddedRecipe;
+    }
+
+    /**
+     * Gets ALL recipes from the database (mostly used for checking purposes).
+     */
+    public ArrayList<Recipe> getRecipes() {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 //              System.out.println(response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Het recept kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
             }
         });
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
+
+        ArrayList<Recipe> recipes = new ArrayList<>();
+
+        // Fill the ArrayList with the recipes
+
+        return recipes;
     }
 
     /**
@@ -82,10 +115,10 @@ public class AddRecipe_WebserverConnector {
     }
 
     /**
-     * Gets all names of Countries from the database
-     * @return An ArrayList<String> with the names of all Countries
+     * Gets all Countries from the database
+     * @return An ArrayList<Country> with all Countries
      */
-    public ArrayList<String> getCountries() {
+    public ArrayList<Country> getCountries() {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
@@ -103,7 +136,7 @@ public class AddRecipe_WebserverConnector {
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
 
-        ArrayList<String> countries = new ArrayList<>();
+        ArrayList<Country> countries = new ArrayList<>();
 
         // Fill the ArrayList with the countries
 
@@ -172,7 +205,65 @@ public class AddRecipe_WebserverConnector {
      * Gets all Ingredients from the database
      * @return An ArrayList<Ingredient> with all Ingredients
      */
-    public ArrayList<Ingredient> getIngredients() {
+    public ArrayList<Ingredient> getAllIngredients() {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+//              System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+//                System.out.println(error.getMessage());
+            }
+        });
+
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
+
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+        // Fill the ArrayList with the ingredients
+
+        return ingredients;
+    }
+
+    /**
+     * Gets only the approved Ingredients from the database
+     * @return An ArrayList<Ingredient> with the approved Ingredients
+     */
+    public ArrayList<Ingredient> getApprovedIngredients() {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+//              System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+//                System.out.println(error.getMessage());
+            }
+        });
+
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
+
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+        // Fill the ArrayList with the ingredients
+
+        return ingredients;
+    }
+
+    /**
+     * Gets all approved Ingredients + unapproved Ingredients submitted by the Current User from the database
+     * @return An ArrayList<Ingredient> with all approved Ingredients + unapproved Ingredients submitted by the Current User
+     */
+    public ArrayList<Ingredient> getIngredientsForSpecificUser(String username) {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override

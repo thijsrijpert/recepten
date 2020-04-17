@@ -10,9 +10,11 @@ import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 import com.nl.beroepsproductblok4_recipesworldwide.administrator.Administrator;
+import com.nl.beroepsproductblok4_recipesworldwide.model.User;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,5 +69,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
         startActivity(intent);
+    }
+
+    /**
+     * Returns the currently logged in user
+     * @return The User object of the currently logged in user
+     */
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    /**
+     * Sets the user in a class variable, so other methods in other classes can ask if someone is logged in (and if necessary, who is logged in)
+     * @param user The user object that has to be set as the currently logged in user
+     */
+    public void setCurrentUser(User user) {
+        currentUser = user;
     }
 }
