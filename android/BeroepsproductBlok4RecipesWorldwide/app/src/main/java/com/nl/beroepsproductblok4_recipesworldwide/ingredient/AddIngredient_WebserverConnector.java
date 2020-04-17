@@ -35,7 +35,7 @@ public class AddIngredient_WebserverConnector {
      */
     public boolean addIngredient(Ingredient ingredient) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?name="+ ingredient.getName() + "&description=" + ingredient.getDescription() + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Ingrediënt '" + edittext_ingredientName.getText() + "' succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
@@ -45,6 +45,11 @@ public class AddIngredient_WebserverConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                if (error.networkResponse.statusCode == 400) {
+                    Toast.makeText(context, "RecipeHTTP: Data duplicaat OF leeg. Error: 400", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
                 Toast.makeText(context, "RecipeHTTP: Het ingrediënt '" + edittext_ingredientName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
                 succesfullyAddedIngredient = false;
