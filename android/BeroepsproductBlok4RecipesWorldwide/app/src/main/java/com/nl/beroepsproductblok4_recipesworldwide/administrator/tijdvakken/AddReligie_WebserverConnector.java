@@ -1,4 +1,4 @@
-package com.nl.beroepsproductblok4_recipesworldwide.religie;
+package com.nl.beroepsproductblok4_recipesworldwide.administrator.tijdvakken;
 
 import android.content.Context;
 import android.view.View;
@@ -59,7 +59,7 @@ public class AddReligie_WebserverConnector {
      * Gets all Ingredients from the database
      * @return An ArrayList<Ingredient> with all Ingredients
      */
-    public ArrayList<String> getAllTijdvakken() {
+    public ArrayList<String> getAllReligie() {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
