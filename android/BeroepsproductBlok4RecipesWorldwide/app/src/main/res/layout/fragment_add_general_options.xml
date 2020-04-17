@@ -11,13 +11,21 @@
         android:orientation="vertical">
 
         <fragment
-            android:id="@+id/fragment"
+            android:id="@+id/addGeneralOptions_fragment_addTijdvak"
             android:name="com.nl.beroepsproductblok4_recipesworldwide.administrator.tijdvakken.AddTijdvak"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:background="@color/colorBorder" />
+
         <fragment
-            android:id="@+id/fragment2"
+            android:id="@+id/addGeneralOptions_fragment_addReligie"
             android:name="com.nl.beroepsproductblok4_recipesworldwide.religie.AddReligie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
