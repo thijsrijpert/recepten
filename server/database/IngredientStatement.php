@@ -5,7 +5,7 @@ class IngredientStatement{
 
   private $stmt;
   function __construct(){
-    $sql = "INSERT INTO Ingredienten VALUES (:name , :description)";
+    $sql = "INSERT INTO Ingredient VALUES (:name , :description)";
     $this->stmt = Database::getConnection()->prepare($sql);
   }
   function insert($model){
