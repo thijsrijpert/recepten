@@ -1,6 +1,6 @@
 <?php
 require_once('../model/ReceptModel.php');
-require_once('../model/ReceptStatement');
+require_once('../database/ReceptStatement');
 require_once('Api.php');
 
 class Recept extends Api{

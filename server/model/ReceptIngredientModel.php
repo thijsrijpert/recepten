@@ -10,7 +10,7 @@ class RecepIngredientModel{
   }
 
   public function setReceptId(Int $recept_id){
-    return $this->recept_id;
+    $this->recept_id = $recept_id;
   }
 
   public function getIngredientName() : String{
@@ -18,7 +18,7 @@ class RecepIngredientModel{
   }
 
   public function setIngredientName(String $ingredient_name){
-    return $this->ingredient_name;
+    $this->ingredient_name = $ingredient_name;
   }
 
 }

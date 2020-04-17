@@ -8,15 +8,16 @@ class IngredientModel{
   }
 
   public function setName(String $name){
-    return $this->name;
+    $this->name = $name;
   }
 
-  public function setDescription() : String{
+  public function getDescription() : String{
     return $this->description;
   }
 
-  public function getDescription(String $description){
+  public function setDescription(String $description){
     $this->description = $description;
+
   }
 
 }

@@ -12,7 +12,7 @@ class ReceptModel{
   }
 
   public function setId(Int $id){
-    return $this->id;
+    $this->id = $id;
   }
 
   public function getName() : String{
@@ -20,32 +20,33 @@ class ReceptModel{
   }
 
   public function setName(String $name){
-    return $this->name;
+    $this->name = $name;
   }
 
-  public function setDescription() : String{
+  public function getDescription() : String{
     return $this->description;
   }
 
-  public function getDescription(String $description){
+  public function setDescription(String $description){
     $this->description = $description;
   }
 
-  public function setLandcode() : Int{
+  public function getLandcode() : Int{
     return $this->landcode;
   }
 
-  public function getLandcode(Int $landcode){
+  public function setLandcode(Int $landcode){
     $this->landcode = $landcode;
   }
 
-  public function setUsername() : String{
-    return $this->username;
+  public function getUsername() : String{
+    return $this->username;;
   }
 
-  public function getUsername(String $username){
+  public function setUsername(String $username){
     $this->username = $username;
   }
+
 
 }
 

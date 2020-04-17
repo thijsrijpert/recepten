@@ -1,6 +1,6 @@
 <?php
 require_once('../model/ReceptIngredientModel.php');
-require_once('../model/ReceptStatement');
+require_once('../database/ReceptStatement');
 require_once('Api.php');
 
 class ReceptIngredient extends Api{
