@@ -30,7 +30,7 @@ public class Administrator extends AppCompatActivity {
      * @param tabLayout The TabLayout object that has to be initialized
      * @param adapter The FragmentAdapter that specifies the fragments in the TabLayout object
      */
-    public void initializeViewPager(ViewPager pager, TabLayout tabLayout, FragmentStatePagerAdapter adapter){
+    public void initializeViewPager(ViewPager pager, TabLayout tabLayout, FragmentStatePagerAdapter adapter) {
         pager.setAdapter(adapter);
         pager.setCurrentItem(0);
         tabLayout.setupWithViewPager(pager);

@@ -24,7 +24,7 @@ public class AdministratorPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new AddTijdvak();
+                return new AddGeneralOptions();
             case 1:
                 return new AddTijdvak();
             case 2:
