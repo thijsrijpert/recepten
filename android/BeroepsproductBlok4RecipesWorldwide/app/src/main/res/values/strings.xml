@@ -35,10 +35,14 @@
 
     <!-- Strings for Home -->
     <string name="home_notLoggedIn">U bent niet ingelogd</string>
-    
+
     <!-- Strings for AddIngredient -->
     <string name="addIngredient_title">Ingrediënt Toevoegen</string>
     <string name="addIngredient_subtext">Op deze pagina kunt u een ingrediënt toevoegen</string>
+    <string name="addIngredient_ingredientName">Ingredientnaam</string>
+    <string name="addIngredient_ingredientNameHint">vul ingrediënt naam in</string>
+    <string name="addIngredient_ingredientDescriptionHint">vul hier de omschrijving voor het ingrediënt in</string>
+    <string name="addIngredient_buttonApplyIngredient">Ingrediënt aanmelden</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
