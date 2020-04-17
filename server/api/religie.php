@@ -1,9 +1,9 @@
 <?php
-require_once('../model/TijdvakModel.php');
-require_once('../database/TijdvakStatement.php');
+require_once('../model/ReligieStatement.php');
+require_once('../database/ReligieStatement.php');
 require_once('Api.php');
 
-class Tijdvak extends Api{
+class Religie extends Api{
 
     private $model;
 
@@ -12,20 +12,18 @@ class Tijdvak extends Api{
     }
 
     function insert() : void{
-        $this->model = new TijdvakModel();
+        $this->model = new ReligieModel();
         $this->model->setName($_GET['name']);
 
         echo $_GET['name'];
         $code = null;
         try{
-          $tijdvakStatement = new TijdvakStatement();
-          $code = $tijdvakStatement->insert($this->model);
+          $religieStatement = new ReligieStatement();
+          $code = $religieStatement->insert($this->model);
         }catch(PDOException $e){
             $e->getCode();
             parent::setHttpCode($e->getCode());
-
         }
-
 
         $code = substr($code, 0, 2);
 
@@ -33,6 +31,6 @@ class Tijdvak extends Api{
     }
 }
 
-$tijdvak = new Tijdvak();
-$tijdvak->insert();
- ?>
+$religie = new Religie();
+$religie->insert();
+?>
