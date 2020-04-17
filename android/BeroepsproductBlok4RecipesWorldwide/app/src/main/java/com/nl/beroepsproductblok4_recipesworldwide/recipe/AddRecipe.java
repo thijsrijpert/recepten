@@ -246,13 +246,13 @@ public class AddRecipe extends Fragment {
                     return;
                 } else {
                     // First, check if all the fields are filled in. If not, display a Toast accordingly
-                    ArrayList<Recipe> recipes = addRecipe_webserverConnector.getRecipes();
+                    ArrayList<Recipe> arraylist_recipes = addRecipe_webserverConnector.getRecipes();
                     if (edittext_recipeName.getText().toString().equals("")) {
                         Toast.makeText(getActivity(), "U moet een receptnaam invullen", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
-                        for (int c = 0; c < recipes.size(); c++) {
-                            if (recipes.get(c).getName().equals(edittext_recipeName.getText().toString())) {
+                        for (int c = 0; c < arraylist_recipes.size(); c++) {
+                            if (arraylist_recipes.get(c).getName().equals(edittext_recipeName.getText().toString())) {
                                 Toast.makeText(getActivity(), "De ingevulde receptnaam bestaat al", Toast.LENGTH_SHORT).show();
                                 return;
                             }
