@@ -54,12 +54,21 @@ public class AddReligie_WebserverConnector {
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
         return succesfullyAddedTijdvak;
     }
-
+////
+     //
+     //
+     // refactoren
+     //
+     //
+     //
+     //
+     //
+     // ////
     /**
      * Gets all Ingredients from the database
      * @return An ArrayList<Ingredient> with all Ingredients
      */
-    public ArrayList<String> getAllTijdvakken() {
+    public ArrayList<String> getAllReligie() {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
@@ -69,7 +78,7 @@ public class AddReligie_WebserverConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Tijdvakken konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "RecipeHTTP: Religie konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
             }
         });
@@ -77,10 +86,10 @@ public class AddReligie_WebserverConnector {
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
 
-        ArrayList<String> tijdvakken = new ArrayList<>();
+        ArrayList<String> reliegies = new ArrayList<>();
 
-        // Fill the ArrayList with the tijdvakken
+        // Fill the ArrayList with the reliegies
 
-        return tijdvakken;
+        return reliegies;
     }
 }

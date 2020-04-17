@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nl.beroepsproductblok4_recipesworldwide.R;
-import com.nl.beroepsproductblok4_recipesworldwide.administrator.tijdvakken.AddReligie_WebserverConnector;
 
 import java.util.ArrayList;
 
