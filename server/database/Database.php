@@ -11,7 +11,7 @@ class Database extends PDO{
     }
 
     private function __construct(){
-        parent::__construct("mysql:host=127.0.0.1;dbname=beroepsproduct;charset=utf8", "root", "");
+        parent::__construct("mysql:host=127.0.0.1;dbname=beroepsproduct;charset=utf8", "crudBeroepsproduct", "YQyQiRwHGGL1i6Bd");
     }
 }
 ?>
