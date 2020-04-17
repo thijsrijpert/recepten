@@ -9,5 +9,5 @@
     <color name="colorButtonPressed">#A3A028</color>
     <color name="colorBorder">#979836</color>
     <color name="colorGreenBackground">#DEDA8B</color>
-    <color name="colorInputFieldsBackground">#FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>

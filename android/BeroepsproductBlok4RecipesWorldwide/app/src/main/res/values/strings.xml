@@ -1,7 +1,20 @@
 <resources>
     <string name="app_name">Beroepsproduct Blok 4 - RecipesWorldwide</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Strings for home tabs -->
+    <string name="tabs_home_register">Registreren</string>
+    <string name="tabs_home_login">Inloggen</string>
+    <string name="tabs_home_home">Home</string>
+    <string name="tabs_home_addRecipe">Recept</string>
+    <string name="tabs_home_addIngredient">Ingrediënt</string>
+
+    <string name="tabs_administrator_addTijdvak">Tijdvakken</string>
+    <string name="tabs_administrator_manageUsers">Gebruikers</string>
+    <string name="tabs_administrator_manageRecipes">Recepten</string>
+    <string name="tabs_administrator_manageIngredients">Ingrediënten</string>
+    <string name="tabs_administrator_other">Overig</string>
+
+    <!-- Strings for AddRecipe -->
     <string name="addRecipe_title">Recept Toevoegen</string>
     <string name="addRecipe_subtext">Op deze pagina kunt u een recept toevoegen. Deze moet bestaan uit:\n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Naam\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.)\n- Beschrijving (optioneel, maar wel sterk aangeraden)\n- Ingrediënten\n\nDe ingrediënten kunt u zelf toevoegen door op de "Nieuw ingrediënt toevoegen" knop te drukken onderaan de pagina. Zodra het recept is aangemeld, zal het worden bekeken door een administrator.</string>
     <string name="addRecipe_recipeType">Maaltijdsoort</string>
@@ -14,9 +27,23 @@
     <string name="addRecipe_recipeBindIngredientAddition">Ingrediënt toevoeging</string>
     <string name="addRecipe_recipeBindIngredientAdditionHint">bijv. 500 gram</string>
     <string name="addRecipe_recipeDescriptionHint">vul hier de omschrijving voor het recept in</string>
-    <string name="addRecipe_recipeDescriptionCharacterCount">0 / 255</string>
+    <string name="addRecipe_recipeDescriptionCharacterCount">0 / 65.535</string>
 
     <string name="addRecipe_buttonAddIngredient">Ingrediënt toevoegen</string>
     <string name="addRecipe_buttonAddNewIngredient">Nieuw ingrediënt toevoegen</string>
     <string name="addRecipe_buttonApplyRecipe">Recept aanmelden</string>
+
+    <!-- Strings for Home -->
+    <string name="home_notLoggedIn">U bent niet ingelogd</string>
+
+    <!-- Strings for AddIngredient -->
+    <string name="addIngredient_title">Ingrediënt Toevoegen</string>
+    <string name="addIngredient_subtext">Op deze pagina kunt u een ingrediënt toevoegen</string>
+    <string name="addIngredient_ingredientName">Ingredientnaam</string>
+    <string name="addIngredient_ingredientNameHint">vul ingrediënt naam in</string>
+    <string name="addIngredient_ingredientDescriptionHint">vul hier de omschrijving voor het ingrediënt in</string>
+    <string name="addIngredient_buttonApplyIngredient">Ingrediënt aanmelden</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

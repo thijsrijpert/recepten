@@ -11,14 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nl.beroepsproductblok4_recipesworldwide.R;
+import com.nl.beroepsproductblok4_recipesworldwide.model.Ingredient;
 
 import java.util.ArrayList;
 
 public class AddRecipe_RecyclerViewAdapter extends RecyclerView.Adapter<AddRecipe_RecyclerViewAdapter.ViewHolder> {
     private View view;
-    private ArrayList<String> ingredients_recyclerview; // Note: This datatype has to be changed to 'Ingredient' when this class is made
+    private ArrayList<Ingredient> ingredients_recyclerview;
 
-    public AddRecipe_RecyclerViewAdapter(ArrayList<String> ingredients_recyclerview, Context context, RecyclerView recyclerView) {
+    public AddRecipe_RecyclerViewAdapter(ArrayList<Ingredient> ingredients_recyclerview, Context context, RecyclerView recyclerView) {
         this.ingredients_recyclerview = ingredients_recyclerview;
     }
 
@@ -33,7 +34,7 @@ public class AddRecipe_RecyclerViewAdapter extends RecyclerView.Adapter<AddRecip
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(ingredients_recyclerview.get(position));
+        holder.textView.setText(ingredients_recyclerview.get(position).getName());
     }
 
     @Override
