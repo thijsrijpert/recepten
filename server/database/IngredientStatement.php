@@ -1,6 +1,6 @@
 <?php
 require_once('../database/Database.php');
-require_once('../model/TijdvakModel.php');
+require_once('../model/IngredientModel.php');
 class IngredientStatement{
 
   private $stmt;
