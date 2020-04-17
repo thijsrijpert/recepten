@@ -7,11 +7,10 @@ class ReceptStatement{
 
   private $stmt;
   function __construct(){
-    $sql = "INSERT INTO Recept VALUES (:name , :description)";
+    $sql = "INSERT INTO Recept VALUES (:name , :description, :landcode , :username )";
     $this->stmt = Database::getConnection()->prepare($sql);
   }
   function insert($model){
-    $id = $model->getId();
     $name = $model->getName();
     $description = $model->getDescription();
     $landcode = $model->getLandcode();
