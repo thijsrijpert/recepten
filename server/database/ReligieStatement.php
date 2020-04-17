@@ -5,7 +5,7 @@
 
       private $stmt;
       function __construct(){
-          $sql = "INSERT INTO Tijdvakken (name) VALUES (:name)";
+          $sql = "INSERT INTO Religies (name) VALUES (:name)";
           $this->stmt = Database::getConnection()->prepare($sql);
       }
       function insert($model) {

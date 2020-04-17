@@ -1,5 +1,5 @@
 <?php
-require_once('../model/ReligieStatement.php');
+require_once('../model/ReligieModel.php');
 require_once('../database/ReligieStatement.php');
 require_once('Api.php');
 
@@ -12,10 +12,8 @@ class Religie extends Api{
     }
 
     function insert() : void{
-        $this->model = new ReligieModel();
-        $this->model->setName($_GET['name']);
+        $this->model = new ReligieModel($_GET['name']);
 
-        echo $_GET['name'];
         $code = null;
         try{
           $religieStatement = new ReligieStatement();
