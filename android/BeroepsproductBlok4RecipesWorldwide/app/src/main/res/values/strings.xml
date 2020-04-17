@@ -51,6 +51,14 @@
     <string name="addTijdvak_tijdvakNameHint">vul tijdvak naam in</string>
     <string name="addTijdvak_buttonApplyTijdvak">Tijdvak aanmelden</string>
 
+    <!-- Strings for AddReligie -->
+    <string name="addReligie_title">Religie Toevoegen</string>
+    <string name="addReligie_subtext">Op deze pagina kunt u een religie toevoegen</string>
+    <string name="addReligie_religieName">religie naam</string>
+    <string name="addReligie_religieNameHint">vul religie naam in</string>
+    <string name="addReligie_buttonApplyReligie">Religie aanmelden</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
