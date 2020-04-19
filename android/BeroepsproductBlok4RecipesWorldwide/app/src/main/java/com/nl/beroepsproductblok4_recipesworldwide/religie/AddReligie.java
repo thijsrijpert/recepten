@@ -66,7 +66,7 @@ public class AddReligie extends Fragment {
                     }
                 }
 
-                boolean value = addReligie_webserverConnector.addTijdvak(edittext_religieName.getText().toString());
+                boolean value = addReligie_webserverConnector.addReligie(edittext_religieName.getText().toString());
 
                 if (value) {
                     edittext_religieName.setText("");

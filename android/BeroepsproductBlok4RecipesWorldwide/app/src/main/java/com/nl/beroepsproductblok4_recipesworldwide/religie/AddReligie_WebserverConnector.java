@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class AddReligie_WebserverConnector {
     private Context context;
-    private boolean succesfullyAddedTijdvak;
-    private EditText edittext_tijdvakName;
+    private boolean succesfullyAddedReligie;
+    private EditText edittext_religieName;
 
     /**
      * RecipeHTTP Constructor
@@ -26,44 +26,34 @@ public class AddReligie_WebserverConnector {
      */
     public AddReligie_WebserverConnector(Context context, View view) {
         this.context = context;
-        edittext_tijdvakName = view.findViewById(R.id.addReligie_edittext_religieName);
+        edittext_religieName = view.findViewById(R.id.addReligie_edittext_religieName);
     }
 
     /**
      * Adds an ingredient to the database
      */
-    public boolean addTijdvak(String tijdvakName) {
+    public boolean addReligie(String religieName) {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Tijdvak '" + edittext_tijdvakName.getText() + "' succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Religie '" + edittext_religieName.getText() + "' succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
 //              System.out.println(response);
-                succesfullyAddedTijdvak = true;
+                succesfullyAddedReligie = true;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Het tijdvak '" + edittext_tijdvakName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "RecipeHTTP: Het religie '" + edittext_religieName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
-                succesfullyAddedTijdvak = false;
+                succesfullyAddedReligie = false;
             }
         });
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
-        return succesfullyAddedTijdvak;
+        return succesfullyAddedReligie;
     }
-////
-     //
-     //
-     // refactoren
-     //
-     //
-     //
-     //
-     //
-     // ////
     /**
      * Gets all Ingredients from the database
      * @return An ArrayList<Ingredient> with all Ingredients
@@ -88,7 +78,7 @@ public class AddReligie_WebserverConnector {
 
         ArrayList<String> reliegies = new ArrayList<>();
 
-        // Fill the ArrayList with the reliegies
+        // Fill the ArrayList with the religions
 
         return reliegies;
     }
