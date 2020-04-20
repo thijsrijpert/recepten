@@ -1,17 +1,17 @@
 <?php
-echo 'TestS';
+namespace database;
   require_once('../database/Database.php');
-  echo'TestM';
-  require_once('../model/TijdvakModel.php');
-  class TijdvakStatement {
+  require_once('../model/Religion.php');
+
+  class Religion {
 
       private $stmt;
+
       function __construct(){
-        echo 'Prepare';
-          $sql = "INSERT INTO Tijdvakken VALUES (:name)";
+          $sql = "INSERT INTO Religies (name) VALUES (:name)";
           $this->stmt = Database::getConnection()->prepare($sql);
-          echo $this->stmt->errorCode();
       }
+      
       function insert($model) {
           $name = $model->getName();
           $this->stmt->bindParam(':name', $name);

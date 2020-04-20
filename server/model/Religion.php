@@ -1,5 +1,6 @@
 <?php
-  class ReligieModel {
+namespace model;
+  class Religion {
     private $name;
     private $id;
 

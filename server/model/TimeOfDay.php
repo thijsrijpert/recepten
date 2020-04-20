@@ -1,5 +1,6 @@
 <?php
-class TijdvakModel {
+namespace model;
+class TimeOfDay {
     private $name;
 
     public function getName() : String{
