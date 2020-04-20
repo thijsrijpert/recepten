@@ -1,13 +1,13 @@
 package com.nl.beroepsproductblok4_recipesworldwide.model;
 
 public class Recipe {
-    private String id, name, description, landcode, username;
+    private String id, name, description, countrycode, username, mealtype_name, religion_id, timeOfDay;
 
-    public Recipe(String id, String name, String description, String landcode, String username) {
+    public Recipe(String id, String name, String description, String countrycode, String username) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.landcode = landcode;
+        this.countrycode = countrycode;
         this.username = username;
     }
 
@@ -35,12 +35,12 @@ public class Recipe {
         this.description = description;
     }
 
-    public String getLandcode() {
-        return landcode;
+    public String getCountrycode() {
+        return countrycode;
     }
 
-    public void setLandcode(String landcode) {
-        this.landcode = landcode;
+    public void setCountrycode(String countrycode) {
+        this.countrycode = countrycode;
     }
 
     public String getUsername() {

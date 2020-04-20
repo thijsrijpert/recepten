@@ -1,4 +1,4 @@
-package com.nl.beroepsproductblok4_recipesworldwide.administrator.tijdvakken;
+package com.nl.beroepsproductblok4_recipesworldwide.administrator.country;
 
 import android.content.Context;
 import android.view.View;
@@ -11,56 +11,46 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.nl.beroepsproductblok4_recipesworldwide.R;
 import com.nl.beroepsproductblok4_recipesworldwide.RequestQueueHolder;
-import com.nl.beroepsproductblok4_recipesworldwide.model.Ingredient;
 
 import java.util.ArrayList;
 
-public class AddTijdvak_WebserverConnector {
+public class AddCountry_WebserverConnector {
     private Context context;
-    private boolean succesfullyAddedTijdvak;
-    private EditText edittext_tijdvakName;
+    private boolean succesfullyAddedCountry;
+    private EditText edittext_countryName;
 
-    /**
-     * RecipeHTTP Constructor
-     * @param context Context of the MainActivity
-     * @param view The View of the Fragment that created this class. This way, objects on that Fragment can be accessed, such as EditTexts, Spinners etc.
-     */
-    public AddTijdvak_WebserverConnector(Context context, View view) {
+    public AddCountry_WebserverConnector(Context context, View view) {
         this.context = context;
-        edittext_tijdvakName = view.findViewById(R.id.addTijdvak_edittext_tijdvakName);
+        edittext_countryName = view.findViewById(R.id.addCountry_edittext_countryName);
     }
 
     /**
-     * Adds an ingredient to the database
+     * Adds a Country to the database
      */
-    public boolean addTijdvak(String tijdvakName) {
+    public boolean addCountry(String countryName) {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Tijdvak '" + edittext_tijdvakName.getText() + "' succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Land '" + edittext_countryName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
 //              System.out.println(response);
-                succesfullyAddedTijdvak = true;
+                succesfullyAddedCountry = true;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Het tijdvak '" + edittext_tijdvakName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "AddCountry_WebserverConnector: Het land '" + edittext_countryName.getText() + "' kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
-                succesfullyAddedTijdvak = false;
+                succesfullyAddedCountry = false;
             }
         });
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
-        return succesfullyAddedTijdvak;
+        return succesfullyAddedCountry;
     }
 
-    /**
-     * Gets all Ingredients from the database
-     * @return An ArrayList<Ingredient> with all Ingredients
-     */
-    public ArrayList<String> getAllTijdvakken() {
+    public ArrayList<String> getAllCountryNames() {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
@@ -70,7 +60,7 @@ public class AddTijdvak_WebserverConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Tijdvakken konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "AddCountry_WebserverConnector: Landnamen konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
             }
         });
@@ -78,10 +68,10 @@ public class AddTijdvak_WebserverConnector {
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
 
-        ArrayList<String> tijdvakken = new ArrayList<>();
+        ArrayList<String> countryNames = new ArrayList<>();
 
-        // Fill the ArrayList with the tijdvakken
+        // Fill the ArrayList with the countryNames
 
-        return tijdvakken;
+        return countryNames;
     }
 }

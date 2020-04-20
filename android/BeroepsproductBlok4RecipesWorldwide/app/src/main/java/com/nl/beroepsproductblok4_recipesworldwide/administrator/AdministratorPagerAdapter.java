@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.nl.beroepsproductblok4_recipesworldwide.R;
-import com.nl.beroepsproductblok4_recipesworldwide.administrator.tijdvakken.AddTijdvak;
+import com.nl.beroepsproductblok4_recipesworldwide.administrator.tijdvakken.AddTimeOfDay;
 
 public class AdministratorPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -26,13 +26,13 @@ public class AdministratorPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new AddGeneralOptions();
             case 1:
-                return new AddTijdvak();
+                return new AddTimeOfDay();
             case 2:
-                return new AddTijdvak();
+                return new AddTimeOfDay();
             case 3:
-                return new AddTijdvak();
+                return new AddTimeOfDay();
             case 4:
-                return new AddTijdvak();
+                return new AddTimeOfDay();
             default:
                 return null;
         }
