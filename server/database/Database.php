@@ -1,5 +1,6 @@
 <?php
-class Database extends PDO{
+namespace database;
+class Database extends \PDO{
     private static $instance = null;
     private $tijdvakStatement;
 

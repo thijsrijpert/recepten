@@ -11,7 +11,7 @@ class Religion extends Api{
 
     function __construct(){
         parent::__construct();
-        set_error_handler('error_handler');
+        //set_error_handler('error_handler');
     }
 
     function insert() : void{
@@ -25,9 +25,9 @@ class Religion extends Api{
 
             parent::setHttpCode($code);
 
-        }catch(PDOException $e){
+        }catch(\PDOException $e){
             parent::setHttpCode($e->getCode());
-        }catch(NullPointerException $e){
+        }catch(exception\NullPointerException $e){
             header('HTTP/1.0 400 Bad Request');
         }
     }

@@ -1,4 +1,5 @@
 <?php
+namespace api;
   class Api {
       public function __construct(){
         ini_set('display_startup_errors', 1);

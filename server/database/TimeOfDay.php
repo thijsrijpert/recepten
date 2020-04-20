@@ -8,7 +8,7 @@ namespace database;
 
       function __construct(){
           $sql = "INSERT INTO Tijdvakken VALUES (:name)";
-          $this->stmt = Database::getConnection()->prepare($sql);
+          $this->stmt = \database\Database::getConnection()->prepare($sql);
       }
 
       function insert($model) {
