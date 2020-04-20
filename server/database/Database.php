@@ -10,8 +10,9 @@ class Database extends PDO{
        return $instance;
     }
 
-    private function __construct(){
-        parent::__construct("mysql:host=127.0.0.1;dbname=beroepsproduct;charset=utf8", "crudBeroepsproduct", "YQyQiRwHGGL1i6Bd");
+    public function __construct(){
+      echo 'Connection';
+        parent::__construct("mysql:host=localhost;dbname=beroepsproduct;charset=utf8", "crudBeroepsproduct", "gZQ0p8L3kR8vDVJ5");
     }
 }
 ?>

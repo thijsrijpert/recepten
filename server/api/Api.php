@@ -1,6 +1,7 @@
 <?php
   class Api {
       public function setHttpCode($sqlCode) : void{
+          error_log($sqlCode);
           switch($sqlCode){
               case '00':
                   header('HTTP/1.0 200 OK');
@@ -30,7 +31,7 @@
                   break;
               default:
                   echo 'test';
-                  header('HTTP/1.0 Internal Server error');
+                  header('HTTP/1.0 500 Internal Server error');
                   break;
           }
           die;
