@@ -14,6 +14,7 @@ import com.nl.beroepsproductblok4_recipesworldwide.RequestQueueHolder;
 import com.nl.beroepsproductblok4_recipesworldwide.model.Country;
 import com.nl.beroepsproductblok4_recipesworldwide.model.Ingredient;
 import com.nl.beroepsproductblok4_recipesworldwide.model.Recipe;
+import com.nl.beroepsproductblok4_recipesworldwide.model.Religion;
 
 import java.util.ArrayList;
 
@@ -147,7 +148,7 @@ public class AddRecipe_WebserverConnector {
      * Gets all names of Religions from the database
      * @return An ArrayList<String> with the names of all Religions
      */
-    public ArrayList<String> getReligions() {
+    public ArrayList<Religion> getReligions() {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
@@ -165,7 +166,7 @@ public class AddRecipe_WebserverConnector {
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
 
-        ArrayList<String> religions = new ArrayList<>();
+        ArrayList<Religion> religions = new ArrayList<>();
 
         // Fill the ArrayList with the religions
 
