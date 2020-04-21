@@ -35,7 +35,7 @@ public class AddTimeOfDay_WebserverConnector {
      */
     public boolean addTimeOfDay(String tijdvakName) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/thijs/api/TimeOfDay.php?name="+ tijdvakName + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Tijdvak '" + edittext_tijdvakName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
@@ -45,9 +45,16 @@ public class AddTimeOfDay_WebserverConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                succesfullyAddedTijdvak = false;
+
+                if (error.networkResponse.statusCode == 400) {
+                    Toast.makeText(context, "Tijdvak '" + edittext_tijdvakName.getText() + "' bestaat al.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Toast.makeText(context, "AddTijdvak_WebserverConnector: Het tijdvak '" + edittext_tijdvakName.getText() + "' kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
-                succesfullyAddedTijdvak = false;
+
             }
         });
 
