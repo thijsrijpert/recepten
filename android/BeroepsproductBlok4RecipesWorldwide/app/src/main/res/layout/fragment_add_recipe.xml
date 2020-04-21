@@ -342,7 +342,7 @@
                 android:id="@+id/addRecipe_textview_receptomschrijvingCharacterCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/addRecipe_recipeDescriptionCharacterCount"
+                android:text="@string/character_count"
                 android:textColor="@color/colorText"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@id/addRecipe_edittext_description"

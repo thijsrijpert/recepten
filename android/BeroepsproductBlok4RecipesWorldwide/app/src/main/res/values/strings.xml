@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Beroepsproduct Blok 4 - RecipesWorldwide</string>
 
+    <!-- General -->
+    <string name="character_count">0 / 65.535</string>
+
     <!-- Strings for home tabs -->
     <string name="tabs_home_register">Registreren</string>
     <string name="tabs_home_login">Inloggen</string>
@@ -27,7 +30,6 @@
     <string name="addRecipe_recipeBindIngredientAddition">Ingrediënt toevoeging</string>
     <string name="addRecipe_recipeBindIngredientAdditionHint">bijv. 500 gram</string>
     <string name="addRecipe_recipeDescriptionHint">vul hier de omschrijving voor het recept in</string>
-    <string name="addRecipe_recipeDescriptionCharacterCount">0 / 65.535</string>
 
     <string name="addRecipe_buttonAddIngredient">Ingrediënt toevoegen</string>
     <string name="addRecipe_buttonAddNewIngredient">Nieuw ingrediënt toevoegen</string>
@@ -54,11 +56,12 @@
     <!-- Strings for AddCountry -->
     <string name="addCountry_title">Land Toevoegen</string>
     <string name="addCountry_subtext">Op deze pagina kunt u een land toevoegen</string>
+    <string name="addCountry_countryCode">Landcode</string>
+    <string name="addCountry_countryCodeHint">vul landcode in</string>
     <string name="addCountry_countryName">Land naam</string>
     <string name="addCountry_countryNameHint">vul land naam in</string>
     <string name="addCountry_buttonApplyCountry">Land aanmelden</string>
     <string name="addCountry_countryDescriptionHint">vul hier de omschrijving voor het land in</string>
-    <string name="addCountry_countryDescriptionCharacterCount">0 / 65.535</string>
 
     <!-- Strings for AddReligie -->
     <string name="addReligie_title">Religie Toevoegen</string>
