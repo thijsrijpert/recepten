@@ -1,15 +1,19 @@
 package com.nl.beroepsproductblok4_recipesworldwide.ingredient;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nl.beroepsproductblok4_recipesworldwide.MainActivity;
@@ -24,6 +28,7 @@ import java.util.ArrayList;
 public class AddIngredient extends Fragment {
     private View view;
     private EditText edittext_ingredientName, edittext_ingredientDescription;
+    private TextView textview_ingredientDescriptionCharacterCount;
 
     // Variables for the database connection
     AddIngredient_WebserverConnector addIngredient_webserverConnector;
@@ -41,14 +46,45 @@ public class AddIngredient extends Fragment {
         // Initialize the Class variables
         edittext_ingredientName = view.findViewById(R.id.addIngredient_edittext_ingredientName);
         edittext_ingredientDescription = view.findViewById(R.id.addIngredient_edittext_ingredientDescription);
+        textview_ingredientDescriptionCharacterCount = view.findViewById(R.id.addIngredient_textview_ingredientDescriptionCharacterCount);
 
         // Create the connector that will pass requests towards the database
         addIngredient_webserverConnector = new AddIngredient_WebserverConnector(this.getContext(), view);
 
         // Launch the initialization methods
+        initializeInputFields();
         initializeButtons();
 
         return view;
+    }
+
+    /**
+     * Initializes the EditText elements on this Fragment
+     */
+    private void initializeInputFields() {
+        // Create the listener on recipeDescription's EditText, so the character counter changes when the user is typing
+        edittext_ingredientDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                textview_ingredientDescriptionCharacterCount.setText(edittext_ingredientDescription.getText().length() + " / 65.535", null);
+
+                if (edittext_ingredientDescription.getText().length() > 65535) {
+                    textview_ingredientDescriptionCharacterCount.setTextColor(Color.RED);
+                } else {
+                    textview_ingredientDescriptionCharacterCount.setTextColor(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void initializeButtons() {

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nl.beroepsproductblok4_recipesworldwide.R;
+import com.nl.beroepsproductblok4_recipesworldwide.model.Country;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ import java.util.ArrayList;
  */
 public class AddCountry extends Fragment {
     private View view;
-    private EditText edittext_countryName, edittext_countryDescription;
+    private EditText edittext_countryName, edittext_countryCode, edittext_countryDescription;
     private TextView textview_countryDescription;
     private AddCountry_WebserverConnector addCountry_webserverConnector;
 
@@ -40,6 +41,7 @@ public class AddCountry extends Fragment {
 
         // Initialize the Class variables
         edittext_countryName = view.findViewById(R.id.addCountry_edittext_countryName);
+        edittext_countryCode = view.findViewById(R.id.addCountry_edittext_countryCode);
         edittext_countryDescription = view.findViewById(R.id.addCountry_edittext_description);
         textview_countryDescription = view.findViewById(R.id.addCountry_textview_countryDescriptionCharacterCount);
 
@@ -66,7 +68,7 @@ public class AddCountry extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textview_countryDescription.setText(edittext_countryDescription.getText().length() + " / 255", null);
+                textview_countryDescription.setText(edittext_countryDescription.getText().length() + " / 65.535", null);
 
                 if (edittext_countryDescription.getText().length() > 65535) {
                     textview_countryDescription.setTextColor(Color.RED);
@@ -90,24 +92,39 @@ public class AddCountry extends Fragment {
         button_applyCountry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // First, get the ArrayList of all Country names (this is to check if the entered name already exists
-                ArrayList<String> arraylist_countryNames = addCountry_webserverConnector.getAllCountryNames();
+                // First, get the ArrayList of all Countries
+                ArrayList<Country> arraylist_countries = addCountry_webserverConnector.getCountries();
 
+                // Check if the countrycode is entered. If so, does it already exist?
+                if (edittext_countryCode.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "U moet een landcode invullen", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    // Check for duplicates
+                    for (int c = 0; c < arraylist_countries.size(); c++) {
+                        if (arraylist_countries.get(c).getCode().equals(edittext_countryCode.getText().toString())) {
+                            Toast.makeText(getActivity(), "De ingevulde landcode bestaat al", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                }
+
+                // Check if the name is entered. If so, does it already exist?
                 if (edittext_countryName.getText().toString().equals("")) {
                     // Check if a name is entered
                     Toast.makeText(getActivity(), "U moet een land naam invullen", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     // Check for duplicates
-                    for (int c = 0; c < arraylist_countryNames.size(); c++) {
-                        if (arraylist_countryNames.get(c).equals(edittext_countryName.getText().toString())) {
+                    for (int c = 0; c < arraylist_countries.size(); c++) {
+                        if (arraylist_countries.get(c).getName().equals(edittext_countryName.getText().toString())) {
                             Toast.makeText(getActivity(), "Het ingevulde land naam bestaat al", Toast.LENGTH_SHORT).show();
                             return;
                         }
                     }
                 }
 
-                boolean value = addCountry_webserverConnector.addCountry(edittext_countryName.getText().toString());
+                boolean value = addCountry_webserverConnector.addCountry(edittext_countryCode.getText().toString(), edittext_countryName.getText().toString(), edittext_countryDescription.getText().toString());
 
                 if (value) {
                     edittext_countryName.setText("");
