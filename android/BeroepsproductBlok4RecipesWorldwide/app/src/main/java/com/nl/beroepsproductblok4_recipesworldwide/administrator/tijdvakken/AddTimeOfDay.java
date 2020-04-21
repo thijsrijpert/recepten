@@ -12,21 +12,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.nl.beroepsproductblok4_recipesworldwide.MainActivity;
 import com.nl.beroepsproductblok4_recipesworldwide.R;
-import com.nl.beroepsproductblok4_recipesworldwide.administrator.Administrator;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddTijdvak extends Fragment {
+public class AddTimeOfDay extends Fragment {
     private View view;
     private EditText edittext_tijdvakName;
-    private AddTijdvak_WebserverConnector addTijdvak_webserverConnector;
+    private AddTimeOfDay_WebserverConnector addTimeOfDay_webserverConnector;
 
-    public AddTijdvak() {
+    public AddTimeOfDay() {
         // Required empty public constructor
     }
 
@@ -40,7 +38,7 @@ public class AddTijdvak extends Fragment {
         edittext_tijdvakName = view.findViewById(R.id.addTijdvak_edittext_tijdvakName);
 
         // Create the connector that will pass requests towards the database
-        addTijdvak_webserverConnector = new AddTijdvak_WebserverConnector(this.getContext(), view);
+        addTimeOfDay_webserverConnector = new AddTimeOfDay_WebserverConnector(this.getContext(), view);
 
         // Launch the initialization methods
         initializeButtons();
@@ -54,7 +52,7 @@ public class AddTijdvak extends Fragment {
             @Override
             public void onClick(View v) {
                 // First, check if all the fields are filled in. If not, display a Toast accordingly
-                ArrayList<String> arraylist_tijdvakken = addTijdvak_webserverConnector.getAllTijdvakken();
+                ArrayList<String> arraylist_tijdvakken = addTimeOfDay_webserverConnector.getAllTimeOfDayValues();
                 if (edittext_tijdvakName.getText().toString().equals("")) {
                     // Check if a name is entered
                     Toast.makeText(getActivity(), "U moet een tijdvak naam invullen", Toast.LENGTH_SHORT).show();
@@ -69,7 +67,7 @@ public class AddTijdvak extends Fragment {
                     }
                 }
 
-                boolean value = addTijdvak_webserverConnector.addTijdvak(edittext_tijdvakName.getText().toString());
+                boolean value = addTimeOfDay_webserverConnector.addTimeOfDay(edittext_tijdvakName.getText().toString());
 
                 if (value) {
                     edittext_tijdvakName.setText("");
