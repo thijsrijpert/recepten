@@ -37,7 +37,7 @@ public class AddReligie_WebserverConnector {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Religie '" + edittext_religieName.getText() + "' succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Religie '" + edittext_religieName.getText() + "' succesvol aangemeld. ", Toast.LENGTH_SHORT).show();
 //              System.out.println(response);
                 succesfullyAddedReligie = true;
             }

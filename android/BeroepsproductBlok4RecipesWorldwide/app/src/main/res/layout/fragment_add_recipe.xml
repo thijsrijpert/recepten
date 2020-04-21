@@ -186,7 +186,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
+// religie spinner
             <Spinner
                 android:id="@+id/addRecipe_spinner_recipeReligion"
                 android:layout_width="0dp"
@@ -197,7 +197,7 @@
                 app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
                 app:layout_constraintStart_toEndOf="@id/addRecipe_constraintLayout_recipeReligion" />
 
-            <!-- Meal Daypart -->
+            <!-- Mea Daypart -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/addRecipe_constraintLayout_recipeMealDaypart"
                 android:layout_width="180dp"

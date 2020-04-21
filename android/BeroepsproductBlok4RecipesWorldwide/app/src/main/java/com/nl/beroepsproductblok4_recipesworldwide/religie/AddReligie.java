@@ -58,12 +58,12 @@ public class AddReligie extends Fragment {
                     return;
                 } else {
                     // Check for duplicates
-                    for (int c = 0; c < arraylist_religie.size(); c++) {
-                        if (arraylist_religie.get(c).equals(edittext_religieName.getText().toString())) {
-                            Toast.makeText(getActivity(), "Het ingevulde religie naam bestaat al", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
+//                    for (int c = 0; c < arraylist_religie.size(); c++) {
+//                        if (arraylist_religie.get(c).equals(edittext_religieName.getText().toString())) {
+//                            Toast.makeText(getActivity(), "Het ingevulde religie naam bestaat al", Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
+//                    }
                 }
 
                 boolean value = addReligie_webserverConnector.addReligie(edittext_religieName.getText().toString());
