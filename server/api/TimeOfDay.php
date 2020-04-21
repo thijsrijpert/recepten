@@ -15,17 +15,17 @@ class TimeOfDay extends Api{
     function __construct(){
         parent::__construct();
 
-        set_error_handler('error_handler');
+        set_error_handler(array($this, 'error_handler'));
     }
 
-    function insert() : void{
+    function insert() {
         try{
             $this->model = new \model\TimeOfDay();
             $this->model->setName($_GET['name']);
 
             $tijdvakStatement = new \database\TimeOfDay();
             $code = $tijdvakStatement->insert($this->model);
-
+            echo $code;
             $code = substr($code, 0, 2);
 
             parent::setHttpCode($code);
@@ -34,12 +34,19 @@ class TimeOfDay extends Api{
             error_log($e->getCode());
             parent::setHttpCode($e->getCode());
         }catch(\exception\NullPointerException $e){
+            echo 'NullPointerException';
             header('HTTP/1.0 400 Bad Request');
+            restore_error_handler();
         }
     }
 
-    function error_handler(){
-        throw new \exception\NullPointerException("Get value isn't passed");
+    function error_handler($errno, $errstr, $errfile, $errline){
+        if($errstr == 'Undefined index: name'){
+            throw new \exception\NullPointerException("Get value isn't passed");
+        }else{
+            restore_error_handler();
+        }
+
     }
 }
 

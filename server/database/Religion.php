@@ -11,7 +11,7 @@ namespace database;
           $sql = "INSERT INTO Religies (name) VALUES (:name)";
           $this->stmt = Database::getConnection()->prepare($sql);
       }
-      
+
       function insert($model) {
           $name = $model->getName();
           $this->stmt->bindParam(':name', $name);
