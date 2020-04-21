@@ -27,6 +27,7 @@ import com.nl.beroepsproductblok4_recipesworldwide.R;
 import com.nl.beroepsproductblok4_recipesworldwide.model.Country;
 import com.nl.beroepsproductblok4_recipesworldwide.model.Ingredient;
 import com.nl.beroepsproductblok4_recipesworldwide.model.Recipe;
+import com.nl.beroepsproductblok4_recipesworldwide.model.Religion;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,7 @@ public class AddRecipe extends Fragment {
     private Spinner spinner_mealTypes, spinner_countries, spinner_religions, spinner_dayparts, spinner_ingredients;
     private ArrayList<String> arraylist_mealTypes, arraylist_religionNames, arraylist_countryNames, arraylist_daypartNames, arraylist_ingredientNames;
     private ArrayList<Country> arraylist_countries;
+    private ArrayList<Religion> arraylist_religions;
 
     // Variables for the RecyclerView
     private RecyclerView recyclerview_ingredients;
@@ -101,12 +103,17 @@ public class AddRecipe extends Fragment {
         // Fill the ArrayLists which contain the String objects used in the dropdown lists
         arraylist_mealTypes = addRecipe_webserverConnector.getMealTypes();
         arraylist_countries = addRecipe_webserverConnector.getCountries();
-        arraylist_religionNames = addRecipe_webserverConnector.getReligions();
+        arraylist_religions = addRecipe_webserverConnector.getReligions();
         arraylist_daypartNames = addRecipe_webserverConnector.getDayparts();
 
         arraylist_countryNames = new ArrayList<>();
         for (int c = 0; c < arraylist_countries.size(); c++) {
             arraylist_countryNames.add(arraylist_countries.get(c).getName());
+        }
+
+        arraylist_religionNames = new ArrayList<>();
+        for (int c = 0; c < arraylist_religions.size(); c++) {
+            arraylist_religionNames.add(arraylist_religions.get(c).getName());
         }
 
         // Create and set the adapters for the spinners
@@ -279,8 +286,16 @@ public class AddRecipe extends Fragment {
                         }
                     }
 
+                    // Prepare values to create the new Recipe: extract the Religion id
+                    String religionId = "0";
+                    for (int c = 0; c < arraylist_religions.size(); c++) {
+                        if (arraylist_religions.get(c).getName().equals(spinner_religions.getSelectedItem().toString())) {
+                            religionId = arraylist_religions.get(c).getId();
+                        }
+                    }
+
                     // Create the Recipe object and send it to the database
-                    Recipe recipe = new Recipe(null, edittext_recipeName.getText().toString(), edittext_recipeDescription.getText().toString(), countryCode, ((MainActivity)getActivity()).getCurrentUser().getUsername());
+                    Recipe recipe = new Recipe(null, edittext_recipeName.getText().toString(), edittext_recipeDescription.getText().toString(), countryCode, ((MainActivity)getActivity()).getCurrentUser().getUsername(), spinner_mealTypes.getSelectedItem().toString(), religionId, spinner_dayparts.getSelectedItem().toString());
                     boolean value = addRecipe_webserverConnector.addRecipe(recipe);
 
                     // Reset the Spinners and EditTexts to let the User know the data has been sent to the Administrator

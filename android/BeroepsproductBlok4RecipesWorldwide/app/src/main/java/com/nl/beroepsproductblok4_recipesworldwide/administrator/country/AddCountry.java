@@ -101,7 +101,7 @@ public class AddCountry extends Fragment {
                     // Check for duplicates
                     for (int c = 0; c < arraylist_countryNames.size(); c++) {
                         if (arraylist_countryNames.get(c).equals(edittext_countryName.getText().toString())) {
-                            Toast.makeText(getActivity(), "Het ingevulde tijdvak naam bestaat al", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Het ingevulde land naam bestaat al", Toast.LENGTH_SHORT).show();
                             return;
                         }
                     }
