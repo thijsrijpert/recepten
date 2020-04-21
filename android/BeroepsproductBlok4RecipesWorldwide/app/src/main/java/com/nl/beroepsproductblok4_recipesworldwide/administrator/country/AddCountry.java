@@ -92,21 +92,10 @@ public class AddCountry extends Fragment {
         button_applyCountry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // First, get the ArrayList of all Countries
-                ArrayList<Country> arraylist_countries = addCountry_webserverConnector.getCountries();
-
                 // Check if the countrycode is entered. If so, does it already exist?
                 if (edittext_countryCode.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "U moet een landcode invullen", Toast.LENGTH_SHORT).show();
                     return;
-                } else {
-                    // Check for duplicates
-                    for (int c = 0; c < arraylist_countries.size(); c++) {
-                        if (arraylist_countries.get(c).getCode().equals(edittext_countryCode.getText().toString())) {
-                            Toast.makeText(getActivity(), "De ingevulde landcode bestaat al", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
                 }
 
                 // Check if the name is entered. If so, does it already exist?
@@ -114,14 +103,6 @@ public class AddCountry extends Fragment {
                     // Check if a name is entered
                     Toast.makeText(getActivity(), "U moet een land naam invullen", Toast.LENGTH_SHORT).show();
                     return;
-                } else {
-                    // Check for duplicates
-                    for (int c = 0; c < arraylist_countries.size(); c++) {
-                        if (arraylist_countries.get(c).getName().equals(edittext_countryName.getText().toString())) {
-                            Toast.makeText(getActivity(), "Het ingevulde land naam bestaat al", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
                 }
 
                 boolean value = addCountry_webserverConnector.addCountry(edittext_countryCode.getText().toString(), edittext_countryName.getText().toString(), edittext_countryDescription.getText().toString());

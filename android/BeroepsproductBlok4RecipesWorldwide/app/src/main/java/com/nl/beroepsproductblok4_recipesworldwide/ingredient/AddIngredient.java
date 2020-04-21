@@ -97,19 +97,10 @@ public class AddIngredient extends Fragment {
                     return;
                 } else {
                     // First, check if all the fields are filled in. If not, display a Toast accordingly
-//                    ArrayList<Ingredient> ingredients = addIngredient_webserverConnector.getAllIngredients();
                     if (edittext_ingredientName.getText().toString().equals("")) {
                         // Check if a name is entered
                         Toast.makeText(getActivity(), "U moet een ingrediënt naam invullen", Toast.LENGTH_SHORT).show();
                         return;
-                    } else {
-                        // Check for duplicates
-//                        for (int c = 0; c < ingredients.size(); c++) {
-//                            if (ingredients.get(c).getName().equals(edittext_ingredientName.getText().toString())) {
-//                                Toast.makeText(getActivity(), "Het ingevulde ingrediënt naam bestaat al", Toast.LENGTH_SHORT).show();
-//                                return;
-//                            }
-//                        }
                     }
 
                     // Second, check if the description field isn't more than 65.535 characters. If it is, display a Toast

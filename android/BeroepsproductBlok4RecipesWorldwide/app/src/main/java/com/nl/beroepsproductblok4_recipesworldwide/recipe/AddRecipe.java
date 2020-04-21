@@ -257,13 +257,6 @@ public class AddRecipe extends Fragment {
                     if (edittext_recipeName.getText().toString().equals("")) {
                         Toast.makeText(getActivity(), "U moet een receptnaam invullen", Toast.LENGTH_SHORT).show();
                         return;
-                    } else {
-                        for (int c = 0; c < arraylist_recipes.size(); c++) {
-                            if (arraylist_recipes.get(c).getName().equals(edittext_recipeName.getText().toString())) {
-                                Toast.makeText(getActivity(), "De ingevulde receptnaam bestaat al", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                        }
                     }
 
                     // Second, check if the description field isn't more than 255 characters. If it is, display a Toast

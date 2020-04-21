@@ -52,19 +52,10 @@ public class AddTimeOfDay extends Fragment {
             @Override
             public void onClick(View v) {
                 // First, check if all the fields are filled in. If not, display a Toast accordingly
-                ArrayList<String> arraylist_tijdvakken = addTimeOfDay_webserverConnector.getAllTimeOfDayValues();
                 if (edittext_tijdvakName.getText().toString().equals("")) {
                     // Check if a name is entered
                     Toast.makeText(getActivity(), "U moet een tijdvak naam invullen", Toast.LENGTH_SHORT).show();
                     return;
-                } else {
-                    // Check for duplicates
-                    for (int c = 0; c < arraylist_tijdvakken.size(); c++) {
-                        if (arraylist_tijdvakken.get(c).equals(edittext_tijdvakName.getText().toString())) {
-                            Toast.makeText(getActivity(), "Het ingevulde tijdvak naam bestaat al", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
                 }
 
                 boolean value = addTimeOfDay_webserverConnector.addTimeOfDay(edittext_tijdvakName.getText().toString());
