@@ -1,7 +1,5 @@
 <?php
-ini_set('display_startup_errors', 1);
-ini_set('display_errors', 1);
-error_reporting(-1);
+namespace api;
 require_once('../model/IngredientModel.php');
 require_once('../database/IngredientStatement.php');
 require_once('Api.php');
@@ -11,31 +9,31 @@ class Ingredient extends Api{
   private $model;
 
   function __construct(){
-
+      parent::__construct();
   }
 
   function insert() : void{
-    $this->model = new IngredientModel();
-    $this->model->setName($_GET['name']);
-    $this->model->setDescription($_GET['description']);
-
-
-
-    echo $_GET['name'];
-    echo $_GET['description'];
-    $code = null;
     try{
-      $ingredientStatement = new IngredientStatement();
-      $ingredientStatement->insert($this->model);
-    }catch(PDOException $e){
-      $e->getCode();
-      parent::setHttpCode($e->getCode());
+      $this->model = new new model\Ingredient($_GET['name']);
+      $this->model = new new model\Ingredient($_GET['description']);
+      $this->model = new new model\Ingredient($_GET['is_aproved']);
+      $this->model = new new model\Ingredient($_GET['username']);
+
+      $ingredientStatement = new database\Ingredient();
+      $code = $ingredientStatement->insert($this->model);
+
+      $code = substr($code, 0, 2);
+      parent::setHttpCode($code);
+
+    }catch(\PDOException $e){
+        parent::setHttpCode($e->getCode());
+    }catch(exception\NullPointerException $e){
+        header('HTTP/1.0 400 Bad Request');
     }
+  }
 
-
-    $code = substr($code, 0, 2);
-
-    parent::setHttpCode($code);
+  function error_handler(){
+      throw new exception\NullPointerException("Get value isn't passed");
   }
 }
 

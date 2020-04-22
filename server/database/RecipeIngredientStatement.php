@@ -1,4 +1,5 @@
 <?php
+namespace database;
 require_once('../database/Database.php');
 require_once('../model/TijdvakModel.php');
 class ReceptIngredientStatement{
