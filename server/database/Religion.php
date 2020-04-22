@@ -8,8 +8,8 @@ namespace database;
       private $stmt;
 
       function __construct(){
-          $sql = "INSERT INTO Religies (name) VALUES (:name)";
-          $this->stmt = Database::getConnection()->prepare($sql);
+          $sql = "INSERT INTO Religion (name) VALUES (:name)";
+          $this->stmt = \database\Database::getConnection()->prepare($sql);
       }
 
       function insert($model) {
