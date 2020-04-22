@@ -1,11 +1,12 @@
 <?php
-class Database extends PDO{
+namespace database;
+class Database extends \PDO{
     private static $instance = null;
     private $tijdvakStatement;
 
-    public static function getConnection() : PDO{
+    public static function getConnection() : Database{
        if(self::$instance == null){
-          $instance = new Database();
+          $instance = new \database\Database();
        }
        return $instance;
     }
