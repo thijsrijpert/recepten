@@ -41,6 +41,19 @@
             android:name="com.nl.beroepsproductblok4_recipesworldwide.administrator.country.AddCountry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:background="@color/colorBorder" />
+
+        <fragment
+            android:id="@+id/addGeneralOptions_fragment_addMealtype"
+            android:name="com.nl.beroepsproductblok4_recipesworldwide.administrator.mealtype.AddMealtype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </ScrollView>

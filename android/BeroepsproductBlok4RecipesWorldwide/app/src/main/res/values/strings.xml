@@ -53,6 +53,13 @@
     <string name="addTijdvak_tijdvakNameHint">vul tijdvak naam in</string>
     <string name="addTijdvak_buttonApplyTijdvak">Tijdvak aanmelden</string>
 
+    <!-- Strings for AddMealtype -->
+    <string name="addMealtype_title">Maaltijdsoort Toevoegen</string>
+    <string name="addMealtype_subtext">Op deze pagina kunt u een maaltijdsoort toevoegen</string>
+    <string name="addMealtype_mealtypeName">Maaltijdsoort naam</string>
+    <string name="addMealtype_mealtypeNameHint">vul maaltijdsoort naam in</string>
+    <string name="addMealtype_buttonApplyMealtype">Maaltijdsoort aanmelden</string>
+
     <!-- Strings for AddCountry -->
     <string name="addCountry_title">Land Toevoegen</string>
     <string name="addCountry_subtext">Op deze pagina kunt u een land toevoegen</string>
