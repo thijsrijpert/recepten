@@ -80,6 +80,8 @@
     <!-- Strings for Search -->
     <string name="search_Search_Recipe_Title">Zoek een recept!</string>
     <string name="search_Recipe_subtext">Op deze pagina kunt u recepten opzoeken. \nu kunt filteren op de volgende items: \n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.).</string>
+    <string name="searchRecipe_buttonSearch">Zoek recept!</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

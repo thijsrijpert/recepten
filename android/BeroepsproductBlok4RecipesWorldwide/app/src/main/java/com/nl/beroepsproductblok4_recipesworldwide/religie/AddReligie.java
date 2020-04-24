@@ -51,7 +51,7 @@ public class AddReligie extends Fragment {
             @Override
             public void onClick(View v) {
                 // First, check if all the fields are filled in. If not, display a Toast accordingly
-                ArrayList<String> arraylist_religie = addReligie_webserverConnector.getAllReligie();
+//                ArrayList<String> arraylist_religie = addReligie_webserverConnector.getAllReligie();
                 if (edittext_religieName.getText().toString().equals("")) {
                     // Check if a name is entered
                     Toast.makeText(getActivity(), "U moet een religie naam invullen", Toast.LENGTH_SHORT).show();

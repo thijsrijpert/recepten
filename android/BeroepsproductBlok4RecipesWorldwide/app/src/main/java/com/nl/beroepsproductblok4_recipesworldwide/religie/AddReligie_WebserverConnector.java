@@ -33,18 +33,19 @@ public class AddReligie_WebserverConnector {
      * Adds an ingredient to the database
      */
     public boolean addReligie(String religieName) {
+        System.out.println(religieName);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/thijs/api/religion.php?name=" + religieName + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Religie '" + edittext_religieName.getText() + "' succesvol aangemeld. ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Religie '" + edittext_religieName.getText().toString() + "' succesvol aangemeld. ", Toast.LENGTH_SHORT).show();
 //              System.out.println(response);
                 succesfullyAddedReligie = true;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "Het religie '" + edittext_religieName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Het religie '" + edittext_religieName.getText().toString() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
                 succesfullyAddedReligie = false;
             }
