@@ -37,14 +37,14 @@ public class AddReligie_WebserverConnector {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Religie '" + edittext_religieName.getText() + "' succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Religie '" + edittext_religieName.getText() + "' succesvol aangemeld. ", Toast.LENGTH_SHORT).show();
 //              System.out.println(response);
                 succesfullyAddedReligie = true;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Het religie '" + edittext_religieName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Het religie '" + edittext_religieName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
                 succesfullyAddedReligie = false;
             }
