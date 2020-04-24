@@ -1,7 +1,7 @@
 <?php
 namespace database;
-  require_once('../database/Database.php');
-  require_once('../model/TimeOfDay.php');
+  require_once('Database.php');
+  require_once(dirname(__FILE__, 2) . '/model/TimeOfDay.php');
   class TimeOfDay {
 
       private $stmt;
