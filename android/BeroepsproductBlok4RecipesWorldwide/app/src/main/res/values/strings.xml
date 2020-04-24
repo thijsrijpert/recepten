@@ -19,7 +19,7 @@
 
     <!-- Strings for AddRecipe -->
     <string name="addRecipe_title">Recept Toevoegen</string>
-    <string name="addRecipe_subtext">Op deze pagina kunt u een recept toevoegen. Deze moet bestaan uit:\n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Naam\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.)\n- Beschrijving (optioneel, maar wel sterk aangeraden)\n- Ingrediënten\n\nDe ingrediënten kunt u zelf toevoegen door op de "Nieuw ingrediënt toevoegen" knop te drukken onderaan de pagina. Zodra het recept is aangemeld, zal het worden bekeken door een administrator.</string>
+    <string name="addRecipe_subtext">Op deze pagina kunt u een recept toevoegen. Deze moet bestaan uit:\n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Naam\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.)\n- Beschrijving (optioneel, maar wel sterk   aangeraden)\n- Ingrediënten\n\nDe ingrediënten kunt u zelf toevoegen door op de "Nieuw ingrediënt toevoegen" knop te drukken onderaan de pagina. Zodra het recept is aangemeld, zal het worden bekeken door een administrator.</string>
     <string name="addRecipe_recipeType">Maaltijdsoort</string>
     <string name="addRecipe_recipeName">Receptnaam</string>
     <string name="addRecipe_recipeNameHint">vul recept naam in</string>
@@ -77,6 +77,9 @@
     <string name="addReligie_religieNameHint">vul religie naam in</string>
     <string name="addReligie_buttonApplyReligie">Religie aanmelden</string>
 
+    <!-- Strings for Search -->
+    <string name="search_Search_Recipe_Title">Zoek een recept!</string>
+    <string name="search_Recipe_subtext">Op deze pagina kunt u recepten opzoeken. \nu kunt filteren op de volgende items: \n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.).</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
