@@ -1,17 +1,19 @@
 <?php
-class Database extends PDO{
+namespace database;
+class Database extends \PDO{
     private static $instance = null;
     private $tijdvakStatement;
 
-    public static function getConnection() : PDO{
+    public static function getConnection() : Database{
        if(self::$instance == null){
-          $instance = new Database();
+          $instance = new \database\Database();
        }
        return $instance;
     }
 
-    private function __construct(){
-        parent::__construct("mysql:host=127.0.0.1;dbname=beroepsproduct;charset=utf8", "root", "");
+    public function __construct(){
+      echo 'Connection';
+        parent::__construct("mysql:host=localhost;dbname=beroepsproduct;charset=utf8", "crudBeroepsproduct", "gZQ0p8L3kR8vDVJ5");
     }
 }
 ?>
