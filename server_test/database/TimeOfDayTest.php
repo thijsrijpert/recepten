@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
-require_once(dirname(__FILE__,3) .'\server\model\TimeOfDay.php');
-require_once(dirname(__FILE__, 3) . '\server\database\TimeOfDay.php');
+use PHPUnit\DbUnit\TestCaseTrait;
+require_once(dirname(__FILE__,6) .'\server\model\TimeOfDay.php');
+require_once(dirname(__FILE__, 6) . '\server\database\TimeOfDay.php');
 
 final class TimeOfDayTest extends TestCase
 {
@@ -23,6 +24,7 @@ final class TimeOfDayTest extends TestCase
 
     public function testInsert(): void
     {
+
         $this->assertEquals(
             '00000',
             $this->timeOfDay->insert(new \model\TimeOfDay('Dit is een test'))
@@ -34,8 +36,8 @@ final class TimeOfDayTest extends TestCase
 
         );
         $this->assertEquals(
-            '22001',
-            $this->timeOfDay->insert(new \model\TimeOfDay('WAYYYYYYYYYYYYYTOOOOOOOOOOOOOOMAAAAAAAAAAAAANNNNYYYYYYYYYYYYYYCHAARRRRRRRRRRRRRRRRRSSSSSSSSSSS')),
+            '00000',
+            $this->timeOfDay->insert(new \model\TimeOfDay('THHHHHHHHHHHHHHIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSSSSSSSIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSLLLLLLONNNNNNG')),
 
         );
     }
