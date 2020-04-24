@@ -1,7 +1,7 @@
 <?php
 namespace api;
-require_once('../model/IngredientModel.php');
-require_once('../database/IngredientStatement.php');
+require_once('../model/Ingredient.php');
+require_once('../database/Ingredient.php');
 require_once('Api.php');
 
 class Ingredient extends Api{

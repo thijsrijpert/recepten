@@ -1,7 +1,7 @@
 <?php
 namespace api;
-require_once('../model/ReceptIngredientModel.php');
-require_once('../database/ReceptStatement');
+require_once('../model/ReceptIngredient.php');
+require_once('../database/RecipeIngredient.php');
 require_once('Api.php');
 
 class ReceptIngredient extends Api{
