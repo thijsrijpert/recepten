@@ -20,7 +20,7 @@ class TimeOfDay extends Api{
 
     function insert() {
         try{
-            $this->model = new \model\TimeOfDay();
+            $this->model = new \model\TimeOfDay($_GET['name']);
             $this->model->setName($_GET['name']);
 
             $tijdvakStatement = new \database\TimeOfDay();
