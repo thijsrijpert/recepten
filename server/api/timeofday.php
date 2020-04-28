@@ -25,16 +25,12 @@ class TimeOfDay extends Api{
 
             $tijdvakStatement = new \database\TimeOfDay();
             $code = $tijdvakStatement->insert($this->model);
-            echo $code;
             $code = substr($code, 0, 2);
 
             parent::setHttpCode($code);
         }catch(\PDOException $e){
-            echo $e->getCode();
-            error_log($e->getCode());
             parent::setHttpCode($e->getCode());
         }catch(\exception\NullPointerException $e){
-            echo 'NullPointerException';
             header('HTTP/1.0 400 Bad Request');
             restore_error_handler();
         }

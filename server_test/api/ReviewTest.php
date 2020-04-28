@@ -1,8 +1,11 @@
 <?php
 declare(strict_types=1);
-use PHPUnit\Framework\TestCase;
+
 require_once(dirname(__FILE__, 3) . '\server\api\Review.php');
 require_once(dirname(__FILE__, 3) . '\server\exception\NullPointerException.php');
+
+use PHPUnit\Framework\TestCase;
+use exception\NullPointerException;
 
 final class ReviewApiTest extends TestCase
 {

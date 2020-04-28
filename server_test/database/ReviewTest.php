@@ -2,7 +2,10 @@
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 require_once(dirname(__FILE__, 3) .'\server\model\Review.php');
+require_once(dirname(__FILE__, 3) .'\server\model\User.php');
 require_once(dirname(__FILE__, 3) . '\server\database\Review.php');
+require_once(dirname(__FILE__, 3) . '\server\exception\NullPointerException.php');
+
 
 final class ReviewDatabaseTest extends TestCase
 {
@@ -17,15 +20,16 @@ final class ReviewDatabaseTest extends TestCase
     {
         $this->assertEquals(
             '00000',
-            $this->review->insert(new \model\Review('Dit is een test', 'dit is een test', 3.5, 'test', new DateTime()))
+            $this->review->insert(new \model\Review('Dit is een test', 'dit is een test', 3.5, new \model\User('test'), new DateTime()))
         );
         $this->assertEquals(
             '23000',
-            $this->review->insert(new \model\Review('Dit is een test', 'dit is een test', 3.5, 'test', new DateTime()))
+            $this->review->insert(new \model\Review('Dit is een test', 'dit is een test', 3.5, new \model\User('test'), new DateTime()))
         );
         $this->assertEquals(
             '22001',
-            $this->review->insert(new \model\Review('THHHHHHHHHHHHHHIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSSSSSSSIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSLLLLLLONNNNNNG')),
+            $this->review->insert(new \model\Review('THHHHHHHHHHHHHHIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSSSSSSSIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSLLLLLLONNNNNNG'
+          , 'dit is een test', 3.5, new \model\User('test'), new DateTime()))
         );
     }
 }

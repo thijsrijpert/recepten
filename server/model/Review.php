@@ -4,7 +4,7 @@ require_once('User.php');
 class Review{
 
     private $title, $description, $rating, $username, $id, $review_date;
-    public function __construct(String $title, String $description, float $rating, User $username, Date $review_date = null, int $id = 0){
+    public function __construct(String $title, String $description, float $rating, User $username, \DateTime $review_date = null, int $id = 0){
         $this->title = $title;
         $this->description = $description;
         $this->rating = $rating;
@@ -29,7 +29,7 @@ class Review{
         return $this->username;
     }
 
-    public function getDate() : Date{
+    public function getDate() : \DateTime{
         return $this->date;
     }
 
@@ -53,7 +53,7 @@ class Review{
         $this->username = $username;
     }
 
-    public function setDate(Date $date) {
+    public function setDate(\DateTime $date) {
         $this->date = $date;
     }
 

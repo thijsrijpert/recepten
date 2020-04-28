@@ -18,7 +18,7 @@ namespace database;
           $rating = $model->getRating();
           $username = $model->getUsername()->getUsername();
           //going to replace this with PL/SQL
-          $dt = new DateTime();
+          $dt = new \DateTime();
           $review_date = $dt->format('Y-m-d');
 
           $this->stmt->bindParam(':title', $title);
