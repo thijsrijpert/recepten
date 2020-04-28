@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 require_once(dirname(__FILE__, 3) . '\server\api\Religion.php');
 require_once(dirname(__FILE__, 3) . '\server\exception\NullPointerException.php');
 
-final class ReligionTest extends TestCase
+final class ReligionApiTest extends TestCase
 {
 
     protected $religion;

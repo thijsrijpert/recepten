@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 require_once(dirname(__FILE__, 3) .'\server\model\TimeOfDay.php');
 require_once(dirname(__FILE__, 3) . '\server\database\TimeOfDay.php');
 
-final class TimeOfDayTest extends TestCase
+final class TimeOfDayDatabaseTest extends TestCase
 {
 
     protected $timeOfDay;

@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 require_once(dirname(__FILE__, 6) . '\server\api\TimeOfDay.php');
 require_once(dirname(__FILE__, 6) . '\server\exception\NullPointerException.php');
 
-final class TimeOfDayTest extends TestCase
+final class TimeOfDayApiTest extends TestCase
 {
 
     protected $timeOfDay;

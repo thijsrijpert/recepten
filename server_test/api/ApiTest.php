@@ -3,7 +3,7 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 require_once(dirname(__FILE__, 3) . '\server\api\Api.php');
 
-final class ReviewTest extends TestCase
+final class ApiTest extends TestCase
 {
 
     protected $api;

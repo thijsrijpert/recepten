@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 require_once(dirname(__FILE__, 3) .'\server\model\Review.php');
 require_once(dirname(__FILE__, 3) . '\server\database\Review.php');
 
-final class TimeOfDayTest extends TestCase
+final class ReviewDatabaseTest extends TestCase
 {
 
     protected $review;
