@@ -1,10 +1,10 @@
 <?php
 namespace api;
 
-require_once('../model/Review.php');
-require_once('../database/Review.php');
-require_once('../api/Api.php');
-require_once('../exception/NullPointerException.php');
+require_once(dirname(__FILE__,2) . '/model/Review.php');
+require_once(dirname(__FILE__,2) . '/database/Review.php');
+require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
+require_once(dirname(__FILE__,1) . '/Api.php');
 
 class Review extends Api {
     public function __construct(){

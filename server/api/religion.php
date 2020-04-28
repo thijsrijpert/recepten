@@ -1,9 +1,9 @@
 <?php
 namespace api;
-require_once('../model/Religion.php');
-require_once('../database/Religion.php');
-require_once('../exception/NullPointerException.php');
-require_once('Api.php');
+require_once(dirname(__FILE__,2) . '/model/Religion.php');
+require_once(dirname(__FILE__,2) . '/database/Religion.php');
+require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
+require_once(dirname(__FILE__,1) . '/Api.php');
 
 class Religion extends Api{
 
