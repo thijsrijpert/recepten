@@ -1,10 +1,10 @@
 <?php
 namespace model;
-  class Religion {
+  class Religion extends Model{
     private $name;
     private $id;
 
-    public function __construct(String $name, int $id = null){
+    public function __construct(String $name = null, int $id = null){
         $this->name = $name;
         $this->id = $id;
     }

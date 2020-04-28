@@ -33,7 +33,46 @@ class Religion extends Api{
         }
     }
 
-    function error_handler(){
+    public function select(){
+      try{
+          if(isset($_GET['where'])){
+            var_dump(urlencode($_GET['where']));
+            $parameterFull = urlencode($_GET['where']);
+            $parameterFull = str_replace("+", "%2B", $parameterFull);
+            $parameterFull = urldecode($parameterFull);
+            var_dump($parameterFull);
+              $parameters = \explode('&', $parameterFull, 3);
+            var_dump($parameters);
+              if($parameters[2] != null){
+                  throw new \exception\NullPointerException();
+              }
+              foreach($parameters as $key => $value){
+                  $parameters[$key] = \explode('+', $value, 3);
+              }
+          }
+
+          $this->model = new \model\Religion();
+          $religieStatement = new \database\Religion('select');
+          $code = $religieStatement->select($parameters, $this->model);
+
+          $code = substr($code, 0, 2);
+
+          parent::setHttpCode($code);
+
+          if($code == '00'){
+              header('Content-Type: application/json');
+              echo json_encode($model);
+          }
+
+      }catch(\PDOException $e){
+          parent::setHttpCode($e->getCode());
+      }catch(\exception\NullPointerException $e){
+          header('HTTP/1.0 400 Bad Request');
+          restore_error_handler();
+      }
+    }
+
+    function error_handler($errno, $errstr, $errfile, $errline){
         if($errstr == 'Undefined index: name'){
             throw new \exception\NullPointerException("Get value isn't passed");
         }else{
@@ -43,5 +82,5 @@ class Religion extends Api{
 }
 
 $religion = new Religion();
-$religion->insert();
+$religion->select();
 ?>
