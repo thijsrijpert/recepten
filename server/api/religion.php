@@ -11,14 +11,14 @@ class Religion extends Api{
 
     function __construct(){
         parent::__construct();
-        //set_error_handler('error_handler');
+        set_error_handler(array($this, 'error_handler'));
     }
 
     function insert() : void{
         try{
-            $this->model = new model\Religion($_GET['name']);
+            $this->model = new \model\Religion($_GET['name']);
 
-            $religieStatement = new database\Religion();
+            $religieStatement = new \database\Religion();
             $code = $religieStatement->insert($this->model);
 
             $code = substr($code, 0, 2);
@@ -27,16 +27,21 @@ class Religion extends Api{
 
         }catch(\PDOException $e){
             parent::setHttpCode($e->getCode());
-        }catch(exception\NullPointerException $e){
+        }catch(\exception\NullPointerException $e){
             header('HTTP/1.0 400 Bad Request');
+            restore_error_handler();
         }
     }
 
     function error_handler(){
-        throw new exception\NullPointerException("Get value isn't passed");
+        if($errstr == 'Undefined index: name'){
+            throw new \exception\NullPointerException("Get value isn't passed");
+        }else{
+            restore_error_handler();
+        }
     }
 }
 
-$religie = new Religie();
-$religie->insert();
+$religion = new Religion();
+$religion->insert();
 ?>
