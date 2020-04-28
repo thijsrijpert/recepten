@@ -28,7 +28,7 @@ final class TimeOfDayDatabaseTest extends TestCase
 
         );
         $this->assertEquals(
-            '00000',
+            '22001',
             $this->timeOfDay->insert(new \model\TimeOfDay('THHHHHHHHHHHHHHIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSSSSSSSIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSLLLLLLONNNNNNG')),
 
         );

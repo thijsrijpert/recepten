@@ -33,7 +33,7 @@ class Religion extends Api{
         }
     }
 
-    function error_handler(){
+    function error_handler($errno, $errstr, $errfile, $errline){
         if($errstr == 'Undefined index: name'){
             throw new \exception\NullPointerException("Get value isn't passed");
         }else{
