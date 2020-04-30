@@ -9,8 +9,7 @@ namespace api;
         error_reporting(E_ALL | E_STRICT);
       }
       public function setHttpCode($code) : void{
-          error_log($code);
-          echo $code;
+
           switch($code){
               case '00':
                   //SQL query succesful
@@ -24,7 +23,6 @@ namespace api;
                   header('HTTP/1.0 404 Not Found');
                   break;
               case '07':
-              echo 'hallo';
                   header('HTTP/1.0 500 Internal Server Error');
                   break;
               case 2002:
@@ -36,12 +34,10 @@ namespace api;
               case '22':
                   //Data Exception
                   header('HTTP/1.0 400 Bad Request');
-                  echo $sqlCode;
                   break;
               case '23':
                   //Constraint vialation
                   header('HTTP/1.0 400 Bad Request');
-                  echo $sqlCode;
                   break;
               default:
                   header('HTTP/1.0 500 Internal Server error');

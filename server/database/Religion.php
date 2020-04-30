@@ -1,7 +1,7 @@
 <?php
 namespace database;
-  require_once('../database/Database.php');
-  require_once('../model/Religion.php');
+require_once(dirname(__FILE__,1) . '/Database.php');
+require_once(dirname(__FILE__,2) . '/model/Religion.php');
 
   class Religion extends CRUD{
 
