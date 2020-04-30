@@ -1,22 +1,23 @@
 <?php
-    class CRUD {
-        private $select;
-        private $insert;
-        private $update;
-        private $delete;
+namespace database;
+    abstract class CRUD {
+        protected $select = array();
+        protected $stmt;
+        protected $update;
+        protected $delete;
 
-        public function __construct(){
-
+        public function __construct(Query $query){
+            addSelectStatement($query);
         }
 
-        public function select($clauses){
+        abstract function select() : String;
 
+        abstract function insert(Model $model) : String;
 
-        }
-
-        private function selectQueryBuilder(){
-            $sql = "SELECT ";
-            
+        public function addSelectStatement(Query $query){
+            if($query->generateSql()){
+                $select[] = Database::getConnection()->prepare($query->getSql());
+            }
         }
     }
 ?>
