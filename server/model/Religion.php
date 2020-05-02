@@ -1,6 +1,8 @@
 <?php
 namespace model;
-  class Religion extends Model{
+
+require_once(dirname(__FILE__,1) . '/Model.php');
+  class Religion extends \model\Model{
     private $name;
     private $id;
 

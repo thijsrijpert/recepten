@@ -10,9 +10,9 @@ namespace database;
             addSelectStatement($query);
         }
 
-        abstract function select() : String;
+        abstract function select(\model\Model $model) : String;
 
-        abstract function insert(Model $model) : String;
+        abstract function insert(\model\Model $model) : String;
 
         public function addSelectStatement(Query $query){
             if($query->generateSql()){

@@ -1,6 +1,7 @@
 <?php
 namespace database;
 require_once(dirname(__FILE__,1) . '/Database.php');
+require_once(dirname(__FILE__,1) . '/CRUD.php');
 require_once(dirname(__FILE__,2) . '/model/Religion.php');
 
   class Religion extends CRUD{
@@ -12,7 +13,7 @@ require_once(dirname(__FILE__,2) . '/model/Religion.php');
             parent::__construct($query);
       }
 
-      function insert(Model $model) : String{
+      function insert(\model\Model $model) : String{
           $name = $model->getName();
           $this->stmt->bindParam(':name', $name);
           $this->stmt->execute();
@@ -20,7 +21,7 @@ require_once(dirname(__FILE__,2) . '/model/Religion.php');
           return $this->stmt->errorCode();
       }
 
-      function select(\model\Religion $model) {
+      function select(\model\Model $model) : String{
 
           if($model->getName() != null){
               $this->select[0]->bindParam(':name', $model->getName());
