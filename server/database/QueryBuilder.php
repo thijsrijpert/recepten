@@ -14,29 +14,29 @@ class QueryBuilder{
 
         $selectArguments = $this->query->getSelectArguments();
         $whereArguments = $this->query->getWhereArguments();
-        $whereArguments = $this->query->getOrderArguments();
+        $orderArguments = $this->query->getOrderArguments();
 
         if($selectArguments > 0){
             $this->sql = "SELECT " . $selectArguments[0][0];
 
             if(count($selectArguments) > 1){
-                foreach($selectArguments as $value){
-                    $this->sql .= ", " . $value[0];
+                for($i = 1; $i <= count($selectArguments) - 1; $i++){
+                    $this->sql .= ", " . $selectArguments[$i][0];
                 }
             }
 
             $this->sql .= " FROM " . substr(get_class($this->query->getEntity()), 6);
             if(count($whereArguments) > 0){
-                $this->sql .= " WHERE ";
-                foreach($whereArguments as $value){
-                    $this->sql .= $value[0] . ' ' . $value[1] . ' :' . $value[0];
+                $this->sql .= " WHERE " . $whereArguments[0][0] . ' ' . $whereArguments[0][1] . ' :' . $whereArguments[0][0];
+                for($i = 1; $i <= count($whereArguments) - 1; $i++){
+                    $this->sql .= ' AND ' . $whereArguments[$i][0] . ' ' . $whereArguments[$i][1] . ' :' . $whereArguments[$i][0];
                 }
             }
 
             if(count($orderArguments) > 0){
-                $this->sql .= " ORDER BY ";
-                foreach($orderArguments as $value){
-                    $this->sql .= $value[0] . ' ' . $value[1];
+                $this->sql .= " ORDER BY " . $orderArguments[0][0] . ' ' . $orderArguments[0][1];
+                for($i = 1; $i <= count($whereArguments) - 1; $i++){
+                    $this->sql .= ', ' . $orderArguments[$i][0] . ' ' . $orderArguments[$i][1];
                 }
             }
         } else {
@@ -49,5 +49,18 @@ class QueryBuilder{
     public function getSql() : String{
         return $this->sql;
     }
+
+
+
+    /**
+     * Set the value of Query
+     *
+     * @param Query $query
+     */
+    public function setQuery(Query $query) : void
+    {
+        $this->query = $query;
+    }
+
 }
 ?>
