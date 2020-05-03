@@ -62,5 +62,17 @@ class QueryBuilder{
         $this->query = $query;
     }
 
+
+
+    /**
+     * Get the value of Query
+     *
+     * @return mixed
+     */
+    public function getQuery()
+    {
+        return $this->query;
+    }
+
 }
 ?>

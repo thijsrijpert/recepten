@@ -6,7 +6,7 @@ require_once(dirname(__FILE__,2) . '/model/Religion.php');
 
   class Religion extends CRUD{
 
-      function __construct(QueryBuilder $query){
+      function __construct(QueryBuilder $query = null){
             $sql = "INSERT INTO Religion (name) VALUES (:name)";
             $this->stmt = \database\Database::getConnection()->prepare($sql);
 
@@ -21,11 +21,11 @@ require_once(dirname(__FILE__,2) . '/model/Religion.php');
           return $this->stmt->errorCode();
       }
 
-      function select(\model\Model $model) : String{
+      function select(\model\Model &$model) : String{
 
           if($model->getName() != null){
               $this->select[0]->bindParam(':name', $model->getName());
-          }else if($model->getId()){
+          }else if($model->getId() != null){
               $this->select[0]->bindParam(':id', $model->getId());
           }
 
@@ -33,7 +33,7 @@ require_once(dirname(__FILE__,2) . '/model/Religion.php');
 
           $model = $this->select[0]->fetchObject(\model\Religion::class);
 
-          return $stmt->errorCode();
+          return $this->select[0]->errorCode();
 
       }
   }

@@ -36,8 +36,18 @@ class Religion extends Api{
     public function select(){
       try{
           $this->model = new \model\Religion();
-          $query = parent::buildQuery($this->model);
+          $queryBuilder = parent::buildQuery($this->model);
 
+          //I don't know how to get the decoded arguments to the database, so I will call rebuildArguments again
+          $arguments = parent::rebuildArguments($_GET['where']);
+          $approvedArguments = $this->model->getVariables();
+          foreach($arguments as $value){
+              if($value[0] == 'id'){
+                  $this->model->setId($value[2]);
+              }else if($value[0] == 'name'){
+                  $this->model->setName($value[2]);
+              }
+          }
           $religionStatement = new \database\Religion($query);
           $code = $religionStatement->select($this->model);
 
@@ -68,5 +78,9 @@ class Religion extends Api{
 }
 
 $religion = new Religion();
-//$religion->select();
+if(isset($_GET['name'])){
+    $religion->insert();
+}else{
+    //$religion->select();
+}
 ?>

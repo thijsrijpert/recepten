@@ -93,12 +93,11 @@ class Query{
     }
 
     public function getOrderOperator($operator) : String{
-        if(\strtolower($operator) == ALLOWED_ORDER['desc']){
-            return 'desc';
-        }else if(\strtolower($operator) == ALLOWED_ORDER['asc']){
+        if(\strtolower($operator) == ALLOWED_ORDER['asc']){
             return 'asc';
+        }else{
+            return 'desc';
         }
-        throw new \exception\NullPointerException("The request send had an illigal operator");
     }
 
     public function getEntity() : \model\Model{

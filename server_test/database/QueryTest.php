@@ -82,6 +82,21 @@ final class QueryTest extends TestCase
         );
     }
 
+    public function testSetWhereArgumentsNoEquals(): void
+    {
+        $bad_input = [['name'], ['id', 'eq']];
+        $this->expectException(\exception\NullPointerException::class);
+        $this->assertEquals(
+            false,
+            $this->query->setWhereArguments($bad_input)
+        );
+
+        $this->assertEquals(
+            array(),
+            $this->query->getWhereArguments()
+        );
+    }
+
     public function testSetWhereArgumentsIlligalOperator(): void
     {
         $bad_input = [['name', 'not_existing_operator'], ['id', 'eq']];
@@ -151,13 +166,26 @@ final class QueryTest extends TestCase
         );
     }
 
+    public function testSetOrderArgumentsMissingSort(): void
+    {
+        $input = [['id'], ['name', 'asc']];
+        $output = [['id', 'desc'], ['name', 'asc']];
+        $this->assertEquals(
+            true,
+            $this->query->setOrderArguments($input)
+        );
+        $this->assertEquals(
+            $output,
+            $this->query->getOrderArguments()
+        );
+    }
+
     public function testSetOrderArgumentsIlligalOperator(): void
     {
         $input = [['name', 'illigal_operator'], ['id', 'asc']];
-        $output = array();
-        $this->expectException(\exception\NullPointerException::class);
+        $output = [['name', 'desc'], ['id', 'asc']];
         $this->assertEquals(
-            false,
+            true,
             $this->query->setOrderArguments($input)
         );
         $this->assertEquals(

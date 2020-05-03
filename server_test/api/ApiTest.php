@@ -12,6 +12,36 @@ final class ApiTest extends TestCase
         $this->api = new api\Api();
     }
 
+    public function testRebuildArguments(){
+        $input = 'name&id';
+        $output = [['name'], ['id']];
+
+        $this->assertEquals(
+            $output,
+            $this->api->rebuildArguments($input)
+        );
+    }
+
+    public function testRebuildArgumentsWhere(){
+        $input = 'name+eq+value1&id+eq+value2';
+        $output = [['name', 'eq', 'value1'], ['id', 'eq', 'value2']];
+
+        $this->assertEquals(
+            $output,
+            $this->api->rebuildArguments($input)
+        );
+    }
+
+    public function testRebuildArgumentsOrder(){
+        $input = 'name+desc&id+asc';
+        $output = [['name', 'desc'], ['id', 'asc']];
+
+        $this->assertEquals(
+            $output,
+            $this->api->rebuildArguments($input)
+        );
+    }
+
     // /**
     //  * @runInSeparateProcess
     //  */
