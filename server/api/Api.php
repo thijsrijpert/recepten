@@ -2,6 +2,7 @@
 namespace api;
 
 require_once(dirname(__FILE__, 2) . '/database/Query.php');
+require_once(dirname(__FILE__, 2) . '/database/QueryBuilder.php');
   class Api {
       public function __construct(){
         if(!defined('ALLOWED_COMPARISON')){
@@ -50,8 +51,9 @@ require_once(dirname(__FILE__, 2) . '/database/Query.php');
           die;
       }
 
-      public function buildQuery(\model\Model $entity) : \database\Query{
+      public function buildQuery(\model\Model $entity) : \database\QueryBuilder{
           $query = new \database\Query($entity);
+
           if(isset($_GET['select'])){
               $arguments = rebuildArguments($_GET['select']);
               $query->setSelectArguments($arguments);
@@ -66,8 +68,10 @@ require_once(dirname(__FILE__, 2) . '/database/Query.php');
               $arguments = rebuildArguments($_GET['order']);
               $query->setOrderArguments($arguments);
           }
-          $query->generateSql();
-          return $query;
+
+          $queryBuilder = new \database\QueryBuilder($query);
+          $queryBuilder->generateSql();
+          return $queryBuilder;
       }
 
       public function rebuildArguments($get_parameter) : array{

@@ -6,7 +6,7 @@ namespace database;
         protected $update;
         protected $delete;
 
-        public function __construct(Query $query){
+        public function __construct(QueryBuilder $query){
             $this->addSelectStatement($query);
         }
 
@@ -14,7 +14,7 @@ namespace database;
 
         abstract function insert(\model\Model $model) : String;
 
-        public function addSelectStatement(Query $query){
+        public function addSelectStatement(QueryBuilder $query){
             if($query->generateSql()){
                 $select[] = Database::getConnection()->prepare($query->getSql());
             }

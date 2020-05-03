@@ -6,7 +6,7 @@ require_once(dirname(__FILE__,2) . '/model/Religion.php');
 
   class Religion extends CRUD{
 
-      function __construct(Query $query){
+      function __construct(QueryBuilder $query){
             $sql = "INSERT INTO Religion (name) VALUES (:name)";
             $this->stmt = \database\Database::getConnection()->prepare($sql);
 

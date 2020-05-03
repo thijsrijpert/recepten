@@ -49,7 +49,7 @@ final class QueryTest extends TestCase
             $this->query->setSelectArguments($good_input)
         );
         $this->assertEquals(
-            ['*'],
+            [['*']],
             $this->query->getSelectArguments()
         );
     }
@@ -191,37 +191,6 @@ final class QueryTest extends TestCase
         $this->assertEquals(
             $output,
             $this->query->getOrderArguments()
-        );
-    }
-
-    public function testGenerateSql(): void
-    {
-        $output = " SELECT id, name
-                    FROM Religion
-                    WHERE id = :id
-                    ORDER BY id DESC";
-
-
-        $mock = $this->getMockBuilder('Query')
-             ->setMethods(array('generateSql'))
-             ->getMock();
-
-
-       $mock->selectArguments = [['id'], ['name']];
-       $mock->whereArguments = [['id', 'eq']];
-       $mock->orderArguments = [['id', 'DESC']];
-       $mock->generateSql();
-
-       $mock->expects($this->once())->method('generateSql')->with(array('selectArguments', 'whereArguments', 'orderArguments'))->willReturn(true);
-
-
-        // $this->assertEquals(
-        //     true,
-        //     $mock->generateSql()
-        // );
-        $this->assertEquals(
-            $output,
-            $mock->sql
         );
     }
 }

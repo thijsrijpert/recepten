@@ -3,10 +3,9 @@ namespace database;
 require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
 class Query{
 
-    private $sql;
     private $selectArguments = array();
-    private $whereArguments;
-    private $orderArguments;
+    private $whereArguments = array();
+    private $orderArguments = array();
     private $entity;
 
     public function __construct(\model\Model $entity){
@@ -18,7 +17,7 @@ class Query{
 
         $this->selectArguments = array();
         if(count($arguments) == 0){
-          $this->selectArguments[0] = '*';
+          $this->selectArguments[0][0] = '*';
           return true;
         } else if(count($arguments) <= count($approvedArguments)){
             for($i = 0; $i <= count($arguments) - 1; $i++){
@@ -82,38 +81,6 @@ class Query{
       return false;
     }
 
-    public function generateSql() : bool{
-      echo 'executed';
-        if($this->selectArguments > 0){
-            $this->sql = "SELECT " . $this->selectArguments[0];
-
-            if(count($this->selectArguments) > 1){
-                foreach($this->selectArguments as $value){
-                    $this->sql .= ", " . $this->selectArguments[1];
-                }
-            }
-
-            $this->sql .= " FROM " . $this->entity->getVariables();
-            if(count($this->whereArguments) > 0){
-                $this->sql .= " WHERE ";
-                foreach($this->whereArguments as $value){
-                    $this->sql .= $value[0] . ' ' . $value[1] . ' :' . $value[0];
-                }
-            }
-
-            if(count($this->orderArguments) > 0){
-                $this->sql .= " ORDER BY ";
-                foreach($this->orderArguments as $value){
-                    $this->sql .= $value[0] . ' ' . $value[1];
-                }
-            }
-        } else {
-            return false;
-        }
-
-        return true;
-    }
-
     public function getComparisonOperator($operator) : String{
         if($operator == ALLOWED_COMPARISON['<']){
             return '<';
@@ -134,11 +101,7 @@ class Query{
         throw new \exception\NullPointerException("The request send had an illigal operator");
     }
 
-    public function getSql() : String{
-        return $this->sql;
-    }
-
-    public function getEntity() : Model{
+    public function getEntity() : \model\Model{
         return $this->entity;
     }
 
