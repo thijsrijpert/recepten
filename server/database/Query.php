@@ -1,4 +1,6 @@
 <?php
+namespace database;
+require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
 class Query{
 
     private $sql;
@@ -7,20 +9,22 @@ class Query{
     private $orderArguments;
     private $entity;
 
-    public function __construct(Model $entity){
+    public function __construct(\model\Model $entity){
         $this->entity = $entity;
     }
 
-    public function setSelectArguments(array $arguments = array()) : boolean{
+    public function setSelectArguments($arguments = array()) : bool{
         $approvedArguments = $this->entity->getVariables();
+
         $this->selectArguments = array();
         if(count($arguments) == 0){
           $this->selectArguments[0] = '*';
+          return true;
         } else if(count($arguments) <= count($approvedArguments)){
             for($i = 0; $i <= count($arguments) - 1; $i++){
                 for($k = 0; $k <= count($approvedArguments) - 1; $k++){
-                    if($arguments[$i][0] == $approvedArguments[$k]){
-                        $this->selectArguments[$i][0] = $approvedArguments[$k];
+                    if($arguments[$i][0] == $approvedArguments[$k][0]){
+                        $this->selectArguments[$i][0] = $approvedArguments[$k][0];
                     }
                 }
             }
@@ -30,19 +34,20 @@ class Query{
             return true;
         }
 
+        $this->selectArguments = array();
         return false;
     }
 
-    public function setWhereArguments(array $arguments = array()) : boolean{
+    public function setWhereArguments(array $arguments = array()) : bool{
       $approvedArguments = $this->entity->getVariables();
       $this->orderArguments = array();
 
       if(count($arguments) != 0 && count($arguments) <= count($approvedArguments)){
           for($i = 0; $i <= count($arguments) - 1; $i++){
               for($k = 0; $k <= count($approvedArguments) - 1; $k++){
-                  if($arguments[$i][0] == $approvedArguments[$k]){
-                      $this->whereArguments[$i][0] = $approvedArguments[$k];
-                      $this->whereArguments[$i][1] = getComparisonOperator($arguments[$i][1]);
+                  if($arguments[$i][0] == $approvedArguments[$k][0]){
+                      $this->whereArguments[$i][0] = $approvedArguments[$k][0];
+                      $this->whereArguments[$i][1] = $this->getComparisonOperator($arguments[$i][1]);
                   }
               }
           }
@@ -51,33 +56,34 @@ class Query{
       if(count($arguments) === count($this->whereArguments)){
           return true;
       }
-
+      $this->whereArguments = array();
       return false;
     }
 
-    public function setOrderArguments(array $arguments = array()) : boolean{
+    public function setOrderArguments(array $arguments = array()) : bool{
       $approvedArguments = $this->entity->getVariables();
-      $this->whereArguments = array();
+      $this->orderArguments = array();
 
       if(count($arguments) != 0 && count($arguments) <= count($approvedArguments)){
           for($i = 0; $i <= count($arguments) - 1; $i++){
               for($k = 0; $k <= count($approvedArguments) - 1; $k++){
-                  if($arguments[$i][0] == $approvedArguments[$k]){
-                      $this->whereArguments[$i][0] = $approvedArguments[$k];
-                      $this->whereArguments[$i][1] = getOrderOperator($arguments[$i][1]);
+                  if($arguments[$i][0] == $approvedArguments[$k][0]){
+                      $this->orderArguments[$i][0] = $approvedArguments[$k][0];
+                      $this->orderArguments[$i][1] = $this->getOrderOperator($arguments[$i][1]);
                   }
               }
           }
       }
 
-      if(count($arguments) === count($this->whereArguments)){
+      if(count($arguments) === count($this->orderArguments)){
           return true;
       }
-
+      $this->orderArguments = array();
       return false;
     }
 
-    public function generateSql() : boolean{
+    public function generateSql() : bool{
+      echo 'executed';
         if($this->selectArguments > 0){
             $this->sql = "SELECT " . $this->selectArguments[0];
 
@@ -87,7 +93,7 @@ class Query{
                 }
             }
 
-            $this->sql .= " FROM " . $this->entity->get_class();
+            $this->sql .= " FROM " . $this->entity->getVariables();
             if(count($this->whereArguments) > 0){
                 $this->sql .= " WHERE ";
                 foreach($this->whereArguments as $value){
@@ -116,16 +122,16 @@ class Query{
         }else if($operator == ALLOWED_COMPARISON['>']){
             return '>';
         }
-        throw new InvalidRequestException();
+        throw new \exception\NullPointerException("The request send had an illigal operator");
     }
 
     public function getOrderOperator($operator) : String{
-        if($operator == ALLOWED_COMPARISON['desc']){
+        if(\strtolower($operator) == ALLOWED_ORDER['desc']){
             return 'desc';
-        }else if($operator == ALLOWED_COMPARISON['asc']){
-            return 'acc';
+        }else if(\strtolower($operator) == ALLOWED_ORDER['asc']){
+            return 'asc';
         }
-        throw new InvalidRequestException();
+        throw new \exception\NullPointerException("The request send had an illigal operator");
     }
 
     public function getSql() : String{
@@ -135,5 +141,38 @@ class Query{
     public function getEntity() : Model{
         return $this->entity;
     }
+
+
+
+    /**
+     * Get the value of Select Arguments
+     *
+     * @return mixed
+     */
+    public function getSelectArguments()
+    {
+        return $this->selectArguments;
+    }
+
+    /**
+     * Get the value of Where Arguments
+     *
+     * @return mixed
+     */
+    public function getWhereArguments()
+    {
+        return $this->whereArguments;
+    }
+
+    /**
+     * Get the value of Order Arguments
+     *
+     * @return mixed
+     */
+    public function getOrderArguments()
+    {
+        return $this->orderArguments;
+    }
+
 }
 ?>

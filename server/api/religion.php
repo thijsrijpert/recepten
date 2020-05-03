@@ -35,25 +35,11 @@ class Religion extends Api{
 
     public function select(){
       try{
-          if(isset($_GET['where'])){
-            var_dump(urlencode($_GET['where']));
-            $parameterFull = urlencode($_GET['where']);
-            $parameterFull = str_replace("+", "%2B", $parameterFull);
-            $parameterFull = urldecode($parameterFull);
-            var_dump($parameterFull);
-              $parameters = \explode('&', $parameterFull, 3);
-            var_dump($parameters);
-              if($parameters[2] != null){
-                  throw new \exception\NullPointerException();
-              }
-              foreach($parameters as $key => $value){
-                  $parameters[$key] = \explode('+', $value, 3);
-              }
-          }
-
           $this->model = new \model\Religion();
-          $religieStatement = new \database\Religion('select');
-          $code = $religieStatement->select($parameters, $this->model);
+          $query = parent::buildQuery($this->model);
+
+          $religionStatement = new \database\Religion($query);
+          $code = $religionStatement->select($this->model);
 
           $code = substr($code, 0, 2);
 
@@ -71,7 +57,7 @@ class Religion extends Api{
           restore_error_handler();
       }
     }
-  
+
     function error_handler($errno, $errstr, $errfile, $errline){
         if($errstr == 'Undefined index: name'){
             throw new \exception\NullPointerException("Get value isn't passed");
@@ -82,5 +68,5 @@ class Religion extends Api{
 }
 
 $religion = new Religion();
-$religion->select();
+//$religion->select();
 ?>

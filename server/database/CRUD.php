@@ -7,7 +7,7 @@ namespace database;
         protected $delete;
 
         public function __construct(Query $query){
-            addSelectStatement($query);
+            $this->addSelectStatement($query);
         }
 
         abstract function select(\model\Model $model) : String;

@@ -26,4 +26,8 @@ require_once(dirname(__FILE__,1) . '/Model.php');
     public function setId(int $id) : void{
         $this->id = $id;
     }
+
+    public function getVariables(){
+        return [['name'], ['id']];
+    }
   }
