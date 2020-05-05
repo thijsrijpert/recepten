@@ -71,6 +71,50 @@ final class QueryBuilderTest extends TestCase
         );
     }
 
+    public function testGenerateSqlSelectAllNoWhere(): void
+    {
+        $output = "SELECT * FROM Religion";
+
+        $this->mock->selectArguments = [['*']];
+        $this->mock->entity = new \model\Religion();
+
+        $this->mock->expects($this->any())->method('getSelectArguments')->will($this->returnValue($this->mock->selectArguments));
+        $this->mock->expects($this->any())->method('getEntity')->will($this->returnValue($this->mock->entity));
+
+        $this->queryBuilder->setQuery($this->mock);
+
+        $this->assertEquals(
+            true,
+            $this->queryBuilder->generateSql()
+        );
+        $this->assertEquals(
+            $output,
+            $this->queryBuilder->getSql()
+        );
+    }
+
+    public function testGenerateSqlSelectOnly(): void
+    {
+        $output = "SELECT id FROM Religion";
+
+        $this->mock->selectArguments = [['id']];
+        $this->mock->entity = new \model\Religion();
+
+        $this->mock->expects($this->any())->method('getSelectArguments')->will($this->returnValue($this->mock->selectArguments));
+        $this->mock->expects($this->any())->method('getEntity')->will($this->returnValue($this->mock->entity));
+
+        $this->queryBuilder->setQuery($this->mock);
+
+        $this->assertEquals(
+            true,
+            $this->queryBuilder->generateSql()
+        );
+        $this->assertEquals(
+            $output,
+            $this->queryBuilder->getSql()
+        );
+    }
+
     public function testGenerateSqlDouble(): void
     {
         $output = "SELECT id, name FROM Religion WHERE name = :name AND id > :id ORDER BY id DESC, name ASC";

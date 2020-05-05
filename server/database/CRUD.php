@@ -10,9 +10,11 @@ namespace database;
             if(isset($query)){
                 $this->addSelectStatement($query);
             }
+
+            set_error_handler(array($this, 'error_handler'));
         }
 
-        abstract function select(\model\Model &$model) : String;
+        abstract function select(\model\Model $model) : array;
 
         abstract function insert(\model\Model $model) : String;
 
@@ -21,5 +23,9 @@ namespace database;
                 $this->select[] = Database::getConnection()->prepare($query->getSql());
             }
         }
+
+
+
+        abstract function error_handler($errno, $errstr, $errfile, $errline);
     }
 ?>

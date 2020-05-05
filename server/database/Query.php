@@ -95,8 +95,10 @@ class Query{
     public function getOrderOperator($operator) : String{
         if(\strtolower($operator) == ALLOWED_ORDER['asc']){
             return 'asc';
-        }else{
+        }else if(\strtolower($operator) == ALLOWED_ORDER['desc']){
             return 'desc';
+        }else{
+            return 'asc';
         }
     }
 
