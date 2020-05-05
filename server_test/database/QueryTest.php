@@ -168,8 +168,8 @@ final class QueryTest extends TestCase
 
     public function testSetOrderArgumentsMissingSort(): void
     {
-        $input = [['id'], ['name', 'asc']];
-        $output = [['id', 'desc'], ['name', 'asc']];
+        $input = [['id'], ['name', 'desc']];
+        $output = [['id', 'asc'], ['name', 'desc']];
         $this->assertEquals(
             true,
             $this->query->setOrderArguments($input)
@@ -183,7 +183,7 @@ final class QueryTest extends TestCase
     public function testSetOrderArgumentsIlligalOperator(): void
     {
         $input = [['name', 'illigal_operator'], ['id', 'asc']];
-        $output = [['name', 'desc'], ['id', 'asc']];
+        $output = [['name', 'asc'], ['id', 'asc']];
         $this->assertEquals(
             true,
             $this->query->setOrderArguments($input)
