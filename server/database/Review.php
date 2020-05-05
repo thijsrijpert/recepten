@@ -8,7 +8,7 @@ namespace database;
       private $stmt;
 
       function __construct(){
-          $sql = "INSERT INTO Reviews (title, description, rating, username, review_date) VALUES (:title, :description, :rating, :username, :review_date)";
+          $sql = "INSERT INTO Review (title, description, rating, username, review_date) VALUES (:title, :description, :rating, :username, :review_date)";
           $this->stmt = \database\Database::getConnection()->prepare($sql);
       }
 
