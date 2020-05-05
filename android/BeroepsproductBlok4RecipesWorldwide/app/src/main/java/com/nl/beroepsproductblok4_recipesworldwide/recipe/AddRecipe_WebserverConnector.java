@@ -22,13 +22,13 @@ public class AddRecipe_WebserverConnector {
     private Context context;
     private EditText edittext_recipeName;
     private boolean succesfullyAddedRecipe;
+    private View view;
 
     /**
      * RecipeHTTP Constructor
      * @param context Context of the MainActivity
-     * @param view The View of the Fragment that created this class. This way, objects on that Fragment can be accessed, such as EditTexts, Spinners etc.
      */
-    public AddRecipe_WebserverConnector(Context context, View view) {
+    public AddRecipe_WebserverConnector(Context context) {
         this.context = context;
         edittext_recipeName = view.findViewById(R.id.addRecipe_edittext_recipeName);
     }
@@ -287,5 +287,9 @@ public class AddRecipe_WebserverConnector {
         // Fill the ArrayList with the ingredients
 
         return ingredients;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 }

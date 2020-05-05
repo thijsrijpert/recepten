@@ -3,6 +3,7 @@
 
     <!-- General -->
     <string name="character_count">0 / 65.535</string>
+    <string name="saveChanges">Wijzigingen opslaan</string>
 
     <!-- Strings for home tabs -->
     <string name="tabs_home_register">Registreren</string>
@@ -16,6 +17,28 @@
     <string name="tabs_administrator_manageRecipes">Recepten</string>
     <string name="tabs_administrator_manageIngredients">Ingrediënten</string>
     <string name="tabs_administrator_other">Overig</string>
+
+    <!-- Strings for Manage Recipes -->
+    <string name="manageRecipes_title">Recepten Beheren</string>
+    <string name="manageRecipes_subtext">Op deze pagina kunt u recepten goed- of afkeuren. Ook kunt u voor het goedkeuren wijzigingen doorvoeren (zoals spelfouten uit de naam halen), zodat het recept later niet nogmaals bewerkt hoeft te worden.</string>
+    <string name="manageRecipes_buttonApproveRecipe">Recept goedkeuren</string>
+    <string name="manageRecipes_buttonDenyRecipe">Recept afkeuren</string>
+    <string name="manageRecipes_unapprovedRecipes">Recepten te beheren</string>
+    <string name="manageRecipes_addedBy">Toegevoegd door</string>
+    <string name="manageRecipes_addedByHint">vul gebruikersnaam in</string>
+
+    <string name="manageRecipes_titleApproveOrDenyRecipes">Recepten goed- of afkeuren</string>
+    <string name="manageRecipes_titleManageRecipes">Recepten beheren</string>
+
+    <!-- Strings for Manage Ingredients -->
+    <string name="manageIngredients_title">Ingrediënten Beheren</string>
+    <string name="manageIngredients_subtext">Op deze pagina kunt u ingrediënten goed- of afkeuren. Ook kunt u voor het goedkeuren wijzigingen doorvoeren (zoals spelfouten uit de naam halen), zodat het ingrediënt later niet nogmaals bewerkt hoeft te worden.</string>
+    <string name="manageIngredients_buttonApproveIngredient">Ingrediënt goedkeuren</string>
+    <string name="manageIngredients_buttonDenyIngredient">Ingrediënt afkeuren</string>
+    <string name="manageIngredients_unapprovedIngredients">Ingrediënten te beheren</string>
+
+    <string name="manageIngredients_titleApproveOrDenyIngredients">Ingrediënten goed- of afkeuren</string>
+    <string name="manageIngredients_titleManageIngredients">Ingrediënten beheren</string>
 
     <!-- Strings for AddRecipe -->
     <string name="addRecipe_title">Recept Toevoegen</string>

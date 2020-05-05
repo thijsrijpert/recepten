@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.nl.beroepsproductblok4_recipesworldwide.R;
+import com.nl.beroepsproductblok4_recipesworldwide.administrator.manageIngredients.ManageIngredients;
+import com.nl.beroepsproductblok4_recipesworldwide.administrator.manageRecipes.ManageRecipes;
 import com.nl.beroepsproductblok4_recipesworldwide.administrator.tijdvakken.AddTimeOfDay;
 
 public class AdministratorPagerAdapter extends FragmentStatePagerAdapter {
@@ -28,9 +30,9 @@ public class AdministratorPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new AddTimeOfDay();
             case 2:
-                return new AddTimeOfDay();
+                return new ManageRecipes();
             case 3:
-                return new AddTimeOfDay();
+                return new ManageIngredients();
             case 4:
                 return new AddTimeOfDay();
             default:

@@ -77,7 +77,8 @@ public class AddRecipe extends Fragment {
         button_applyRecipe = view.findViewById(R.id.addRecipe_btn_applyRecipe);
 
         // Create the connector that will pass requests towards the database
-        addRecipe_webserverConnector = new AddRecipe_WebserverConnector(this.getContext(), view);
+        addRecipe_webserverConnector = new AddRecipe_WebserverConnector(this.getContext());
+        addRecipe_webserverConnector.setView(view);
 
         // Launch the initialization methods
         initializeSpinners();
