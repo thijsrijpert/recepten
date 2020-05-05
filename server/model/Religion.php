@@ -1,10 +1,12 @@
 <?php
 namespace model;
-  class Religion {
+
+require_once(dirname(__FILE__,1) . '/Model.php');
+  class Religion extends \model\Model{
     private $name;
     private $id;
 
-    public function __construct(String $name, int $id = null){
+    public function __construct(String $name = null, int $id = null){
         $this->name = $name;
         $this->id = $id;
     }
@@ -23,5 +25,9 @@ namespace model;
 
     public function setId(int $id) : void{
         $this->id = $id;
+    }
+
+    public function getVariables(){
+        return [['name'], ['id']];
     }
   }
