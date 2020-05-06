@@ -79,6 +79,7 @@ public class AddRecipe extends Fragment {
         // Create the connector that will pass requests towards the database
         addRecipe_webserverConnector = new AddRecipe_WebserverConnector(this.getContext());
         addRecipe_webserverConnector.setView(view);
+        addRecipe_webserverConnector.initializeEditTexts();
 
         // Launch the initialization methods
         initializeSpinners();

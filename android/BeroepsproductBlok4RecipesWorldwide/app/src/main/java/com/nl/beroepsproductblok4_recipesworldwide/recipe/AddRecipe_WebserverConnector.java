@@ -30,6 +30,9 @@ public class AddRecipe_WebserverConnector {
      */
     public AddRecipe_WebserverConnector(Context context) {
         this.context = context;
+    }
+
+    public void initializeEditTexts() {
         edittext_recipeName = view.findViewById(R.id.addRecipe_edittext_recipeName);
     }
 
