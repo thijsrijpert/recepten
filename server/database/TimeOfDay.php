@@ -1,13 +1,13 @@
 <?php
 namespace database;
-  require_once('../database/Database.php');
-  require_once('../model/TimeOfDay.php');
+  require_once(dirname(__FILE__, 1) . '/Database.php');
+  require_once(dirname(__FILE__, 2) . '/model/TimeOfDay.php');
   class TimeOfDay {
 
       private $stmt;
 
       function __construct(){
-          $sql = "INSERT INTO TimeOfDays VALUES (:name)";
+          $sql = "INSERT INTO TimeOfDay VALUES (:name)";
           $this->stmt = \database\Database::getConnection()->prepare($sql);
       }
 
