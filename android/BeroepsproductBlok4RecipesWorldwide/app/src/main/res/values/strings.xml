@@ -105,6 +105,19 @@
     <string name="search_Recipe_subtext">Op deze pagina kunt u recepten opzoeken. \nu kunt filteren op de volgende items: \n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.).</string>
     <string name="searchRecipe_buttonSearch">Zoek recept!</string>
 
+    <!-- General -->
+    <string name="addGeneralOptions_button_addTijdvak">Tijdvak toevoegen</string>
+    <string name="addGeneralOptions_button_editTijdvak">Tijdvak wijzigen</string>
+
+    <string name="addGeneralOptions_button_addReligion">Religie toevoegen</string>
+    <string name="addGeneralOptions_button_editReligion">Religie wijzigen</string>
+
+    <string name="addGeneralOptions_button_addCountry">Land toevoegen</string>
+    <string name="addGeneralOptions_button_editCountry">Land wijzigen</string>
+
+    <string name="addGeneralOptions_button_addMealtype">Maaltijdsoort toevoegen</string>
+    <string name="addGeneralOptions_button_editMealtype">Maaltijdsoort wijzigen</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
