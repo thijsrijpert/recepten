@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import com.nl.beroepsproductblok4_recipesworldwide.R;
 
-import java.util.ArrayList;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -32,7 +30,7 @@ public class AddTimeOfDay extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_add_tijdvak, container, false);
+        view = inflater.inflate(R.layout.fragment_add_time_of_day, container, false);
 
         // Initialize the Class variables
         edittext_tijdvakName = view.findViewById(R.id.addTijdvak_edittext_tijdvakName);

@@ -8,6 +8,10 @@ public class Religion {
         this.name = name;
     }
 
+    public Religion() {
+
+    }
+
     public String getId() {
         return id;
     }

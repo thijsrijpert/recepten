@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nl.beroepsproductblok4_recipesworldwide.R;
+import com.nl.beroepsproductblok4_recipesworldwide.model.Religion;
 
 import java.util.ArrayList;
 

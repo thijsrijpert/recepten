@@ -76,12 +76,22 @@
     <string name="addTijdvak_tijdvakNameHint">vul tijdvak naam in</string>
     <string name="addTijdvak_buttonApplyTijdvak">Tijdvak aanmelden</string>
 
+    <!-- Strings for EditTijdvak -->
+    <string name="editTijdvak_title">Tijdvak Wijzigen</string>
+    <string name="editTijdvak_subtext">Op deze pagina kunt u een tijdvak wijzigen door een bestaand tijdvak te selecteren uit de dropdown</string>
+    <string name="editTijdvak_editableTimeOfDays">Tijdvakken te beheren</string>
+
     <!-- Strings for AddMealtype -->
     <string name="addMealtype_title">Maaltijdsoort Toevoegen</string>
     <string name="addMealtype_subtext">Op deze pagina kunt u een maaltijdsoort toevoegen</string>
     <string name="addMealtype_mealtypeName">Maaltijdsoort naam</string>
     <string name="addMealtype_mealtypeNameHint">vul maaltijdsoort naam in</string>
     <string name="addMealtype_buttonApplyMealtype">Maaltijdsoort aanmelden</string>
+
+    <!-- Strings for EditMealtype -->
+    <string name="editMealtype_title">Maaltijdsoort Wijzigen</string>
+    <string name="editMealtype_subtext">Op deze pagina kunt u een maaltijdsoort wijzigen door een bestaande maaltijdsoort te selecteren uit de dropdown</string>
+    <string name="editMealtype_editableMealtypes">Maaltijdsoorten te beheren</string>
 
     <!-- Strings for AddCountry -->
     <string name="addCountry_title">Land Toevoegen</string>
@@ -92,6 +102,11 @@
     <string name="addCountry_countryNameHint">vul land naam in</string>
     <string name="addCountry_buttonApplyCountry">Land aanmelden</string>
     <string name="addCountry_countryDescriptionHint">vul hier de omschrijving voor het land in</string>
+
+    <!-- Strings for EditCountry -->
+    <string name="editCountry_title">Land Wijzigen</string>
+    <string name="editCountry_subtext">Op deze pagina kunt u een land wijzigen door het te selecteren uit de dropdown</string>
+    <string name="editCountry_editableCountries">Landen te beheren</string>
 
     <!-- Strings for AddReligie -->
     <string name="addReligie_title">Religie Toevoegen</string>

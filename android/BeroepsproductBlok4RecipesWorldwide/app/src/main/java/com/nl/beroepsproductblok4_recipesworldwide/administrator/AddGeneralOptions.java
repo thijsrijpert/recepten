@@ -15,8 +15,11 @@ import android.widget.FrameLayout;
 
 import com.nl.beroepsproductblok4_recipesworldwide.R;
 import com.nl.beroepsproductblok4_recipesworldwide.administrator.country.AddCountry;
+import com.nl.beroepsproductblok4_recipesworldwide.administrator.country.EditCountry;
 import com.nl.beroepsproductblok4_recipesworldwide.administrator.mealtype.AddMealtype;
+import com.nl.beroepsproductblok4_recipesworldwide.administrator.mealtype.EditMealtype;
 import com.nl.beroepsproductblok4_recipesworldwide.administrator.tijdvakken.AddTimeOfDay;
+import com.nl.beroepsproductblok4_recipesworldwide.administrator.tijdvakken.EditTimeOfDay;
 import com.nl.beroepsproductblok4_recipesworldwide.religie.AddReligie;
 
 /**
@@ -39,13 +42,13 @@ public class AddGeneralOptions extends Fragment {
 
         // Initialize the fragment
         fragment_addTimeOfDay = new AddTimeOfDay();
-//        fragment_editTimeOfDay = new EditTimeOfDay();
+        fragment_editTimeOfDay = new EditTimeOfDay();
         fragment_addCountry = new AddCountry();
-//        fragment_editCountry = new EditCountry();
+        fragment_editCountry = new EditCountry();
         fragment_addReligion = new AddReligie();
 //        fragment_editReligion = new EditReligie();
         fragment_addMealtype = new AddMealtype();
-//        fragment_editMealtype = new EditMealtype();
+        fragment_editMealtype = new EditMealtype();
 
         // Initialize the buttons and their click listeners
         Button button_addTijdvak = view.findViewById(R.id.addGeneralOptions_button_addTijdvak);
@@ -123,7 +126,7 @@ public class AddGeneralOptions extends Fragment {
                 transaction.replace(R.id.addGeneralOptions_framelayout, fragment_addTimeOfDay);
             break;
             case "EditTimeOfDay":
-//                transaction.replace(R.id.addGeneralOptions_framelayout, fragment_editTimeOfDay);
+                transaction.replace(R.id.addGeneralOptions_framelayout, fragment_editTimeOfDay);
             break;
             case "AddReligion":
                 transaction.replace(R.id.addGeneralOptions_framelayout, fragment_addReligion);
@@ -135,13 +138,13 @@ public class AddGeneralOptions extends Fragment {
                 transaction.replace(R.id.addGeneralOptions_framelayout, fragment_addCountry);
             break;
             case "EditCountry":
-//                transaction.replace(R.id.addGeneralOptions_framelayout, fragment_editCountry);
+                transaction.replace(R.id.addGeneralOptions_framelayout, fragment_editCountry);
             break;
             case "AddMealtype":
                 transaction.replace(R.id.addGeneralOptions_framelayout, fragment_addMealtype);
             break;
             case "EditMealtype":
-//                transaction.replace(R.id.addGeneralOptions_framelayout, fragment_editMealtype);
+                transaction.replace(R.id.addGeneralOptions_framelayout, fragment_editMealtype);
             break;
         }
 

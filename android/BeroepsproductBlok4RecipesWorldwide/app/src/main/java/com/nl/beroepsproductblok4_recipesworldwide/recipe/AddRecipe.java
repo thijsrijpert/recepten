@@ -28,6 +28,7 @@ import com.nl.beroepsproductblok4_recipesworldwide.model.Country;
 import com.nl.beroepsproductblok4_recipesworldwide.model.Ingredient;
 import com.nl.beroepsproductblok4_recipesworldwide.model.Recipe;
 import com.nl.beroepsproductblok4_recipesworldwide.model.Religion;
+import com.nl.beroepsproductblok4_recipesworldwide.religie.AddReligie_WebserverConnector;
 
 import java.util.ArrayList;
 

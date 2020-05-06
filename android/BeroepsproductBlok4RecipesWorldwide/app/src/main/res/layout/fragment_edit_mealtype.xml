@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="administrator.mealtype.EditMealtype">
+
+    <ScrollView
+        android:id="@+id/editMealtype_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/editMealtype_constraintLayout_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/editMealtype_linearLayout_textviews"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/editMealtype_constraintLayout_scrollview">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/editMealtype_title"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/editMealtype_subtext"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorText"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <!-- Mealtypes List -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/editMealtype_constraintLayout_mealtypes"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/editMealtype_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/editMealtype_linearLayout_textviews">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/editMealtype_editableMealtypes"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/editMealtype_spinner_approvedMealtypes"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="@id/editMealtype_constraintLayout_mealtypes"
+                app:layout_constraintEnd_toEndOf="@id/editMealtype_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/editMealtype_constraintLayout_mealtypes" />
+
+            <!-- Mealtype Name -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/editMealtype_constraintLayout_mealtypeName"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/editMealtype_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/editMealtype_constraintLayout_mealtypes">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/addMealtype_mealtypeName"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/editMealtype_edittext_mealtypeName"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:ems="10"
+                android:hint="@string/addMealtype_mealtypeNameHint"
+                android:inputType="textPersonName"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/editMealtype_constraintLayout_mealtypeName"
+                app:layout_constraintEnd_toEndOf="@id/editMealtype_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/editMealtype_constraintLayout_mealtypeName" />
+
+            <!-- Apply Mealtype -->
+            <Button
+                android:id="@+id/editMealtype_btn_saveChanges"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button"
+                android:gravity="center|start"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/saveChanges"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/colorText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/editMealtype_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/editMealtype_edittext_mealtypeName" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
