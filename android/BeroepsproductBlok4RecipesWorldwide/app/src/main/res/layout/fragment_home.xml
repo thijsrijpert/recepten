@@ -4,7 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/homescreen_background"
+
     tools:context=".home.Home">
+
+    <Button
+        android:id="@+id/home_button_search"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="50dp"
+        android:text="Zoek een recept!"
+        android:background="#99A5A5A5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/home_button_administrator"
@@ -14,17 +27,6 @@
         android:text="TEMP: Naar Admin Area"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/home_button_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="TEMP: Naar Search Area"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_button_administrator" />
-
+        app:layout_constraintTop_toBottomOf="@+id/home_button_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
