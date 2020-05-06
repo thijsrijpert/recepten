@@ -5,8 +5,8 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="colorText">#404041</color>
-    <color name="colorButtonRegular">#CCCB30</color>
-    <color name="colorButtonPressed">#A3A028</color>
+    <color name="colorButtonRegular">#DEDA8B</color>
+    <color name="colorButtonPressed">#A8A564</color>
     <color name="colorBorder">#979836</color>
     <color name="colorGreenBackground">#DEDA8B</color>
     <color name="colorWhite">#FFFFFF</color>
