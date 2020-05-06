@@ -8,7 +8,7 @@ namespace database;
       private $stmt;
 
       function __construct(){
-          $sql = "INSERT INTO Review (title, description, rating, username, review_date) VALUES (:title, :description, :rating, :username, :review_date)";
+          $sql = "INSERT INTO Review (title, description, rating, username, recipe_id) VALUES (:title, :description, :rating, :username, :recipe_id)";
           $this->stmt = \database\Database::getConnection()->prepare($sql);
       }
 
@@ -17,15 +17,13 @@ namespace database;
           $description = $model->getDescription();
           $rating = $model->getRating();
           $username = $model->getUsername()->getUsername();
-          //going to replace this with PL/SQL
-          $dt = new \DateTime();
-          $review_date = $dt->format('Y-m-d');
+          $recipeId = $model->getRecipeId()->getId();
 
           $this->stmt->bindParam(':title', $title);
           $this->stmt->bindParam(':description', $description);
           $this->stmt->bindParam(':rating', $rating);
           $this->stmt->bindParam(':username', $rating);
-          $this->stmt->bindParam(':review_date', $review_date);
+          $this->stmt->bindParam(':recipe_id', $recipeId);
 
           $this->stmt->execute();
 

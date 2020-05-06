@@ -14,7 +14,7 @@ class Review extends Api {
 
     public function insert(){
       try{
-          $this->model = new \model\Review($_GET['title'], $_GET['description'], $_GET['rating'], $_GET['username']);
+          $this->model = new \model\Review($_GET['title'], $_GET['rating'], $_GET['username'], $_GET['recipeId'], $_GET['description']);
 
           $religieStatement = new \database\Review();
           $code = $religieStatement->insert($this->model);
@@ -33,7 +33,7 @@ class Review extends Api {
 
     function error_handler($errno, $errstr, $errfile, $errline){
         $errstr = substr($errstr, 17);
-        if($errstr == 'title' || $errstr == 'description' || $errstr == 'rating' || $errstr == 'username'){
+        if($errstr == 'title' || $errstr == 'rating' || $errstr == 'username' || $errstr == 'receptId' ){
             throw new \exception\NullPointerException("Get value isn't passed");
         }else{
             restore_error_handler();

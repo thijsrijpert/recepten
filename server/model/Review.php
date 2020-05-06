@@ -3,21 +3,21 @@ namespace model;
 require_once('User.php');
 class Review{
 
-    private $title, $description, $rating, $username, $id, $review_date;
-    public function __construct(String $title, String $description, float $rating, User $username, \DateTime $review_date = null, int $id = 0){
+    private $title, $description, $rating, $username, $id, $review_date, $recipeId;
+    public function __construct(String $title, float $rating, User $username, Recipe $recipeId, String $description = null){
         $this->title = $title;
         $this->description = $description;
         $this->rating = $rating;
         $this->username = $username;
-        $this->review_date = $review_date;
         $this->id = $id;
+        $this->recipeId = $recipeId;
     }
 
     public function getTitle() : String{
         return $this->title;
     }
 
-    public function getDescription() : String{
+    public function getDescription() : ?String{
         return $this->description;
     }
 
@@ -41,7 +41,7 @@ class Review{
         $this->title = $title;
     }
 
-    public function setDescription(String $description){
+    public function setDescription(?String $description){
         $this->description = $description;
     }
 
@@ -60,5 +60,14 @@ class Review{
     public function setId(int $id){
         $this->id = $id;
     }
+
+    public function setRecipeId(int $recipeId){
+        $this->recipeId = $recipeId;
+    }
+
+    public function getRecipeId() : Recipe{
+        return $this->recipeId;
+    }
+
 }
 ?>

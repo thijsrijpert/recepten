@@ -1,5 +1,8 @@
 <?php
 namespace api;
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(E_ALL | E_STRICT);
 require_once(dirname(__FILE__,2) . '/model/Religion.php');
 require_once(dirname(__FILE__,2) . '/database/Religion.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
@@ -39,27 +42,29 @@ class Religion extends Api{
           $queryBuilder = parent::buildQuery($this->model);
 
           //I don't know how to get the decoded arguments to the database, so I will call rebuildArguments again
-          $arguments = parent::rebuildArguments($_GET['where']);
-          $approvedArguments = $this->model->getVariables();
-          foreach($arguments as $value){
-              if($value[0] == 'id'){
-                  $this->model->setId($value[2]);
-              }else if($value[0] == 'name'){
-                  $this->model->setName($value[2]);
+          if(null != $_GET['where']){
+              $arguments = parent::rebuildArguments($_GET['where']);
+              $approvedArguments = $this->model->getVariables();
+              foreach($arguments as $value){
+                  if($value[0] == 'id'){
+                      $this->model->setId($value[2]);
+                  }else if($value[0] == 'name'){
+                      $this->model->setName($value[2]);
+                  }
               }
           }
-          $religionStatement = new \database\Religion($query);
-          $code = $religionStatement->select($this->model);
+
+          $religionStatement = new \database\Religion($queryBuilder);
+          $codeAndResult = $religionStatement->select($this->model);
+
+          if($codeAndResult[0][1] == '00'){
+              header('Content-Type: application/json');
+              echo json_encode($codeAndResult[1][0]);
+          }
 
           $code = substr($code, 0, 2);
 
           parent::setHttpCode($code);
-
-          if($code == '00'){
-              header('Content-Type: application/json');
-              echo json_encode($model);
-          }
-
       }catch(\PDOException $e){
           parent::setHttpCode($e->getCode());
       }catch(\exception\NullPointerException $e){
