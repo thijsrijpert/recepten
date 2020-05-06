@@ -21,19 +21,22 @@ require_once(dirname(__FILE__,2) . '/model/Religion.php');
           return $this->stmt->errorCode();
       }
 
-      function select(\model\Model &$model) : String{
-
-          if($model->getName() != null){
+      function select(\model\Model $model) : array{
+          if(null != $model->getName()){
               $this->select[0]->bindParam(':name', $model->getName());
-          }else if($model->getId() != null){
+          }
+          if(null != $model->getId()){
               $this->select[0]->bindParam(':id', $model->getId());
           }
 
           $this->select[0]->execute();
 
-          $model = $this->select[0]->fetchObject(\model\Religion::class);
+          $results = $this->select[0]->fetchAll(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'model\Religion');
 
-          return $this->select[0]->errorCode();
+          return array($this->select[0]->errorCode(), array($results));
+      }
+
+      function error_handler($errno, $errstr, $errfile, $errline){
 
       }
   }

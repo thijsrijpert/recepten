@@ -11,7 +11,7 @@ require_once(dirname(__FILE__,1) . '/Model.php');
         $this->id = $id;
     }
 
-    public function getName() : String{
+    public function getName() : ?String{
         return $this->name;
     }
 
@@ -19,7 +19,7 @@ require_once(dirname(__FILE__,1) . '/Model.php');
         $this->name = $name;
     }
 
-    public function getId() : int{
+    public function getId() : ?int{
         return $this->id;
     }
 
@@ -29,5 +29,24 @@ require_once(dirname(__FILE__,1) . '/Model.php');
 
     public function getVariables(){
         return [['name'], ['id']];
+    }
+
+    public function jsonSerialize() {
+        if($this->name != null && $this->id != null){
+          return [
+              'name' => $this->name,
+              'id' => $this->id,
+          ];
+        }else if($this->name == null){
+            return [
+                'id' => $this->id,
+            ];
+        }else {
+            return [
+                'name' => $this->name,
+            ];
+        }
+
+
     }
   }

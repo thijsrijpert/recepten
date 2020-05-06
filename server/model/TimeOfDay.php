@@ -12,9 +12,7 @@ class TimeOfDay {
     }
 
     public function setName(String $name){
-        echo $name;
         $this->name = $name;
-        echo $this->name;
     }
 }
 ?>

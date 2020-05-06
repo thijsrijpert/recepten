@@ -55,17 +55,19 @@ require_once(dirname(__FILE__, 2) . '/database/QueryBuilder.php');
           $query = new \database\Query($entity);
 
           if(isset($_GET['select'])){
-              $arguments = rebuildArguments($_GET['select']);
-              $query->setSelectArguments($arguments);
+              $arguments = $this->rebuildArguments($_GET['select']);
+              $query->setSelectArguments($arguments);;
+          }else{
+              $query->setSelectArguments();
           }
 
           if(isset($_GET['where'])){
-              $arguments = rebuildArguments($_GET['where']);
+              $arguments = $this->rebuildArguments($_GET['where']);
               $query->setWhereArguments($arguments);
           }
 
           if(isset($_GET['order'])){
-              $arguments = rebuildArguments($_GET['order']);
+              $arguments = $this->rebuildArguments($_GET['order']);
               $query->setOrderArguments($arguments);
           }
 
@@ -78,7 +80,7 @@ require_once(dirname(__FILE__, 2) . '/database/QueryBuilder.php');
           $parameterFull = urlencode($get_parameter);
           $parameterFull = str_replace("+", "%2B", $parameterFull);
           $parameterFull = urldecode($parameterFull);
-          $parameters = \explode('&', $parameterFull);
+          $parameters = \explode('*', $parameterFull);
 
           foreach($parameters as $key => $value){
               $parameters[$key] = \explode('+', $value, 3);
