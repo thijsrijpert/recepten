@@ -2,7 +2,7 @@
 namespace model;
 
 require_once(dirname(__FILE__,1) . '/Model.php');
-class RecipeModel extends \model\Model{
+class Recipe extends \model\Model{
   private $id;
   private $name;
   private $description;
