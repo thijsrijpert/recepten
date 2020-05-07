@@ -207,9 +207,34 @@
             android:text="@string/searchRecipe_buttonSearch"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/colorText"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchRecipe_spinner_recipeMealDaypart" />
+            app:layout_constraintTop_toBottomOf="@id/searchRecipe_spinner_recipeMealDaypart" />
+
+        <View
+            android:id="@+id/searchRecipe_view_divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/colorBorder"
+            app:layout_constraintTop_toBottomOf="@id/Search_btn_SearchDbase"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Ingrediënten Recyclerview -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchRecipe_recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/inputfields"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintEnd_toEndOf="@id/searchReligion_linearLayout_textviews"
+            app:layout_constraintStart_toStartOf="@id/searchReligion_linearLayout_textviews"
+            app:layout_constraintTop_toBottomOf="@id/searchRecipe_view_divider" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
