@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="administrator.mealtype.EditMealtype">
+    tools:context=".admin.mealtype.Edit">
 
     <ScrollView
         android:id="@+id/editMealtype_scrollview"

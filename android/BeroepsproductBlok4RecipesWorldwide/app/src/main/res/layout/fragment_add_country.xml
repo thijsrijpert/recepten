@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="administrator.country.AddCountry">
+    tools:context="admin.country.AddCountry">
 
     <ScrollView
         android:id="@+id/addCountry_scrollview"

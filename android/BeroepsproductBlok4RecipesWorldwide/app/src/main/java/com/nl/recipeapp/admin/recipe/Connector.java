@@ -1,17 +1,16 @@
-package com.nl.beroepsproductblok4_recipesworldwide.administrator.manageRecipes;
+package com.nl.recipeapp.admin.recipe;
 
 import android.content.Context;
-import android.view.View;
 
-import com.nl.beroepsproductblok4_recipesworldwide.model.Recipe;
+import com.nl.recipeapp.model.Recipe;
 
 import java.util.ArrayList;
 
-public class ManageRecipes_WebserverConnector {
+public class Connector {
     private Context context;
     private boolean result;
 
-    public ManageRecipes_WebserverConnector(Context context) {
+    public Connector(Context context) {
         this.context = context;
     }
 

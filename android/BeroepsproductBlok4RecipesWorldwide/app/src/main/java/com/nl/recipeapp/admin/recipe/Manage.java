@@ -1,4 +1,4 @@
-package com.nl.beroepsproductblok4_recipesworldwide.administrator.manageRecipes;
+package com.nl.recipeapp.admin.recipe;
 
 import android.os.Bundle;
 
@@ -13,22 +13,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.nl.beroepsproductblok4_recipesworldwide.R;
-import com.nl.beroepsproductblok4_recipesworldwide.model.Country;
-import com.nl.beroepsproductblok4_recipesworldwide.model.Recipe;
-import com.nl.beroepsproductblok4_recipesworldwide.model.Religion;
-import com.nl.beroepsproductblok4_recipesworldwide.recipe.AddRecipe_WebserverConnector;
+import com.nl.recipeapp.R;
+import com.nl.recipeapp.model.Country;
+import com.nl.recipeapp.model.Recipe;
+import com.nl.recipeapp.model.Religion;
+import com.nl.recipeapp.recipe.AddConnector;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ManageRecipes extends Fragment {
+public class Manage extends Fragment {
     // Class variables for general use
     private View view;
-    private ManageRecipes_WebserverConnector manageRecipes_webserverConnector;
-    private AddRecipe_WebserverConnector addRecipe_webserverConnector;
+    private Connector connector;
+    private AddConnector addConnector;
 
     // Class variables (A means these variables are for approving or denying a recipe)
     private EditText edittext_A_name, edittext_A_description, edittext_A_username;
@@ -42,7 +42,7 @@ public class ManageRecipes extends Fragment {
     private Button button_B_saveChanges;
     private RecyclerView recyclerview_B_ingredients;
 
-    public ManageRecipes() {
+    public Manage() {
         // Required empty public constructor
     }
 
@@ -52,8 +52,8 @@ public class ManageRecipes extends Fragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_manage_recipes, container, false);
 
-        manageRecipes_webserverConnector = new ManageRecipes_WebserverConnector(this.getContext()); // Create the webserver connector for transferring queries and getting data from the database
-        addRecipe_webserverConnector = new AddRecipe_WebserverConnector(this.getContext()); // Create the webserver connector for getting data to fill the Spinners on this page
+        connector = new Connector(this.getContext()); // Create the webserver connector for transferring queries and getting data from the database
+        addConnector = new AddConnector(this.getContext()); // Create the webserver connector for getting data to fill the Spinners on this page
 
         // Start the initialization methods for A: Approving or denying recipes
         initializeViewContent_A_EditText();
@@ -94,7 +94,7 @@ public class ManageRecipes extends Fragment {
      */
     private void initializeViewContent_A_Spinners() {
         // Create an ArrayList<Recipe> which contains all the unapproved recipes
-        ArrayList<Recipe> arraylist_unapprovedRecipes = manageRecipes_webserverConnector.getUnapprovedRecipes();
+        ArrayList<Recipe> arraylist_unapprovedRecipes = connector.getUnapprovedRecipes();
 
         // Initialize the Spinners
         spinner_A_unapprovedRecipes = view.findViewById(R.id.manageRecipes_A_spinner_unapprovedRecipes);
@@ -104,21 +104,21 @@ public class ManageRecipes extends Fragment {
         spinner_A_dayparts = view.findViewById(R.id.manageRecipes_A_spinner_recipeMealDaypart);
 
         // Initialize the Spinner ArrayLists, which are used in the ArrayAdapters
-        ArrayList<String> arraylist_mealtypeNames = addRecipe_webserverConnector.getMealTypes();
-        ArrayList<String> arraylist_daypartNames = addRecipe_webserverConnector.getDayparts();
+        ArrayList<String> arraylist_mealtypeNames = addConnector.getMealTypes();
+        ArrayList<String> arraylist_daypartNames = addConnector.getDayparts();
 
         ArrayList<String> arraylist_unapprovedRecipeNames = new ArrayList<>();
         for (int c = 0; c < arraylist_unapprovedRecipes.size(); c++) {
             arraylist_unapprovedRecipeNames.add(arraylist_unapprovedRecipes.get(c).getName());
         }
 
-        ArrayList<Country> arraylist_countries = addRecipe_webserverConnector.getCountries();
+        ArrayList<Country> arraylist_countries = addConnector.getCountries();
         ArrayList<String> arraylist_countryNames = new ArrayList<>();
         for (int c = 0; c < arraylist_countries.size(); c++) {
             arraylist_countryNames.add(arraylist_countries.get(c).getName());
         }
 
-        ArrayList<Religion> arraylist_religions = addRecipe_webserverConnector.getReligions();
+        ArrayList<Religion> arraylist_religions = addConnector.getReligions();
         ArrayList<String> arraylist_religionNames = new ArrayList<>();
         for (int c = 0; c < arraylist_religions.size(); c++) {
             arraylist_religionNames.add(arraylist_religions.get(c).getName());
@@ -175,7 +175,7 @@ public class ManageRecipes extends Fragment {
      */
     private void initializeViewContent_B_Spinners() {
         // Create an ArrayList<Recipe> which contains all the approved recipes
-        ArrayList<Recipe> arraylist_approvedRecipes = manageRecipes_webserverConnector.getApprovedRecipes();
+        ArrayList<Recipe> arraylist_approvedRecipes = connector.getApprovedRecipes();
 
         // Initialize the Spinners
         spinner_B_approvedRecipes = view.findViewById(R.id.manageRecipes_B_spinner_approvedRecipes);
