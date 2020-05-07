@@ -95,7 +95,7 @@ public class AddRecipe_WebserverConnector {
      */
     public ArrayList<String> getMealTypes() {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/api/mealtype.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 //              System.out.println(response);
@@ -124,7 +124,7 @@ public class AddRecipe_WebserverConnector {
      */
     public ArrayList<Country> getCountries() {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/api/country.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 //              System.out.println(response);
@@ -145,6 +145,8 @@ public class AddRecipe_WebserverConnector {
         // Fill the ArrayList with the countries
 
         return countries;
+
+
     }
 
     /**
