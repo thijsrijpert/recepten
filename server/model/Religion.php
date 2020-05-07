@@ -11,19 +11,25 @@ require_once(dirname(__FILE__,1) . '/Model.php');
         $this->id = $id;
     }
 
-    public function getName() : ?String{
-        return $this->name;
+    public function getName() : String{
+        if($this->name != null){
+            return $this->name;
+        }
+        throw new \exception\ModelNullException("The value name is null");
     }
 
     public function setName(String $name){
         $this->name = $name;
     }
 
-    public function getId() : ?int{
-        return $this->id;
+    public function getId() : int{
+        if($this->name != null){
+            return $this->id;
+        }
+        throw new \exception\ModelNullException("The value id is null");
     }
 
-    public function setId(int $id) : void{
+    public function setId(int $id) {
         $this->id = $id;
     }
 
@@ -46,7 +52,5 @@ require_once(dirname(__FILE__,1) . '/Model.php');
                 'name' => $this->name,
             ];
         }
-
-
     }
   }
