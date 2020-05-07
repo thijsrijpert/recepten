@@ -8,13 +8,18 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.RequestQueueHolder;
 import com.nl.recipeapp.model.Country;
 import com.nl.recipeapp.model.Ingredient;
 import com.nl.recipeapp.model.Recipe;
 import com.nl.recipeapp.model.Religion;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -95,7 +100,7 @@ public class AddConnector {
      */
     public ArrayList<String> getMealTypes() {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/api/mealtype.php", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 //              System.out.println(response);
@@ -124,7 +129,7 @@ public class AddConnector {
      */
     public ArrayList<Country> getCountries() {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/api/country.php", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 //              System.out.println(response);
@@ -154,28 +159,46 @@ public class AddConnector {
      * @return An ArrayList<String> with the names of all Religions
      */
     public ArrayList<Religion> getReligions() {
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+        // Request a JsonArray response from the provided URL.
+        final ArrayList<Religion> reliegies = new ArrayList<>();
+
+        // tablename.php --> selecteert alles uit de tabel
+        // tablename.php?select=kolomnaam --> selecteert alles uit een specifieke kolom (kolomnaam)
+        // tablename.php?select=kolomnaam&where=kolomnaam-eq-waardenaam --> selecteert alles uit een specifieke kolom, waar de waarde uit de kolom gelijk is aan de waardenaam
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/api/religion.php", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(String response) {
-//              System.out.println(response);
+            public void onResponse(JSONArray response) {
+//                System.out.println("Response: " + response.toString());
+                Gson gson = new Gson();
+
+                try {
+                    for (int c = 0; c < response.length(); c++) {
+                        JSONObject object = response.getJSONObject(c);
+                        Religion religion = gson.fromJson(object.toString(), Religion.class);
+
+                        reliegies.add(religion);
+
+//                        System.out.println(religion.getId());
+//                        System.out.println(religion.getName());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Religies konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
-//                System.out.println(error.getMessage());
+//                System.out.println("Error: " + error.networkResponse.headers.toString());
             }
         });
 
         // Get the queue and give a request
-        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
-
-        ArrayList<Religion> religions = new ArrayList<>();
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request);
 
         // Fill the ArrayList with the religions
 
-        return religions;
+        return reliegies;
     }
 
     /**

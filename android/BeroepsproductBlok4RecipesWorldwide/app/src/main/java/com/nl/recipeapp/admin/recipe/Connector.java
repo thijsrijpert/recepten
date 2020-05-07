@@ -2,6 +2,7 @@ package com.nl.recipeapp.admin.recipe;
 
 import android.content.Context;
 
+import com.nl.recipeapp.model.Ingredient;
 import com.nl.recipeapp.model.Recipe;
 
 import java.util.ArrayList;
@@ -42,5 +43,14 @@ public class Connector {
 
 
         return approvedRecipes;
+    }
+
+
+    public ArrayList<Ingredient> getIngredientsBoundToRecipe(String recipeId) {
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+
+
+        return ingredients;
     }
 }

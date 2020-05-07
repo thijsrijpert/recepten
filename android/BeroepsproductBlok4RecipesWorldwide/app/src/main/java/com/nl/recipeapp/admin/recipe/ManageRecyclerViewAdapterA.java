@@ -1,4 +1,4 @@
-package com.nl.recipeapp.recipe;
+package com.nl.recipeapp.admin.recipe;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,25 +15,25 @@ import com.nl.recipeapp.model.Ingredient;
 
 import java.util.ArrayList;
 
-public class AddRecyclerViewAdapter extends RecyclerView.Adapter<AddRecyclerViewAdapter.ViewHolder> {
+public class ManageRecyclerViewAdapterA extends RecyclerView.Adapter<com.nl.recipeapp.admin.recipe.ManageRecyclerViewAdapterA.ViewHolder> {
     private View view;
     private ArrayList<Ingredient> ingredients_recyclerview;
 
-    public AddRecyclerViewAdapter(ArrayList<Ingredient> ingredients_recyclerview, Context context, RecyclerView recyclerView) {
+    public ManageRecyclerViewAdapterA(ArrayList<Ingredient> ingredients_recyclerview) {
         this.ingredients_recyclerview = ingredients_recyclerview;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public com.nl.recipeapp.admin.recipe.ManageRecyclerViewAdapterA.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_listitem_ingredient, parent, false);
-        AddRecyclerViewAdapter.ViewHolder viewHolder = new AddRecyclerViewAdapter.ViewHolder(view);
+        com.nl.recipeapp.admin.recipe.ManageRecyclerViewAdapterA.ViewHolder viewHolder = new com.nl.recipeapp.admin.recipe.ManageRecyclerViewAdapterA.ViewHolder(view);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull com.nl.recipeapp.admin.recipe.ManageRecyclerViewAdapterA.ViewHolder holder, int position) {
         holder.textView.setText(ingredients_recyclerview.get(position).getName());
     }
 

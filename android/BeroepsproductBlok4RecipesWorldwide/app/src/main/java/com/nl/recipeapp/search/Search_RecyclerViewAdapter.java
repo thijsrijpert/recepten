@@ -1,4 +1,4 @@
-package com.nl.beroepsproductblok4_recipesworldwide.search;
+package com.nl.recipeapp.search;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.nl.beroepsproductblok4_recipesworldwide.R;
-import com.nl.beroepsproductblok4_recipesworldwide.model.Recipe;
+import com.nl.recipeapp.R;
+import com.nl.recipeapp.model.Recipe;
 
 import java.util.ArrayList;
 

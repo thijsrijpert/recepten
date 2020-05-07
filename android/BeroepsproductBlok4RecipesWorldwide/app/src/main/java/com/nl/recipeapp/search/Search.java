@@ -1,18 +1,26 @@
 package com.nl.recipeapp.search;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.google.android.material.tabs.TabLayout;
-import com.nl.beroepsproductblok4_recipesworldwide.R;
-import com.nl.beroepsproductblok4_recipesworldwide.model.Country;
-import com.nl.beroepsproductblok4_recipesworldwide.model.Recipe;
-import com.nl.beroepsproductblok4_recipesworldwide.model.Religion;
-    private AddRecipe_WebserverConnector addRecipe_webserverConnector;
+import com.nl.recipeapp.R;
+import com.nl.recipeapp.model.Country;
+import com.nl.recipeapp.model.Recipe;
+import com.nl.recipeapp.model.Religion;
+import com.nl.recipeapp.recipe.AddConnector;
+
+import java.util.ArrayList;
+
+public class Search extends AppCompatActivity {
+    private Spinner spinner_mealtype, spinner_country, spinner_religion, spinner_timeOfDay;
+    private RecyclerView recyclerView;
+    private AddConnector addRecipe_webserverConnector;
+    private ArrayList<Recipe> recipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +31,7 @@ import com.nl.beroepsproductblok4_recipesworldwide.model.Religion;
         recipes = new ArrayList<>();
 
         // Initialize the class variables
-        addRecipe_webserverConnector = new AddRecipe_WebserverConnector(this);
+        addRecipe_webserverConnector = new AddConnector(this);
 
         initializeSpinners();
         initializeRecyclerView();
@@ -71,7 +79,7 @@ import com.nl.beroepsproductblok4_recipesworldwide.model.Religion;
 
     private void initializeRecyclerView() {
         recyclerView = findViewById(R.id.searchRecipe_recyclerView);
-        Search_RecyclerViewAdapter searchRecyclerViewAdapter = new Search_RecyclerViewAdapter(recipes);
+        com.nl.recipeapp.search.Search_RecyclerViewAdapter searchRecyclerViewAdapter = new com.nl.recipeapp.search.Search_RecyclerViewAdapter(recipes);
         recyclerView.setAdapter(searchRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
