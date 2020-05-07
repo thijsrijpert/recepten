@@ -6,8 +6,8 @@ require_once(dirname(__FILE__,2) . '/model/Recipe.php');
 class RecipeStatement extends CRUD{
 
   function __construct(QueryBuilder $query = null){
-        $sql = "INSERT INTO Recipe (name, description, landcode, username, mealtype, religion_id, time_of_day, is_approved, )
-        VALUES (:name , :description, :landcode , :username , :mealtype_name , :religion_id , :time_of_day , :is_approved)";
+        $sql = "INSERT INTO Recipe (name, description, countrycode, username, mealtype, religion_id, time_of_day, is_approved, )
+        VALUES (:name , :description, :countrycode , :username , :mealtype_name , :religion_id , :time_of_day , :is_approved)";
         $this->stmt = \database\Database::getConnection()->prepare($sql);
 
         parent::__construct($query);
@@ -16,7 +16,7 @@ class RecipeStatement extends CRUD{
   function insert(\model\Model $model){
     $name = $model->getName();
     $description = $model->getDescription();
-    $landcode = $model->getLandcode();
+    $countrycode = $model->getCountrycode();
     $username = $model->getUsername();
     $mealtype_name = $model->getMealtype_name();
     $religion_id = $model->getReligion_id();
@@ -24,7 +24,7 @@ class RecipeStatement extends CRUD{
     $is_approved = $model->getIs_approved();
     $this->stmt->bindParam(':name', $name);
     $this->stmt->bindParam(':description', $description);
-    $this->stmt->bindParam(':landcode', $landcode);
+    $this->stmt->bindParam(':countrycode', $countrycode);
     $this->stmt->bindParam(':username', $username);
     $this->stmt->bindParam(':mealtype_name', $mealtype_name);
     $this->stmt->bindParam(':religion_id', $religion_id);

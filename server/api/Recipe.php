@@ -18,7 +18,7 @@ class Recept extends Api{
           $this->model = new model\Recipe($_GET['id']);
           $this->model = new model\Recipe($_GET['name']);
           $this->model = new model\Recipe($_GET['description']);
-          $this->model = new model\Recipe($_GET['landcode']);
+          $this->model = new model\Recipe($_GET['countrycode']);
           $this->model = new model\Recipe($_GET['username']);
           $this->model = new model\Recipe($_GET['mealtype_name']);
           $this->model = new model\Recipe($_GET['religion_id']);

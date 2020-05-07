@@ -6,17 +6,17 @@ require_once(dirname(__FILE__,2) . '/model/Country.php');
   class Country extends CRUD{
 
     function __construct(QueryBuilder $query = null){
-          $sql = "INSERT INTO Country (country_code, name, description) VALUES (:country_code, :name, :description)";
+          $sql = "INSERT INTO Country (countrycode, name, description) VALUES (:countrycode, :name, :description)";
           $this->stmt = \database\Database::getConnection()->prepare($sql);
 
           parent::__construct($query);
     }
 
       function insert(\model\Model $model) : String {
-          $country_code = $model->getCountry_code();
+          $countrycode = $model->getCountrycode();
           $name = $model->getName();
           $description = $model->getDescription();
-          $this->stmt->bindParam(':country_code', $country_code);
+          $this->stmt->bindParam(':countrycode', $countrycode);
           $this->stmt->bindParam(':name', $name);
           $this->stmt->bindParam(':description', $description);
           $this->stmt->execute();
@@ -25,8 +25,8 @@ require_once(dirname(__FILE__,2) . '/model/Country.php');
       }
 
       function select(\model\Model $model) : array{
-        if(null != $model->getCountry_code()){
-          $this->select[0]->bindParam(':name', $model->getCountry_code());
+        if(null != $model->getCountrycode()){
+          $this->select[0]->bindParam(':name', $model->getCountrycode());
         }
         if(null != $model->getName()){
           $this->select[0]->bindParam(':name', $model->getName());

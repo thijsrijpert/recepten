@@ -2,25 +2,25 @@
 namespace model;
 require_once(dirname(__FILE__,1) . '/Model.php');
 class Country extends \model\Model{
-    private $country_code;
+    private $countrycode;
     private $name;
     private $description;
 
-    public function __construct(Int $country_code = null ,Int $name = null ,String $description = null){
-        $this->country_code =$country_code;
+    public function __construct(Int $countrycode = null ,Int $name = null ,String $description = null){
+        $this->countrycode =$countrycode;
         $this->name = $name;
         $this->description = $description;
     }
 
-    public function getCountry_code() : int{
-        if($this->country_code != null){
-            return $this->country_code;
+    public function getCountrycode() : int{
+        if($this->countrycode != null){
+            return $this->countrycode;
         }
-        throw new \exception\ModelNullException("The value country_code is null");
+        throw new \exception\ModelNullException("The value countrycode is null");
     }
 
-    public function setCountry_code(Int $country_code){
-      $this->country_code = $country_code;
+    public function setCountrycode(Int $countrycode){
+      $this->countrycode = $countrycode;
     }
 
     public function getName() : String{
@@ -46,17 +46,17 @@ class Country extends \model\Model{
     }
 
     public function getVariables(){
-        return [['country_code'], ['name'], ['description']];
+        return [['countrycode'], ['name'], ['description']];
     }
 
     public function jsonSerialize(){
       $json_name = "'name' => $this->name,";
-      $json_country_code = "'country_code' => $this->country_code,";
+      $json_countrycode = "'countrycode' => $this->countrycode,";
       $json_description = "'description' => $this->description,";
       $final_string = "[";
 
-      if($json_country_code != null){
-        $final_string .= $json_country_code;
+      if($json_countrycode != null){
+        $final_string .= $json_countrycode;
       }
 
       if($json_description != null){
