@@ -6,19 +6,19 @@ class Recipe extends \model\Model{
   private $id;
   private $name;
   private $description;
-  private $landcode;
+  private $countrycode;
   private $username;
   private $mealtype_name;
   private $religion_id;
   private $time_of_day;
   private $is_approved;
 
-  public function __construct(Int $id = null, String $name = null, String $description = null, Int $landcode = null,
+  public function __construct(Int $id = null, String $name = null, String $description = null, Int $countrycode = null,
   String $username, String $mealtype_name = null, Int $religion_id = null, String $time_of_day = null, int $is_approved = null){
     $this->id = $id;
     $this->name = $name;
     $this->description = $description;
-    $this->landcode = $landcode;
+    $this->countrycode = $countrycode;
     $this->username = $username;
     $this->mealtype_name = $mealtype_name;
     $this->religion_id = $religion_id;
@@ -61,15 +61,15 @@ class Recipe extends \model\Model{
   }
 
 
-  public function getLandcode() : int{
-      if($this->landcode != null){
-          return $this->landcode;
+  public function getCountrycode() : int{
+      if($this->countrycode != null){
+          return $this->countrycode;
       }
-      throw new \exception\ModelNullException("The value landcode is null");
+      throw new \exception\ModelNullException("The value countrycode is null");
   }
 
-  public function setLandcode(Int $landcode): void{
-    $this->landcode = $landcode;
+  public function setCountrycode(Int $countrycode): void{
+    $this->countrycode = $countrycode;
   }
 
   public function getUsername() : int{
@@ -128,7 +128,7 @@ class Recipe extends \model\Model{
   }
 
   public function getVariables(){
-      return [['id'], ['name'], ['description'], ['landcode'], ['username'], ['mealtype_name'], ['religion_id'],
+      return [['id'], ['name'], ['description'], ['countrycode'], ['username'], ['mealtype_name'], ['religion_id'],
       ['time_of_day'], [' is_approved']];
   }
 
@@ -136,7 +136,7 @@ class Recipe extends \model\Model{
 
     $json_name = "'id' => $this->id,";
     $json_description = "'description' => $this->description,";
-    $json_landcode = "'landcode' => $this->landcode,";
+    $json_countrycode = "'countrycode' => $this->countrycode,";
     $json_username= "'username' => $this->username,";
     $json_religion_id = "'religion_id' => $this->religion_id,";
     $json_time_of_day = "'time_of_day' => $this->time_of_day,";
@@ -151,8 +151,8 @@ class Recipe extends \model\Model{
       $final_string .= $json_description;
     }
 
-    if($json_landcode != null){
-      $final_string .= $json_landcode;
+    if($json_countrycode != null){
+      $final_string .= $json_countrycode;
     }
 
     if($json_religion_id != null){
