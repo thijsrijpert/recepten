@@ -4,7 +4,7 @@ require_once(dirname(__FILE__,1) . '/Database.php');
 require_once(dirname(__FILE__,1) . '/CRUD.php');
 require_once(dirname(__FILE__,2) . '/model/Religion.php');
 
-  class Religion extends CRUD{
+  class Religion extends CRUD implements CRUDInterface{
 
       function __construct(QueryBuilder $query = null){
             $sql = "INSERT INTO Religion (name) VALUES (:name)";
@@ -22,12 +22,13 @@ require_once(dirname(__FILE__,2) . '/model/Religion.php');
       }
 
       function select(\model\Model $model) : array{
-          if(null != $model->getName()){
+          try{
               $this->select[0]->bindParam(':name', $model->getName());
-          }
-          if(null != $model->getId()){
+          }catch(\exception\ModelNullException $e){}
+
+          try{
               $this->select[0]->bindParam(':id', $model->getId());
-          }
+          }catch(\exception\ModelNullException $e){}
 
           $this->select[0]->execute();
 

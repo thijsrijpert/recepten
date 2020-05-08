@@ -8,7 +8,7 @@ require_once(dirname(__FILE__,2) . '/database/Religion.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
 
-class Religion extends Api{
+class Religion extends Api implements CRInterface{
 
     private $model;
 
@@ -62,7 +62,7 @@ class Religion extends Api{
               echo json_encode($codeAndResult[1][0]);
           }
 
-          $code = substr($code, 0, 2);
+          $code = substr($codeAndResult[0][1], 0, 2);
 
           parent::setHttpCode($code);
       }catch(\PDOException $e){
@@ -86,6 +86,6 @@ $religion = new Religion();
 if(isset($_GET['name'])){
     $religion->insert();
 }else{
-    //$religion->select();
+    $religion->select();
 }
 ?>

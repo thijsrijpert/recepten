@@ -86,13 +86,13 @@ require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
       }
 
       public function rebuildArguments(String $get_parameter) : array{
-          $parameterFull = urlencode($get_parameter);
-          $parameterFull = str_replace("+", "%2B", $parameterFull);
-          $parameterFull = urldecode($parameterFull);
-          $parameters = \explode('*', $parameterFull);
+          // $parameterFull = urlencode($get_parameter);
+          // $parameterFull = str_replace("+", "%2B", $parameterFull);
+          // $parameterFull = urldecode($parameterFull);
+          $parameters = \explode('.', $parameterFull);
 
           foreach($parameters as $key => $value){
-              $parameters[$key] = \explode('+', $value, 3);
+              $parameters[$key] = \explode('-', $value, 3);
           }
 
           return $parameters;

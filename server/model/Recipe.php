@@ -1,6 +1,6 @@
 <?php
 namespace model;
-class RecipeModel{
+class Recipe{
   private $id;
   private $name;
   private $description;
@@ -84,7 +84,7 @@ class RecipeModel{
     return $this->time_of_day;
   }
 
-  public function setTime_of_day(String $time_of_day){
+  public function getTime_of_day(String $time_of_day){
     $this->time_of_day = $time_of_day;
   }
 
