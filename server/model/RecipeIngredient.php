@@ -1,6 +1,6 @@
 <?php
 namespace model;
-class RecepIngredientModel{
+class RecepIngredient{
 
   private $recept_id;
   private $ingredient_name;
@@ -11,7 +11,7 @@ class RecepIngredientModel{
   }
 
   public function getReceptId() : int{
-      if($this->recept_id != null){
+      if($this->recept_id !== null){
           return $this->recept_id;
       }
       throw new \exception\ModelNullException("The value recipe_id is null");
@@ -22,7 +22,7 @@ class RecepIngredientModel{
   }
 
   public function getIngredientName() : String{
-      if($this->ingredient_name != null){
+      if($this->ingredient_name !== null){
           return $this->ingredient_name;
       }
       throw new \exception\ModelNullException("The value ingredient_name is null");

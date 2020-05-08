@@ -12,10 +12,14 @@ class Ingredient extends \model\Model{
     $this->description = $description;
     $this->is_approved = $is_approved;
     $this->username = $username;
+
+    \var_dump($is_approved);
+    \var_dump($this->is_approved);
+
   }
 
   public function getName() : String{
-      if($this->name != null){
+      if($this->name !== null){
           return $this->name;
       }
       throw new \exception\ModelNullException("The value name is null");
@@ -26,7 +30,7 @@ class Ingredient extends \model\Model{
   }
 
   public function getDescription() : String{
-      if($this->description != null){
+      if($this->description !== null){
           return $this->description;
       }
       throw new \exception\ModelNullException("The value description is null");
@@ -37,18 +41,19 @@ class Ingredient extends \model\Model{
   }
 
   public function getIs_approved() : int{
-      if($this->is_approved != null){
+    \var_dump($is_approved);
+      if($this->is_approved !== null){
           return $this->is_approved;
       }
       throw new \exception\ModelNullException("The value is_approved is null");
   }
 
   public function setIs_approved(int $is_approved){
-    return $this->is_approved = $is_approved;
+    $this->is_approved = $is_approved;
   }
 
-  public function getUsername() : int{
-      if($this->username != null){
+  public function getUsername() : String{
+      if($this->username !== null){
           return $this->username;
       }
       throw new \exception\ModelNullException("The value username is null");
@@ -78,8 +83,8 @@ class Ingredient extends \model\Model{
       $final_string .= $json_description;
     }
 
-    if($json_is_aproved != null){
-      $final_string .= $json_is_aproved;
+    if($json_is_approved != null){
+      $final_string .= $json_is_approved;
     }
 
     if($json_username != null){

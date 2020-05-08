@@ -9,7 +9,7 @@ class Mealtype extends \model\Model{
     }
 
     public function getName() : String{
-        if($this->name != null){
+        if($this->name !== null){
             return $this->name;
         }
         throw new \exception\ModelNullException("The value name is null");

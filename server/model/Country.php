@@ -13,7 +13,7 @@ class Country extends \model\Model{
     }
 
     public function getCountrycode() : int{
-        if($this->countrycode != null){
+        if($this->countrycode !== null){
             return $this->countrycode;
         }
         throw new \exception\ModelNullException("The value countrycode is null");
@@ -24,7 +24,7 @@ class Country extends \model\Model{
     }
 
     public function getName() : String{
-        if($this->name != null){
+        if($this->name !== null){
             return $this->name;
         }
         throw new \exception\ModelNullException("The value name is null");
@@ -35,7 +35,7 @@ class Country extends \model\Model{
     }
 
     public function getDescription() : String{
-        if($this->description != null){
+        if($this->description !== null){
             return $this->description;
         }
         throw new \exception\ModelNullException("The value description is null");

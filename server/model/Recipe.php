@@ -27,7 +27,7 @@ class Recipe extends \model\Model{
   }
 
   public function getId() : int{
-      if($this->name != null){
+      if($this->name !== null){
           return $this->id;
       }
       throw new \exception\ModelNullException("The value id is null");
@@ -39,7 +39,7 @@ class Recipe extends \model\Model{
   }
 
   public function getName() : String{
-      if($this->name != null){
+      if($this->name !== null){
           return $this->name;
       }
       throw new \exception\ModelNullException("The value name is null");
@@ -50,7 +50,7 @@ class Recipe extends \model\Model{
   }
 
   public function getDescription() : String{
-      if($this->description != null){
+      if($this->description !== null){
           return $this->description;
       }
       throw new \exception\ModelNullException("The value description is null");
@@ -62,7 +62,7 @@ class Recipe extends \model\Model{
 
 
   public function getCountrycode() : int{
-      if($this->countrycode != null){
+      if($this->countrycode !== null){
           return $this->countrycode;
       }
       throw new \exception\ModelNullException("The value countrycode is null");
@@ -73,7 +73,7 @@ class Recipe extends \model\Model{
   }
 
   public function getUsername() : int{
-      if($this->username != null){
+      if($this->username !== null){
           return $this->username;
       }
       throw new \exception\ModelNullException("The value username is null");
@@ -84,7 +84,7 @@ class Recipe extends \model\Model{
   }
 
   public function getMealtype_name() : String{
-      if($this->mealtype_name != null){
+      if($this->mealtype_name !== null){
           return $this->mealtype_name;
       }
       throw new \exception\ModelNullException("The value mealtype_name is null");
@@ -95,7 +95,7 @@ class Recipe extends \model\Model{
   }
 
   public function getReligion_id() : String{
-      if($this->religion_id != null){
+      if($this->religion_id !== null){
           return $this->religion_id;
       }
       throw new \exception\ModelNullException("The value religion_id is null");
@@ -110,14 +110,14 @@ class Recipe extends \model\Model{
   }
 
   public function getTime_of_day() : String{
-      if($this->time_of_day != null){
+      if($this->time_of_day !== null){
           return $this->time_of_day;
       }
       throw new \exception\ModelNullException("The value time_of_day is null");
   }
 
   public function getIs_approved() : int{
-      if($this->is_approved != null){
+      if($this->is_approved !== null){
           return $this->is_approved;
       }
       throw new \exception\ModelNullException("The value is_approved is null");

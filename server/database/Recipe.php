@@ -3,7 +3,7 @@ namespace database;
 require_once(dirname(__FILE__,1) . '/Database.php');
 require_once(dirname(__FILE__,1) . '/CRUD.php');
 require_once(dirname(__FILE__,2) . '/model/Recipe.php');
-class RecipeStatement extends CRUD{
+class Recipe extends CRUD{
 
   function __construct(QueryBuilder $query = null){
         $sql = "INSERT INTO Recipe (name, description, countrycode, username, mealtype, religion_id, time_of_day, is_approved, )
