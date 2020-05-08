@@ -12,7 +12,7 @@ require_once(dirname(__FILE__,1) . '/Model.php');
     }
 
     public function getName() : String{
-        if($this->name != null){
+        if($this->name !== null){
             return $this->name;
         }
         throw new \exception\ModelNullException("The value name is null");
@@ -23,7 +23,7 @@ require_once(dirname(__FILE__,1) . '/Model.php');
     }
 
     public function getId() : int{
-        if($this->name != null){
+        if($this->name !== null){
             return $this->id;
         }
         throw new \exception\ModelNullException("The value id is null");

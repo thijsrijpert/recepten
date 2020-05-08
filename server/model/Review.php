@@ -14,49 +14,49 @@ class Review{
     }
 
     public function getTitle() : String{
-        if($this->title != null){
+        if($this->title !== null){
             return $this->title;
         }
         throw new \exception\ModelNullException("Title value is null");
     }
 
     public function getDescription() : String{
-        if($this->description != null){
+        if($this->description !== null){
             return $this->description;
         }
         throw new \exception\ModelNullException("Description value is null");
     }
 
     public function getRating() : Float{
-        if($this->rating != null){
+        if($this->rating !== null){
             return $this->rating;
         }
         throw new \exception\ModelNullException("Rating value is null");
     }
 
     public function getUsername() : User{
-        if($this->username != null){
+        if($this->username !== null){
             return $this->username;
         }
         throw new \exception\ModelNullException("Username value is null");
     }
 
     public function getReviewDate() : \DateTime{
-        if($this->reviewDate != null){
+        if($this->reviewDate !== null){
           return $this->date;
         }
         throw new \exception\ModelNullException("Review date value is null");
     }
 
     public function getId() : int{
-        if($this->id != null){
+        if($this->id !== null){
             return $this->id;
         }
         throw new \exception\ModelNullException("id value is null");
     }
 
     public function getRecipeId() : Recipe{
-        if($this->recipeId != null){
+        if($this->recipeId !== null){
             return $this->recipeId;
         }
         throw new \exception\ModelNullException("Recipe value is null");
