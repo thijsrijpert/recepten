@@ -1,6 +1,8 @@
 package com.nl.recipeapp.model;
 
-public class Recipe {
+import java.io.Serializable;
+
+public class Recipe implements Serializable {
     private String id, name, description, countrycode, username, mealtype_name, religion_id, timeOfDay;
     private boolean isApproved;
 

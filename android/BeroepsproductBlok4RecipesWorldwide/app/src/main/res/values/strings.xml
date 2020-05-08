@@ -120,6 +120,11 @@
     <string name="search_Recipe_subtext">Op deze pagina kunt u recepten opzoeken. \nu kunt filteren op de volgende items: \n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.).</string>
     <string name="searchRecipe_buttonSearch">Zoek recept!</string>
 
+    <!-- Strings for DetailedView (package Recipe) -->
+    <string name="detailedviewRecipe_title">Receptnaam</string>
+    <string name="detailedviewRecipe_description">Omschrijving</string>
+    <string name="detailedviewRecipe_ingredients">Ingrediënten</string>
+
     <!-- General -->
     <string name="addGeneralOptions_button_addTijdvak">Tijdvak toevoegen</string>
     <string name="addGeneralOptions_button_editTijdvak">Tijdvak wijzigen</string>

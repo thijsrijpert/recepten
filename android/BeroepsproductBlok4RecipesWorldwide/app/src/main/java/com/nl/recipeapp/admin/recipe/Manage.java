@@ -161,6 +161,8 @@ public class Manage extends Fragment {
                             }
                         }
 
+                        // Add the rest of the Spinners here
+
                         arraylist_ingredientsBoundToRecipe_A = connector.getIngredientsBoundToRecipe(arraylist_unapprovedRecipes.get(c).getId());
                         recyclerview_A_ingredients_adapter.notifyDataSetChanged();
                     }

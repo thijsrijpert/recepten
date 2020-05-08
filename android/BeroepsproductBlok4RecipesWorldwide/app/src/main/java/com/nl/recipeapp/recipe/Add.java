@@ -43,7 +43,7 @@ public class Add extends Fragment {
 
     // Variables for the Spinners
     private Spinner spinner_mealTypes, spinner_countries, spinner_religions, spinner_dayparts, spinner_ingredients;
-    private ArrayList<String> arraylist_mealTypes, arraylist_religionNames, arraylist_countryNames, arraylist_daypartNames, arraylist_ingredientNames;
+    private ArrayList<String> arraylist_mealtypeNames, arraylist_mealtypes, arraylist_religionNames, arraylist_countryNames, arraylist_daypartNames, arraylist_dayparts, arraylist_ingredientNames;
     private ArrayList<Country> arraylist_countries;
     private ArrayList<Religion> arraylist_religions;
 
@@ -76,6 +76,15 @@ public class Add extends Fragment {
         button_addNewIngredient = view.findViewById(R.id.addRecipe_btn_addNewIngredient);
         button_applyRecipe = view.findViewById(R.id.addRecipe_btn_applyRecipe);
 
+        // Initialize the ArrayLists
+        arraylist_mealtypeNames = new ArrayList<>();
+        arraylist_mealtypes = new ArrayList<>();
+        arraylist_religionNames = new ArrayList<>();
+        arraylist_countryNames = new ArrayList<>();
+        arraylist_daypartNames = new ArrayList<>();
+        arraylist_dayparts = new ArrayList<>();
+        arraylist_ingredientNames = new ArrayList<>();
+
         // Create the connector that will pass requests towards the database
         addConnector = new AddConnector(this.getContext());
         addConnector.setView(view);
@@ -92,6 +101,14 @@ public class Add extends Fragment {
     }
 
     /**
+     * Gets called when the user resumes on this screen after initializing
+     */
+    public void onStart() {
+        super.onStart();
+        initializeArrayLists();  // Initializes the Spinner ArrayLists, which are used in the ArrayAdapters
+    }
+
+    /**
      * Initializes the Spinners on this Fragment
      */
     private void initializeSpinners() {
@@ -103,23 +120,10 @@ public class Add extends Fragment {
         spinner_ingredients = view.findViewById(R.id.addRecipe_spinner_bindIngredient);
 
         // Fill the ArrayLists which contain the String objects used in the dropdown lists
-        arraylist_mealTypes = addConnector.getMealTypes();
-        arraylist_countries = addConnector.getCountries();
-        arraylist_religions = addConnector.getReligions();
-        arraylist_daypartNames = addConnector.getDayparts();
-
-        arraylist_countryNames = new ArrayList<>();
-        for (int c = 0; c < arraylist_countries.size(); c++) {
-            arraylist_countryNames.add(arraylist_countries.get(c).getName());
-        }
-
-        arraylist_religionNames = new ArrayList<>();
-        for (int c = 0; c < arraylist_religions.size(); c++) {
-            arraylist_religionNames.add(arraylist_religions.get(c).getName());
-        }
+        initializeArrayLists();
 
         // Create and set the adapters for the spinners
-        ArrayAdapter<String> arrayAdapter_mealtypes = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_mealTypes);
+        ArrayAdapter<String> arrayAdapter_mealtypes = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_mealtypeNames);
         spinner_mealTypes.setAdapter(arrayAdapter_mealtypes);
 
         ArrayAdapter<String> arrayAdapter_countries = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_countryNames);
@@ -186,6 +190,36 @@ public class Add extends Fragment {
     }
 
     /**
+     * Initializes the ArrayLists, used in the Spinners. This method is called once in the onCreate() and again every time the onStart() is called to refresh its contents
+     * Every time this method is called, the ArrayLists with names are cleared first to prevent the list from filling with the wrong (or duplicate) items
+     */
+    private void initializeArrayLists() {
+        arraylist_mealtypes = addConnector.getMealTypes();
+        arraylist_mealtypeNames.clear();
+        arraylist_mealtypeNames.add("Selecteer een maaltijdsoort");
+        arraylist_mealtypeNames.addAll(arraylist_mealtypes);
+
+        arraylist_dayparts = addConnector.getDayparts();
+        arraylist_daypartNames.clear();
+        arraylist_daypartNames.add("Selecteer een tijdvak");
+        arraylist_daypartNames.addAll(arraylist_dayparts);
+
+        arraylist_countries = addConnector.getCountries();
+        arraylist_countryNames.clear();
+        arraylist_countryNames.add("Selecteer een land");
+        for (int c = 0; c < arraylist_countries.size(); c++) {
+            arraylist_countryNames.add(arraylist_countries.get(c).getName());
+        }
+
+        arraylist_religions = addConnector.getReligions();
+        arraylist_religionNames.clear();
+        arraylist_religionNames.add("Selecteer een religie");
+        for (int c = 0; c < arraylist_religions.size(); c++) {
+            arraylist_religionNames.add(arraylist_religions.get(c).getName());
+        }
+    }
+
+    /**
      * Initializes the EditText elements on this Fragment
      */
     private void initializeInputFields() {
@@ -214,7 +248,12 @@ public class Add extends Fragment {
         });
     }
 
-
+    /**
+     * Initializes the buttons which handle the following things:
+     * - Binding Ingredients
+     * - Adding new Ingredients (this is just a fragment switch to Add (package Ingredient)
+     * - Applying a recipe
+     */
     private void initializeButtons() {
         button_bindIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -309,7 +348,9 @@ public class Add extends Fragment {
         });
     }
 
-
+    /**
+     * Initializes the RecyclerView that holds the Ingredients
+     */
     private void initializeRecyclerView() {
         recyclerview_ingredients = view.findViewById(R.id.addRecipe_recyclerView);
         AddRecyclerViewAdapter addRecipeRecyclerViewAdapter = new AddRecyclerViewAdapter(arraylist_ingredients_recyclerview, view.getContext(), recyclerview_ingredients);

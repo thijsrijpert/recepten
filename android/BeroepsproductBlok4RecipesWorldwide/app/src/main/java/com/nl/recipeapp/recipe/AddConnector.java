@@ -317,6 +317,35 @@ public class AddConnector {
         return ingredients;
     }
 
+    /**
+     * Gets the Ingredients belonging to a specific Recipe
+     * @return An ArrayList<Ingredient> with all Ingredients belonging to a specific Recipe
+     */
+    public ArrayList<Ingredient> getIngredientsForSpecificRecipe(String recipeId) {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+//              System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+//                System.out.println(error.getMessage());
+            }
+        });
+
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
+
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+        // Fill the ArrayList with the ingredients
+
+        return ingredients;
+    }
+
     public void setView(View view) {
         this.view = view;
     }

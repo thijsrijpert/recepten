@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recyclerview_listitem_recipe_linearlayout"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:orientation="vertical"
     android:background="@drawable/listitem"
-    android:id="@+id/general_recyclerViewListItemParentLayout">
+    >
 
     <TextView
         android:id="@+id/recyclerview_listitem_recipe_textview_title"
