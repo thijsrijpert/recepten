@@ -37,8 +37,8 @@ public class AdminGeneralOptions extends Fragment {
         fragment_editTimeOfDay = new com.nl.recipeapp.admin.tijdvakken.Edit();
         fragment_addCountry = new com.nl.recipeapp.admin.country.Add();
         fragment_editCountry = new com.nl.recipeapp.admin.country.Edit();
-        fragment_addReligion = new Add();
-//        fragment_editReligion = new EditReligie();
+        fragment_addReligion = new com.nl.recipeapp.religie.Add();
+        fragment_editReligion = new com.nl.recipeapp.religie.Edit();
         fragment_addMealtype = new com.nl.recipeapp.admin.mealtype.Add();
         fragment_editMealtype = new com.nl.recipeapp.admin.mealtype.Edit();
 
@@ -124,7 +124,7 @@ public class AdminGeneralOptions extends Fragment {
                 transaction.replace(R.id.addGeneralOptions_framelayout, fragment_addReligion);
             break;
             case "EditReligion":
-//                transaction.replace(R.id.addGeneralOptions_framelayout, fragment_editReligion);
+                transaction.replace(R.id.addGeneralOptions_framelayout, fragment_editReligion);
             break;
             case "AddCountry":
                 transaction.replace(R.id.addGeneralOptions_framelayout, fragment_addCountry);
