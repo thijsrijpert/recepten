@@ -93,7 +93,12 @@
     <string name="editMealtype_subtext">Op deze pagina kunt u een maaltijdsoort wijzigen door een bestaande maaltijdsoort te selecteren uit de dropdown</string>
     <string name="editMealtype_editableMealtypes">Maaltijdsoorten te beheren</string>
 
-    <!-- Strings for AddCountry -->
+    <!-- Strings for EditReligion -->
+    <string name="editReligion_title">Religie naam Wijzigen</string>
+    <string name="editReligion_subtext">Op deze pagina kunt u een religie wijzigen door een bestaande religie te selecteren uit de dropdown</string>
+    <string name="editReligion_editableReligion">Religie te beheren</string>
+
+        <!-- Strings for AddCountry -->
     <string name="addCountry_title">Land Toevoegen</string>
     <string name="addCountry_subtext">Op deze pagina kunt u een land toevoegen</string>
     <string name="addCountry_countryCode">Landcode</string>
