@@ -26,7 +26,7 @@ require_once(dirname(__FILE__,2) . '/model/Country.php');
 
       function select(\model\Model $model) : array{
         if(null != $model->getCountrycode()){
-          $this->select[0]->bindParam(':name', $model->getCountrycode());
+          $this->select[0]->bindParam(':countrycode', $model->getCountrycode());
         }
         if(null != $model->getName()){
           $this->select[0]->bindParam(':name', $model->getName());

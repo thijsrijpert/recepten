@@ -22,12 +22,13 @@ class Recipe extends Api{
           $this->model = new model\Recipe($_GET['id']);
           $this->model = new model\Recipe($_GET['name']);
           $this->model = new model\Recipe($_GET['description']);
+          $this->model = new model\Recipe($_GET['is_approved']);
           $this->model = new model\Recipe($_GET['countrycode']);
           $this->model = new model\Recipe($_GET['username']);
           $this->model = new model\Recipe($_GET['mealtype_name']);
           $this->model = new model\Recipe($_GET['religion_id']);
           $this->model = new model\Recipe($_GET['time_of_day']);
-          $this->model = new model\Recipe($_GET['is_approved']);
+
 
           $recipeStatement = new database\Recipe();
           $code = $recipeStatement->insert($this->model);
@@ -59,6 +60,8 @@ class Recipe extends Api{
                   $this->model->setName($value[2]);
               }else if($value[0] == 'description'){
                   $this->model->setDescription($value[2]);
+              }else if($value[0] == 'is_approved'){
+                  $this->model->setIs_approved($value[2]);
               }else if($value[0] == 'countrycode'){
                   $this->model->setCountrycode($value[2]);
               }else if($value[0] == 'username'){
@@ -69,8 +72,6 @@ class Recipe extends Api{
                   $this->model->setReligion_id($value[2]);
               }else if($value[0] == 'time_of_day'){
                   $this->model->setTime_of_day($value[2]);
-              }else if($value[0] == 'is_approved'){
-                  $this->model->setIs_approved($value[2]);
               }
           }
       }

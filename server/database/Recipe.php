@@ -13,23 +13,23 @@ class Recipe extends CRUD{
         parent::__construct($query);
   }
 
-  function insert(\model\Model $model){
+  function insert(\model\Model $model) : String{
     $name = $model->getName();
     $description = $model->getDescription();
+    $is_approved = $model->getIs_approved();
     $countrycode = $model->getCountrycode();
     $username = $model->getUsername();
     $mealtype_name = $model->getMealtype_name();
     $religion_id = $model->getReligion_id();
-    $time_of_day = $model->gettimeofday();
-    $is_approved = $model->getIs_approved();
+    $time_of_day = $model->getTime_of_day();
     $this->stmt->bindParam(':name', $name);
     $this->stmt->bindParam(':description', $description);
+    $this->stmt->bindParam(':is_approved', $is_approved);
     $this->stmt->bindParam(':countrycode', $countrycode);
     $this->stmt->bindParam(':username', $username);
     $this->stmt->bindParam(':mealtype_name', $mealtype_name);
     $this->stmt->bindParam(':religion_id', $religion_id);
     $this->stmt->bindParam(':time_of_day', $time_of_day);
-    $this->stmt->bindParam(':is_approved', $is_approved);
     $this->stmt->execute();
 
     return $this->stmt->errorcode();
@@ -41,6 +41,9 @@ class Recipe extends CRUD{
       }
       if(null != $model->getDescription()){
         $this->select[0]->bindParam(':description', $model->getDescription());
+      }
+      if(null != $model->getIs_approved()){
+        $this->select[0]->bindParam(':is_approved', $model->getIs_approved());
       }
       if(null != $model->getCountry_code()){
         $this->select[0]->bindParam(':name', $model->getCountry_code());
@@ -54,11 +57,8 @@ class Recipe extends CRUD{
       if(null != $model->getReligion_id()){
         $this->select[0]->bindParam(':religion_id', $model->getReligion_id());
       }
-      if(null != $model->gettimeofday()){
-        $this->select[0]->bindParam(':time_of_day', $model->gettimeofday());
-      }
-      if(null != $model->getIs_approved()){
-        $this->select[0]->bindParam(':is_approved', $model->getIs_approved());
+      if(null != $model->getTime_of_day()){
+        $this->select[0]->bindParam(':time_of_day', $model->getTime_of_day());
       }
 
 

@@ -6,24 +6,24 @@ class Recipe extends \model\Model{
   private $id;
   private $name;
   private $description;
+  private $is_approved;
   private $countrycode;
   private $username;
   private $mealtype_name;
   private $religion_id;
   private $time_of_day;
-  private $is_approved;
 
-  public function __construct(Int $id = null, String $name = null, String $description = null, Int $countrycode = null,
-  String $username, String $mealtype_name = null, Int $religion_id = null, String $time_of_day = null, int $is_approved = null){
+  public function __construct(Int $id = null, String $name = null, String $description = null, int $is_approved = null, String $countrycode = null,
+  String $username, String $mealtype_name = null, Int $religion_id = null, String $time_of_day = null){
     $this->id = $id;
     $this->name = $name;
     $this->description = $description;
+    $this->is_approved = $is_approved;
     $this->countrycode = $countrycode;
     $this->username = $username;
     $this->mealtype_name = $mealtype_name;
     $this->religion_id = $religion_id;
     $this->time_of_day = $time_of_day;
-    $this->is_approved = $is_approved;
   }
 
   public function getId() : int{
@@ -60,19 +60,30 @@ class Recipe extends \model\Model{
     $this->description = $description;
   }
 
+  public function getIs_approved() : int{
+      if($this->is_approved !== null){
+          return $this->is_approved;
+      }
+      throw new \exception\ModelNullException("The value is_approved is null");
+  }
 
-  public function getCountrycode() : int{
+  public function setIs_approved(int $is_approved) : void{
+    $this->is_approved = $is_approved;
+  }
+
+
+  public function getCountrycode() : String{
       if($this->countrycode !== null){
           return $this->countrycode;
       }
       throw new \exception\ModelNullException("The value countrycode is null");
   }
 
-  public function setCountrycode(Int $countrycode): void{
+  public function setCountrycode(String $countrycode): void{
     $this->countrycode = $countrycode;
   }
 
-  public function getUsername() : int{
+  public function getUsername() : String{
       if($this->username !== null){
           return $this->username;
       }
@@ -116,31 +127,21 @@ class Recipe extends \model\Model{
       throw new \exception\ModelNullException("The value time_of_day is null");
   }
 
-  public function getIs_approved() : int{
-      if($this->is_approved !== null){
-          return $this->is_approved;
-      }
-      throw new \exception\ModelNullException("The value is_approved is null");
-  }
-
-  public function setIs_approved(int $is_approved) : void{
-    $this->is_approved = $is_approved;
-  }
-
   public function getVariables(){
-      return [['id'], ['name'], ['description'], ['countrycode'], ['username'], ['mealtype_name'], ['religion_id'],
-      ['time_of_day'], [' is_approved']];
+      return [['id'], ['name'], ['description'], [' is_approved'], ['countrycode'], ['username'], ['mealtype_name'], ['religion_id'],
+      ['time_of_day']];
   }
 
   public function jsonSerialize(){
 
-    $json_name = "'id' => $this->id,";
+    $json_name = "'name' => $this->name,";
     $json_description = "'description' => $this->description,";
+    $json_is_aproved = "'is_approved' => $this->is_approved,";
     $json_countrycode = "'countrycode' => $this->countrycode,";
     $json_username= "'username' => $this->username,";
     $json_religion_id = "'religion_id' => $this->religion_id,";
     $json_time_of_day = "'time_of_day' => $this->time_of_day,";
-    $json_is_aproved = "'is_approved' => $this->is_approved,";
+
     $final_string = "[";
 
     if($json_name != null){

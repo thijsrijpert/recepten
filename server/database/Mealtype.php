@@ -12,7 +12,7 @@ require_once(dirname(__FILE__,2) . '/model/Mealtype.php');
           parent::__construct($query);
       }
 
-      function insert(\model\Model $model) {
+      function insert(\model\Model $model) : String{
           $name = $model->getName();
           $this->stmt->bindParam(':name', $name);
           $this->stmt->execute();

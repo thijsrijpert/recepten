@@ -4,7 +4,7 @@ require_once(dirname(__FILE__,1) . '/Model.php');
 class Mealtype extends \model\Model{
     private $name;
 
-    public function __construct(Int $name = null){
+    public function __construct(String $name = null){
         $this->name = $name;
     }
 
@@ -24,14 +24,14 @@ class Mealtype extends \model\Model{
     }
 
     public function jsonSerialize() {
-      if(this->name != null){
-        return[
-          'name' => $this->name,
-        ];
-      }else{
-        return[
-          'name' => $this->name,
-        ];
+      $json_name = "'name' => $this->name,";
+      $final_string = "[";
+
+      if($json_name != null){
+        $final_string .= $json_name;
       }
+
+      $final_string .= "]";
+      return \json_encode($final_string);
     }
 }

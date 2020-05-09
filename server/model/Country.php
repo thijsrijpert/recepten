@@ -6,20 +6,20 @@ class Country extends \model\Model{
     private $name;
     private $description;
 
-    public function __construct(Int $countrycode = null ,Int $name = null ,String $description = null){
+    public function __construct(String $countrycode = null ,String $name = null ,String $description = null){
         $this->countrycode =$countrycode;
         $this->name = $name;
         $this->description = $description;
     }
 
-    public function getCountrycode() : int{
+    public function getCountrycode() : String{
         if($this->countrycode !== null){
             return $this->countrycode;
         }
         throw new \exception\ModelNullException("The value countrycode is null");
     }
 
-    public function setCountrycode(Int $countrycode){
+    public function setCountrycode(String $countrycode){
       $this->countrycode = $countrycode;
     }
 
@@ -50,8 +50,8 @@ class Country extends \model\Model{
     }
 
     public function jsonSerialize(){
-      $json_name = "'name' => $this->name,";
       $json_countrycode = "'countrycode' => $this->countrycode,";
+      $json_name = "'name' => $this->name,";
       $json_description = "'description' => $this->description,";
       $final_string = "[";
 

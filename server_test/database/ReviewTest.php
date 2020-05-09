@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 require_once(dirname(__FILE__, 3) .'\server\model\Review.php');
 require_once(dirname(__FILE__, 3) .'\server\model\User.php');
 require_once(dirname(__FILE__, 3) . '\server\database\Review.php');
-require_once(dirname(__FILE__, 3) . '\server\model\ReceptModel.php');
+require_once(dirname(__FILE__, 3) . '\server\model\Recipe.php');
 require_once(dirname(__FILE__, 3) . '\server\exception\NullPointerException.php');
 
 

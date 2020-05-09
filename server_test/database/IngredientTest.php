@@ -11,12 +11,12 @@ require_once(dirname(__FILE__, 3) . '\server\exception\NullPointerException.php'
 final class IngredientDatabaseTest extends TestCase
 {
 
-    protected $religion;
+    protected $ingredient;
     protected $mock;
 
     public function setUp() : void{
         $this->mock = $this->createMock('database\QueryBuilder');
-        $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Ingredient"));
+        $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Ingredient WHERE  name = :name"));
         $this->ingredient = new database\Ingredient($this->mock);
     }
 

@@ -83,7 +83,7 @@ function error_handler($errno, $errstr, $errfile, $errline){
 }
 
 $country = new Country();
-if(isset($_GET['name'])){
+if(isset($_GET['countrycode'])){
   $country->insert();
 }else{
 

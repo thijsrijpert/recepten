@@ -3,7 +3,6 @@ namespace database;
 require_once(dirname(__FILE__,1) . '/Database.php');
 require_once(dirname(__FILE__,1) . '/CRUD.php');
 require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
-
   class Wordfilter extends CRUD{
 
     function __construct(QueryBuilder $query = null){
@@ -11,6 +10,14 @@ require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
           $this->stmt = \database\Database::getConnection()->prepare($sql);
 
           parent::__construct($query);
+    }
+
+    function insert(\model\Model $model) : String{
+        $word = $model->getName();
+        $this->stmt->bindParam(':word', $word);
+        $this->stmt->execute();
+
+        return $this->stmt->errorCode();
     }
 
     function select(\model\Model $model) : array{
@@ -25,6 +32,8 @@ require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
         return array($this->select[0]->errorCode(), array($results));
     }
 
-  }
+    function error_handler($errno, $errstr, $errfile, $errline){
 
- ?>
+    }
+  }
+  ?>

@@ -12,10 +12,6 @@ class Ingredient extends \model\Model{
     $this->description = $description;
     $this->is_approved = $is_approved;
     $this->username = $username;
-
-    \var_dump($is_approved);
-    \var_dump($this->is_approved);
-
   }
 
   public function getName() : String{

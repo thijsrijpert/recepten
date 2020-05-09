@@ -1,7 +1,5 @@
 <?php
 namespace api;
-
-namespace api;
 ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(E_ALL | E_STRICT);
@@ -9,7 +7,6 @@ require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
 require_once(dirname(__FILE__,2) . '/database/Wordfilter.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
-
   class Wordfilter extends Api{
 
     private $model;
@@ -43,20 +40,18 @@ require_once(dirname(__FILE__,1) . '/Api.php');
           $this->model = new \model\Wordfilter();
           $queryBuilder = parent::buildQuery($this->model);
 
-          //I don't know how to get the decoded arguments to the database, so I will call rebuildArguments again
           if(null != $_GET['where']){
               $arguments = parent::rebuildArguments($_GET['where']);
               $approvedArguments = $this->model->getVariables();
               foreach($arguments as $value){
-                  if($value[0] == 'id'){
-                      $this->model->setId($value[2]);
+                  if($value[0] == 'word'){
+                      $this->model->setWord($value[2]);
                   }
               }
-
           }
 
-          $wordfilterStatement = new \database\Wordfilter($queryBuilder);
-          $codeAndResult = $wordfilterStatement->select($this->model);
+          $wordfilterstatement = new \database\Wordfilter($queryBuilder);
+          $codeAndResult = $wordfilterstatement->select($this->model);
 
           if($codeAndResult[0][1] == '00'){
               header('Content-Type: application/json');
