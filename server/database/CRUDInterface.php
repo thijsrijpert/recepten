@@ -1,5 +1,6 @@
 <?php
 namespace database;
-    interface CRUDInterface extends CRUInterface{
-        abstract function delete(\model\Model $model) : String;
-    }
+require_once(dirname(__FILE__,1) . '/CRUInterface.php');
+interface CRUDInterface extends CRUInterface{
+    function delete(\model\Model $model) : String;
+}

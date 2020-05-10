@@ -1,6 +1,6 @@
 <?php
 namespace model;
-
+require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 require_once(dirname(__FILE__,1) . '/Model.php');
   class Religion extends \model\Model{
     private $name;
@@ -23,7 +23,7 @@ require_once(dirname(__FILE__,1) . '/Model.php');
     }
 
     public function getId() : int{
-        if($this->name !== null){
+        if($this->id !== null){
             return $this->id;
         }
         throw new \exception\ModelNullException("The value id is null");
@@ -53,4 +53,10 @@ require_once(dirname(__FILE__,1) . '/Model.php');
             ];
         }
     }
+  }
+
+  class ReligionPDO extends Religion{
+      public function __construct(String $name, int $id){
+
+      }
   }

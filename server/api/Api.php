@@ -89,7 +89,7 @@ require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
           // $parameterFull = urlencode($get_parameter);
           // $parameterFull = str_replace("+", "%2B", $parameterFull);
           // $parameterFull = urldecode($parameterFull);
-          $parameters = \explode('.', $parameterFull);
+          $parameters = \explode('.', $get_parameter);
 
           foreach($parameters as $key => $value){
               $parameters[$key] = \explode('-', $value, 3);

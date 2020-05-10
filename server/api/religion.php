@@ -6,6 +6,7 @@ error_reporting(E_ALL | E_STRICT);
 require_once(dirname(__FILE__,2) . '/model/Religion.php');
 require_once(dirname(__FILE__,2) . '/database/Religion.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
+require_once(dirname(__FILE__,1) . '/CRInterface.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
 
 class Religion extends Api implements CRInterface{
