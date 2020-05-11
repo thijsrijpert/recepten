@@ -70,7 +70,7 @@ public class Add extends Fragment {
         // Initialize the Class variables
         edittext_recipeName = view.findViewById(R.id.addRecipe_edittext_recipeName);
         edittext_recipeDescription = view.findViewById(R.id.addRecipe_edittext_description);
-        textview_recipeDescriptionCharacterCount = view.findViewById(R.id.addRecipe_textview_receptomschrijvingCharacterCount);
+        textview_recipeDescriptionCharacterCount = view.findViewById(R.id.addRecipe_textview_recipeDescriptionCharacterCount);
 
         button_bindIngredient = view.findViewById(R.id.addRecipe_btn_bindIngredient);
         button_addNewIngredient = view.findViewById(R.id.addRecipe_btn_addNewIngredient);
@@ -316,7 +316,7 @@ public class Add extends Fragment {
                     String countryCode = "0";
                     for (int c = 0; c < arraylist_countries.size(); c++) {
                         if (arraylist_countries.get(c).getName().equals(spinner_countries.getSelectedItem().toString())) {
-                            countryCode = arraylist_countries.get(c).getCode();
+                            countryCode = arraylist_countries.get(c).getCountryCode();
                         }
                     }
 

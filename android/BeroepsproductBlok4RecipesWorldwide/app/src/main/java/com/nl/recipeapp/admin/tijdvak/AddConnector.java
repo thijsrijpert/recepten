@@ -1,4 +1,4 @@
-package com.nl.recipeapp.admin.tijdvakken;
+package com.nl.recipeapp.admin.tijdvak;
 
 import android.content.Context;
 import android.view.View;
@@ -26,7 +26,7 @@ public class AddConnector {
      */
     public AddConnector(Context context, View view) {
         this.context = context;
-        edittext_tijdvakName = view.findViewById(R.id.addTijdvak_edittext_tijdvakName);
+        edittext_tijdvakName = view.findViewById(R.id.addTimeOfDay_edittext_timeOfDayName);
     }
 
     /**

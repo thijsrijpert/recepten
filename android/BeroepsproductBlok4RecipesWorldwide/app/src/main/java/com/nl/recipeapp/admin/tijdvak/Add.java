@@ -1,4 +1,5 @@
-package com.nl.recipeapp.religie;
+package com.nl.recipeapp.admin.tijdvak;
+
 
 import android.os.Bundle;
 
@@ -18,7 +19,7 @@ import com.nl.recipeapp.R;
  */
 public class Add extends Fragment {
     private View view;
-    private EditText edittext_religieName;
+    private EditText edittext_tijdvakName;
     private AddConnector addConnector;
 
     public Add() {
@@ -29,10 +30,10 @@ public class Add extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_add_religie, container, false);
+        view = inflater.inflate(R.layout.fragment_add_time_of_day, container, false);
 
         // Initialize the Class variables
-        edittext_religieName = view.findViewById(R.id.addReligie_edittext_religieName);
+        edittext_tijdvakName = view.findViewById(R.id.addTimeOfDay_edittext_timeOfDayName);
 
         // Create the connector that will pass requests towards the database
         addConnector = new AddConnector(this.getContext(), view);
@@ -44,30 +45,21 @@ public class Add extends Fragment {
     }
 
     private void initializeButtons() {
-        Button button_applyReligie = view.findViewById(R.id.addReligie_btn_applyReligie);
-        button_applyReligie.setOnClickListener(new View.OnClickListener() {
+        Button button_applyTijdvak = view.findViewById(R.id.addTimeOfDay_btn_applyTimeOfDay);
+        button_applyTijdvak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // First, check if all the fields are filled in. If not, display a Toast accordingly
-//                ArrayList<String> arraylist_religie = addReligie_webserverConnector.getAllReligie();
-                if (edittext_religieName.getText().toString().equals("")) {
+                if (edittext_tijdvakName.getText().toString().equals("")) {
                     // Check if a name is entered
-                    Toast.makeText(getActivity(), "U moet een religie naam invullen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "U moet een tijdvak naam invullen", Toast.LENGTH_SHORT).show();
                     return;
-                } else {
-                    // Check for duplicates
-//                    for (int c = 0; c < arraylist_religie.size(); c++) {
-//                        if (arraylist_religie.get(c).equals(edittext_religieName.getText().toString())) {
-//                            Toast.makeText(getActivity(), "Het ingevulde religie naam bestaat al", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                    }
                 }
 
-                boolean value = addConnector.addReligie(edittext_religieName.getText().toString());
+                boolean value = addConnector.addTimeOfDay(edittext_tijdvakName.getText().toString());
 
                 if (value) {
-                    edittext_religieName.setText("");
+                    edittext_tijdvakName.setText("");
                 }
             }
         });
