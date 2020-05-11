@@ -62,9 +62,9 @@ public class DetailedView extends AppCompatActivity {
         textview_name.setText(recipe.getName());
 
         edittext_username.setText(recipe.getUsername());
-        edittext_mealtype.setText(recipe.getMealtype_name());
-        edittext_country.setText(generalMethods.getCountryNameFromCode(recipe.getCountrycode()));
-        edittext_religion.setText(generalMethods.getReligionNameFromId(recipe.getReligion_id()));
+        edittext_mealtype.setText(recipe.getMealtypeName());
+        edittext_country.setText(generalMethods.getCountryNameFromCode(recipe.getCountryCode()));
+        edittext_religion.setText(generalMethods.getReligionNameFromId(recipe.getReligionId()));
         edittext_timeOfDay.setText(recipe.getTimeOfDay());
         edittext_description.setText(recipe.getDescription());
 
