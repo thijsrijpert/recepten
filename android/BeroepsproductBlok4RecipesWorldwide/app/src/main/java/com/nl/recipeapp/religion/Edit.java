@@ -1,4 +1,4 @@
-package com.nl.recipeapp.religie;
+package com.nl.recipeapp.religion;
 
 import android.os.Bundle;
 
@@ -25,6 +25,6 @@ public class Edit extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R
-                .layout.fragment_edit_religie, container, false);
+                .layout.fragment_edit_religion, container, false);
     }
 }

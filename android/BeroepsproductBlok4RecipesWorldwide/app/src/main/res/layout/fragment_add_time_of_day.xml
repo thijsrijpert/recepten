@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".admin.tijdvakken.Add">
+    tools:context=".admin.tijdvak.Add">
 
     <ScrollView
         android:id="@+id/addTijdvak_scrollview"

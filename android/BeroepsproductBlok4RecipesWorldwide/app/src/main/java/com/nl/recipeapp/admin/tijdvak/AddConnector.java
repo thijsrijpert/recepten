@@ -1,4 +1,4 @@
-package com.nl.recipeapp.admin.tijdvakken;
+package com.nl.recipeapp.admin.tijdvak;
 
 import android.content.Context;
 import android.view.View;

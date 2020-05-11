@@ -277,7 +277,7 @@ public class Add extends Fragment {
                     String countryCode = "0";
                     for (int c = 0; c < arraylist_countries.size(); c++) {
                         if (arraylist_countries.get(c).getName().equals(spinner_countries.getSelectedItem().toString())) {
-                            countryCode = arraylist_countries.get(c).getCode();
+                            countryCode = arraylist_countries.get(c).getCountryCode();
                         }
                     }
 

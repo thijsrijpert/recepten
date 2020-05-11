@@ -12,17 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.nl.recipeapp.R;
-import com.nl.recipeapp.religie.Add;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AdminGeneralOptions extends Fragment {
+public class AdminGeneralOption extends Fragment {
     private FragmentTransaction transaction;
 
     private Fragment fragment_addTimeOfDay, fragment_editTimeOfDay, fragment_addReligion, fragment_editReligion, fragment_addCountry, fragment_editCountry, fragment_addMealtype, fragment_editMealtype;
 
-    public AdminGeneralOptions() {
+    public AdminGeneralOption() {
         // Required empty public constructor
     }
 
@@ -33,12 +32,12 @@ public class AdminGeneralOptions extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_add_general_options, container, false);
 
         // Initialize the fragment
-        fragment_addTimeOfDay = new com.nl.recipeapp.admin.tijdvakken.Add();
-        fragment_editTimeOfDay = new com.nl.recipeapp.admin.tijdvakken.Edit();
+        fragment_addTimeOfDay = new com.nl.recipeapp.admin.tijdvak.Add();
+        fragment_editTimeOfDay = new com.nl.recipeapp.admin.tijdvak.Edit();
         fragment_addCountry = new com.nl.recipeapp.admin.country.Add();
         fragment_editCountry = new com.nl.recipeapp.admin.country.Edit();
-        fragment_addReligion = new com.nl.recipeapp.religie.Add();
-        fragment_editReligion = new com.nl.recipeapp.religie.Edit();
+        fragment_addReligion = new com.nl.recipeapp.religion.Add();
+        fragment_editReligion = new com.nl.recipeapp.religion.Edit();
         fragment_addMealtype = new com.nl.recipeapp.admin.mealtype.Add();
         fragment_editMealtype = new com.nl.recipeapp.admin.mealtype.Edit();
 

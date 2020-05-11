@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.admin.recipe.Manage;
-import com.nl.recipeapp.admin.tijdvakken.Add;
+import com.nl.recipeapp.admin.tijdvak.Add;
 
 public class AdminPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -25,7 +25,7 @@ public class AdminPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new AdminGeneralOptions();
+                return new AdminGeneralOption();
             case 1:
                 return new Add();
             case 2:

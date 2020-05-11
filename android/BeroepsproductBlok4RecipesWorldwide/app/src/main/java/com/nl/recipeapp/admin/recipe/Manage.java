@@ -154,7 +154,7 @@ public class Manage extends Fragment {
                         // Then check at which position in the arraylist of countries this name is located
                         // Finally select this position in the spinner
                         for (int i = 0; i < arraylist_countries.size(); i++ ) {
-                            if (arraylist_unapprovedRecipes.get(c).getCountrycode().equals(arraylist_countries.get(i).getCode())) {
+                            if (arraylist_unapprovedRecipes.get(c).getCountryCode().equals(arraylist_countries.get(i).getCountryCode())) {
                                 String countryName = arraylist_countries.get(i).getName();
                                 int pos = arrayadapter_A_country.getPosition(countryName);
                                 spinner_A_country.setSelection(pos);

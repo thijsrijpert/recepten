@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".religie.Add">
+    tools:context=".religion.Add">
 
     <ScrollView
         android:id="@+id/addReligie_scrollview"
@@ -82,7 +82,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
-                android:id="@+id/addReligie_edittext_religieName"
+                android:id="@+id/addReligion_edittext_religionName"
                 android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:background="@drawable/inputfields"
@@ -113,7 +113,7 @@
                 android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/addReligie_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addReligie_edittext_religieName" />
+                app:layout_constraintTop_toBottomOf="@id/addReligion_edittext_religionName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

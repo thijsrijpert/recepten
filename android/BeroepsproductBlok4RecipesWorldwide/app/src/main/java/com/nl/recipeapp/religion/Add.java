@@ -1,4 +1,4 @@
-package com.nl.recipeapp.religie;
+package com.nl.recipeapp.religion;
 
 import android.os.Bundle;
 
@@ -32,7 +32,7 @@ public class Add extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_religie, container, false);
 
         // Initialize the Class variables
-        edittext_religieName = view.findViewById(R.id.addReligie_edittext_religieName);
+        edittext_religieName = view.findViewById(R.id.addReligion_edittext_religionName);
 
         // Create the connector that will pass requests towards the database
         addConnector = new AddConnector(this.getContext(), view);
@@ -64,7 +64,7 @@ public class Add extends Fragment {
 //                    }
                 }
 
-                boolean value = addConnector.addReligie(edittext_religieName.getText().toString());
+                boolean value = addConnector.addReligion(edittext_religieName.getText().toString());
 
                 if (value) {
                     edittext_religieName.setText("");
