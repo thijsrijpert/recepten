@@ -80,7 +80,7 @@ public class GeneralMethods {
 
         // If the countrycode is not similar to the default line, extract the countrycode
         for (int c = 0; c < countries.size(); c++) {
-            if (countrycode.equals(countries.get(c).getCode())) {
+            if (countrycode.equals(countries.get(c).getCountryCode())) {
                 name = countries.get(c).getName();
             }
         }
@@ -104,7 +104,7 @@ public class GeneralMethods {
         // If the countrycode is not similar to the default line, extract the countrycode
         for (int c = 0; c < countries.size(); c++) {
             if (countryName.equals(countries.get(c).getName())) {
-                code = countries.get(c).getCode();
+                code = countries.get(c).getCountryCode();
             }
         }
 
