@@ -70,7 +70,7 @@ public class Add extends Fragment {
         // Initialize the Class variables
         edittext_recipeName = view.findViewById(R.id.addRecipe_edittext_recipeName);
         edittext_recipeDescription = view.findViewById(R.id.addRecipe_edittext_description);
-        textview_recipeDescriptionCharacterCount = view.findViewById(R.id.addRecipe_textview_receptomschrijvingCharacterCount);
+        textview_recipeDescriptionCharacterCount = view.findViewById(R.id.addRecipe_textview_recipeDescriptionCharacterCount);
 
         button_bindIngredient = view.findViewById(R.id.addRecipe_btn_bindIngredient);
         button_addNewIngredient = view.findViewById(R.id.addRecipe_btn_addNewIngredient);

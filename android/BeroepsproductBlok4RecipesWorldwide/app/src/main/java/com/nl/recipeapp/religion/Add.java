@@ -29,7 +29,7 @@ public class Add extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_add_religie, container, false);
+        view = inflater.inflate(R.layout.fragment_add_religion, container, false);
 
         // Initialize the Class variables
         edittext_religieName = view.findViewById(R.id.addReligion_edittext_religionName);
@@ -44,7 +44,7 @@ public class Add extends Fragment {
     }
 
     private void initializeButtons() {
-        Button button_applyReligie = view.findViewById(R.id.addReligie_btn_applyReligie);
+        Button button_applyReligie = view.findViewById(R.id.addReligion_btn_applyReligion);
         button_applyReligie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
