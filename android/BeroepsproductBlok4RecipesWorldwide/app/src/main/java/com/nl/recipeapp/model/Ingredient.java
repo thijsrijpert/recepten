@@ -1,13 +1,22 @@
 package com.nl.recipeapp.model;
 
 public class Ingredient {
-    private String name, description;
+    private String name, description, username;
     private boolean isApproved;
 
-    public Ingredient(String name, String description, boolean isApproved) {
+    public Ingredient(String name, String description, boolean isApproved, String username) {
         this.name = name;
         this.description = description;
         this.isApproved = isApproved;
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public boolean isApproved() {

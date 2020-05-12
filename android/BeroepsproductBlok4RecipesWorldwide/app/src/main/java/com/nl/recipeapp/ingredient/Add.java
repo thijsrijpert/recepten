@@ -107,7 +107,7 @@ public class Add extends Fragment {
                         return;
                     }
 
-                    Ingredient ingredient = new Ingredient(edittext_ingredientName.getText().toString(), edittext_ingredientDescription.getText().toString(), false);
+                    Ingredient ingredient = new Ingredient(edittext_ingredientName.getText().toString(), edittext_ingredientDescription.getText().toString(), false, ((MainActivity)getActivity()).getCurrentUser().getUsername());
                     boolean value = addConnector.addIngredient(ingredient);
 
                     if (value) {

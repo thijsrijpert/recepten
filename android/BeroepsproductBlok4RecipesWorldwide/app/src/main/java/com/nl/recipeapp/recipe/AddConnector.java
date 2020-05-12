@@ -285,7 +285,7 @@ public class AddConnector {
         ArrayList<Ingredient> ingredients = new ArrayList<>();
 
         // Fill the ArrayList with the ingredients
-        
+
 
         return ingredients;
     }

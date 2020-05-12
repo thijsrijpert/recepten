@@ -232,7 +232,7 @@ public class Add extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textview_recipeDescriptionCharacterCount.setText(edittext_recipeDescription.getText().length() + " / 255", null);
+                textview_recipeDescriptionCharacterCount.setText(edittext_recipeDescription.getText().length() + " / 65535", null);
 
                 if (edittext_recipeDescription.getText().length() > 65535) {
                     textview_recipeDescriptionCharacterCount.setTextColor(Color.RED);
