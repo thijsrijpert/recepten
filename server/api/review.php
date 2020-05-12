@@ -109,6 +109,8 @@ $review = new Review();
 if(isset($_GET['title'])){
     $review->insert();
 }else{
-    $review->select();
+    if(!TESTING){
+        $review->select();
+    }
 }
  ?>

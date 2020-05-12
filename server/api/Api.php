@@ -11,6 +11,10 @@ require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
             define('ALLOWED_ORDER', ['desc' => 'desc', 'asc' => 'asc']);
         }
 
+        if(!defined('TESING')){
+            define('TESTING', false);
+        }
+
         ini_set('display_startup_errors', 1);
         ini_set('display_errors', 1);
         error_reporting(E_ALL | E_STRICT);
