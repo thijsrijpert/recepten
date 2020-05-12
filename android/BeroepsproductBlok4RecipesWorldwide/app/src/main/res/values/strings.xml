@@ -81,6 +81,18 @@
     <string name="editTijdvak_subtext">Op deze pagina kunt u een tijdvak wijzigen door een bestaand tijdvak te selecteren uit de dropdown</string>
     <string name="editTijdvak_editableTimeOfDays">Tijdvakken te beheren</string>
 
+    <!-- Strings for AddWordfilter -->
+    <string name="addWordfilter_title">Woord Toevoegen</string>
+    <string name="addWordfilter_subtext">Op deze pagina kunt u een word toevoegen aan de zwartelijst. Zo kunt u voorkomen dat er woorden worden gebruikt die niet samen gaan met de gebruikersvoorwaarde.</string>
+    <string name="addWordfilter_wordName">Woord naam</string>
+    <string name="addWordfilter_wordfilterNameHint">vul schelwoord in</string>
+    <string name="addWordfilter_buttonApplyWord">Scheldwoord aanmelden</string>
+
+    <!-- Strings for EditWordfilter -->
+    <string name="editWordfilter_title">Woord aanpassen</string>
+    <string name="editWordfilter_subtext">Op deze pagina kunt u een woord wijzigen door een bestaand woord te selecteren uit de dropdown</string>
+    <string name="editWordfilter_editableWordfilter">Woorden te beheren</string>
+
     <!-- Strings for AddMealtype -->
     <string name="addMealtype_title">Maaltijdsoort Toevoegen</string>
     <string name="addMealtype_subtext">Op deze pagina kunt u een maaltijdsoort toevoegen</string>
@@ -98,7 +110,7 @@
     <string name="editReligion_subtext">Op deze pagina kunt u een religie wijzigen door een bestaande religie te selecteren uit de dropdown</string>
     <string name="editReligion_editableReligion">Religie te beheren</string>
 
-        <!-- Strings for AddCountry -->
+    <!-- Strings for AddCountry -->
     <string name="addCountry_title">Land Toevoegen</string>
     <string name="addCountry_subtext">Op deze pagina kunt u een land toevoegen</string>
     <string name="addCountry_countryCode">Landcode</string>
@@ -137,6 +149,9 @@
 
     <string name="addGeneralOptions_button_addMealtype">Maaltijdsoort toevoegen</string>
     <string name="addGeneralOptions_button_editMealtype">Maaltijdsoort wijzigen</string>
+
+    <string name="addGeneralOptions_button_addWord">Woord toevoegen</string>
+    <string name="addGeneralOptions_button_editWord">Woord wijzigen</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
