@@ -1,4 +1,4 @@
-package com.nl.recipeapp.admin.tijdvak;
+package com.nl.recipeapp.admin.timeofday;
 
 import android.os.Bundle;
 

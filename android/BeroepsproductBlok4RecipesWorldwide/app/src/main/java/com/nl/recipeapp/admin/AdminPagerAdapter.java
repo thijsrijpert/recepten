@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.admin.recipe.Manage;
-import com.nl.recipeapp.admin.tijdvak.Add;
+import com.nl.recipeapp.admin.timeofday.Add;
 
 public class AdminPagerAdapter extends FragmentStatePagerAdapter {
 

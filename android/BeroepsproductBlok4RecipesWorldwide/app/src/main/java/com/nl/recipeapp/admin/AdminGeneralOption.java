@@ -19,7 +19,7 @@ import com.nl.recipeapp.R;
 public class AdminGeneralOption extends Fragment {
     private FragmentTransaction transaction;
 
-    private Fragment fragment_addTimeOfDay, fragment_editTimeOfDay, fragment_addReligion, fragment_editReligion, fragment_addCountry, fragment_editCountry, fragment_addMealtype, fragment_editMealtype;
+    private Fragment fragment_addTimeOfDay, fragment_editTimeOfDay, fragment_addReligion, fragment_editReligion, fragment_addCountry, fragment_editCountry, fragment_addMealtype, fragment_editMealtype, fragment_addWord, fragment_editWord;
 
     public AdminGeneralOption() {
         // Required empty public constructor
@@ -32,14 +32,17 @@ public class AdminGeneralOption extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_add_general_options, container, false);
 
         // Initialize the fragment
-        fragment_addTimeOfDay = new com.nl.recipeapp.admin.tijdvak.Add();
-        fragment_editTimeOfDay = new com.nl.recipeapp.admin.tijdvak.Edit();
+        fragment_addTimeOfDay = new com.nl.recipeapp.admin.timeofday.Add();
+        fragment_editTimeOfDay = new com.nl.recipeapp.admin.timeofday.Edit();
         fragment_addCountry = new com.nl.recipeapp.admin.country.Add();
         fragment_editCountry = new com.nl.recipeapp.admin.country.Edit();
         fragment_addReligion = new com.nl.recipeapp.religion.Add();
         fragment_editReligion = new com.nl.recipeapp.religion.Edit();
         fragment_addMealtype = new com.nl.recipeapp.admin.mealtype.Add();
         fragment_editMealtype = new com.nl.recipeapp.admin.mealtype.Edit();
+        fragment_addWord = new com.nl.recipeapp.admin.wordfilter.Add();
+        fragment_editWord = new com.nl.recipeapp.admin.wordfilter.Edit();
+
 
         // Initialize the buttons and their click listeners
         Button button_addTijdvak = view.findViewById(R.id.addGeneralOptions_button_addTijdvak);
@@ -106,6 +109,23 @@ public class AdminGeneralOption extends Fragment {
             }
         });
 
+        Button button_addWord = view.findViewById(R.id.addGeneralOptions_button_addWord);
+        button_addWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentTransaction("AddWord");
+            }
+        });
+
+        Button button_editWord = view.findViewById(R.id.addGeneralOptions_button_editWord);
+        button_editWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentTransaction("EditWord");
+            }
+        });
+
+
         return view;
     }
 
@@ -136,6 +156,12 @@ public class AdminGeneralOption extends Fragment {
             break;
             case "EditMealtype":
                 transaction.replace(R.id.addGeneralOptions_framelayout, fragment_editMealtype);
+            break;
+            case "AddWord":
+                transaction.replace(R.id.addGeneralOptions_framelayout, fragment_addWord);
+            break;
+            case "EditWord":
+                transaction.replace(R.id.addGeneralOptions_framelayout, fragment_editWord);
             break;
         }
 
