@@ -111,7 +111,21 @@ public class Search extends AppCompatActivity {
                 String countrycode = generalMethods.getCountryCodeFromName(spinner_country.getSelectedItem().toString());
                 String religionId = generalMethods.getReligionIdFromName(spinner_religion.getSelectedItem().toString());
 
-                recipes = connector_search.searchRecipe(spinner_mealtype.getSelectedItem().toString(), countrycode, religionId, spinner_timeOfDay.getSelectedItem().toString());
+                String mealtype = "";
+                if (spinner_mealtype.getSelectedItem().toString().equals("Selecteer een maaltijdsoort")) {
+                    mealtype = "null";
+                } else {
+                    mealtype = spinner_mealtype.getSelectedItem().toString();
+                }
+
+                String timeOfDay = "";
+                if (spinner_timeOfDay.getSelectedItem().toString().equals("Selecteer een tijdvak")) {
+                    timeOfDay = "null";
+                } else {
+                    timeOfDay = spinner_timeOfDay.getSelectedItem().toString();
+                }
+
+                recipes = connector_search.searchRecipe(mealtype, countrycode, religionId, timeOfDay);
                 recyclerviewAdapter.notifyDataSetChanged();
             }
         });

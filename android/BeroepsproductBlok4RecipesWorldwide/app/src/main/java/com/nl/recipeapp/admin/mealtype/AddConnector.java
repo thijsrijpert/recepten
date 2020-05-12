@@ -24,7 +24,7 @@ public class AddConnector {
 
     public boolean addMealtype(String mealtypeName) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/thijs/api/Mealtype.php?name="+ mealtypeName + "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/thijs/api/mealtype.php?name="+ mealtypeName + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Maaltijdsoort '" + edittext_mealtypeName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
@@ -41,7 +41,7 @@ public class AddConnector {
                     return;
                 }
 
-                Toast.makeText(context, "AddTijdvak_WebserverConnector: De maaltijdsoort '" + edittext_mealtypeName.getText() + "' kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "De maaltijdsoort '" + edittext_mealtypeName.getText() + "' kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
 
             }

@@ -108,7 +108,8 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Maaltijdsoorten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+                System.out.println("AddConnector (recipe): Maaltijdsoorten konden niet worden opgehaald uit de database.");
+//                Toast.makeText(context, "RecipeHTTP: Maaltijdsoorten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
             }
         });
@@ -119,6 +120,10 @@ public class AddConnector {
         ArrayList<String> mealtypes = new ArrayList<>();
 
         // Fill the ArrayList with the mealtypes
+        mealtypes.add("Vegetarisch");
+        mealtypes.add("Meat-Only");
+        mealtypes.add("Veganistisch");
+        mealtypes.add("Vegan");
 
         return mealtypes;
     }
@@ -137,7 +142,8 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Landen konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+                System.out.println("AddConnector (recipe): Landen konden niet worden opgehaald uit de database.");
+//                Toast.makeText(context, "RecipeHTTP: Landen konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
             }
         });
@@ -148,6 +154,15 @@ public class AddConnector {
         ArrayList<Country> countries = new ArrayList<>();
 
         // Fill the ArrayList with the countries
+        Country country1 = new Country("001", "Nederland", "");
+        Country country2 = new Country("002", "Mexico", "");
+        Country country3 = new Country("003", "Noorwegen", "");
+        Country country4 = new Country("666", "Vaticaanstad", "");
+
+        countries.add(country1);
+        countries.add(country2);
+        countries.add(country3);
+        countries.add(country4);
 
         return countries;
 
@@ -160,7 +175,7 @@ public class AddConnector {
      */
     public ArrayList<Religion> getReligions() {
         // Request a JsonArray response from the provided URL.
-        final ArrayList<Religion> reliegies = new ArrayList<>();
+        final ArrayList<Religion> religions = new ArrayList<>();
 
         // tablename.php --> selecteert alles uit de tabel
         // tablename.php?select=kolomnaam --> selecteert alles uit een specifieke kolom (kolomnaam)
@@ -177,7 +192,7 @@ public class AddConnector {
                         JSONObject object = response.getJSONObject(c);
                         Religion religion = gson.fromJson(object.toString(), Religion.class);
 
-                        reliegies.add(religion);
+                        religions.add(religion);
 
 //                        System.out.println(religion.getId());
 //                        System.out.println(religion.getName());
@@ -189,6 +204,7 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                System.out.println("AddConnector (recipe): Religies konden niet worden opgehaald uit de database.");
 //                System.out.println("Error: " + error.networkResponse.headers.toString());
             }
         });
@@ -197,8 +213,17 @@ public class AddConnector {
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request);
 
         // Fill the ArrayList with the religions
+        Religion religion1 = new Religion("1", "Christendom");
+        Religion religion2 = new Religion("2", "Islam");
+        Religion religion3 = new Religion("3", "Hindu");
+        Religion religion4 = new Religion("4", "Whatever Religion");
 
-        return reliegies;
+        religions.add(religion1);
+        religions.add(religion2);
+        religions.add(religion3);
+        religions.add(religion4);
+
+        return religions;
     }
 
     /**
@@ -215,7 +240,8 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Tijdvakken konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+                System.out.println("AddConnector (recipe): Tijdvakken konden niet worden opgehaald uit de database.");
+//                Toast.makeText(context, "RecipeHTTP: Tijdvakken konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
             }
         });
@@ -226,6 +252,9 @@ public class AddConnector {
         ArrayList<String> dayparts = new ArrayList<>();
 
         // Fill the ArrayList with the dayparts
+        dayparts.add("Ochtend");
+        dayparts.add("Middag");
+        dayparts.add("Avond");
 
         return dayparts;
     }
@@ -244,7 +273,8 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+                System.out.println("AddConnector (recipe): Ingrediënten konden niet worden opgehaald uit de database.");
+//                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
             }
         });
@@ -255,6 +285,7 @@ public class AddConnector {
         ArrayList<Ingredient> ingredients = new ArrayList<>();
 
         // Fill the ArrayList with the ingredients
+        
 
         return ingredients;
     }
@@ -273,7 +304,8 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+                System.out.println("AddConnector (recipe): Goedgekeurde ingrediënten konden niet worden opgehaald uit de database.");
+//                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
             }
         });
@@ -302,7 +334,8 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+                System.out.println("AddConnector (recipe): Ingrediënten voor specifieke gebruiker konden niet worden opgehaald uit de database.");
+//                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
             }
         });
@@ -331,7 +364,8 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+                System.out.println("AddConnector (recipe): Ingrediënten voor specifiek recept konden niet worden opgehaald uit de database.");
+//                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
             }
         });

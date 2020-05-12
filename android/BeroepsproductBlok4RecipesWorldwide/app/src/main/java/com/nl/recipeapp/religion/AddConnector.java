@@ -41,7 +41,7 @@ public class AddConnector {
     public boolean addReligion(String religionName) {
         System.out.println(religionName);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/thijs/api/religion.php?name=" + religionName + "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/thijs/api/religion.php?name=" + religionName + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Religie '" + edittext_religionName.getText().toString() + "' succesvol aangemeld. ", Toast.LENGTH_SHORT).show();
