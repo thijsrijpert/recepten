@@ -26,7 +26,7 @@ final class ReviewDatabaseTest extends TestCase
                                   'user1',
                                   1,
                                   'Het beste wat ik ooit gegeten heb',
-                                  (new \DateTime())->format('Y-m-d'),
+                                  '2020-05-05',
                                   1
                               );
         $this->testobject2 = new model\ReviewPDO(
@@ -35,7 +35,7 @@ final class ReviewDatabaseTest extends TestCase
                                   'user2',
                                   1,
                                   'Het smaakte echt niet',
-                                  (new \DateTime())->format('Y-m-d'),
+                                  '2020-05-05',
                                   3
                               );
     }
@@ -81,7 +81,7 @@ final class ReviewDatabaseTest extends TestCase
     public function testInsert(): void
     {
         $recipe = new \model\Recipe(1);
-        var_dump($recipe);
+
         $this->assertEquals(
             '00000',
             $this->review->insert(new \model\Review('Dit is een test', 3.5, new \model\User('test'), $recipe, 'dit is een test'))

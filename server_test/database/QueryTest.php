@@ -34,7 +34,7 @@ final class QueryTest extends TestCase
             false,
             $this->query->setSelectArguments($good_input)
         );
-        var_dump($this->query->getSelectArguments());
+
         $this->assertEquals(
             array(),
             $this->query->getSelectArguments()

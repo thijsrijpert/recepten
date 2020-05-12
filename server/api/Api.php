@@ -1,6 +1,8 @@
 <?php
 namespace api;
-
+if(!defined('TESING')){
+    define('TESTING', false);
+}
 require_once(dirname(__FILE__, 2) . '/database/Query.php');
 require_once(dirname(__FILE__, 2) . '/database/QueryBuilder.php');
 require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
@@ -9,10 +11,6 @@ require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
         if(!defined('ALLOWED_COMPARISON')){
             define('ALLOWED_COMPARISON', ['>' => 'gr', '=' => 'eq', '<' => 'sm']);
             define('ALLOWED_ORDER', ['desc' => 'desc', 'asc' => 'asc']);
-        }
-
-        if(!defined('TESING')){
-            define('TESTING', false);
         }
 
         ini_set('display_startup_errors', 1);

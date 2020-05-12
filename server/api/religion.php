@@ -87,8 +87,6 @@ $religion = new Religion();
 if(isset($_GET['name'])){
     $religion->insert();
 }else{
-    if(!TESING){
-        $religion->select();
-    }
+    $religion->select();
 }
 ?>

@@ -42,7 +42,6 @@ final class ReligionDatabaseTest extends TestCase
     {
       $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Religion"));
       $this->religion = new database\Religion($this->mock);
-        var_dump($this->religion->select(new \model\Religion('Moslim', 0)));
         $this->assertEquals(
             array('00000', array(array(new model\Religion('Geloof 2', 20195), new model\Religion('Geloof 3', 20197), new model\Religion('Geloof 4', 20199), new model\Religion('Moslim', 20193)))),
             $this->religion->select(new \model\Religion())
