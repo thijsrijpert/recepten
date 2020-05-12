@@ -17,7 +17,7 @@ final class CountryDatabaseTest extends TestCase
     public function setUp() : void{
         $this->mock = $this->createMock('database\QueryBuilder');
         $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Country"));
-        $this->country = new database\Country($this->mock);
+        $this->country = new \database\Country($this->mock);
     }
 
     public function testInsert(): void{

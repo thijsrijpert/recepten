@@ -17,7 +17,7 @@ final class IngredientDatabaseTest extends TestCase
     public function setUp() : void{
         $this->mock = $this->createMock('database\QueryBuilder');
         $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Ingredient WHERE  name = :name"));
-        $this->ingredient = new database\Ingredient($this->mock);
+        $this->ingredient = new \database\Ingredient($this->mock);
     }
 
     public function testInsert(): void{

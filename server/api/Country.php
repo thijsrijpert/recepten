@@ -18,9 +18,7 @@ class Country extends Api{
 
   function insert() : void {
       try{
-          $this->model = new \model\Country($_GET['countrycode']);
-          $this->model = new \model\Country($_GET['name']);
-          $this->model = new \model\Country($_GET['description']);
+          $this->model = new \model\Country($_GET['countrycode'], $_GET['name'], $_GET['description']);
 
           $countrystatement = new \database\Country();
           $code = $countrystatement->insert($this->model);
@@ -32,6 +30,7 @@ class Country extends Api{
           parent::setHttpCode($e->getCode());
       }catch(\exception\NullPointerException $e){
           header('HTTP/1.0 400 Bad Request');
+          \var_dump($e);
           restore_error_handler();
       }
   }
@@ -69,12 +68,13 @@ parent::setHttpCode($code);
     parent::setHttpCode($e->getCode());
 }catch(\exception\NullPointerException $e){
   header('HTTP/1.0 400 Bad Request');
+  \var_dump($e);
   restore_error_handler();
 }
 }
 
 function error_handler($errno, $errstr, $errfile, $errline){
-    if($errstr == 'Undefined index: name'){
+    if($errstr == 'Undefined index: countrycode' || $errstr == 'Undefined index: name' || $errstr == 'Undefined index: description'){
         throw new \exception\NullPointerException("Get value isn't passed");
     }else{
         restore_error_handler();

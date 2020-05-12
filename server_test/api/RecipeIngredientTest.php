@@ -21,5 +21,5 @@ final class RecipeIngredientApiTest extends TestCase
         $this->expectException(NullPointerException::class);
         $this->recipeIngredient->error_handler(1, 'Undefined index: recipe_id', 1, 1);
     }
-    
+
 }

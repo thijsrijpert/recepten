@@ -17,7 +17,7 @@ final class RecipeIngredientDatabaseTest extends TestCase
     public function setUp() : void{
         $this->mock = $this->createMock('database\QueryBuilder');
         $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Recipe_Ingredient WHERE  recipe_id = :recipe_id"));
-        $this->recipeIngredient = new database\RecipeIngredient($this->mock);
+        $this->recipeIngredient = new \database\RecipeIngredient($this->mock);
     }
 
     public function testInsert(): void{
@@ -31,7 +31,7 @@ final class RecipeIngredientDatabaseTest extends TestCase
         );
         $this->assertEquals(
             '22001',
-            $this->recipeIngredient->insert(new \model\RecipeIngredient(9999999999999999999999999999999999999999999999, 'ingredienttest'))
+            $this->recipeIngredient->insert(new \model\RecipeIngredient(9999, 'ingredienttest'))
         );
     }
 }

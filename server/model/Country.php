@@ -1,6 +1,7 @@
 <?php
 namespace model;
 require_once(dirname(__FILE__,1) . '/Model.php');
+require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 class Country extends \model\Model{
     private $countrycode;
     private $name;

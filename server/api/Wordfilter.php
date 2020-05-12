@@ -50,8 +50,9 @@ require_once(dirname(__FILE__,1) . '/Api.php');
               }
           }
 
-          $wordfilterstatement = new \database\Wordfilter($queryBuilder);
-          $codeAndResult = $wordfilterstatement->select($this->model);
+          $wordfilterStatement = new \database\Wordfilter($queryBuilder);
+
+          $codeAndResult = $wordfilterStatement->select($this->model);
 
           if($codeAndResult[0][1] == '00'){
               header('Content-Type: application/json');
@@ -70,7 +71,7 @@ require_once(dirname(__FILE__,1) . '/Api.php');
     }
 
     function error_handler($errno, $errstr, $errfile, $errline){
-        if($errstr == 'Undefined index: name'){
+        if($errstr == 'Undefined index: word'){
             throw new \exception\NullPointerException("Get value isn't passed");
         }else{
             restore_error_handler();

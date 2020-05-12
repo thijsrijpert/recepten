@@ -19,6 +19,7 @@ class Mealtype extends Api{
   function insert() {
       try{
           $this->model = new \model\Mealtype($_GET['name']);
+          
 
           $mealtypestatement = new \database\Mealtype();
           $code = $mealtypestatement->insert($this->model);
@@ -34,6 +35,7 @@ class Mealtype extends Api{
       }catch(\exception\NullPointerException $e){
           echo 'NullPointerException';
           header('HTTP/1.0 400 Bad Request');
+          \var_dump($e);
           restore_error_handler();
       }
   }
@@ -69,6 +71,7 @@ class Mealtype extends Api{
         parent::setHttpCode($e->getCode());
     }catch(\exception\NullPointerException $e){
         header('HTTP/1.0 400 Bad Request');
+        \var_dump($e);
         restore_error_handler();
     }
   }

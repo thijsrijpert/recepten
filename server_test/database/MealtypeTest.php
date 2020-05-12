@@ -17,7 +17,7 @@ final class MealtypeDatabaseTest extends TestCase
     public function setUp() : void{
         $this->mock = $this->createMock('database\QueryBuilder');
         $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Mealtype WHERE  name = :name"));
-        $this->ingredient = new database\Mealtype($this->mock);
+        $this->ingredient = new \database\Mealtype($this->mock);
     }
 
     public function testInsert(): void{

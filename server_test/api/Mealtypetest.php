@@ -19,6 +19,6 @@ final class MealtypeApiTest extends TestCase
     public function testErrorHandler(): void
     {
         $this->expectException(NullPointerException::class);
-        $this->mealtype->error_handler(1, 'Undefined index: name', 1, 1);
+        $this->mealtype->error_handler(1, 'Undefined index: countrycode', 1, 1);
     }
 }

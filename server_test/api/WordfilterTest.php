@@ -10,15 +10,15 @@ use exception\NullPointerException;
 final class WorldfilterApiTest extends TestCase
 {
 
-    protected $wordFilter;
+    protected $wordfilter;
 
     public function setUp() : void{
-        $this->wordFilter = new api\Wordfilter();
+        $this->wordfilter = new api\Wordfilter();
     }
 
     public function testErrorHandler(): void
     {
         $this->expectException(NullPointerException::class);
-        $this->wordFilter->error_handler(1, 'Undefined index: name', 1, 1);
+        $this->wordfilter->error_handler(1, 'Undefined index: word', 1, 1);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace model;
 require_once(dirname(__FILE__,1) . '/Model.php');
+require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 class Ingredient extends \model\Model{
   private $name;
   private $description;
@@ -37,7 +38,6 @@ class Ingredient extends \model\Model{
   }
 
   public function getIs_approved() : int{
-    \var_dump($is_approved);
       if($this->is_approved !== null){
           return $this->is_approved;
       }
@@ -88,7 +88,7 @@ class Ingredient extends \model\Model{
     }
 
     $final_string .= "]";
-    return \json_encode($final_string);
+    return \json_decode($final_string);
   }
 
 }

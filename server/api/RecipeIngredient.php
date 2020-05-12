@@ -17,12 +17,11 @@ class RecipeIngredient extends Api{
       set_error_handler(array($this, 'error_handler'));
   }
 
-  function insert() : void{
+  public function insert() : void{
       try{
-          $this->model = new model\RecipeIngredient($_GET['recipe_id']);
-          $this->model = new model\RecipeIngredient($_GET['ingredient_name']);
+          $this->model = new \model\RecipeIngredient($_GET['recipe_id'], $_GET['ingredient_name']);
 
-          $recipe_ingredientStatement = new database\RecipeIngredient();
+          $recipe_ingredientStatement = new \database\RecipeIngredient();
           $code = $recipe_ingredientStatement->insert($this->model);
 
           $code = substr($code, 0, 2);
@@ -33,6 +32,7 @@ class RecipeIngredient extends Api{
           parent::setHttpCode($e->getCode());
       }catch(exception\NullPointerException $e){
           header('HTTP/1.0 400 Bad Request');
+          restore_error_handler();
       }
   }
 
@@ -74,10 +74,9 @@ class RecipeIngredient extends Api{
   }
 
   function error_handler($errno, $errstr, $errfile, $errline){
-      if($errstr == 'Undefined index: name'){
+      if($errstr == 'Undefined index: recipe_id'){
           throw new \exception\NullPointerException("Get value isn't passed");
       }else{
-
           restore_error_handler();
       }
   }
@@ -85,7 +84,7 @@ class RecipeIngredient extends Api{
 
 $recipeIngredient = new RecipeIngredient();
 if(isset($_GET['ingredient_name'])){
-    $religion->insert();
+    $recipeIngredient->insert();
 }else{
 
 }

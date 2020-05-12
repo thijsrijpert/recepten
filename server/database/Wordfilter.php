@@ -13,7 +13,7 @@ require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
     }
 
     function insert(\model\Model $model) : String{
-        $word = $model->getName();
+        $word = $model->getWord();
         $this->stmt->bindParam(':word', $word);
         $this->stmt->execute();
 
@@ -22,7 +22,7 @@ require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
 
     function select(\model\Model $model) : array{
         if(null != $model->getWord()){
-            $this->select[0]->bindParam(':name', $model->getName());
+            $this->select[0]->bindParam(':word', $model->getWord());
         }
 
         $this->select[0]->execute();

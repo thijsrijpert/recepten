@@ -1,6 +1,8 @@
 <?php
 namespace model;
 require_once(dirname(__FILE__,1) . '/Model.php');
+require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
+
 class RecipeIngredient extends  \model\Model{
 
   private $recipe_id;
@@ -45,7 +47,7 @@ class RecipeIngredient extends  \model\Model{
         ];
       }else if($this->recipe_id == null){
           return [
-              'id' => $this->recipe_id,
+              'recipe_id' => $this->recipe_id,
           ];
       }else {
           return [
@@ -55,5 +57,3 @@ class RecipeIngredient extends  \model\Model{
   }
 
 }
-
- ?>

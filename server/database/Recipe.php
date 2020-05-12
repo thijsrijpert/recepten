@@ -6,8 +6,8 @@ require_once(dirname(__FILE__,2) . '/model/Recipe.php');
 class Recipe extends CRUD{
 
   function __construct(QueryBuilder $query = null){
-        $sql = "INSERT INTO Recipe (name, description, countrycode, username, mealtype, religion_id, time_of_day, is_approved, )
-        VALUES (:name , :description, :countrycode , :username , :mealtype_name , :religion_id , :time_of_day , :is_approved)";
+        $sql = "INSERT INTO Recipe (name, description, countrycode, username, mealtype_name, religion_id, time_of_day, isApproved )
+        VALUES (:name , :description, :countrycode , :username , :mealtype_name , :religion_id , :time_of_day , :isApproved)";
         $this->stmt = \database\Database::getConnection()->prepare($sql);
 
         parent::__construct($query);
@@ -16,7 +16,7 @@ class Recipe extends CRUD{
   function insert(\model\Model $model) : String{
     $name = $model->getName();
     $description = $model->getDescription();
-    $is_approved = $model->getIs_approved();
+    $isApproved = $model->getIs_approved();
     $countrycode = $model->getCountrycode();
     $username = $model->getUsername();
     $mealtype_name = $model->getMealtype_name();
@@ -24,7 +24,7 @@ class Recipe extends CRUD{
     $time_of_day = $model->getTime_of_day();
     $this->stmt->bindParam(':name', $name);
     $this->stmt->bindParam(':description', $description);
-    $this->stmt->bindParam(':is_approved', $is_approved);
+    $this->stmt->bindParam(':isApproved', $isApproved);
     $this->stmt->bindParam(':countrycode', $countrycode);
     $this->stmt->bindParam(':username', $username);
     $this->stmt->bindParam(':mealtype_name', $mealtype_name);
@@ -43,7 +43,7 @@ class Recipe extends CRUD{
         $this->select[0]->bindParam(':description', $model->getDescription());
       }
       if(null != $model->getIs_approved()){
-        $this->select[0]->bindParam(':is_approved', $model->getIs_approved());
+        $this->select[0]->bindParam(':isApproved', $model->getIs_approved());
       }
       if(null != $model->getCountry_code()){
         $this->select[0]->bindParam(':name', $model->getCountry_code());

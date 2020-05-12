@@ -18,12 +18,9 @@ class Ingredient extends Api{
 
   function insert() : void{
     try{
-      $this->model = new \model\Ingredient($_GET['name']);
-      $this->model = new \model\Ingredient($_GET['description']);
-      $this->model = new \model\Ingredient($_GET['is_approved']);
-      $this->model = new \model\Ingredient($_GET['username']);
-
-      $ingredientStatement = new database\Ingredient();
+      $this->model = new \model\Ingredient($_GET['name'], $_GET['description'], $_GET['is_approved'], $_GET['username']);
+      \var_dump($this->model);
+      $ingredientStatement = new \database\Ingredient();
       $code = $ingredientStatement->insert($this->model);
 
       $code = substr($code, 0, 2);
@@ -33,6 +30,8 @@ class Ingredient extends Api{
         parent::setHttpCode($e->getCode());
     }catch(exception\NullPointerException $e){
         header('HTTP/1.0 400 Bad Request');
+        \var_dump($e);
+        restore_error_handler();
     }
   }
 
@@ -78,7 +77,7 @@ class Ingredient extends Api{
   }
 
   function error_handler($errno, $errstr, $errfile, $errline){
-      if($errstr == 'Undefined index: name'){
+      if($errstr == 'Undefined index: name' || $errstr == 'Undefined index: description' || $errstr == 'Undefined index: is_approved' || $errstr == 'Undefined index: username'){
           throw new \exception\NullPointerException("Get value isn't passed");
       }else{
           restore_error_handler();

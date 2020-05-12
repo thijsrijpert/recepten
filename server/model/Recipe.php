@@ -2,23 +2,25 @@
 namespace model;
 
 require_once(dirname(__FILE__,1) . '/Model.php');
+require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
+
 class Recipe extends \model\Model{
   private $id;
   private $name;
   private $description;
-  private $is_approved;
+  private $isApproved;
   private $countrycode;
   private $username;
   private $mealtype_name;
   private $religion_id;
   private $time_of_day;
 
-  public function __construct(Int $id = null, String $name = null, String $description = null, int $is_approved = null, String $countrycode = null,
+  public function __construct(Int $id = null, String $name = null, String $description = null, int $isApproved = null, String $countrycode = null,
   String $username, String $mealtype_name = null, Int $religion_id = null, String $time_of_day = null){
     $this->id = $id;
     $this->name = $name;
     $this->description = $description;
-    $this->is_approved = $is_approved;
+    $this->isApproved = $isApproved;
     $this->countrycode = $countrycode;
     $this->username = $username;
     $this->mealtype_name = $mealtype_name;
@@ -61,14 +63,14 @@ class Recipe extends \model\Model{
   }
 
   public function getIs_approved() : int{
-      if($this->is_approved !== null){
-          return $this->is_approved;
+      if($this->isApproved !== null){
+          return $this->isApproved;
       }
-      throw new \exception\ModelNullException("The value is_approved is null");
+      throw new \exception\ModelNullException("The value isApproved is null");
   }
 
-  public function setIs_approved(int $is_approved) : void{
-    $this->is_approved = $is_approved;
+  public function setIs_approved(int $isApproved) : void{
+    $this->isApproved = $isApproved;
   }
 
 
@@ -128,7 +130,7 @@ class Recipe extends \model\Model{
   }
 
   public function getVariables(){
-      return [['id'], ['name'], ['description'], [' is_approved'], ['countrycode'], ['username'], ['mealtype_name'], ['religion_id'],
+      return [['id'], ['name'], ['description'], [' isApproved'], ['countrycode'], ['username'], ['mealtype_name'], ['religion_id'],
       ['time_of_day']];
   }
 
@@ -136,9 +138,10 @@ class Recipe extends \model\Model{
 
     $json_name = "'name' => $this->name,";
     $json_description = "'description' => $this->description,";
-    $json_is_aproved = "'is_approved' => $this->is_approved,";
+    $json_is_aproved = "'isApproved' => $this->isApproved,";
     $json_countrycode = "'countrycode' => $this->countrycode,";
     $json_username= "'username' => $this->username,";
+    $json_mealtype= "mealtype_name = > $this->mealtype_name,";
     $json_religion_id = "'religion_id' => $this->religion_id,";
     $json_time_of_day = "'time_of_day' => $this->time_of_day,";
 
@@ -152,8 +155,20 @@ class Recipe extends \model\Model{
       $final_string .= $json_description;
     }
 
+    if($json_is_aproved != null){
+      $final_string .= $json_is_aproved;
+    }
+
     if($json_countrycode != null){
       $final_string .= $json_countrycode;
+    }
+
+    if($json_username != null){
+      $final_string .= $json_username;
+    }
+
+    if($json_mealtype != null){
+      $final_string .= $json_mealtype;
     }
 
     if($json_religion_id != null){
@@ -164,11 +179,9 @@ class Recipe extends \model\Model{
       $final_string .= $json_time_of_day;
     }
 
-    if($json_is_aproved != null){
-      $final_string .= $json_is_aproved;
-    }
+
 
     $final_string .= "]";
-    return \json_encode($final_string);
+    return \json_decode($final_string);
   }
 }

@@ -19,28 +19,20 @@ class Recipe extends Api{
 
   function insert() : void{
       try{
-          $this->model = new model\Recipe($_GET['id']);
-          $this->model = new model\Recipe($_GET['name']);
-          $this->model = new model\Recipe($_GET['description']);
-          $this->model = new model\Recipe($_GET['is_approved']);
-          $this->model = new model\Recipe($_GET['countrycode']);
-          $this->model = new model\Recipe($_GET['username']);
-          $this->model = new model\Recipe($_GET['mealtype_name']);
-          $this->model = new model\Recipe($_GET['religion_id']);
-          $this->model = new model\Recipe($_GET['time_of_day']);
-
-
-          $recipeStatement = new database\Recipe();
+        echo 'insert';
+          $this->model = new \model\Recipe(null, $_GET['name'], $_GET['description'], $_GET['isApproved'], $_GET['countrycode'], $_GET['username'], $_GET['mealtype_name'], $_GET['religion_id'], $_GET['time_of_day'] );
+          echo 'insert';
+          $recipeStatement = new \database\Recipe();
           $code = $recipeStatement->insert($this->model);
-
           $code = substr($code, 0, 2);
 
           parent::setHttpCode($code);
 
       }catch(\PDOException $e){
           parent::setHttpCode($e->getCode());
-      }catch(exception\NullPointerException $e){
+      }catch(\exception\NullPointerException $e){
           header('HTTP/1.0 400 Bad Request');
+          \var_dump($e);
           restore_error_handler();
       }
   }
@@ -60,7 +52,7 @@ class Recipe extends Api{
                   $this->model->setName($value[2]);
               }else if($value[0] == 'description'){
                   $this->model->setDescription($value[2]);
-              }else if($value[0] == 'is_approved'){
+              }else if($value[0] == 'isApproved'){
                   $this->model->setIs_approved($value[2]);
               }else if($value[0] == 'countrycode'){
                   $this->model->setCountrycode($value[2]);
@@ -96,7 +88,8 @@ class Recipe extends Api{
   }
 
   function error_handler($errno, $errstr, $errfile, $errline){
-      if($errstr == 'Undefined index: name'){
+      if($errstr == 'Undefined index: name' || $errstr == 'Undefined index: description' || $errstr == 'Undefined index: isApproved' || $errstr == 'Undefined index: countrycode'|| $errstr == 'Undefined index: username' || $errstr == 'Undefined index: mealtype_name'
+     || $errstr == 'Undefined index: religion_id'|| $errstr == 'Undefined index: time_of_day'){
           throw new \exception\NullPointerException("Get value isn't passed");
       }else{
           restore_error_handler();

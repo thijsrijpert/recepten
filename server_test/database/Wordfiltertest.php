@@ -15,9 +15,10 @@ final class WordfilterDatabaseTest extends TestCase
     protected $mock;
 
     public function setUp() : void{
+        var_dump("test");
         $this->mock = $this->createMock('database\QueryBuilder');
         $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Wordfilter"));
-        $this->wordfilter = new database\Wordfilter($this->mock);
+        $this->wordfilter = new \database\Wordfilter($this->mock);
     }
 
     public function testInsert(): void{
@@ -27,11 +28,11 @@ final class WordfilterDatabaseTest extends TestCase
         );
         $this->assertEquals(
             '23000',
-            $this->wordfilter->insert(new \model\Wordfilter('lul',0,0))
+            $this->wordfilter->insert(new \model\Wordfilter('lul'))
         );
         $this->assertEquals(
             '22001',
-            $this->wordfilter->insert(new \model\Wordfilter('lulloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo'))
+            $this->wordfilter->insert(new \model\Wordfilter('lulloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo'))
         );
     }
 }
