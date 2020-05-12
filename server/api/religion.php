@@ -37,7 +37,7 @@ class Religion extends Api implements CRInterface{
         }
     }
 
-    public function select(){
+    public function select() : void{
       try{
           $this->model = new \model\Religion();
           $queryBuilder = parent::buildQuery($this->model);
