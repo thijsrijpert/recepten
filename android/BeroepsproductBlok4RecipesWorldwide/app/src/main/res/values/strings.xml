@@ -3,6 +3,7 @@
 
     <!-- General -->
     <string name="character_count">0 / 65.535</string>
+    <string name="saveChanges">Wijzigingen opslaan</string>
 
     <!-- Strings for home tabs -->
     <string name="tabs_home_register">Registreren</string>
@@ -17,9 +18,31 @@
     <string name="tabs_administrator_manageIngredients">Ingrediënten</string>
     <string name="tabs_administrator_other">Overig</string>
 
+    <!-- Strings for Manage Recipes -->
+    <string name="manageRecipes_title">Recepten Beheren</string>
+    <string name="manageRecipes_subtext">Op deze pagina kunt u recepten goed- of afkeuren. Ook kunt u voor het goedkeuren wijzigingen doorvoeren (zoals spelfouten uit de naam halen), zodat het recept later niet nogmaals bewerkt hoeft te worden.</string>
+    <string name="manageRecipes_buttonApproveRecipe">Recept goedkeuren</string>
+    <string name="manageRecipes_buttonDenyRecipe">Recept afkeuren</string>
+    <string name="manageRecipes_unapprovedRecipes">Recepten te beheren</string>
+    <string name="manageRecipes_addedBy">Toegevoegd door</string>
+    <string name="manageRecipes_addedByHint">vul gebruikersnaam in</string>
+
+    <string name="manageRecipes_titleApproveOrDenyRecipes">Recepten goed- of afkeuren</string>
+    <string name="manageRecipes_titleManageRecipes">Recepten beheren</string>
+
+    <!-- Strings for Manage Ingredients -->
+    <string name="manageIngredients_title">Ingrediënten Beheren</string>
+    <string name="manageIngredients_subtext">Op deze pagina kunt u ingrediënten goed- of afkeuren. Ook kunt u voor het goedkeuren wijzigingen doorvoeren (zoals spelfouten uit de naam halen), zodat het ingrediënt later niet nogmaals bewerkt hoeft te worden.</string>
+    <string name="manageIngredients_buttonApproveIngredient">Ingrediënt goedkeuren</string>
+    <string name="manageIngredients_buttonDenyIngredient">Ingrediënt afkeuren</string>
+    <string name="manageIngredients_unapprovedIngredients">Ingrediënten te beheren</string>
+
+    <string name="manageIngredients_titleApproveOrDenyIngredients">Ingrediënten goed- of afkeuren</string>
+    <string name="manageIngredients_titleManageIngredients">Ingrediënten beheren</string>
+
     <!-- Strings for AddRecipe -->
     <string name="addRecipe_title">Recept Toevoegen</string>
-    <string name="addRecipe_subtext">Op deze pagina kunt u een recept toevoegen. Deze moet bestaan uit:\n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Naam\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.)\n- Beschrijving (optioneel, maar wel sterk aangeraden)\n- Ingrediënten\n\nDe ingrediënten kunt u zelf toevoegen door op de "Nieuw ingrediënt toevoegen" knop te drukken onderaan de pagina. Zodra het recept is aangemeld, zal het worden bekeken door een administrator.</string>
+    <string name="addRecipe_subtext">Op deze pagina kunt u een recept toevoegen. Deze moet bestaan uit:\n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Naam\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.)\n- Beschrijving (optioneel, maar wel sterk   aangeraden)\n- Ingrediënten\n\nDe ingrediënten kunt u zelf toevoegen door op de "Nieuw ingrediënt toevoegen" knop te drukken onderaan de pagina. Zodra het recept is aangemeld, zal het worden bekeken door een administrator.</string>
     <string name="addRecipe_recipeType">Maaltijdsoort</string>
     <string name="addRecipe_recipeName">Receptnaam</string>
     <string name="addRecipe_recipeNameHint">vul recept naam in</string>
@@ -53,6 +76,23 @@
     <string name="addTijdvak_tijdvakNameHint">vul tijdvak naam in</string>
     <string name="addTijdvak_buttonApplyTijdvak">Tijdvak aanmelden</string>
 
+    <!-- Strings for EditTijdvak -->
+    <string name="editTijdvak_title">Tijdvak Wijzigen</string>
+    <string name="editTijdvak_subtext">Op deze pagina kunt u een tijdvak wijzigen door een bestaand tijdvak te selecteren uit de dropdown</string>
+    <string name="editTijdvak_editableTimeOfDays">Tijdvakken te beheren</string>
+
+    <!-- Strings for AddMealtype -->
+    <string name="addMealtype_title">Maaltijdsoort Toevoegen</string>
+    <string name="addMealtype_subtext">Op deze pagina kunt u een maaltijdsoort toevoegen</string>
+    <string name="addMealtype_mealtypeName">Maaltijdsoort naam</string>
+    <string name="addMealtype_mealtypeNameHint">vul maaltijdsoort naam in</string>
+    <string name="addMealtype_buttonApplyMealtype">Maaltijdsoort aanmelden</string>
+
+    <!-- Strings for EditMealtype -->
+    <string name="editMealtype_title">Maaltijdsoort Wijzigen</string>
+    <string name="editMealtype_subtext">Op deze pagina kunt u een maaltijdsoort wijzigen door een bestaande maaltijdsoort te selecteren uit de dropdown</string>
+    <string name="editMealtype_editableMealtypes">Maaltijdsoorten te beheren</string>
+
     <!-- Strings for AddCountry -->
     <string name="addCountry_title">Land Toevoegen</string>
     <string name="addCountry_subtext">Op deze pagina kunt u een land toevoegen</string>
@@ -63,12 +103,35 @@
     <string name="addCountry_buttonApplyCountry">Land aanmelden</string>
     <string name="addCountry_countryDescriptionHint">vul hier de omschrijving voor het land in</string>
 
+    <!-- Strings for EditCountry -->
+    <string name="editCountry_title">Land Wijzigen</string>
+    <string name="editCountry_subtext">Op deze pagina kunt u een land wijzigen door het te selecteren uit de dropdown</string>
+    <string name="editCountry_editableCountries">Landen te beheren</string>
+
     <!-- Strings for AddReligie -->
     <string name="addReligie_title">Religie Toevoegen</string>
     <string name="addReligie_subtext">Op deze pagina kunt u een religie toevoegen</string>
     <string name="addReligie_religieName">religie naam</string>
     <string name="addReligie_religieNameHint">vul religie naam in</string>
     <string name="addReligie_buttonApplyReligie">Religie aanmelden</string>
+
+    <!-- Strings for Search -->
+    <string name="search_Search_Recipe_Title">Zoek een recept!</string>
+    <string name="search_Recipe_subtext">Op deze pagina kunt u recepten opzoeken. \nu kunt filteren op de volgende items: \n\n- Maaltijdsoort (vegetarisch, meat only etc.)\n- Land van herkomst\n- Religie (optioneel)\n- Geschikt voor dagdeel (ontbijt, lunch etc.).</string>
+    <string name="searchRecipe_buttonSearch">Zoek recept!</string>
+
+    <!-- General -->
+    <string name="addGeneralOptions_button_addTijdvak">Tijdvak toevoegen</string>
+    <string name="addGeneralOptions_button_editTijdvak">Tijdvak wijzigen</string>
+
+    <string name="addGeneralOptions_button_addReligion">Religie toevoegen</string>
+    <string name="addGeneralOptions_button_editReligion">Religie wijzigen</string>
+
+    <string name="addGeneralOptions_button_addCountry">Land toevoegen</string>
+    <string name="addGeneralOptions_button_editCountry">Land wijzigen</string>
+
+    <string name="addGeneralOptions_button_addMealtype">Maaltijdsoort toevoegen</string>
+    <string name="addGeneralOptions_button_editMealtype">Maaltijdsoort wijzigen</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

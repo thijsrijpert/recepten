@@ -3,44 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ingredient.Add">
+    android:layout_height="wrap_content"
+    tools:context=".admin.tijdvakken.Add">
 
     <ScrollView
-        android:id="@+id/addIngredient_scrollview"
+        android:id="@+id/addTijdvak_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/addIngredient_constraintLayout_scrollview"
+            android:id="@+id/addTijdvak_constraintLayout_scrollview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/addIngredient_linearLayout_textviews"
+                android:id="@+id/addTijdvak_linearLayout_textviews"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/colorGreenBackground"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/addIngredient_constraintLayout_scrollview">
+                app:layout_constraintTop_toTopOf="@id/addTijdvak_constraintLayout_scrollview">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/addIngredient_title"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/addTijdvak_title"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorText"
                     android:textSize="18sp"
@@ -52,7 +52,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="@string/addIngredient_subtext"
+                    android:text="@string/addTijdvak_subtext"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorText"
                     android:textSize="15sp" />
@@ -60,14 +60,14 @@
 
             <!-- Ingredient Name -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/addIngredient_constraintLayout_ingredientName"
+                android:id="@+id/addTijdvak_constraintLayout_tijdvakName"
                 android:layout_width="180dp"
                 android:layout_height="38dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorGreenBackground"
                 android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="@id/addIngredient_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addIngredient_linearLayout_textviews">
+                app:layout_constraintStart_toStartOf="@id/addTijdvak_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/addTijdvak_linearLayout_textviews">
 
                 <TextView
                     android:layout_width="150dp"
@@ -75,60 +75,30 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="end"
-                    android:text="@string/addIngredient_ingredientName"
+                    android:text="@string/addTijdvak_tijdvakName"
                     android:textColor="@color/colorText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
-                android:id="@+id/addIngredient_edittext_ingredientName"
+                android:id="@+id/addTijdvak_edittext_tijdvakName"
                 android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:background="@drawable/inputfields"
                 android:ems="10"
-                android:hint="@string/addIngredient_ingredientNameHint"
+                android:hint="@string/addTijdvak_tijdvakNameHint"
                 android:inputType="textPersonName"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/addIngredient_constraintLayout_ingredientName"
-                app:layout_constraintEnd_toEndOf="@id/addIngredient_linearLayout_textviews"
-                app:layout_constraintStart_toEndOf="@id/addIngredient_constraintLayout_ingredientName" />
-
-            <!-- Ingredient description -->
-            <EditText
-                android:id="@+id/addIngredient_edittext_ingredientDescription"
-                android:layout_width="0dp"
-                android:layout_height="76dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/inputfields"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/addIngredient_ingredientDescriptionHint"
-                android:inputType="textMultiLine"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@id/addIngredient_linearLayout_textviews"
-                app:layout_constraintStart_toStartOf="@id/addIngredient_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addIngredient_constraintLayout_ingredientName" />
-
-            <TextView
-                android:id="@+id/addIngredient_textview_ingredientDescriptionCharacterCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/character_count"
-                android:textColor="@color/colorText"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@id/addIngredient_edittext_ingredientDescription"
-                app:layout_constraintTop_toBottomOf="@id/addIngredient_edittext_ingredientDescription" />
+                app:layout_constraintBottom_toBottomOf="@id/addTijdvak_constraintLayout_tijdvakName"
+                app:layout_constraintEnd_toEndOf="@id/addTijdvak_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/addTijdvak_constraintLayout_tijdvakName" />
 
             <!-- Ingredient aanmelden -->
             <Button
-                android:id="@+id/addIngredient_btn_applyIngredient"
+                android:id="@+id/addTijdvak_btn_applyTijdvak"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
@@ -138,12 +108,12 @@
                 android:gravity="center|start"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="@string/addIngredient_buttonApplyIngredient"
+                android:text="@string/addTijdvak_buttonApplyTijdvak"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/addIngredient_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addIngredient_edittext_ingredientDescription" />
+                app:layout_constraintEnd_toEndOf="@id/addTijdvak_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/addTijdvak_edittext_tijdvakName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

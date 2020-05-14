@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.recipe.Manage">
+
+    <ScrollView
+        android:id="@+id/manageIngredients_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/manageIngredients_constraintLayout_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <!-- Textviews (title and subtext) -->
+            <LinearLayout
+                android:id="@+id/manageIngredients_linearLayout_textviews"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/manageIngredients_constraintLayout_scrollview">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/manageIngredients_title"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/manageIngredients_subtext"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorText"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <!-- PART A: APPROVE OR DENY INGREDIENTS -->
+            <!-- Divider between the intro text and the 'approve or deny ingredients' section -->
+            <View
+                android:id="@+id/manageIngredients_A_view_divider1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorBorder"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_linearLayout_textviews"/>
+
+            <!-- Title for approving or denying ingredients -->
+            <TextView
+                android:id="@+id/manageIngredients_A_textview_approveOrDenyIngredientsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/manageIngredients_titleApproveOrDenyIngredients"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorText"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_A_view_divider1"/>
+
+            <!-- Ingredients not yet approved -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageIngredients_A_constraintLayout_unapprovedIngredients"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_A_textview_approveOrDenyIngredientsTitle">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:textSize="13sp"
+                    android:text="@string/manageIngredients_unapprovedIngredients"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/manageIngredients_A_spinner_unapprovedIngredients"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="@id/manageIngredients_A_constraintLayout_unapprovedIngredients"
+                app:layout_constraintEnd_toEndOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageIngredients_A_constraintLayout_unapprovedIngredients" />
+
+            <!-- Added by User -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageIngredients_A_constraintLayout_addedByUser"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_A_constraintLayout_unapprovedIngredients">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/manageRecipes_addedBy"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/manageRecipes_A_edittext_addedByUser"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/manageRecipes_addedByHint"
+                android:inputType="textPersonName"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/manageIngredients_A_constraintLayout_addedByUser"
+                app:layout_constraintEnd_toEndOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageIngredients_A_constraintLayout_addedByUser" />
+
+            <!-- Ingredient Name -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageIngredients_A_constraintLayout_ingredientName"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_A_constraintLayout_addedByUser">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/addIngredient_ingredientName"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/manageIngredients_A_edittext_ingredientName"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:ems="10"
+                android:hint="@string/addIngredient_ingredientNameHint"
+                android:inputType="textPersonName"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/manageIngredients_A_constraintLayout_ingredientName"
+                app:layout_constraintEnd_toEndOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageIngredients_A_constraintLayout_ingredientName" />
+
+            <!-- Ingredient description -->
+            <EditText
+                android:id="@+id/manageIngredients_A_edittext_description"
+                android:layout_width="0dp"
+                android:layout_height="76dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/inputfields"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/addIngredient_ingredientDescriptionHint"
+                android:inputType="textMultiLine"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintStart_toStartOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_A_constraintLayout_ingredientName" />
+
+            <TextView
+                android:id="@+id/manageIngredients_A_textview_ingredientDescriptionCharacterCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/character_count"
+                android:textColor="@color/colorText"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/manageIngredients_A_edittext_description"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_A_edittext_description" />
+
+            <!-- Buttons to apply or deny an ingredient -->
+            <Button
+                android:id="@+id/manageIngredients_A_button_approveIngredient"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="160dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/manageIngredients_buttonApproveIngredient"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/colorText"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_A_textview_ingredientDescriptionCharacterCount" />
+
+            <Button
+                android:id="@+id/manageIngredients_button_denyIngredient"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="160dp"
+                android:layout_height="38dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/manageIngredients_buttonDenyIngredient"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/colorText"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toStartOf="@id/manageIngredients_A_button_approveIngredient"
+                app:layout_constraintTop_toTopOf="@id/manageIngredients_A_button_approveIngredient" />
+
+            <!-- PART B: MANAGE INGREDIENTS -->
+            <!-- Divider between the 'approve or deny ingredients' section and the 'manage ingredients' section -->
+            <View
+                android:id="@+id/manageIngredients_B_view_divider2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorBorder"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_A_button_approveIngredient"/>
+
+            <!-- Title for managing ingredients -->
+            <TextView
+                android:id="@+id/manageIngredients_B_textview_manageIngredientsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/manageIngredients_titleManageIngredients"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorText"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_B_view_divider2"/>
+
+            <!-- Approved Ingredients -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageIngredients_B_constraintLayout_approvedIngredients"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_B_textview_manageIngredientsTitle">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:textSize="13sp"
+                    android:text="@string/manageIngredients_unapprovedIngredients"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/manageIngredients_B_spinner_approvedIngredients"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="@id/manageIngredients_B_constraintLayout_approvedIngredients"
+                app:layout_constraintEnd_toEndOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageIngredients_B_constraintLayout_approvedIngredients" />
+
+            <!-- Added by User -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageIngredients_B_constraintLayout_addedByUser"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_B_constraintLayout_approvedIngredients">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/manageRecipes_addedBy"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/manageRecipes_B_edittext_addedByUser"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:ems="10"
+                android:enabled="false"
+                android:hint="@string/manageRecipes_addedByHint"
+                android:inputType="textPersonName"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/manageIngredients_B_constraintLayout_addedByUser"
+                app:layout_constraintEnd_toEndOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageIngredients_B_constraintLayout_addedByUser" />
+
+            <!-- Ingredient Name -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageIngredients_B_constraintLayout_ingredientName"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_B_constraintLayout_addedByUser">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/addIngredient_ingredientName"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/manageIngredients_B_edittext_ingredientName"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:ems="10"
+                android:hint="@string/addIngredient_ingredientNameHint"
+                android:inputType="textPersonName"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/manageIngredients_B_constraintLayout_ingredientName"
+                app:layout_constraintEnd_toEndOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageIngredients_B_constraintLayout_ingredientName" />
+
+            <!-- Ingredient description -->
+            <EditText
+                android:id="@+id/manageIngredients_B_edittext_description"
+                android:layout_width="0dp"
+                android:layout_height="76dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/inputfields"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/addIngredient_ingredientDescriptionHint"
+                android:inputType="textMultiLine"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintStart_toStartOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_B_edittext_ingredientName" />
+
+            <TextView
+                android:id="@+id/manageIngredients_B_textview_ingredientDescriptionCharacterCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/character_count"
+                android:textColor="@color/colorText"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/manageIngredients_B_edittext_description"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_B_edittext_description" />
+
+            <!-- Button to save changes made to an ingredient -->
+            <Button
+                android:id="@+id/manageIngredients_B_button_approveIngredientChanges"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="160dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/saveChanges"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/colorText"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="@id/manageIngredients_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageIngredients_B_textview_ingredientDescriptionCharacterCount" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
