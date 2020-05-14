@@ -1,6 +1,8 @@
 <?php
 namespace api;
-
+if(!defined('TESING')){
+    define('TESTING', false);
+}
 require_once(dirname(__FILE__, 2) . '/database/Query.php');
 require_once(dirname(__FILE__, 2) . '/database/QueryBuilder.php');
 require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
@@ -86,13 +88,13 @@ require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
       }
 
       public function rebuildArguments(String $get_parameter) : array{
-          $parameterFull = urlencode($get_parameter);
-          $parameterFull = str_replace("+", "%2B", $parameterFull);
-          $parameterFull = urldecode($parameterFull);
-          $parameters = \explode('*', $parameterFull);
+          // $parameterFull = urlencode($get_parameter);
+          // $parameterFull = str_replace("+", "%2B", $parameterFull);
+          // $parameterFull = urldecode($parameterFull);
+          $parameters = \explode('.', $get_parameter);
 
           foreach($parameters as $key => $value){
-              $parameters[$key] = \explode('+', $value, 3);
+              $parameters[$key] = \explode('-', $value, 3);
           }
 
           return $parameters;

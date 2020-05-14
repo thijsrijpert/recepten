@@ -1,23 +1,27 @@
 <?php
 namespace api;
-
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(E_ALL | E_STRICT);
 require_once(dirname(__FILE__,2) . '/model/Review.php');
+require_once(dirname(__FILE__,2) . '/model/User.php');
+require_once(dirname(__FILE__,2) . '/model/Recipe.php');
 require_once(dirname(__FILE__,2) . '/database/Review.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
+require_once(dirname(__FILE__,1) . '/CRInterface.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
 
-class Review extends Api {
+class Review extends Api implements CRInterface{
     public function __construct(){
         parent::__construct();
         set_error_handler(array($this, 'error_handler'));
     }
 
-    public function insert(){
+    public function insert() : void{
       try{
-          $this->model = new \model\Review($_GET['title'], $_GET['rating'], $_GET['username'], $_GET['recipeId'], $_GET['description']);
+          $this->model = new \model\Review($_GET['title'], $_GET['rating'], new \model\User($_GET['username']), new \model\Recipe($_GET['recipeId']), $_GET['description']);
 
-          $religieStatement = new \database\Review();
-          $code = $religieStatement->insert($this->model);
+          $code = (new \database\Review())->insert($this->model);
 
           $code = substr($code, 0, 2);
 
@@ -31,6 +35,66 @@ class Review extends Api {
       }
     }
 
+    public function select() : void{
+        try{
+            $this->model = new \model\Review();
+            $queryBuilder = parent::buildQuery($this->model);
+
+            //I don't know how to get the decoded arguments to the database, so I will call rebuildArguments again
+            if(null != $_GET['where']){
+                $arguments = parent::rebuildArguments($_GET['where']);
+                $approvedArguments = $this->model->getVariables();
+                foreach($arguments as $value){
+                    switch($value[0]){
+                        case 'id':
+                            $this->model->setId($value[2]);
+                            break;
+                        case 'title':
+                            $this->model->setTitle($value[2]);
+                            break;
+                        case 'description':
+                            $this->model->setDescription($value[2]);
+                            break;
+                        case 'rating':
+                            $this->model->setRating($value[2]);
+                            break;
+                        case 'recipe_id':
+                            $this->model->setRecipeId(new Recipe($value[2]));
+                            break;
+                        case 'username':
+                            $this->model->setUsername(new User($value[2]));
+                            break;
+                        case 'review_date':
+                            if(\count_chars($value[2]) == 8){
+                                $date = \implode('-', \str_split('-', $value[2], 2));
+                                $dateTime = DataTime::createFromFormat('d-m-Y', $date);
+                                $this->model->setReviewDate($dateTime);
+                            }else{
+                                throw new InvalidRequestException("The inserted datetime is not of a valid format");
+                            }
+                        break;
+                    }
+                }
+            }
+
+            $codeAndResult = (new \database\Review($queryBuilder))->select($this->model);
+
+            if($codeAndResult[0][1] == '00'){
+                header('Content-Type: application/json');
+                echo json_encode($codeAndResult[1][0]);
+            }
+
+            $code = substr($codeAndResult[0][1], 0, 2);
+
+            parent::setHttpCode($code);
+          }catch(\PDOException $e){
+              parent::setHttpCode($e->getCode());
+          }catch(\exception\NullPointerException $e){
+              header('HTTP/1.0 400 Bad Request');
+              restore_error_handler();
+          }
+    }
+
     function error_handler($errno, $errstr, $errfile, $errline){
         $errstr = substr($errstr, 17);
         if($errstr == 'title' || $errstr == 'rating' || $errstr == 'username' || $errstr == 'receptId' ){
@@ -42,5 +106,11 @@ class Review extends Api {
 }
 
 $review = new Review();
-$review->insert();
+if(isset($_GET['title'])){
+    $review->insert();
+}else{
+    if(!TESTING){
+        $review->select();
+    }
+}
  ?>

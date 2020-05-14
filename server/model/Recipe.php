@@ -5,6 +5,7 @@ require_once(dirname(__FILE__,1) . '/Model.php');
 require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 
 class Recipe extends \model\Model{
+
   private $id;
   private $name;
   private $description;
@@ -121,7 +122,6 @@ class Recipe extends \model\Model{
   public function setTime_of_day() : ?String{
     return $this->time_of_day;
   }
-
   public function getTime_of_day() : String{
       if($this->time_of_day !== null){
           return $this->time_of_day;

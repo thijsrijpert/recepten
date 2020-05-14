@@ -13,7 +13,7 @@ final class ApiTest extends TestCase
     }
 
     public function testRebuildArguments(){
-        $input = 'name*id';
+        $input = 'name.id';
         $output = [['name'], ['id']];
 
         $this->assertEquals(
@@ -23,7 +23,7 @@ final class ApiTest extends TestCase
     }
 
     public function testRebuildArgumentsWhere(){
-        $input = 'name+eq+value1*id+eq+value2';
+        $input = 'name-eq-value1.id-eq-value2';
         $output = [['name', 'eq', 'value1'], ['id', 'eq', 'value2']];
 
         $this->assertEquals(
@@ -33,7 +33,7 @@ final class ApiTest extends TestCase
     }
 
     public function testRebuildArgumentsOrder(){
-        $input = 'name+desc*id+asc';
+        $input = 'name-desc.id-asc';
         $output = [['name', 'desc'], ['id', 'asc']];
 
         $this->assertEquals(
