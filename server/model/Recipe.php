@@ -1,6 +1,6 @@
 <?php
 namespace model;
-class RecipeModel{
+class Recipe{
   private $id;
   private $name;
   private $description;
@@ -11,8 +11,8 @@ class RecipeModel{
   private $time_of_day;
   private $is_approved;
 
-  public function __construct(Int $id, String $name, String $description, Int $landcode,
-  String $username, String $mealtype_name, Int $religion_id, String $time_of_day, int $is_approved   = null){
+  public function __construct(Int $id = null, String $name = null, String $description = null, Int $landcode = null,
+  String $username = null, String $mealtype_name = null, Int $religion_id = null, String $time_of_day = null, int $is_approved   = null){
     $this->id = $id;
     $this->name = $name;
     $this->description = $description;
@@ -84,7 +84,7 @@ class RecipeModel{
     return $this->time_of_day;
   }
 
-  public function setTime_of_day(String $time_of_day){
+  public function getTime_of_day(String $time_of_day){
     $this->time_of_day = $time_of_day;
   }
 
@@ -94,6 +94,45 @@ class RecipeModel{
 
   public function setIs_approved(int $is_approved) : void{
     $this->is_approved = $is_approved;
+  }
+
+  public function jsonSerialize(){
+
+    $json_name = "'id' => $this->id,";
+    $json_description = "'description' => $this->description,";
+    $json_countrycode = "'countrycode' => $this->countrycode,";
+    $json_username= "'username' => $this->username,";
+    $json_religion_id = "'religion_id' => $this->religion_id,";
+    $json_time_of_day = "'time_of_day' => $this->time_of_day,";
+    $json_is_aproved = "'is_approved' => $this->is_approved,";
+    $final_string = "[";
+
+    if($json_name != null){
+      $final_string .= $json_name;
+    }
+
+    if($json_description != null){
+      $final_string .= $json_description;
+    }
+
+    if($json_countrycode != null){
+      $final_string .= $json_countrycode;
+    }
+
+    if($json_religion_id != null){
+      $final_string .= $json_religion_id;
+    }
+
+    if($json_time_of_day != null){
+      $final_string .= $json_time_of_day;
+    }
+
+    if($json_is_aproved != null){
+      $final_string .= $json_is_aproved;
+    }
+
+    $final_string .= "]";
+    return \html_entity_decode($final_string);
   }
 
 }
