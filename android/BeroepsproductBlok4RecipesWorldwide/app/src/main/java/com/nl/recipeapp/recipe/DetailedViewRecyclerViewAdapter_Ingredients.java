@@ -3,7 +3,6 @@ package com.nl.recipeapp.recipe;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,25 +13,25 @@ import com.nl.recipeapp.model.Ingredient;
 
 import java.util.ArrayList;
 
-public class DetailedViewRecyclerViewAdapter extends RecyclerView.Adapter<com.nl.recipeapp.recipe.DetailedViewRecyclerViewAdapter.ViewHolder> {
+public class DetailedViewRecyclerViewAdapter_Ingredients extends RecyclerView.Adapter<DetailedViewRecyclerViewAdapter_Ingredients.ViewHolder> {
     private View view;
     private ArrayList<Ingredient> ingredients_recyclerview;
 
-    public DetailedViewRecyclerViewAdapter(ArrayList<Ingredient> ingredients_recyclerview) {
+    public DetailedViewRecyclerViewAdapter_Ingredients(ArrayList<Ingredient> ingredients_recyclerview) {
         this.ingredients_recyclerview = ingredients_recyclerview;
     }
 
     @NonNull
     @Override
-    public com.nl.recipeapp.recipe.DetailedViewRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DetailedViewRecyclerViewAdapter_Ingredients.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_listitem_ingredient, parent, false);
-        com.nl.recipeapp.recipe.DetailedViewRecyclerViewAdapter.ViewHolder viewHolder = new com.nl.recipeapp.recipe.DetailedViewRecyclerViewAdapter.ViewHolder(view);
+        DetailedViewRecyclerViewAdapter_Ingredients.ViewHolder viewHolder = new DetailedViewRecyclerViewAdapter_Ingredients.ViewHolder(view);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.nl.recipeapp.recipe.DetailedViewRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DetailedViewRecyclerViewAdapter_Ingredients.ViewHolder holder, int position) {
         holder.textView.setText(ingredients_recyclerview.get(position).getName());
     }
 

@@ -138,9 +138,19 @@
     <string name="searchRecipe_buttonSearch">Zoek recept!</string>
 
     <!-- Strings for DetailedView (package Recipe) -->
-    <string name="detailedviewRecipe_title">Receptnaam</string>
-    <string name="detailedviewRecipe_description">Omschrijving</string>
-    <string name="detailedviewRecipe_ingredients">Ingrediënten</string>
+    <string name="recipeDetailedView_title">Receptnaam</string>
+    <string name="recipeDetailedView_description">Omschrijving</string>
+    <string name="recipeDetailedView_ingredients">Ingrediënten</string>
+    <string name="recipeDetailedView_reviews">Reviews</string>
+    <string name="recipeDetailedView_button_AddReview">Review schrijven</string>
+
+    <!-- String for Add (package review) -->
+    <string name="addReview_title">Review Toevoegen</string>
+    <string name="addReview_reviewTitle">Titel</string>
+    <string name="addReview_rating">Waardering</string>
+    <string name="addReview_description">Omschrijving</string>
+    <string name="addReview_descriptionHint">vul hier de omschrijving voor de review in</string>
+    <string name="addReview_button_addReview">Review plaatsen</string>
 
     <!-- General -->
     <string name="addGeneralOptions_button_addTijdvak">Tijdvak toevoegen</string>

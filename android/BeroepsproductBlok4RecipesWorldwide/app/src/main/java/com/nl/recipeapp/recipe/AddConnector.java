@@ -17,6 +17,7 @@ import com.nl.recipeapp.model.Country;
 import com.nl.recipeapp.model.Ingredient;
 import com.nl.recipeapp.model.Recipe;
 import com.nl.recipeapp.model.Religion;
+import com.nl.recipeapp.model.Review;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -181,7 +182,7 @@ public class AddConnector {
         // tablename.php?select=kolomnaam --> selecteert alles uit een specifieke kolom (kolomnaam)
         // tablename.php?select=kolomnaam&where=kolomnaam-eq-waardenaam --> selecteert alles uit een specifieke kolom, waar de waarde uit de kolom gelijk is aan de waardenaam
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/api/religion.php", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/religion.php", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 //                System.out.println("Response: " + response.toString());
@@ -205,23 +206,13 @@ public class AddConnector {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.println("AddConnector (recipe): Religies konden niet worden opgehaald uit de database.");
+
 //                System.out.println("Error: " + error.networkResponse.headers.toString());
             }
         });
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request);
-
-        // Fill the ArrayList with the religions
-        Religion religion1 = new Religion("1", "Christendom");
-        Religion religion2 = new Religion("2", "Islam");
-        Religion religion3 = new Religion("3", "Hindu");
-        Religion religion4 = new Religion("4", "Whatever Religion");
-
-        religions.add(religion1);
-        religions.add(religion2);
-        religions.add(religion3);
-        religions.add(religion4);
 
         return religions;
     }
@@ -250,11 +241,6 @@ public class AddConnector {
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
 
         ArrayList<String> dayparts = new ArrayList<>();
-
-        // Fill the ArrayList with the dayparts
-        dayparts.add("Ochtend");
-        dayparts.add("Middag");
-        dayparts.add("Avond");
 
         return dayparts;
     }
@@ -378,6 +364,52 @@ public class AddConnector {
         // Fill the ArrayList with the ingredients
 
         return ingredients;
+    }
+
+    /**
+     * Gets the Reviews belonging to a specific Recipe
+     * @return An ArrayList<Review> with all Reviews belonging to a specific Recipe
+     */
+    public ArrayList<Review> getReviewsForSpecificRecipe(String recipeId) {
+        // Request a JsonArray response from the provided URL.
+        final ArrayList<Review> reviews = new ArrayList<>();
+
+        // tablename.php --> selecteert alles uit de tabel
+        // tablename.php?select=kolomnaam --> selecteert alles uit een specifieke kolom (kolomnaam)
+        // tablename.php?select=kolomnaam&where=kolomnaam-eq-waardenaam --> selecteert alles uit een specifieke kolom, waar de waarde uit de kolom gelijk is aan de waardenaam
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/review.php?where=id-eq-" + recipeId, new JSONArray(), new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+//                System.out.println("Response: " + response.toString());
+                Gson gson = new Gson();
+
+                try {
+                    for (int c = 0; c < response.length(); c++) {
+                        JSONObject object = response.getJSONObject(c);
+                        Review review = gson.fromJson(object.toString(), Review.class);
+
+                        reviews.add(review);
+
+//                        System.out.println(religion.getId());
+//                        System.out.println(religion.getName());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("AddConnector (recipe): Religies konden niet worden opgehaald uit de database.");
+//                System.out.println("Error: " + error.networkResponse.headers.toString());
+            }
+        });
+
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request);
+
+        return reviews;
     }
 
     public void setView(View view) {

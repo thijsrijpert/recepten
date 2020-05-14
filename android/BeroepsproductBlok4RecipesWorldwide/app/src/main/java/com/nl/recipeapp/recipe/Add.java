@@ -212,6 +212,7 @@ public class Add extends Fragment {
         }
 
         arraylist_religions = addConnector.getReligions();
+        System.out.println(arraylist_religions.size());
         arraylist_religionNames.clear();
         arraylist_religionNames.add("Selecteer een religie");
         for (int c = 0; c < arraylist_religions.size(); c++) {
