@@ -101,7 +101,7 @@ $recipe = new Recipe();
 if(isset($_GET['name'])){
     $recipe->insert();
 }else{
-
+    $recipe->select();
 }
 
  ?>

@@ -85,9 +85,9 @@ class ReceptIngredient extends Api{
 
 $receptIngredient = new ReceptIngredient();
 if(isset($_GET['name'])){
-    $religion->insert();
+    $receptIngredient->insert();
 }else{
-
+    $receptIngredient->sekect();
 }
 
  ?>

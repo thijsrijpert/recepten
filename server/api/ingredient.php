@@ -89,6 +89,6 @@ $ingredient = new Ingredient();
 if(isset($_GET['name'])){
   $ingredient->insert();
 }else{
-
+  $ingredient->select();
 }
 ?>

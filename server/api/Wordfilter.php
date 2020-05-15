@@ -83,6 +83,6 @@ require_once(dirname(__FILE__,1) . '/Api.php');
     if(isset($_GET['word'])){
       $wordfilter->insert();
     }else{
-
+      $wordfilter->select();
     }
  ?>

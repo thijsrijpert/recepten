@@ -19,7 +19,7 @@ class Mealtype extends Api{
   function insert() {
       try{
           $this->model = new \model\Mealtype($_GET['name']);
-          
+
 
           $mealtypestatement = new \database\Mealtype();
           $code = $mealtypestatement->insert($this->model);
@@ -93,7 +93,7 @@ $mealtype = new Mealtype();
 if(isset($_GET['name'])){
   $mealtype->insert();
 }else{
-
+  $mealtype->select();
 }
 
  ?>

@@ -86,6 +86,6 @@ $country = new Country();
 if(isset($_GET['countrycode'])){
   $country->insert();
 }else{
-
+  $country->select();
 }
 ?>
