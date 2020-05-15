@@ -119,7 +119,7 @@ class Recipe extends \model\Model{
     $this->religion_id = $religion_id;
   }
 
-  public function setTime_of_day() : ?String{
+  public function setTime_of_day() : String{
     return $this->time_of_day;
   }
   public function getTime_of_day() : String{
