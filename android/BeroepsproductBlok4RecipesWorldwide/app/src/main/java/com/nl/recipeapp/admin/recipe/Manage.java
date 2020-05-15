@@ -26,8 +26,10 @@ import com.nl.recipeapp.GeneralMethods;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Country;
 import com.nl.recipeapp.model.Ingredient;
+import com.nl.recipeapp.model.Mealtype;
 import com.nl.recipeapp.model.Recipe;
 import com.nl.recipeapp.model.Religion;
+import com.nl.recipeapp.model.TimeOfDay;
 import com.nl.recipeapp.recipe.AddConnector;
 
 import java.util.ArrayList;
@@ -48,7 +50,8 @@ public class Manage extends Fragment {
     private ArrayList<Recipe> arraylist_unapprovedRecipes, arraylist_approvedRecipes;
     private ArrayList<Country> arraylist_countries;
     private ArrayList<Religion> arraylist_religions;
-    private ArrayList<String> arraylist_mealtypeNames, arraylist_timeOfDayNames, arraylist_countryNames, arraylist_religionNames;
+    private ArrayList<Mealtype> arraylist_mealtypes;
+    private ArrayList<TimeOfDay> arraylist_timeofday;
 
     // Class variables (A means these variables are for approving or denying a recipe)
     private EditText edittext_A_name, edittext_A_description, edittext_A_username;
@@ -59,7 +62,12 @@ public class Manage extends Fragment {
     private ManageRecyclerViewAdapterA recyclerview_A_ingredients_adapter;
     private ArrayList<String> arraylist_unapprovedRecipeNames;
     private ArrayList<Ingredient> arraylist_ingredientsBoundToRecipe_A;
-    private ArrayAdapter<String> arrayadapter_unapprovedRecipes, arrayadapter_A_country, arrayadapter_A_mealtype, arrayadapter_A_religion, arrayadapter_A_timeOfDay;
+    private ArrayAdapter<String> arrayadapter_unapprovedRecipes;
+
+    private ArrayAdapter<Religion> arrayadapter_A_religion;
+    private ArrayAdapter<Country> arrayadapter_A_country;
+    private ArrayAdapter<Mealtype> arrayadapter_A_mealtype;
+    private ArrayAdapter<TimeOfDay> arrayadapter_A_timeofday;
 
     // Class variables (B means these variables are for managing a recipe)
     private EditText edittext_B_name, edittext_B_description, edittext_B_username;
@@ -70,7 +78,12 @@ public class Manage extends Fragment {
     private ManageRecyclerViewAdapterB recyclerview_B_ingredients_adapter;
     private ArrayList<Ingredient> arraylist_ingredientsBoundToRecipe_B;
     private ArrayList<String> arraylist_approvedRecipeNames;
-    private ArrayAdapter<String> arrayadapter_approvedRecipes, arrayadapter_B_country, arrayadapter_B_mealtype, arrayadapter_B_religion, arrayadapter_B_timeOfDay;
+    private ArrayAdapter<String> arrayadapter_approvedRecipes;
+
+    private ArrayAdapter<Religion> arrayadapter_B_religion;
+    private ArrayAdapter<Country> arrayadapter_B_country;
+    private ArrayAdapter<Mealtype> arrayadapter_B_mealtype;
+    private ArrayAdapter<TimeOfDay> arrayadapter_B_timeofday;
 
     public Manage() {
 
@@ -92,10 +105,12 @@ public class Manage extends Fragment {
         arraylist_unapprovedRecipes = new ArrayList<>();
         arraylist_approvedRecipeNames = new ArrayList<>();
         arraylist_approvedRecipes = new ArrayList<>();
-        arraylist_countryNames = new ArrayList<>();
-        arraylist_religionNames = new ArrayList<>();
-        arraylist_mealtypeNames = new ArrayList<>();
-        arraylist_timeOfDayNames = new ArrayList<>();
+        arraylist_countries = new ArrayList<>();
+        arraylist_religions = new ArrayList<>();
+        arraylist_mealtypes = new ArrayList<>();
+        arraylist_timeofday = new ArrayList<>();
+
+        addConnectorRecipe.setManageRecipe(this);
 
         // Start the initialization methods for A: Approving or denying recipes
         arraylist_ingredientsBoundToRecipe_A = new ArrayList<>();
@@ -193,18 +208,40 @@ public class Manage extends Fragment {
                         edittext_A_description.setText(arraylist_unapprovedRecipes.get(c).getDescription());
 
                         // Initialize the Spinners
-                        String countryName = generalMethods.getCountryNameFromCode(arraylist_unapprovedRecipes.get(c).getCountryCode());
-                        int positionCountry = arrayadapter_A_country.getPosition(countryName);
+                        Country country = null;
+                        for (int i = 0; i < arraylist_countries.size(); i++) {
+                            if (arraylist_unapprovedRecipes.get(c).getCountryCode().equals(arraylist_countries.get(i).getCountryCode())) {
+                                country = arraylist_countries.get(i);
+                            }
+                        }
+                        int positionCountry = arrayadapter_A_country.getPosition(country);
                         spinner_A_country.setSelection(positionCountry);
 
-                        String religionName = generalMethods.getReligionNameFromId(arraylist_unapprovedRecipes.get(c).getReligionId());
-                        int positionReligion = arrayadapter_A_religion.getPosition(religionName);
+                        Religion religion = null;
+                        for (int i = 0; i < arraylist_religions.size(); i++) {
+                            if (arraylist_unapprovedRecipes.get(c).getReligionId().equals(arraylist_religions.get(i).getId())) {
+                                religion = arraylist_religions.get(i);
+                            }
+                        }
+                        int positionReligion = arrayadapter_A_religion.getPosition(religion);
                         spinner_A_religion.setSelection(positionReligion);
 
-                        int positionMealtype = arrayadapter_A_mealtype.getPosition(arraylist_unapprovedRecipes.get(c).getMealtypeName());
+                        Mealtype mealtype = null;
+                        for (int i = 0; i < arraylist_mealtypes.size(); i++) {
+                            if (arraylist_unapprovedRecipes.get(c).getMealtypeName().equals(arraylist_mealtypes.get(i).getName())) {
+                                mealtype = arraylist_mealtypes.get(i);
+                            }
+                        }
+                        int positionMealtype = arrayadapter_A_mealtype.getPosition(mealtype);
                         spinner_A_mealtype.setSelection(positionMealtype);
 
-                        int positionTimeOfDay = arrayadapter_A_timeOfDay.getPosition(arraylist_unapprovedRecipes.get(c).getTimeOfDay());
+                        TimeOfDay timeofday = null;
+                        for (int i = 0; i < arraylist_timeofday.size(); i++) {
+                            if (arraylist_unapprovedRecipes.get(c).getTimeOfDay().equals(arraylist_timeofday.get(i).getName())) {
+                                timeofday = arraylist_timeofday.get(i);
+                            }
+                        }
+                        int positionTimeOfDay = arrayadapter_A_timeofday.getPosition(timeofday);
                         spinner_A_timeOfDay.setSelection(positionTimeOfDay);
 
                         // Initialize the items on the RecyclerView and notify its adapter that the data has been changed
@@ -224,17 +261,17 @@ public class Manage extends Fragment {
         arrayadapter_unapprovedRecipes = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_unapprovedRecipeNames);
         spinner_A_unapprovedRecipes.setAdapter(arrayadapter_unapprovedRecipes);
 
-        arrayadapter_A_mealtype = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_mealtypeNames);
+        arrayadapter_A_mealtype = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_mealtypes);
         spinner_A_mealtype.setAdapter(arrayadapter_A_mealtype);
 
-        arrayadapter_A_religion = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_religionNames);
+        arrayadapter_A_religion = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_religions);
         spinner_A_religion.setAdapter(arrayadapter_A_religion);
 
-        arrayadapter_A_country = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_countryNames);
+        arrayadapter_A_country = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_countries);
         spinner_A_country.setAdapter(arrayadapter_A_country);
 
-        arrayadapter_A_timeOfDay = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_timeOfDayNames);
-        spinner_A_timeOfDay.setAdapter(arrayadapter_A_timeOfDay);
+        arrayadapter_A_timeofday = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_timeofday);
+        spinner_A_timeOfDay.setAdapter(arrayadapter_A_timeofday);
     }
 
     /**
@@ -423,18 +460,40 @@ public class Manage extends Fragment {
                         edittext_B_description.setText(arraylist_approvedRecipes.get(c).getDescription());
 
                         // Initialize the Spinners
-                        String countryName = generalMethods.getCountryNameFromCode(arraylist_approvedRecipes.get(c).getCountryCode());
-                        int positionCountry = arrayadapter_B_country.getPosition(countryName);
+                        Country country = null;
+                        for (int i = 0; i < arraylist_countries.size(); i++) {
+                            if (arraylist_unapprovedRecipes.get(c).getCountryCode().equals(arraylist_countries.get(i).getCountryCode())) {
+                                country = arraylist_countries.get(i);
+                            }
+                        }
+                        int positionCountry = arrayadapter_B_country.getPosition(country);
                         spinner_B_country.setSelection(positionCountry);
 
-                        String religionName = generalMethods.getReligionNameFromId(arraylist_approvedRecipes.get(c).getReligionId());
-                        int positionReligion = arrayadapter_B_religion.getPosition(religionName);
+                        Religion religion = null;
+                        for (int i = 0; i < arraylist_religions.size(); i++) {
+                            if (arraylist_unapprovedRecipes.get(c).getReligionId().equals(arraylist_religions.get(i).getId())) {
+                                religion = arraylist_religions.get(i);
+                            }
+                        }
+                        int positionReligion = arrayadapter_B_religion.getPosition(religion);
                         spinner_B_religion.setSelection(positionReligion);
 
-                        int positionMealtype = arrayadapter_B_mealtype.getPosition(arraylist_approvedRecipes.get(c).getMealtypeName());
+                        Mealtype mealtype = null;
+                        for (int i = 0; i < arraylist_mealtypes.size(); i++) {
+                            if (arraylist_unapprovedRecipes.get(c).getMealtypeName().equals(arraylist_mealtypes.get(i).getName())) {
+                                mealtype = arraylist_mealtypes.get(i);
+                            }
+                        }
+                        int positionMealtype = arrayadapter_B_mealtype.getPosition(mealtype);
                         spinner_B_mealtype.setSelection(positionMealtype);
 
-                        int positionTimeOfDay = arrayadapter_B_timeOfDay.getPosition(arraylist_approvedRecipes.get(c).getTimeOfDay());
+                        TimeOfDay timeofday = null;
+                        for (int i = 0; i < arraylist_timeofday.size(); i++) {
+                            if (arraylist_unapprovedRecipes.get(c).getTimeOfDay().equals(arraylist_timeofday.get(i).getName())) {
+                                timeofday = arraylist_timeofday.get(i);
+                            }
+                        }
+                        int positionTimeOfDay = arrayadapter_B_timeofday.getPosition(timeofday);
                         spinner_B_timeOfDay.setSelection(positionTimeOfDay);
 
                         // Initialize the items on the RecyclerView and notify its adapter that the data has been changed
@@ -454,17 +513,17 @@ public class Manage extends Fragment {
         arrayadapter_approvedRecipes = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_approvedRecipeNames);
         spinner_B_approvedRecipes.setAdapter(arrayadapter_approvedRecipes);
 
-        arrayadapter_B_mealtype = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_mealtypeNames);
+        arrayadapter_B_mealtype = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_mealtypes);
         spinner_B_mealtype.setAdapter(arrayadapter_B_mealtype);
 
-        arrayadapter_B_religion = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_religionNames);
+        arrayadapter_B_religion = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_religions);
         spinner_B_religion.setAdapter(arrayadapter_B_religion);
 
-        arrayadapter_B_country = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_countryNames);
+        arrayadapter_B_country = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_countries);
         spinner_B_country.setAdapter(arrayadapter_B_country);
 
-        arrayadapter_B_timeOfDay = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_timeOfDayNames);
-        spinner_B_timeOfDay.setAdapter(arrayadapter_B_timeOfDay);
+        arrayadapter_B_timeofday = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_timeofday);
+        spinner_B_timeOfDay.setAdapter(arrayadapter_B_timeofday);
     }
 
     /**
@@ -537,18 +596,6 @@ public class Manage extends Fragment {
      * Initializes the ArrayLists, used in the Buttons in parts A and B. This method is called once in the onCreate() and again every time the onStart() is called to refresh its contents
      */
     private void initializeArrayLists() {
-        // Mealtype
-        arraylist_mealtypeNames.clear();
-        arraylist_mealtypeNames = addConnectorRecipe.getMealTypes();
-        arrayadapter_A_mealtype.notifyDataSetChanged();
-        arrayadapter_B_mealtype.notifyDataSetChanged();
-
-        // Time Of Day
-        arraylist_timeOfDayNames.clear();
-        arraylist_timeOfDayNames = addConnectorRecipe.getDayparts();
-        arrayadapter_A_timeOfDay.notifyDataSetChanged();
-        arrayadapter_B_timeOfDay.notifyDataSetChanged();
-
         // Unapproved Recipes
         arraylist_unapprovedRecipeNames.clear();
         arraylist_unapprovedRecipes = connectorRecipes.getUnapprovedRecipes();
@@ -565,22 +612,61 @@ public class Manage extends Fragment {
         }
         arrayadapter_approvedRecipes.notifyDataSetChanged();
 
-        // Country
-        arraylist_countryNames.clear();
-        arraylist_countries = addConnectorRecipe.getCountries();
-        for (int c = 0; c < arraylist_countries.size(); c++) {
-            arraylist_countryNames.add(arraylist_countries.get(c).getName());
-        }
-        arrayadapter_A_country.notifyDataSetChanged();
-        arrayadapter_B_country.notifyDataSetChanged();
+        addConnectorRecipe.getTimeOfDay("ManageRecipe");
+        addConnectorRecipe.getMealTypes("ManageRecipe");
+        addConnectorRecipe.getCountries("ManageRecipe");
+        addConnectorRecipe.getReligions("ManageRecipe");
+    }
 
-        // Religion
-        arraylist_religionNames.clear();
-        arraylist_religions = addConnectorRecipe.getReligions();
-        for (int c = 0; c < arraylist_religions.size(); c++) {
-            arraylist_religionNames.add(arraylist_religions.get(c).getName());
-        }
-        arrayadapter_A_religion.notifyDataSetChanged();
-        arrayadapter_B_religion.notifyDataSetChanged();
+    // Religion
+    public ArrayAdapter<Religion> getArrayAdapter_A_religions() {
+        return arrayadapter_A_religion;
+    }
+
+    public ArrayAdapter<Religion> getArrayAdapter_B_religions() {
+        return arrayadapter_B_religion;
+    }
+
+    public ArrayList<Religion> getArrayList_religions() {
+        return arraylist_religions;
+    }
+
+    // Country
+    public ArrayAdapter<Country> getArrayAdapter_A_countries() {
+        return arrayadapter_A_country;
+    }
+
+    public ArrayAdapter<Country> getArrayAdapter_B_countries() {
+        return arrayadapter_B_country;
+    }
+
+    public ArrayList<Country> getArrayList_countries() {
+        return arraylist_countries;
+    }
+
+    // Mealtype
+    public ArrayAdapter<Mealtype> getArrayAdapter_A_mealtypes() {
+        return arrayadapter_A_mealtype;
+    }
+
+    public ArrayAdapter<Mealtype> getArrayAdapter_B_mealtypes() {
+        return arrayadapter_B_mealtype;
+    }
+
+    public ArrayList<Mealtype> getArrayList_mealtypes() {
+        return arraylist_mealtypes;
+    }
+
+    // TimeOfDay
+    public ArrayAdapter<TimeOfDay> getArrayAdapter_A_timeofday() {
+        return arrayadapter_A_timeofday;
+    }
+
+    public ArrayAdapter<TimeOfDay> getArrayAdapter_B_timeofday() {
+        return arrayadapter_B_timeofday;
+    }
+
+    public ArrayList<TimeOfDay> getArrayList_timeofday() {
+        return arraylist_timeofday;
     }
 }

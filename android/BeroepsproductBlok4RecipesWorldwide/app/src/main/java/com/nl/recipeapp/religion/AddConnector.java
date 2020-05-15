@@ -73,7 +73,7 @@ public class AddConnector {
         // tablename.php?select=kolomnaam --> selecteert alles uit een specifieke kolom (kolomnaam)
         // tablename.php?select=kolomnaam&where=kolomnaam-eq-waardenaam --> selecteert alles uit een specifieke kolom, waar de waarde uit de kolom gelijk is aan de waardenaam
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/api/religion.php", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/religion.php", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 //                System.out.println("Response: " + response.toString());

@@ -15,8 +15,9 @@ public class GeneralMethods {
 
     public GeneralMethods(Context context) {
         connector = new AddConnector(context);
-        religions = connector.getReligions();
-        countries = connector.getCountries();
+        connector.setGeneralMethods(this);
+        connector.getReligions("GeneralMethods");
+        connector.getCountries("GeneralMethods");
     }
 
     /**
@@ -109,5 +110,13 @@ public class GeneralMethods {
         }
 
         return code;
+    }
+
+    public ArrayList<Religion> getArrayList_Religions() {
+        return religions;
+    }
+
+    public ArrayList<Country> getArrayList_Countries() {
+        return countries;
     }
 }

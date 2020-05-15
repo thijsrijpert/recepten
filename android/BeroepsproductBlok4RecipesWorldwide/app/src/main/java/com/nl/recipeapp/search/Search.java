@@ -13,8 +13,10 @@ import android.widget.Spinner;
 import com.nl.recipeapp.GeneralMethods;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Country;
+import com.nl.recipeapp.model.Mealtype;
 import com.nl.recipeapp.model.Recipe;
 import com.nl.recipeapp.model.Religion;
+import com.nl.recipeapp.model.TimeOfDay;
 import com.nl.recipeapp.recipe.AddConnector;
 
 import java.util.ArrayList;
@@ -33,9 +35,17 @@ public class Search extends AppCompatActivity {
     private Connector connector_search;
 
     // Variables for the ArrayLists
-    ArrayList<String> arraylist_mealtypeNames, arraylist_daypartNames, arraylist_countryNames, arraylist_religionNames;
-    ArrayList<Country> arraylist_countries;
-    ArrayList<Religion> arraylist_religions;
+    private ArrayList<Religion> arraylist_religions;
+    private ArrayAdapter<Religion> arrayadapter_religion;
+
+    private ArrayList<Country> arraylist_countries;
+    private ArrayAdapter<Country> arrayadapter_country;
+
+    private ArrayList<Mealtype> arraylist_mealtypes;
+    private ArrayAdapter<Mealtype> arrayadapter_mealtype;
+
+    private ArrayList<TimeOfDay> arraylist_timeofday;
+    private ArrayAdapter<TimeOfDay> arrayadapter_timeofday;
 
     private GeneralMethods generalMethods;
 
@@ -46,16 +56,15 @@ public class Search extends AppCompatActivity {
 
         // Initialize the ArrayLists, used for initializing the RecyclerView and Spinners
         recipes = new ArrayList<>();
-        arraylist_mealtypeNames = new ArrayList<>();
-        arraylist_daypartNames = new ArrayList<>();
-        arraylist_countryNames = new ArrayList<>();
-        arraylist_religionNames = new ArrayList<>();
+        arraylist_mealtypes = new ArrayList<>();
+        arraylist_timeofday = new ArrayList<>();
         arraylist_countries = new ArrayList<>();
         arraylist_religions = new ArrayList<>();
 
         // Initialize the connectors, used for getting and sending data to the database
         connector_addRecipe = new AddConnector(this);
         connector_search = new Connector(this);
+        connector_addRecipe.setSearchRecipe(this);
 
         // Initialize the General Methods class, that's used for using similar methods
         generalMethods = new GeneralMethods(this);
@@ -86,17 +95,17 @@ public class Search extends AppCompatActivity {
         initializeArrayLists();
 
         // Initialize the Spinner Adapters
-        ArrayAdapter<String> arrayadapter_mealtype = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arraylist_mealtypeNames);
+        arrayadapter_mealtype = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arraylist_mealtypes);
         spinner_mealtype.setAdapter(arrayadapter_mealtype);
 
-        ArrayAdapter<String> arrayadapter_religion = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arraylist_religionNames);
+        arrayadapter_religion = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arraylist_religions);
         spinner_religion.setAdapter(arrayadapter_religion);
 
-        ArrayAdapter<String> arrayadapter_country = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arraylist_countryNames);
+        arrayadapter_country = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arraylist_countries);
         spinner_country.setAdapter(arrayadapter_country);
 
-        ArrayAdapter<String> arrayadapter_dayparts = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arraylist_daypartNames);
-        spinner_timeOfDay.setAdapter(arrayadapter_dayparts);
+        arrayadapter_timeofday = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arraylist_timeofday);
+        spinner_timeOfDay.setAdapter(arrayadapter_timeofday);
     }
 
     /**
@@ -146,28 +155,45 @@ public class Search extends AppCompatActivity {
      * Every time this method is called, the ArrayLists with names are cleared first to prevent the list from filling with the wrong (or duplicate) items
      */
     private void initializeArrayLists() {
-        ArrayList<String> arraylist_mealtypes = connector_addRecipe.getMealTypes();
-        arraylist_mealtypeNames.clear();
-        arraylist_mealtypeNames.add("Selecteer een maaltijdsoort");
-        arraylist_mealtypeNames.addAll(arraylist_mealtypes);
+        connector_addRecipe.getTimeOfDay("SearchRecipe");
+        connector_addRecipe.getMealTypes("SearchRecipe");
+        connector_addRecipe.getCountries("SearchRecipe");
+        connector_addRecipe.getReligions("SearchRecipe");
+    }
 
-        ArrayList<String> arraylist_dayparts = connector_addRecipe.getDayparts();
-        arraylist_daypartNames.clear();
-        arraylist_daypartNames.add("Selecteer een tijdvak");
-        arraylist_daypartNames.addAll(arraylist_dayparts);
+    // Religion
+    public ArrayList<Religion> getArrayList_religions() {
+        return arraylist_religions;
+    }
 
-        arraylist_countries = connector_addRecipe.getCountries();
-        arraylist_countryNames.clear();
-        arraylist_countryNames.add("Selecteer een land");
-        for (int c = 0; c < arraylist_countries.size(); c++) {
-            arraylist_countryNames.add(arraylist_countries.get(c).getName());
-        }
+    public ArrayAdapter<Religion> getArrayAdapter_religions() {
+        return arrayadapter_religion;
+    }
 
-        arraylist_religions = connector_addRecipe.getReligions();
-        arraylist_religionNames.clear();
-        arraylist_religionNames.add("Selecteer een religie");
-        for (int c = 0; c < arraylist_religions.size(); c++) {
-            arraylist_religionNames.add(arraylist_religions.get(c).getName());
-        }
+    // Country
+    public ArrayList<Country> getArrayList_countries() {
+        return arraylist_countries;
+    }
+
+    public ArrayAdapter<Country> getArrayAdapter_countries() {
+        return arrayadapter_country;
+    }
+
+    // Mealtype
+    public ArrayList<Mealtype> getArrayList_mealtypes() {
+        return arraylist_mealtypes;
+    }
+
+    public ArrayAdapter<Mealtype> getArrayAdapter_mealtypes() {
+        return arrayadapter_mealtype;
+    }
+
+    // TimeOfDay
+    public ArrayList<TimeOfDay> getArrayList_timeofday() {
+        return arraylist_timeofday;
+    }
+
+    public ArrayAdapter<TimeOfDay> getArrayAdapter_timeofday() {
+        return arrayadapter_timeofday;
     }
 }
