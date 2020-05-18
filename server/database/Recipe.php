@@ -36,30 +36,40 @@ class Recipe extends CRUD{
   }
 
   function select(\model\Model $model) : array{
-      if(null != $model->getName()){
+
+      try{
           $this->select[0]->bindParam(':name', $model->getName());
-      }
-      if(null != $model->getDescription()){
-        $this->select[0]->bindParam(':description', $model->getDescription());
-      }
-      if(null != $model->getIs_approved()){
-        $this->select[0]->bindParam(':isApproved', $model->getIs_approved());
-      }
-      if(null != $model->getCountry_code()){
-        $this->select[0]->bindParam(':name', $model->getCountry_code());
-      }
-      if(null != $model->getUsername()){
-        $this->select[0]->bindParam(':username', $model->getUsername());
-      }
-      if(null != $model->getMealtype_name()){
-        $this->select[0]->bindParam(':mealtype_name', $model->getMealtype_name());
-      }
-      if(null != $model->getReligion_id()){
-        $this->select[0]->bindParam(':religion_id', $model->getReligion_id());
-      }
-      if(null != $model->getTime_of_day()){
-        $this->select[0]->bindParam(':time_of_day', $model->getTime_of_day());
-      }
+      }catch(\exception\ModelNullException $e){}
+
+      try{
+          $this->select[0]->bindParam(':description', $model->getDescription());
+      }catch(\exception\ModelNullException $e){}
+
+      try{
+          $this->select[0]->bindParam(':isApproved', $model->getIs_approved());
+      }catch(\exception\ModelNullException $e){}
+
+      try{
+          $this->select[0]->bindParam(':name', $model->getCountry_code());
+      }catch(\exception\ModelNullException $e){}
+
+      try{
+          $this->select[0]->bindParam(':username', $model->getUsername());
+      }catch(\exception\ModelNullException $e){}
+
+      try{
+          $this->select[0]->bindParam(':mealtype_name', $model->getMealtype_name());
+      }catch(\exception\ModelNullException $e){}
+
+      try{
+          $this->select[0]->bindParam(':religion_id', $model->getReligion_id());
+      }catch(\exception\ModelNullException $e){}
+
+      try{
+          $this->select[0]->bindParam(':time_of_day', $model->getTime_of_day());
+      }catch(\exception\ModelNullException $e){}
+
+
 
 
       $this->select[0]->execute();

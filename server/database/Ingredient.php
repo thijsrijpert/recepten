@@ -29,18 +29,25 @@ class Ingredient extends CRUD{
   }
 
   function select(\model\Model $model) : array{
-    if(null != $model->getName()){
-      $this->select[0]->bindParam(':name', $model->getName());
-    }
-    if(null != $model->getDescription()){
-      $this->select[0]->bindParam(':description', $model->getDescription());
-    }
-    if(null != $model->getIs_approved()){
-      $this->select[0]->bindParam(':is_approved', $model->getIs_approved());
-    }
-    if(null != $model->getUsername()){
-      $this->select[0]->bindParam(':username', $model->getUsername());
-    }
+    try{
+        $this->select[0]->bindParam(':name', $model->getName());
+    }catch(\exception\ModelNullException $e){}
+
+    try{
+        $this->select[0]->bindParam(':description', $model->getDescription());
+    }catch(\exception\ModelNullException $e){}
+
+    try{
+        $this->select[0]->bindParam(':description', $model->getDescription());
+    }catch(\exception\ModelNullException $e){}
+
+    try{
+        $this->select[0]->bindParam(':is_approved', $model->getIs_approved());
+    }catch(\exception\ModelNullException $e){}
+
+    try{
+        $this->select[0]->bindParam(':username', $model->getUsername());
+    }catch(\exception\ModelNullException $e){}
 
     $this->select[0]->execute();
 

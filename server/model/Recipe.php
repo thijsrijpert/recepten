@@ -122,6 +122,7 @@ class Recipe extends \model\Model{
   public function setTime_of_day() : String{
     return $this->time_of_day;
   }
+  
   public function getTime_of_day() : String{
       if($this->time_of_day !== null){
           return $this->time_of_day;

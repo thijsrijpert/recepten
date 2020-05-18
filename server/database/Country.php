@@ -25,15 +25,17 @@ require_once(dirname(__FILE__,2) . '/model/Country.php');
       }
 
       function select(\model\Model $model) : array{
-        if(null != $model->getCountrycode()){
-          $this->select[0]->bindParam(':countrycode', $model->getCountrycode());
-        }
-        if(null != $model->getName()){
-          $this->select[0]->bindParam(':name', $model->getName());
-        }
-        if(null != $model->getDescription()){
-          $this->select[0]->bindParam(':description', $model->getDescription());
-        }
+        try{
+            $this->select[0]->bindParam(':countrycode', $model->getCountrycode());
+        }catch(\exception\ModelNullException $e){}
+
+        try{
+              $this->select[0]->bindParam(':name', $model->getName());
+          }catch(\exception\ModelNullException $e){}
+
+        try{
+              $this->select[0]->bindParam(':description', $model->getDescription());
+          }catch(\exception\ModelNullException $e){}
 
         $this->select[0]->execute();
 

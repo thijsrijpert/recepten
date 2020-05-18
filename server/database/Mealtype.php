@@ -21,9 +21,9 @@ require_once(dirname(__FILE__,2) . '/model/Mealtype.php');
       }
 
       function select(\model\Model $model) : array{
-        if(null != $model->getName()){
-          $this->select[0]->bindParam(':name', $model->getName());
-        }
+        try{
+            $this->select[0]->bindParam(':name', $model->getName());
+        }catch(\exception\ModelNullException $e){}
 
         $this->select[0]->execute();
 

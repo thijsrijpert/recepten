@@ -21,9 +21,10 @@ require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
     }
 
     function select(\model\Model $model) : array{
-        if(null != $model->getWord()){
+      
+        try{
             $this->select[0]->bindParam(':word', $model->getWord());
-        }
+        }catch(\exception\ModelNullException $e){}
 
         $this->select[0]->execute();
 

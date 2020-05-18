@@ -22,13 +22,15 @@ class RecipeIngredient extends CRUD{
   }
 
   function select(\model\Model $model) : array{
-    if(null != $model->getRecipeId()){
-      $this->select[0]->bindParam(':recipe_id', $model->getRecipeId());
-    }
+    try{
+        $this->select[0]->bindParam(':recipe_id', $model->getRecipeId());
+    }catch(\exception\ModelNullException $e){}
 
-    if(null != $model->getIngredientName()){
-      $this->select[0]->bindParam(':ingredíent_name', $model->getIngredientName());
-    }
+    try{
+        $this->select[0]->bindParam(':ingredíent_name', $model->getIngredientName());
+    }catch(\exception\ModelNullException $e){}
+
+
 
     $this->select[0]->execute();
 
