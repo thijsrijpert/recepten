@@ -43,7 +43,7 @@ public class Add extends Fragment {
         textview_countryDescription = view.findViewById(R.id.addCountry_textview_countryDescriptionCharacterCount);
 
         // Create the connector that will pass requests towards the database
-        addCountry_webserverConnector = new AddConnector(this.getContext(), view);
+        addCountry_webserverConnector = new AddConnector(this.getContext());
 
         // Launch the initialization methods
         initializeInputFields();
@@ -105,6 +105,7 @@ public class Add extends Fragment {
                 boolean value = addCountry_webserverConnector.addCountry(edittext_countryCode.getText().toString(), edittext_countryName.getText().toString(), edittext_countryDescription.getText().toString());
 
                 if (value) {
+                    Toast.makeText(getContext(), "Land '" + edittext_countryName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
                     edittext_countryName.setText("");
                 }
             }

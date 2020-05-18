@@ -35,7 +35,7 @@ public class Add extends Fragment {
         edittext_mealtypeName = view.findViewById(R.id.addMealtype_edittext_mealtypeName);
 
         // Create the connector that will pass requests towards the database
-        addConnector = new AddConnector(this.getContext(), view);
+        addConnector = new AddConnector(this.getContext());
 
         // Launch the initialization methods
         initializeButtons();
@@ -58,6 +58,7 @@ public class Add extends Fragment {
                 boolean value = addConnector.addMealtype(edittext_mealtypeName.getText().toString());
 
                 if (value) {
+                    Toast.makeText(getContext(), "Maaltijdsoort '" + edittext_mealtypeName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
                     edittext_mealtypeName.setText("");
                 }
             }

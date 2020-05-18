@@ -83,7 +83,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <Spinner
-                    android:id="@+id/editMealtype_spinner_approvedReligion"
+                    android:id="@+id/editReligion_spinner_approvedReligion"
                     android:layout_width="0dp"
                     android:layout_height="38dp"
                     android:background="@drawable/inputfields"

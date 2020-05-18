@@ -15,6 +15,7 @@ import com.nl.recipeapp.GeneralMethods;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.RequestQueueHolder;
 import com.nl.recipeapp.admin.recipe.Manage;
+import com.nl.recipeapp.admin.timeofday.Edit;
 import com.nl.recipeapp.model.Country;
 import com.nl.recipeapp.model.Ingredient;
 import com.nl.recipeapp.model.Mealtype;
@@ -36,10 +37,13 @@ public class AddConnector {
     private boolean succesfullyAddedRecipe;
     private View view;
 
-    private Add addRecipe;
-    private Manage manageRecipe;
-    private Search searchRecipe;
-    private GeneralMethods generalMethods;
+    private Add addRecipe; // recipe.add
+    private Manage manageRecipe; // admin.recipe.manage
+    private Search searchRecipe; // search.search
+    private GeneralMethods generalMethods; // generalmethods
+    private com.nl.recipeapp.admin.timeofday.Edit editTimeOfDay; //admin.timeofday.edit
+    private com.nl.recipeapp.admin.country.Edit editCountry; // admin.country.edit
+    private com.nl.recipeapp.admin.mealtype.Edit editMealtype; // admin.mealtype.edit
 
     // The local ArrayLists, which are used to save the data received from the database to later merge it with the existing ArrayLists in the classes
     private ArrayList<Religion> arraylist_religions;
@@ -92,33 +96,6 @@ public class AddConnector {
     }
 
     /**
-     * Gets ALL recipes from the database (mostly used for checking purposes).
-     */
-    public ArrayList<Recipe> getRecipes() {
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-//              System.out.println(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-//                System.out.println(error.getMessage());
-            }
-        });
-
-        // Get the queue and give a request
-        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
-
-        ArrayList<Recipe> recipes = new ArrayList<>();
-
-        // Fill the ArrayList with the recipes
-
-        return recipes;
-    }
-
-    /**
      * Gets all Mealtypes from the database
      */
     public void getMealTypes(final String calledFrom) {
@@ -156,6 +133,11 @@ public class AddConnector {
                             searchRecipe.getArrayList_mealtypes().clear();
                             searchRecipe.getArrayList_mealtypes().addAll(arraylist_mealtypes);
                             searchRecipe.getArrayAdapter_mealtypes().notifyDataSetChanged();
+                            break;
+                        case "EditMealtype":
+                            editMealtype.getArraylist_mealtypes().clear();
+                            editMealtype.getArraylist_mealtypes().addAll(arraylist_mealtypes);
+                            editMealtype.getArrayadapter_mealtypes().notifyDataSetChanged();
                             break;
                     }
 
@@ -216,6 +198,11 @@ public class AddConnector {
                         case "GeneralMethods":
                             generalMethods.getArrayList_Countries().clear();
                             generalMethods.getArrayList_Countries().addAll(arraylist_countries);
+                            break;
+                        case "EditCountry":
+                            editCountry.getArraylist_countries().clear();
+                            editCountry.getArraylist_countries().addAll(arraylist_countries);
+                            editCountry.getArrayadapter_countries().notifyDataSetChanged();
                             break;
                     }
 
@@ -337,6 +324,11 @@ public class AddConnector {
                             searchRecipe.getArrayList_timeofday().clear();
                             searchRecipe.getArrayList_timeofday().addAll(arraylist_timeofday);
                             searchRecipe.getArrayAdapter_timeofday().notifyDataSetChanged();
+                            break;
+                        case "EditTimeOfDay":
+                            editTimeOfDay.getArraylist_timeofday().clear();
+                            editTimeOfDay.getArraylist_timeofday().addAll(arraylist_timeofday);
+                            editTimeOfDay.getArrayAdapter_timeofday().notifyDataSetChanged();
                             break;
                     }
 
@@ -584,5 +576,17 @@ public class AddConnector {
 
     public void setGeneralMethods(GeneralMethods generalMethods) {
         this.generalMethods = generalMethods;
+    }
+
+    public void setEditTimeOfDay(Edit editTimeOfDay) {
+        this.editTimeOfDay = editTimeOfDay;
+    }
+
+    public void setEditCountry(com.nl.recipeapp.admin.country.Edit editCountry) {
+        this.editCountry = editCountry;
+    }
+
+    public void setEditMealtype(com.nl.recipeapp.admin.mealtype.Edit editMealtype) {
+        this.editMealtype = editMealtype;
     }
 }

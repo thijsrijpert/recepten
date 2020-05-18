@@ -36,7 +36,7 @@ public class Add extends Fragment {
         edittext_tijdvakName = view.findViewById(R.id.addTimeOfDay_edittext_timeOfDayName);
 
         // Create the connector that will pass requests towards the database
-        addConnector = new AddConnector(this.getContext(), view);
+        addConnector = new AddConnector(this.getContext());
 
         // Launch the initialization methods
         initializeButtons();
@@ -59,6 +59,7 @@ public class Add extends Fragment {
                 boolean value = addConnector.addTimeOfDay(edittext_tijdvakName.getText().toString());
 
                 if (value) {
+                    Toast.makeText(getContext(), "Tijdvak '" + edittext_tijdvakName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
                     edittext_tijdvakName.setText("");
                 }
             }

@@ -264,7 +264,6 @@ public class Add extends Fragment {
                     return;
                 } else {
                     // First, check if all the fields are filled in. If not, display a Toast accordingly
-                    ArrayList<Recipe> arraylist_recipes = addConnector.getRecipes();
                     if (edittext_recipeName.getText().toString().equals("")) {
                         Toast.makeText(getActivity(), "U moet een receptnaam invullen", Toast.LENGTH_SHORT).show();
                         return;
