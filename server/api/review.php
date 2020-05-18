@@ -19,24 +19,29 @@ class Review extends Api implements CRInterface{
 
     public function insert() : void{
       try{
+          //load all get parameters into the model
           $this->model = new \model\Review($_GET['title'], $_GET['rating'], new \model\User($_GET['username']), new \model\Recipe($_GET['recipeId']), $_GET['description']);
-
+          //insert the model into the db
           $code = (new \database\Review())->insert($this->model);
-
+          //get the class code from the full error code
           $code = substr($code, 0, 2);
-
+          //set the http status code and die
           parent::setHttpCode($code);
 
       }catch(\PDOException $e){
+          //set the http status code and die
           parent::setHttpCode($e->getCode());
       }catch(\exception\NullPointerException $e){
           header('HTTP/1.0 400 Bad Request');
+          //return the message for easy debug
+          echo $e->getMessage();
           restore_error_handler();
       }
     }
 
     public function select() : void{
         try{
+            //rebuild the get parameters in useful queries
             $this->model = new \model\Review();
             $queryBuilder = parent::buildQuery($this->model);
 
@@ -66,8 +71,7 @@ class Review extends Api implements CRInterface{
                             break;
                         case 'review_date':
                             if(\count_chars($value[2]) == 8){
-                                $date = \implode('-', \str_split('-', $value[2], 2));
-                                $dateTime = DataTime::createFromFormat('d-m-Y', $date);
+                                $dateTime = DataTime::createFromFormat('dmY', $value[2]);
                                 $this->model->setReviewDate($dateTime);
                             }else{
                                 throw new InvalidRequestException("The inserted datetime is not of a valid format");
@@ -76,21 +80,23 @@ class Review extends Api implements CRInterface{
                     }
                 }
             }
-
+            //execute the select statement and get the code and result object
             $codeAndResult = (new \database\Review($queryBuilder))->select($this->model);
-
-            if($codeAndResult[0][1] == '00'){
+            $code = substr($codeAndResult[0][1], 0, 2);
+            //if the query was succesful return the data
+            if($code === '00'){
                 header('Content-Type: application/json');
                 echo json_encode($codeAndResult[1][0]);
             }
-
-            $code = substr($codeAndResult[0][1], 0, 2);
 
             parent::setHttpCode($code);
           }catch(\PDOException $e){
               parent::setHttpCode($e->getCode());
           }catch(\exception\NullPointerException $e){
               header('HTTP/1.0 400 Bad Request');
+              header('Content-Type: application/json');
+              //return the message for easy debug
+              echo json_encode($e->getMessage());
               restore_error_handler();
           }
     }
@@ -109,8 +115,6 @@ $review = new Review();
 if(isset($_GET['title'])){
     $review->insert();
 }else{
-    if(!TESTING){
-        $review->select();
-    }
+  //  $review->select();
 }
  ?>
