@@ -82,7 +82,8 @@ class Review extends Api implements CRInterface{
             }
             //execute the select statement and get the code and result object
             $codeAndResult = (new \database\Review($queryBuilder))->select($this->model);
-            $code = substr($codeAndResult[0][1], 0, 2);
+            $code = substr($codeAndResult[0], 0, 2);
+
             //if the query was succesful return the data
             if($code === '00'){
                 header('Content-Type: application/json');
@@ -115,6 +116,6 @@ $review = new Review();
 if(isset($_GET['title'])){
     $review->insert();
 }else{
-  //  $review->select();
+    $review->select();
 }
  ?>

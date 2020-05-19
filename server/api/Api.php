@@ -60,6 +60,7 @@ require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
                   //generic error to catch all
                   header('HTTP/1.0 500 Internal Server error');
                   echo json_encode("An unknown error occured, please contact customer support if the error presists");
+                  echo json_encode($code);
                   break;
           }
           die;
@@ -111,7 +112,7 @@ require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
 
           //seperate the different columns
           $parameters = \explode('.', $get_parameter);
-          
+
           //seperate the different parts of a clause
           foreach($parameters as $key => $value){
               $parameters[$key] = \explode('-', $value, 3);

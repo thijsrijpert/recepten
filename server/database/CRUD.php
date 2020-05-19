@@ -8,7 +8,6 @@ class CRUD {
 
     public function __construct(QueryBuilder $query = null){
         if(isset($query)){
-          var_dump($query);
             $this->addSelectStatement($query);
         }
 

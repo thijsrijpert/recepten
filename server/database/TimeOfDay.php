@@ -1,6 +1,8 @@
 <?php
 namespace database;
   require_once(dirname(__FILE__, 1) . '/Database.php');
+  require_once(dirname(__FILE__, 1) . '/CRUD.php');
+  require_once(dirname(__FILE__, 1) . '/CRInterface.php');
   require_once(dirname(__FILE__, 2) . '/model/TimeOfDay.php');
   class TimeOfDay extends CRUD implements CRInterface{
 
@@ -12,6 +14,7 @@ namespace database;
       }
 
       function insert(\model\Model $model) : String{
+
           $name = $model->getName();
           $this->stmt->bindParam(':name', $name);
           $this->stmt->execute();

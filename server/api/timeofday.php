@@ -23,7 +23,6 @@ class TimeOfDay extends Api implements CRInterface{
         try{
             $this->model = new \model\TimeOfDay($_GET['name']);
             $this->model->setName($_GET['name']);
-
             $tijdvakStatement = new \database\TimeOfDay();
             $code = $tijdvakStatement->insert($this->model);
             $code = substr($code, 0, 2);
@@ -56,7 +55,7 @@ class TimeOfDay extends Api implements CRInterface{
 
           $codeAndResult = (new \database\TimeOfDay($queryBuilder))->select($this->model);
 
-          $code = substr($codeAndResult[0][1], 0, 2);
+          $code = substr($codeAndResult[0], 0, 2);
 
           if($code === '00'){
               header('Content-Type: application/json');
@@ -89,7 +88,7 @@ $timeOfDay = new TimeOfDay();
 if(isset($_GET['name'])){
     $timeOfDay->insert();
 }else{
-    //$timeOfDay->select();
+    $timeOfDay->select();
 }
 
  ?>

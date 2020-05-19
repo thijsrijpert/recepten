@@ -95,6 +95,6 @@ $religion = new Religion();
 if(isset($_GET['name'])){
     $religion->insert();
 }else{
-    //$religion->select();
+    $religion->select();
 }
 ?>

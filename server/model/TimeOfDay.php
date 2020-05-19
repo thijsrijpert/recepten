@@ -1,6 +1,7 @@
 <?php
 namespace model;
 require_once(dirname(__FILE__,1) . '/Model.php');
+require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 class TimeOfDay extends \model\Model{
   //the name of the dish time, eg. lunch, brunch, diner
     private $name;
