@@ -17,7 +17,7 @@ class Recipe extends \model\Model{
   private $time_of_day;
 
   public function __construct(Int $id = null, String $name = null, String $description = null, int $isApproved = null, String $countrycode = null,
-  String $username, String $mealtype_name = null, Int $religion_id = null, String $time_of_day = null){
+  String $username = null, String $mealtype_name = null, Int $religion_id = null, String $time_of_day = null){
     $this->id = $id;
     $this->name = $name;
     $this->description = $description;
@@ -30,7 +30,7 @@ class Recipe extends \model\Model{
   }
 
   public function getId() : int{
-      if($this->name !== null){
+      if($this->id !== null){
           return $this->id;
       }
       throw new \exception\ModelNullException("The value id is null");
@@ -122,7 +122,7 @@ class Recipe extends \model\Model{
   public function setTime_of_day() : String{
     return $this->time_of_day;
   }
-  
+
   public function getTime_of_day() : String{
       if($this->time_of_day !== null){
           return $this->time_of_day;
