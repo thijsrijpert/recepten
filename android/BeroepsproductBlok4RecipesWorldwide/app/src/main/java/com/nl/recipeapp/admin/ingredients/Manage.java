@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Ingredient;
 
@@ -103,28 +104,7 @@ public class Manage extends Fragment {
 
         textview_A_descriptionCharCount = view.findViewById(R.id.manageIngredients_A_textview_ingredientDescriptionCharacterCount);
         edittext_A_description = view.findViewById(R.id.manageIngredients_A_edittext_description);
-        edittext_A_description.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textview_A_descriptionCharCount.setText(edittext_A_description.getText().length() + " / 65535", null);
-
-                if (edittext_A_description.getText().length() > 65535) {
-                    textview_A_descriptionCharCount.setTextColor(Color.RED);
-                } else {
-                    textview_A_descriptionCharCount.setTextColor(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        edittext_A_description.addTextChangedListener(new CharacterCountListener(textview_A_descriptionCharCount, edittext_A_description));
     }
 
     /**
@@ -276,28 +256,7 @@ public class Manage extends Fragment {
 
         textview_B_descriptionCharCount = view.findViewById(R.id.manageIngredients_B_textview_ingredientDescriptionCharacterCount);
         edittext_B_description = view.findViewById(R.id.manageIngredients_B_edittext_description);
-        edittext_B_description.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textview_B_descriptionCharCount.setText(edittext_B_description.getText().length() + " / 65535", null);
-
-                if (edittext_B_description.getText().length() > 65535) {
-                    textview_B_descriptionCharCount.setTextColor(Color.RED);
-                } else {
-                    textview_B_descriptionCharCount.setTextColor(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        edittext_B_description.addTextChangedListener(new CharacterCountListener(textview_B_descriptionCharCount, edittext_B_description));
     }
 
     /**

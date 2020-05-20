@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Country;
@@ -194,28 +195,7 @@ public class Add extends Fragment {
      */
     private void initializeInputFields() {
         // Create the listener on recipeDescription's EditText, so the character counter changes when the user is typing
-        edittext_recipeDescription.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textview_recipeDescriptionCharacterCount.setText(edittext_recipeDescription.getText().length() + " / 65535", null);
-
-                if (edittext_recipeDescription.getText().length() > 65535) {
-                    textview_recipeDescriptionCharacterCount.setTextColor(Color.RED);
-                } else {
-                    textview_recipeDescriptionCharacterCount.setTextColor(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        edittext_recipeDescription.addTextChangedListener(new CharacterCountListener(textview_recipeDescriptionCharacterCount, edittext_recipeDescription));
     }
 
     /**

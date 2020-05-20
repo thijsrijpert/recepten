@@ -11,8 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Country;
 import com.nl.recipeapp.recipe.AddConnector;
@@ -69,9 +71,11 @@ public class Edit extends Fragment {
     }
 
     private void initializeEditTexts() {
+        TextView textview_description = view.findViewById(R.id.editCountry_textview_countryDescriptionCharacterCount);
         edittext_code = view.findViewById(R.id.editCountry_edittext_countryCode);
         edittext_name = view.findViewById(R.id.editCountry_edittext_countryName);
         edittext_description = view.findViewById(R.id.editCountry_edittext_description);
+        edittext_description.addTextChangedListener(new CharacterCountListener(textview_description, edittext_description));
     }
 
     private void initializeSpinner() {
