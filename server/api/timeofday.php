@@ -32,6 +32,7 @@ class TimeOfDay extends Api implements CRInterface{
             parent::setHttpCode($e->getCode());
         }catch(\exception\NullPointerException $e){
             header('HTTP/1.0 400 Bad Request');
+            echo $e->getMessage();
             restore_error_handler();
         }
     }
