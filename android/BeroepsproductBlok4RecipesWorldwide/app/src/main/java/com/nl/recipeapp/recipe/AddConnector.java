@@ -28,7 +28,6 @@ import com.nl.recipeapp.search.Search;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class AddConnector {
@@ -44,13 +43,18 @@ public class AddConnector {
     private com.nl.recipeapp.admin.timeofday.Edit editTimeOfDay; //admin.timeofday.edit
     private com.nl.recipeapp.admin.country.Edit editCountry; // admin.country.edit
     private com.nl.recipeapp.admin.mealtype.Edit editMealtype; // admin.mealtype.edit
+    private DetailedView detailedViewRecipe; // recipe.detailedview
 
     // The local ArrayLists, which are used to save the data received from the database to later merge it with the existing ArrayLists in the classes
     private ArrayList<Religion> arraylist_religions;
     private ArrayList<Country> arraylist_countries;
     private ArrayList<Mealtype> arraylist_mealtypes;
     private ArrayList<TimeOfDay> arraylist_timeofday;
-    private ArrayList<Ingredient> arraylist_ingredients;
+    private ArrayList<Ingredient> arraylist_ingredientsForSpecificUser;
+    private ArrayList<Ingredient> arraylist_ingredientsForSpecificRecipe;
+    private ArrayList<Review> arraylist_reviews;
+
+    private ArrayList<String> arraylist_ingredientNames; // For local use only in the getIngredientsForSpecificRecipe() method
 
     /**
      * RecipeHTTP Constructor
@@ -63,6 +67,11 @@ public class AddConnector {
         arraylist_countries = new ArrayList<>();
         arraylist_mealtypes = new ArrayList<>();
         arraylist_timeofday = new ArrayList<>();
+        arraylist_ingredientsForSpecificUser = new ArrayList<>();
+        arraylist_ingredientsForSpecificRecipe = new ArrayList<>();
+        arraylist_reviews = new ArrayList<>();
+
+        arraylist_ingredientNames = new ArrayList<>();
     }
 
     public void initializeEditTexts() {
@@ -357,13 +366,13 @@ public class AddConnector {
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
 
-                arraylist_ingredients.clear(); // Clear the local ArrayList, so no duplicates will be added
+                arraylist_ingredientsForSpecificUser.clear(); // Clear the local ArrayList, so no duplicates will be added
 
                 try {
                     for (int c = 0; c < response.length(); c++) {
                         JSONObject object = response.getJSONObject(c);
                         Ingredient ingredient = gson.fromJson(object.toString(), Ingredient.class);
-                        arraylist_ingredients.add(ingredient);
+                        arraylist_ingredientsForSpecificUser.add(ingredient);
                     }
 
                     // Clear the ArrayLists, so they only get filled once (and not stacked with new object on top of the old ones)
@@ -372,7 +381,7 @@ public class AddConnector {
                     switch (calledFrom) {
                         case "AddRecipe":
                             addRecipe.getArrayList_ingredients().clear();
-                            addRecipe.getArrayList_ingredients().addAll(arraylist_ingredients);
+                            addRecipe.getArrayList_ingredients().addAll(arraylist_ingredientsForSpecificUser);
                             addRecipe.getArrayAdapter_ingredients().notifyDataSetChanged();
                             break;
                     }
@@ -402,13 +411,13 @@ public class AddConnector {
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
 
-                arraylist_ingredients.clear(); // Clear the local ArrayList, so no duplicates will be added
+                arraylist_ingredientsForSpecificUser.clear(); // Clear the local ArrayList, so no duplicates will be added
 
                 try {
                     for (int c = 0; c < response.length(); c++) {
                         JSONObject object = response.getJSONObject(c);
                         Ingredient ingredient = gson.fromJson(object.toString(), Ingredient.class);
-                        arraylist_ingredients.add(ingredient);
+                        arraylist_ingredientsForSpecificUser.add(ingredient);
                     }
 
                     // Clear the ArrayLists, so they only get filled once (and not stacked with new object on top of the old ones)
@@ -417,7 +426,7 @@ public class AddConnector {
                     switch (calledFrom) {
                         case "AddRecipe":
                             addRecipe.getArrayList_ingredients().clear();
-                            addRecipe.getArrayList_ingredients().addAll(arraylist_ingredients);
+                            addRecipe.getArrayList_ingredients().addAll(arraylist_ingredientsForSpecificUser);
                             addRecipe.getArrayAdapter_ingredients().notifyDataSetChanged();
                             break;
                     }
@@ -447,13 +456,13 @@ public class AddConnector {
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
 
-                arraylist_ingredients.clear(); // Clear the local ArrayList, so no duplicates will be added
+                arraylist_ingredientsForSpecificUser.clear(); // Clear the local ArrayList, so no duplicates will be added
 
                 try {
                     for (int c = 0; c < response.length(); c++) {
                         JSONObject object = response.getJSONObject(c);
                         Ingredient ingredient = gson.fromJson(object.toString(), Ingredient.class);
-                        arraylist_ingredients.add(ingredient);
+                        arraylist_ingredientsForSpecificUser.add(ingredient);
                     }
 
                     // Clear the ArrayLists, so they only get filled once (and not stacked with new object on top of the old ones)
@@ -462,7 +471,7 @@ public class AddConnector {
                     switch (calledFrom) {
                         case "AddRecipe":
                             addRecipe.getArrayList_ingredients().clear();
-                            addRecipe.getArrayList_ingredients().addAll(arraylist_ingredients);
+                            addRecipe.getArrayList_ingredients().addAll(arraylist_ingredientsForSpecificUser);
                             addRecipe.getArrayAdapter_ingredients().notifyDataSetChanged();
                             break;
                     }
@@ -484,61 +493,107 @@ public class AddConnector {
 
     /**
      * Gets the Ingredients belonging to a specific Recipe
-     * @return An ArrayList<Ingredient> with all Ingredients belonging to a specific Recipe
      */
-    public ArrayList<Ingredient> getIngredientsForSpecificRecipe(String recipeId) {
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+    public void getIngredientsForSpecificRecipe(String recipeId, final String calledFrom) {
+        // Selecteer alle ingredient namen die bij het recipeId horen uit de recipe_ingredient tabel en sla deze hier lokaal op
+        JsonArrayRequest request1 = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/recipe_ingredient.php?select=ingredient_name&where=recipe_id-eq-" + recipeId + "", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(String response) {
-//              System.out.println(response);
+            public void onResponse(JSONArray response) {
+                Gson gson = new Gson();
+
+                arraylist_ingredientNames.clear(); // Clear the local ArrayList, so no duplicates will be added
+
+                // Add the ingredient names from request1 to the arraylist_ingredientNames list.
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("AddConnector (recipe): Ingrediënten voor specifiek recept konden niet worden opgehaald uit de database.");
-//                Toast.makeText(context, "RecipeHTTP: Ingrediënten konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
-//                System.out.println(error.getMessage());
+                System.out.println("AddConnector (recipe): Ingrediëntnamen voor specifiek recept ID konden niet worden opgehaald uit de database.");
             }
         });
 
         // Get the queue and give a request
-        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request1);
 
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
+        // Gebruik de opgehaalde ingredient namen om uit de ingredient tabel de bijbehorende ingredientgegevens op te halen.
+        // Request a string response from the provided URL.
+        arraylist_ingredientsForSpecificRecipe.clear(); // Clear the local ArrayList, so no duplicates will be added
 
-        // Fill the ArrayList with the ingredients
+        for (int c = 0; c < arraylist_ingredientNames.size(); c++) {
+            JsonArrayRequest request2 = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=name-eq-" + arraylist_ingredientNames.get(c) + "", new JSONArray(), new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    Gson gson = new Gson();
 
-        return ingredients;
+                    try {
+                        for (int c = 0; c < response.length(); c++) {
+                            JSONObject object = response.getJSONObject(c);
+                            Ingredient ingredient = gson.fromJson(object.toString(), Ingredient.class);
+                            arraylist_ingredientsForSpecificRecipe.add(ingredient);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println("AddConnector (recipe): Ingrediënten voor specifiek recept konden niet worden opgehaald uit de database.");
+                }
+            });
+
+            // Get the queue and give a request
+            RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request2);
+        }
+
+        // Clear the ArrayLists, so they only get filled once (and not stacked with new object on top of the old ones)
+        // Add the Ingredients to the necessary ArrayLists
+        // Notify the corresponding adapters that the ArrayLists have been changed and they need to be updated
+        switch (calledFrom) {
+            case "RecipeDetailedView":
+                detailedViewRecipe.getArraylist_ingredients().clear();
+                detailedViewRecipe.getArraylist_ingredients().addAll(arraylist_ingredientsForSpecificRecipe);
+                detailedViewRecipe.getRecyclerviewAdapter_ingredients().notifyDataSetChanged();
+                break;
+        }
     }
 
     /**
      * Gets the Reviews belonging to a specific Recipe
-     * @return An ArrayList<Review> with all Reviews belonging to a specific Recipe
      */
-    public ArrayList<Review> getReviewsForSpecificRecipe(String recipeId) {
+    public void getReviewsForSpecificRecipe(String recipeId, final String calledFrom) {
         // Request a JsonArray response from the provided URL.
-        final ArrayList<Review> reviews = new ArrayList<>();
 
         // tablename.php --> selecteert alles uit de tabel
         // tablename.php?select=kolomnaam --> selecteert alles uit een specifieke kolom (kolomnaam)
         // tablename.php?select=kolomnaam&where=kolomnaam-eq-waardenaam --> selecteert alles uit een specifieke kolom, waar de waarde uit de kolom gelijk is aan de waardenaam
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/review.php?where=id-eq-" + recipeId, new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/review.php?where=recipe_id-eq-" + recipeId, new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 //                System.out.println("Response: " + response.toString());
                 Gson gson = new Gson();
 
+                arraylist_reviews.clear();
+
                 try {
                     for (int c = 0; c < response.length(); c++) {
                         JSONObject object = response.getJSONObject(c);
                         Review review = gson.fromJson(object.toString(), Review.class);
+                        arraylist_reviews.add(review);
+                    }
 
-                        reviews.add(review);
-
-//                        System.out.println(religion.getId());
-//                        System.out.println(religion.getName());
+                    // Clear the ArrayLists, so they only get filled once (and not stacked with new object on top of the old ones)
+                    // Add the Reviews to the necessary ArrayLists
+                    // Notify the corresponding adapters that the ArrayLists have been changed and they need to be updated
+                    switch (calledFrom) {
+                        case "RecipeDetailedView":
+                            detailedViewRecipe.getArraylist_reviews().clear();
+                            detailedViewRecipe.getArraylist_reviews().addAll(arraylist_reviews);
+                            detailedViewRecipe.getRecyclerviewAdapter_reviews().notifyDataSetChanged();
+                            break;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -547,15 +602,13 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("AddConnector (recipe): Religies konden niet worden opgehaald uit de database.");
+                System.out.println("AddConnector (recipe): Reviews konden niet worden opgehaald uit de database.");
 //                System.out.println("Error: " + error.networkResponse.headers.toString());
             }
         });
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request);
-
-        return reviews;
     }
 
     public void setView(View view) {
@@ -588,5 +641,9 @@ public class AddConnector {
 
     public void setEditMealtype(com.nl.recipeapp.admin.mealtype.Edit editMealtype) {
         this.editMealtype = editMealtype;
+    }
+
+    public void setDetailedViewRecipe(DetailedView detailedView) {
+        detailedViewRecipe = detailedView;
     }
 }

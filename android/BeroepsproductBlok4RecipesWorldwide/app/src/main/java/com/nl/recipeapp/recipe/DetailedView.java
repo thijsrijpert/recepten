@@ -43,13 +43,13 @@ public class DetailedView extends AppCompatActivity {
         // Initialize the General Methods class, that's used for using similar methods
         generalMethods = new GeneralMethods(this);
         connector_addRecipe = new AddConnector(this);
+        connector_addRecipe.setDetailedViewRecipe(this);
 
         // Get the SerializableExtra (The given Recipe)
         recipe = (Recipe) getIntent().getSerializableExtra("KEY");
 
         // Initialize the Ingredients and Reviews ArrayLists, which is used for displaying the Recipe's Ingredients and Reviews
-        arraylist_ingredients = connector_addRecipe.getIngredientsForSpecificRecipe(recipe.getId());
-        arraylist_reviews = connector_addRecipe.getReviewsForSpecificRecipe(recipe.getId());
+        initializeArrayLists();
 
         initializeInputFields();
         initializeButtons();
@@ -57,6 +57,19 @@ public class DetailedView extends AppCompatActivity {
 
         // Set the Recipe's data in the input fields
         setInputFieldContents();
+    }
+
+    /**
+     * Gets called when the user resumes on this screen after initializing
+     */
+    public void onStart() {
+        super.onStart();
+        initializeArrayLists();  // Initializes the Spinner ArrayLists, which are used in the ArrayAdapters
+    }
+
+    private void initializeArrayLists() {
+        connector_addRecipe.getIngredientsForSpecificRecipe(recipe.getId(), "RecipeDetailedView");
+        connector_addRecipe.getReviewsForSpecificRecipe(recipe.getId(), "RecipeDetailedView");
     }
 
     private void initializeInputFields() {
@@ -104,5 +117,23 @@ public class DetailedView extends AppCompatActivity {
         recyclerviewAdapter_reviews = new DetailedViewRecyclerViewAdapter_Reviews(arraylist_reviews);
         recyclerview_reviews.setAdapter(recyclerviewAdapter_reviews);
         recyclerview_reviews.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    // Ingredients
+    public ArrayList<Ingredient> getArraylist_ingredients() {
+        return arraylist_ingredients;
+    }
+
+    public DetailedViewRecyclerViewAdapter_Ingredients getRecyclerviewAdapter_ingredients() {
+        return recyclerviewAdapter_ingredients;
+    }
+
+    // Reviews
+    public ArrayList<Review> getArraylist_reviews() {
+        return arraylist_reviews;
+    }
+
+    public DetailedViewRecyclerViewAdapter_Reviews getRecyclerviewAdapter_reviews() {
+        return recyclerviewAdapter_reviews;
     }
 }
