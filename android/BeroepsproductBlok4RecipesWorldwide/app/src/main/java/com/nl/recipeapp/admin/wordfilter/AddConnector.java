@@ -34,7 +34,7 @@ public class AddConnector {
      */
     public boolean addWordfilter(String wordName) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/thijs/api/Wordfilter.php?name="+ wordName + "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Wordfilter.php?word="+ wordName + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Woord '" + edittext_wordName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
