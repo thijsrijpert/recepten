@@ -19,12 +19,12 @@ final class TimeOfDayDatabaseTest extends TestCase
 
         $this->assertEquals(
             '00000',
-            $this->timeOfDay->insert(new \model\TimeOfDay('Dit is een test'))
+            $this->timeOfDay->insert(new \model\TimeOfDay('tussendoortje'))
 
         );
         $this->assertEquals(
             '23000',
-            $this->timeOfDay->insert(new \model\TimeOfDay('Dit is een test'))
+            $this->timeOfDay->insert(new \model\TimeOfDay('tussendoortje'))
 
         );
         $this->assertEquals(

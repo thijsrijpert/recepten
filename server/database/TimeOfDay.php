@@ -7,7 +7,7 @@ namespace database;
       private $stmt;
 
       function __construct(){
-          $sql = "INSERT INTO TimeOfDays VALUES (:name)";
+          $sql = "INSERT INTO TimeOfDay VALUES (:name)";
           $this->stmt = \database\Database::getConnection()->prepare($sql);
       }
 
