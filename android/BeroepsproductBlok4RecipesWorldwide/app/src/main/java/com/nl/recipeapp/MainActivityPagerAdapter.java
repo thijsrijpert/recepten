@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.nl.recipeapp.home.Home;
+import com.nl.recipeapp.login.Login;
 import com.nl.recipeapp.recipe.Add;
 
 public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
@@ -25,7 +26,7 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new Home();
             case 1:
-                return new Home();
+                return new Login();
             case 2:
                 return new Home();
             case 3:

@@ -152,6 +152,19 @@
     <string name="addReview_descriptionHint">vul hier de omschrijving voor de review in</string>
     <string name="addReview_button_addReview">Review plaatsen</string>
 
+    <!-- String for Login -->
+    <string name="login_title">Login</string>
+    <string name="login_hint_username">Gebruikersnaam</string>
+    <string name="login_hint_password">********</string>
+    <string name="login_button_signIn">Aanmelden</string>
+    <string name="login_textView_registratie">registreren?</string>
+
+    <!-- String for Register -->
+    <string name="register_title">Registreer</string>
+    <string name="register_hint_username">Voer gebruikersnaam in</string>
+    <string name="register_hint_password">Voer wachtwoord in</string>
+    <string name="register_button_signIn">Registreren</string>
+
     <!-- General -->
     <string name="addGeneralOptions_button_addTijdvak">Tijdvak toevoegen</string>
     <string name="addGeneralOptions_button_editTijdvak">Tijdvak wijzigen</string>
