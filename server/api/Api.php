@@ -1,8 +1,11 @@
 <?php
 namespace api;
-
+if(!defined('TESING')){
+    define('TESTING', false);
+}
 require_once(dirname(__FILE__, 2) . '/database/Query.php');
 require_once(dirname(__FILE__, 2) . '/database/QueryBuilder.php');
+require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
   class Api {
       public function __construct(){
         if(!defined('ALLOWED_COMPARISON')){
@@ -56,19 +59,27 @@ require_once(dirname(__FILE__, 2) . '/database/QueryBuilder.php');
 
           if(isset($_GET['select'])){
               $arguments = $this->rebuildArguments($_GET['select']);
-              $query->setSelectArguments($arguments);;
+              if(!$query->setSelectArguments($arguments)){
+                  throw new \exception\NullPointerException("Select has invalid argument");
+              }
           }else{
-              $query->setSelectArguments();
+              if(!$query->setSelectArguments()){
+                  throw new \exception\NullPointerException("Select has invalid argument");
+              }
           }
 
           if(isset($_GET['where'])){
               $arguments = $this->rebuildArguments($_GET['where']);
-              $query->setWhereArguments($arguments);
+              if(!$query->setWhereArguments($arguments)){
+                  throw new \exception\NullPointerException("Where has invalid argument");
+              }
           }
 
           if(isset($_GET['order'])){
               $arguments = $this->rebuildArguments($_GET['order']);
-              $query->setOrderArguments($arguments);
+              if(!$query->setOrderArguments($arguments)){
+                  throw new \exception\NullPointerException("Order has invalid argument");
+              }
           }
 
           $queryBuilder = new \database\QueryBuilder($query);
@@ -77,13 +88,13 @@ require_once(dirname(__FILE__, 2) . '/database/QueryBuilder.php');
       }
 
       public function rebuildArguments(String $get_parameter) : array{
-          $parameterFull = urlencode($get_parameter);
-          $parameterFull = str_replace("+", "%2B", $parameterFull);
-          $parameterFull = urldecode($parameterFull);
-          $parameters = \explode('*', $parameterFull);
+          // $parameterFull = urlencode($get_parameter);
+          // $parameterFull = str_replace("+", "%2B", $parameterFull);
+          // $parameterFull = urldecode($parameterFull);
+          $parameters = \explode('.', $get_parameter);
 
           foreach($parameters as $key => $value){
-              $parameters[$key] = \explode('+', $value, 3);
+              $parameters[$key] = \explode('-', $value, 3);
           }
 
           return $parameters;

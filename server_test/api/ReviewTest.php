@@ -22,12 +22,6 @@ final class ReviewApiTest extends TestCase
         $this->review->error_handler(1, 'Undefined index: title', 1, 1);
     }
 
-    public function testErrorHandlerDescription(): void
-    {
-        $this->expectException(NullPointerException::class);
-        $this->review->error_handler(1, 'Undefined index: description', 1, 1);
-    }
-
     public function testErrorHandlerRating(): void
     {
         $this->expectException(NullPointerException::class);

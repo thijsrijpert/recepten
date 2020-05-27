@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void initializeViewPager(ViewPager pager, TabLayout tabLayout, FragmentStatePagerAdapter adapter){
         pager.setAdapter(adapter);
-        pager.setCurrentItem(2);
+        pager.setCurrentItem(1);
         tabLayout.setupWithViewPager(pager);
         tabLayout.bringToFront();
     }

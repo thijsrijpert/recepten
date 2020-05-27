@@ -72,8 +72,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="@string/login_textView_registratie" />
+                    android:text="@string/login_textView_registratie"
+                    android:clickable="true"/>
 
+                <FrameLayout
+                    android:id="@+id/login_framelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </FrameLayout>
 
             </LinearLayout>
 

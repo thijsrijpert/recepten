@@ -3,13 +3,11 @@ namespace api;
 ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(E_ALL | E_STRICT);
-require_once(dirname(__FILE__,2) . '/model/Religion.php');
-require_once(dirname(__FILE__,2) . '/database/Religion.php');
+require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
+require_once(dirname(__FILE__,2) . '/database/Wordfilter.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
-require_once(dirname(__FILE__,1) . '/CRInterface.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
-
-class Religion extends Api implements CRInterface{
+  class Wordfilter extends Api{
 
     private $model;
 
@@ -20,10 +18,10 @@ class Religion extends Api implements CRInterface{
 
     function insert() : void{
         try{
-            $this->model = new \model\Religion($_GET['name']);
+            $this->model = new \model\Wordfilter($_GET['word']);
 
-            $religieStatement = new \database\Religion();
-            $code = $religieStatement->insert($this->model);
+            $wordfilterStatement = new \database\Wordfilter();
+            $code = $wordfilterStatement->insert($this->model);
 
             $code = substr($code, 0, 2);
 
@@ -37,33 +35,31 @@ class Religion extends Api implements CRInterface{
         }
     }
 
-    public function select() : void{
+    public function select(){
       try{
-          $this->model = new \model\Religion();
+          $this->model = new \model\Wordfilter();
           $queryBuilder = parent::buildQuery($this->model);
 
-          //I don't know how to get the decoded arguments to the database, so I will call rebuildArguments again
           if(null != $_GET['where']){
               $arguments = parent::rebuildArguments($_GET['where']);
               $approvedArguments = $this->model->getVariables();
               foreach($arguments as $value){
-                  if($value[0] == 'id'){
-                      $this->model->setId($value[2]);
-                  }else if($value[0] == 'name'){
-                      $this->model->setName($value[2]);
+                  if($value[0] == 'word'){
+                      $this->model->setWord($value[2]);
                   }
               }
           }
 
-          $religionStatement = new \database\Religion($queryBuilder);
-          $codeAndResult = $religionStatement->select($this->model);
+          $wordfilterStatement = new \database\Wordfilter($queryBuilder);
+
+          $codeAndResult = $wordfilterStatement->select($this->model);
 
           if($codeAndResult[0][1] == '00'){
               header('Content-Type: application/json');
               echo json_encode($codeAndResult[1][0]);
           }
 
-          $code = substr($codeAndResult[0][1], 0, 2);
+          $code = substr($code, 0, 2);
 
           parent::setHttpCode($code);
       }catch(\PDOException $e){
@@ -75,18 +71,18 @@ class Religion extends Api implements CRInterface{
     }
 
     function error_handler($errno, $errstr, $errfile, $errline){
-        if($errstr == 'Undefined index: name'){
+        if($errstr == 'Undefined index: word'){
             throw new \exception\NullPointerException("Get value isn't passed");
         }else{
             restore_error_handler();
         }
     }
-}
+  }
 
-$religion = new Religion();
-if(isset($_GET['name'])){
-    $religion->insert();
-}else{
-    $religion->select();
-}
-?>
+    $wordfilter = new Wordfilter();
+    if(isset($_GET['word'])){
+      $wordfilter->insert();
+    }else{
+      $wordfilter->select();
+    }
+ ?>
