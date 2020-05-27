@@ -176,7 +176,7 @@ public class AddConnector {
      */
     public void getCountries(final String calledFrom) {
         // Request a string response from the provided URL.
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/country.php", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Country.php", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
