@@ -534,7 +534,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Spinner
-                android:id="@+id/manageRecipes_B_spinner_mealtype"
+                android:id="@+id/manageRecipes_B_spinner_recipeMealtype"
                 android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:background="@drawable/inputfields"
@@ -680,6 +680,39 @@
                 app:layout_constraintEnd_toEndOf="@id/manageRecipes_linearLayout_textviews"
                 app:layout_constraintStart_toEndOf="@id/manageRecipes_B_constraintLayout_recipeMealDaypart" />
 
+            <!-- isApproved -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageRecipes_B_constraintLayout_recipeisApproved"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageRecipes_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageRecipes_B_spinner_recipeMealDaypart">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/manageRecipes_isApproved"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/manageRecipes_B_spinner_recipeIsApproved"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="@id/manageRecipes_B_constraintLayout_recipeisApproved"
+                app:layout_constraintEnd_toEndOf="@id/manageRecipes_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageRecipes_B_constraintLayout_recipeisApproved" />
+
             <!-- Recipe description -->
             <EditText
                 android:id="@+id/manageRecipes_B_edittext_description"
@@ -698,7 +731,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/manageRecipes_B_spinner_recipeMealDaypart"
                 app:layout_constraintStart_toStartOf="@id/manageRecipes_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/manageRecipes_B_spinner_recipeMealDaypart" />
+                app:layout_constraintTop_toBottomOf="@id/manageRecipes_B_constraintLayout_recipeisApproved" />
 
             <TextView
                 android:id="@+id/manageRecipes_B_textview_receptomschrijvingCharacterCount"
@@ -725,7 +758,7 @@
                 app:layout_constraintStart_toStartOf="@id/manageRecipes_linearLayout_textviews"
                 app:layout_constraintTop_toBottomOf="@id/manageRecipes_B_textview_receptomschrijvingCharacterCount" />
 
-            <!-- Buttons to approve or deny a recipe -->
+            <!-- Buttons to approve or delete a recipe or save changes -->
             <Button
                 android:id="@+id/manageRecipes_B_button_applyRecipeChanges"
                 style="?android:attr/borderlessButtonStyle"
@@ -741,6 +774,24 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/colorText"
                 app:layout_constraintEnd_toEndOf="@id/manageRecipes_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageRecipes_B_recyclerView" />
+
+            <Button
+                android:id="@+id/manageRecipes_B_button_deleteRecipe"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="160dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/delete"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/colorText"
+                app:layout_constraintEnd_toStartOf="@id/manageRecipes_B_button_applyRecipeChanges"
                 app:layout_constraintTop_toBottomOf="@id/manageRecipes_B_recyclerView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,6 +38,7 @@ public class AddConnector {
 
     private Add addRecipe; // recipe.add
     private Manage manageRecipe; // admin.recipe.manage
+    private com.nl.recipeapp.user.recipe.Manage manageUserRecipe; // user.recipe.Manage;
     private Search searchRecipe; // search.search
     private GeneralMethods generalMethods; // generalmethods
     private com.nl.recipeapp.admin.timeofday.Edit editTimeOfDay; //admin.timeofday.edit
@@ -148,6 +149,11 @@ public class AddConnector {
                             editMealtype.getArraylist_mealtypes().addAll(arraylist_mealtypes);
                             editMealtype.getArrayadapter_mealtypes().notifyDataSetChanged();
                             break;
+                        case "ManageUserRecipe":
+                            manageUserRecipe.getArrayList_mealtypes().clear();
+                            manageUserRecipe.getArrayList_mealtypes().addAll(arraylist_mealtypes);
+                            manageUserRecipe.getArrayAdapter_mealtypes().notifyDataSetChanged();
+                            break;
                     }
 
                 } catch (Exception e) {
@@ -212,6 +218,11 @@ public class AddConnector {
                             editCountry.getArraylist_countries().clear();
                             editCountry.getArraylist_countries().addAll(arraylist_countries);
                             editCountry.getArrayadapter_countries().notifyDataSetChanged();
+                            break;
+                        case "ManageUserRecipe":
+                            manageUserRecipe.getArrayList_countries().clear();
+                            manageUserRecipe.getArrayList_countries().addAll(arraylist_countries);
+                            manageUserRecipe.getArrayAdapter_countries().notifyDataSetChanged();
                             break;
                     }
 
@@ -278,6 +289,11 @@ public class AddConnector {
                             generalMethods.getArrayList_Religions().clear();
                             generalMethods.getArrayList_Religions().addAll(arraylist_religions);
                         break;
+                        case "ManageUserRecipe":
+                            manageUserRecipe.getArrayList_religions().clear();
+                            manageUserRecipe.getArrayList_religions().addAll(arraylist_religions);
+                            manageUserRecipe.getArrayAdapter_religions().notifyDataSetChanged();
+                            break;
                     }
 
                 } catch (Exception e) {
@@ -338,6 +354,11 @@ public class AddConnector {
                             editTimeOfDay.getArraylist_timeofday().clear();
                             editTimeOfDay.getArraylist_timeofday().addAll(arraylist_timeofday);
                             editTimeOfDay.getArrayAdapter_timeofday().notifyDataSetChanged();
+                            break;
+                        case "ManageUserRecipe":
+                            manageUserRecipe.getArrayList_timeofday().clear();
+                            manageUserRecipe.getArrayList_timeofday().addAll(arraylist_timeofday);
+                            manageUserRecipe.getArrayAdapter_timeofday().notifyDataSetChanged();
                             break;
                     }
 
@@ -645,5 +666,9 @@ public class AddConnector {
 
     public void setDetailedViewRecipe(DetailedView detailedView) {
         detailedViewRecipe = detailedView;
+    }
+
+    public void setManageUserRecipe(com.nl.recipeapp.user.recipe.Manage manageUserRecipe) {
+        this.manageUserRecipe = manageUserRecipe;
     }
 }

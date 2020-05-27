@@ -2,13 +2,10 @@ package com.nl.recipeapp.admin.ingredients;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +58,7 @@ public class Manage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_manage_ingredients, container, false);
+        view = inflater.inflate(R.layout.fragment_manage_admin_ingredients, container, false);
 
         connectorIngredients = new Connector(this.getContext()); // Create the webserver connector for transferring queries and getting data from the database
 

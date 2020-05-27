@@ -49,6 +49,17 @@ public class Connector {
     }
 
     /**
+     * Deletes a recipe with the given recipe ID
+     * @param recipe The recipe that has to be deleted
+     * @return A true or false boolean, depending on whether deleting the recipe succeeded or not
+     */
+    public boolean deleteRecipe(Recipe recipe) {
+
+
+        return result;
+    }
+
+    /**
      * When the Spinner in ManageRecipes has to be filled with unapproved recipes only (recipes that have the 'isApproved' column on '0'), this is the method which is called
      * @return An ArrayList<Recipe> which returns all unapproved recipes
      */
