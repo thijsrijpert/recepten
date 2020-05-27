@@ -1,4 +1,4 @@
-package com.nl.recipeapp.login;
+package com.nl.recipeapp.register;
 
 import android.os.Bundle;
 
@@ -18,7 +18,6 @@ public class Register extends Fragment {
     public Register() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
