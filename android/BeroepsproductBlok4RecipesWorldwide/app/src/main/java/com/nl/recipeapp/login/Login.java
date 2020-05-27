@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.nl.recipeapp.R;
@@ -33,46 +34,30 @@ public class Login extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_login, container, false);
 
+        // Create the framelayout to be able to set it either visible or invisible
+        final FrameLayout frameLayout = view.findViewById(R.id.login_framelayout);
+        frameLayout.setVisibility(View.INVISIBLE);
+
+        // Place the register fragment in the frame layout
         fragment_register = new Register();
-        Register register = new Register();
-        TextView t2 = (TextView) view.findViewById(R.id.login_textView_registratie);
+        transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.login_framelayout, fragment_register);
+        transaction.commit();
+
+        // Create the textview which toggles the display of the framelayout
+        TextView t2 = view.findViewById(R.id.login_textView_registratie);
         t2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentTransaction("Register");
+                if (frameLayout.getVisibility() == View.INVISIBLE) {
+                    frameLayout.setVisibility(View.VISIBLE);
+                } else {
+                    frameLayout.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
-//        Button login_btn_register = register.getLogin_btn_register();
-//        login_btn_register.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                fragmentTransaction("Clean");
-//            }
-//        });
-
-
-        // Inflate the layout for this fragment
         return view;
 
     }
-
-    private void fragmentTransaction(String fragment) {
-        transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-        switch (fragment) {
-            case "Register":
-                transaction.replace(R.id.login_framelayout, fragment_register);
-                break;
-            case "Clean":
-                transaction.replace(R.id.login_framelayout, fragment_register);
-                break;
-        }
-
-        transaction.commit();
-    }
-
-
-    //    return inflater.inflate(R.layout.fragment_register, container, false);
-
 }
