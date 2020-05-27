@@ -1,18 +1,44 @@
 <?php
 namespace model;
-class TimeOfDay {
+require_once(dirname(__FILE__,1) . '/Model.php');
+require_once(dirname(__FILE__,1) . '/Update.php');
+require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
+class TimeOfDay extends \model\Model implements \model\Update{
+  //the name of the dish time, eg. lunch, brunch, diner
     private $name;
 
-    public function __construct(String $name){
+    public function __construct(String $name = null){
         $this->name = $name;
     }
-
+    //the name of the dish time, eg. lunch, brunch, diner
     public function getName() : String{
-        return $this->name;
+        if($this->name !== null){
+            return $this->name;
+        }
+        throw new \exception\ModelNullException("The value name is null");
     }
-
+    //the name of the dish time, eg. lunch, brunch, diner
     public function setName(String $name){
         $this->name = $name;
+    }
+    //get the columns this entity has
+    public function getVariables(){
+        return [['name']];
+    }
+
+    //get the columns this entity has
+    public function getUpdateVariables() : array{
+        return [['name']];
+    }
+    //return the object to the UI
+    public function jsonSerialize() {
+        if($this->name != null){
+          return [
+              'name' => $this->name,
+          ];
+        }else{
+            return [];
+        }
     }
 }
 ?>

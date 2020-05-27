@@ -18,27 +18,31 @@ class Religion extends Api implements CRInterface{
         set_error_handler(array($this, 'error_handler'));
     }
 
-    function insert() : void{
+    function insert() {
         try{
             $this->model = new \model\Religion($_GET['name']);
-
+            //create a new database statement and execute it
             $religieStatement = new \database\Religion();
             $code = $religieStatement->insert($this->model);
-
+            //reduce the error code to the error class so it can be used by the http code class
             $code = substr($code, 0, 2);
-
+            //return the right http code, then die
             parent::setHttpCode($code);
 
         }catch(\PDOException $e){
+            //return the right http code, then die
             parent::setHttpCode($e->getCode());
         }catch(\exception\NullPointerException $e){
             header('HTTP/1.0 400 Bad Request');
+            //return the error message so the code can be more easily debuged
+            echo $e->getMessage();
             restore_error_handler();
         }
     }
 
-    public function select() : void{
+    public function select() {
       try{
+          //extract all data from the get parameters so it can be used
           $this->model = new \model\Religion();
           $queryBuilder = parent::buildQuery($this->model);
 
@@ -70,13 +74,17 @@ class Religion extends Api implements CRInterface{
           parent::setHttpCode($e->getCode());
       }catch(\exception\NullPointerException $e){
           header('HTTP/1.0 400 Bad Request');
+          //set the datatype to json for consistancy with all select query's
+          header('Content-Type: application/json');
+          //return the error code for easy debug
+          echo json_encode($e->getMessage());
           restore_error_handler();
       }
     }
 
     function error_handler($errno, $errstr, $errfile, $errline){
         if($errstr == 'Undefined index: name'){
-            throw new \exception\NullPointerException("Get value isn't passed");
+            throw new \exception\NullPointerException("Name value isn't passed");
         }else{
             restore_error_handler();
         }
@@ -87,6 +95,6 @@ $religion = new Religion();
 if(isset($_GET['name'])){
     $religion->insert();
 }else{
-    $religion->select();
+    //$religion->select();
 }
 ?>

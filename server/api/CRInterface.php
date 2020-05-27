@@ -1,7 +1,7 @@
 <?php
 namespace api;
 interface CRInterface{
-    function select() : void;
+    function select();
 
-    function insert() : void;
+    function insert();
 }

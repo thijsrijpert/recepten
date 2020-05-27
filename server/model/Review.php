@@ -3,7 +3,8 @@ namespace model;
 require_once('User.php');
 require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 require_once(dirname(__FILE__,1) . '/Model.php');
-class Review extends \model\Model{
+require_once(dirname(__FILE__,1) . '/Update.php');
+class Review extends \model\Model implements \model\Update{
 
     protected $title, $description, $rating, $username, $id, $review_date, $recipe_id;
     public function __construct(String $title = null, float $rating = null, User $username = null, Recipe $recipe_id = null, String $description = null, \DateTime $review_date = null, int $id = null){
@@ -15,93 +16,105 @@ class Review extends \model\Model{
         $this->recipe_id = $recipe_id;
         $this->review_date = $review_date;
     }
-
+    //the title of the review
     public function getTitle() : String{
         if($this->title !== null){
             return $this->title;
         }
         throw new \exception\ModelNullException("Title value is null");
     }
-
+    //the description of the review
     public function getDescription() : String{
         if($this->description !== null){
             return $this->description;
         }
         throw new \exception\ModelNullException("Description value is null");
     }
-
+    //the rating of the review
     public function getRating() : Float{
         if($this->rating !== null){
             return $this->rating;
         }
         throw new \exception\ModelNullException("Rating value is null");
     }
-
+    //the username of the person that wrote the review
     public function getUsername() : \model\User{
         if($this->username !== null){
             return $this->username;
         }
         throw new \exception\ModelNullException("Username value is null");
     }
-
+    //the date the review was written
     public function getReviewDate() : \DateTime{
         if($this->review_date !== null){
           return $this->review_date;
         }
         throw new \exception\ModelNullException("Review date value is null");
     }
-
+    //the id of the review
     public function getId() : int{
         if($this->id !== null){
             return $this->id;
         }
         throw new \exception\ModelNullException("id value is null");
     }
-
+    //the id of the recipe the review is about
     public function getRecipeId() : \model\Recipe{
         if($this->recipe_id !== null){
             return $this->recipe_id;
         }
         throw new \exception\ModelNullException("Recipe value is null");
     }
-
+    //the title of the review
     public function setTitle(String $title){
         $this->title = $title;
     }
-
+    //the description of the review
     public function setDescription(String $description){
         $this->description = $description;
     }
-
+    //the rating of the review
     public function setRating(Float $rating) {
         $this->rating = $rating;
     }
-
+    //the username of the person that wrote the review
     public function setUsername(User $username) {
         $this->username = $username;
     }
-
+    //the date the review was written
     public function setReviewDate(\DateTime $date) {
         $this->reviewDate = $reviewDate;
     }
-
+    //the id of the review
     public function setId(int $id){
         $this->id = $id;
     }
-
+    //the id of the recipe the review is about
     public function setRecipeId(Recipe $recipeId){
         $this->recipe_id = $recipeId;
     }
-
+    //get all columns of this entity
     public function getVariables(){
         return [['title'], ['description'], ['rating'], ['id'], ['username'], ['review_date'], ['recipe_id']];
     }
 
+    public function getUpdateVariables() : array{
+        return [['title'], ['description'], ['rating']];
+    }
+    //return the result of this object to the UI
     public function jsonSerialize() {
         $vars = get_object_vars($this);
-        $vars["recipe_id"] = ($this->recipe_id !== null ? $this->recipe_id->getId() : null);
         $vars["review_date"] = ($this->review_date !== null ? $this->review_date->format('d-m-Y') : null);
-        $vars["username"] = ($this->username !== null ? $this->username->getUsername() : null);
+        try{
+          $vars["recipe_id"] = ($this->recipe_id !== null ? $this->recipe_id->getId() : null);
+        }catch(\exception\ModelNullException $e){
+            $vars["recipe_id"] = null;
+        }
+        try{
+            $vars["username"] = ($this->username !== null ? $this->username->getUsername() : null);
+        }catch(\exception\ModelNullException $e){
+            $vars["username"] = null;
+        }
         $json = parent::setUpJson($vars);
         return $json;
     }
