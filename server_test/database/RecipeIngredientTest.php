@@ -23,15 +23,15 @@ final class RecipeIngredientDatabaseTest extends TestCase
     public function testInsert(): void{
         $this->assertEquals(
             '00000',
-            $this->recipeIngredient->insert(new \model\RecipeIngredient(999, 'ingredienttest'))
+            $this->recipeIngredient->insert(new \model\Recipe_Ingredient(999, 'ingredienttest'))
         );
         $this->assertEquals(
             '23000',
-            $this->recipeIngredient->insert(new \model\RecipeIngredient(999, 'ingredienttest'))
+            $this->recipeIngredient->insert(new \model\Recipe_Ingredient(999, 'ingredienttest'))
         );
         $this->assertEquals(
             '22001',
-            $this->recipeIngredient->insert(new \model\RecipeIngredient(9999, 'ingredienttest'))
+            $this->recipeIngredient->insert(new \model\Recipe_Ingredient(9999, 'ingredienttest'))
         );
     }
 }

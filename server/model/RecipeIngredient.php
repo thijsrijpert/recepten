@@ -3,7 +3,7 @@ namespace model;
 require_once(dirname(__FILE__,1) . '/Model.php');
 require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 
-class RecipeIngredient extends  \model\Model{
+class Recipe_Ingredient extends  \model\Model{
 
   private $recipe_id;
   private $ingredient_name;
@@ -20,7 +20,7 @@ class RecipeIngredient extends  \model\Model{
       throw new \exception\ModelNullException("The value recipe_id is null");
   }
 
-  public function setRecipeId(Int $recipe_id): void{
+  public function setRecipeId(Int $recipe_id){
     $this->recipe_id = $recipe_id;
   }
 
@@ -45,7 +45,7 @@ class RecipeIngredient extends  \model\Model{
             'recipe_id' => $this->recipe_id,
             'ingredient_name' => $this->ingredient_name,
         ];
-      }else if($this->recipe_id == null){
+      }else if($this->recipe_id != null){
           return [
               'recipe_id' => $this->recipe_id,
           ];

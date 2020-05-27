@@ -8,7 +8,7 @@ class Country extends \model\Model{
     private $description;
 
     public function __construct(String $countrycode = null ,String $name = null ,String $description = null){
-        $this->countrycode =$countrycode;
+        $this->countrycode = $countrycode;
         $this->name = $name;
         $this->description = $description;
     }
@@ -51,25 +51,32 @@ class Country extends \model\Model{
     }
 
     public function jsonSerialize(){
-      $json_countrycode = "'countrycode' => $this->countrycode,";
-      $json_name = "'name' => $this->name,";
-      $json_description = "'description' => $this->description,";
-      $final_string = "[";
+      $json_countrycode = '"countrycode" : ' . '"' . $this->countrycode . '"';
+      $json_name = '"name" : ' . '"' . $this->name . '"';
+      $json_description = '"description" : ' . '"' . $this->description . '"';
+      $final_string = "{";
 
-      if($json_countrycode != null){
+      if($this->countrycode != null){
         $final_string .= $json_countrycode;
       }
 
-      if($json_description != null){
-        $final_string .= $json_description;
-      }
-
-      if($json_name != null){
+      if($this->name != null){
+        if($this->countrycode !== null){
+          $final_string .= ",";
+        }
         $final_string .= $json_name;
       }
 
-      $final_string .= "]";
-      return \json_encode($final_string);
+      if($this->description != null){
+        if($this->name !== null || $this->countrycode !== null){
+          $final_string .= ",";
+        }
+        $final_string .= $json_description;
+      }
+
+      $final_string .= "}";
+
+      return \json_decode($final_string);
 
     }
 

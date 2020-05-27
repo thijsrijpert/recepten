@@ -56,7 +56,7 @@ class Ingredient extends \model\Model{
   }
 
   public function setUsername(String $username){
-    $this->name = $username;
+    $this->username = $username;
   }
 
   public function getVariables(){
@@ -65,29 +65,39 @@ class Ingredient extends \model\Model{
 
   public function jsonSerialize(){
 
-    $json_name = "'name' => $this->name,";
-    $json_description = "'description' => $this->description,";
-    $json_is_approved = "'is_approved' => $this->is_approved,";
-    $json_username = "'username' => $this->username,";
-    $final_string = "[";
+    $json_name = '"name" : ' . '"' . $this->name . '"';
+    $json_description = '"description" : ' . '"' . $this->description . '"';
+    $json_is_approved = '"is_approved" : ' . '"' . $this->is_approved . '"';
+    $json_username = '"username" : ' . '"' . $this->username . '"';
+    $final_string = "{";
 
-    if($json_name != null){
+    if($this->name != null){
       $final_string .= $json_name;
     }
 
-    if($json_description != null){
+    if($this->description != null){
+      if($this->name !== null){
+        $final_string .= ",";
+      }
       $final_string .= $json_description;
     }
 
-    if($json_is_approved != null){
+    if($this->is_approved !== null){
+      if($this->description !== null || $this->name !== null){
+        $final_string .= ",";
+      }
       $final_string .= $json_is_approved;
     }
 
-    if($json_username != null){
+    if($this->username !== null){
+      if($this->is_approved !== null || $this->description !== null || $this->name !== null){
+        $final_string .= ",";
+      }
       $final_string .= $json_username;
     }
 
-    $final_string .= "]";
+    $final_string .= "}";
+    //\var_dump($json_username);
     return \json_decode($final_string);
   }
 

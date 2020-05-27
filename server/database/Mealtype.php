@@ -5,7 +5,7 @@ require_once(dirname(__FILE__,1) . '/CRUD.php');
 require_once(dirname(__FILE__,2) . '/model/Mealtype.php');
   class Mealtype extends CRUD{
 
-      function __construct(){
+      function __construct(QueryBuilder $query = null){
           $sql = "INSERT INTO Mealtype (name) VALUES (:name)";
           $this->stmt = \database\Database::getConnection()->prepare($sql);
 

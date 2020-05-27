@@ -38,16 +38,12 @@ class Ingredient extends CRUD{
     }catch(\exception\ModelNullException $e){}
 
     try{
-        $this->select[0]->bindParam(':description', $model->getDescription());
-    }catch(\exception\ModelNullException $e){}
-
-    try{
         $this->select[0]->bindParam(':is_approved', $model->getIs_approved());
     }catch(\exception\ModelNullException $e){}
 
-    try{
-        $this->select[0]->bindParam(':username', $model->getUsername());
-    }catch(\exception\ModelNullException $e){}
+      try{
+          $this->select[0]->bindParam(':username', $model->getUsername());
+      }catch(\exception\ModelNullException $e){}
 
     $this->select[0]->execute();
 

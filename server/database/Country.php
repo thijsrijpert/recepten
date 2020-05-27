@@ -42,8 +42,6 @@ require_once(dirname(__FILE__,2) . '/model/Country.php');
         $results = $this->select[0]->fetchAll(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'model\Country');
 
         return array($this->select[0]->errorCode(), array($results));
-
-
       }
 
       function error_handler($errno, $errstr, $errfile, $errline){

@@ -16,7 +16,7 @@ require_once(dirname(__FILE__,1) . '/Api.php');
         set_error_handler(array($this, 'error_handler'));
     }
 
-    function insert() : void{
+    function insert(){
         try{
             $this->model = new \model\Wordfilter($_GET['word']);
 

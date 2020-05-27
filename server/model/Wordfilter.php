@@ -26,15 +26,15 @@ class Wordfilter extends \model\Model{
   }
 
   public function jsonSerialize() {
-    $json_word = "'word' => $this->word,";
-    $final_string = "[";
+    $json_word = '"word" : ' . '"' . $this->word . '"';
+    $final_string = "{";
 
-    if($json_word != null){
+    if($this->word != null){
       $final_string .= $json_word;
     }
 
-    $final_string .= "]";
-    return \json_encode($final_string);
+    $final_string .= "}";
+    return \json_decode($final_string);
   }
 
 }

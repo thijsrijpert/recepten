@@ -4,10 +4,9 @@ ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(E_ALL | E_STRICT);
 require_once(dirname(__FILE__,2) . '/model/RecipeIngredient.php');
-require_once(dirname(__FILE__,2) . '/database/RecepIngredient.php');
+require_once(dirname(__FILE__,2) . '/database/RecipeIngredient.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
-
 class ReceptIngredient extends Api{
 
   private $model;
@@ -17,12 +16,11 @@ class ReceptIngredient extends Api{
       set_error_handler(array($this, 'error_handler'));
   }
 
-  function insert() : void{
+  function insert(){
       try{
-          $this->model = new model\RecipeIngredient($_GET['recept_id']);
-          $this->model = new model\RecipeIngredient($_GET['ingredient_name']);
+          $this->model = new model\Recipe_Ingredient($_GET['recept_id'], $_GET['ingredient_name']);
 
-          $recipe_ingredientStatement = new database\RecipeIngredient();
+          $recipe_ingredientStatement = new database\Recipe_Ingredient();
           $code = $recipe_ingredientStatement->insert($this->model);
 
           $code = substr($code, 0, 2);
@@ -38,23 +36,23 @@ class ReceptIngredient extends Api{
 
   public function select(){
     try{
-        $this->model = new \model\RecipeIngredient();
+        $this->model = new \model\Recipe_Ingredient();
         $queryBuilder = parent::buildQuery($this->model);
 
-        //I don't know how to get the decoded arguments to the database, so I will call rebuildArguments again
+
         if(null != $_GET['where']){
             $arguments = parent::rebuildArguments($_GET['where']);
             $approvedArguments = $this->model->getVariables();
             foreach($arguments as $value){
-                if($value[0] == 'recept_id'){
-                    $this->model->setId($value[2]);
+                if($value[0] == 'recipe_id'){
+                    $this->model->setRecipeId($value[2]);
                 }else if($value[0] == 'ingredient_name'){
-                    $this->model->setName($value[2]);
+                    $this->model->setIngredientName($value[2]);
                 }
             }
         }
 
-        $recipe_ingredientStatement = new \database\ReceptIngredient($queryBuilder);
+        $recipe_ingredientStatement = new \database\RecipeIngredient($queryBuilder);
         $codeAndResult = $recipe_ingredientStatement->select($this->model);
 
         if($codeAndResult[0][1] == '00'){
@@ -74,7 +72,7 @@ class ReceptIngredient extends Api{
   }
 
   function error_handler($errno, $errstr, $errfile, $errline){
-      if($errstr == 'Undefined index: name'){
+      if($errstr == 'Undefined index: recipe_id' || $errstr == 'Undefined index: ingredient_name'){
           throw new \exception\NullPointerException("Get value isn't passed");
       }else{
 
@@ -84,10 +82,10 @@ class ReceptIngredient extends Api{
 }
 
 $receptIngredient = new ReceptIngredient();
-if(isset($_GET['name'])){
+if(isset($_GET['recipe_name'])){
     $receptIngredient->insert();
 }else{
-    $receptIngredient->sekect();
+    $receptIngredient->select();
 }
 
  ?>

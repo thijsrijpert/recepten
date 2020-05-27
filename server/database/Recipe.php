@@ -38,6 +38,10 @@ class Recipe extends CRUD{
   function select(\model\Model $model) : array{
 
       try{
+          $this->select[0]->bindParam(':id', $model->getId());
+      }catch(\exception\ModelNullException $e){}
+
+      try{
           $this->select[0]->bindParam(':name', $model->getName());
       }catch(\exception\ModelNullException $e){}
 
@@ -50,7 +54,7 @@ class Recipe extends CRUD{
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':name', $model->getCountry_code());
+          $this->select[0]->bindParam(':countrycode', $model->getCountrycode());
       }catch(\exception\ModelNullException $e){}
 
       try{

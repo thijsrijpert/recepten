@@ -7,6 +7,7 @@ require_once(dirname(__FILE__,2) . '/model/Ingredient.php');
 require_once(dirname(__FILE__,2) . '/database/Ingredient.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
+
 class Ingredient extends Api{
 
   private $model;
@@ -16,7 +17,7 @@ class Ingredient extends Api{
       set_error_handler(array($this, 'error_handler'));
   }
 
-  function insert() : void{
+  function insert(){
     try{
       $this->model = new \model\Ingredient($_GET['name'], $_GET['description'], $_GET['is_approved'], $_GET['username']);
       \var_dump($this->model);
@@ -45,6 +46,7 @@ class Ingredient extends Api{
             $arguments = parent::rebuildArguments($_GET['where']);
             $approvedArguments = $this->model->getVariables();
             foreach($arguments as $value){
+              //\var_dump($value);
                 if($value[0] == 'username'){
                     $this->model->setUsername($value[2]);
                 }else if($value[0] == 'is_approved'){
@@ -56,6 +58,8 @@ class Ingredient extends Api{
             }
             }
         }
+        //\var_dump($this->model);
+
 
         $ingredientStatement = new \database\Ingredient($queryBuilder);
         $codeAndResult = $ingredientStatement->select($this->model);

@@ -17,11 +17,11 @@ class Recipe extends Api{
       set_error_handler(array($this, 'error_handler'));
   }
 
-  function insert() : void{
+  function insert(){
       try{
-        echo 'insert';
+
           $this->model = new \model\Recipe(null, $_GET['name'], $_GET['description'], $_GET['isApproved'], $_GET['countrycode'], $_GET['username'], $_GET['mealtype_name'], $_GET['religion_id'], $_GET['time_of_day'] );
-          echo 'insert';
+
           $recipeStatement = new \database\Recipe();
           $code = $recipeStatement->insert($this->model);
           $code = substr($code, 0, 2);
@@ -32,7 +32,6 @@ class Recipe extends Api{
           parent::setHttpCode($e->getCode());
       }catch(\exception\NullPointerException $e){
           header('HTTP/1.0 400 Bad Request');
-          \var_dump($e);
           restore_error_handler();
       }
   }
@@ -64,7 +63,7 @@ class Recipe extends Api{
                   $this->model->setReligion_id($value[2]);
               }else if($value[0] == 'time_of_day'){
                   $this->model->setTime_of_day($value[2]);
-              }
+        }
           }
       }
 
@@ -82,6 +81,7 @@ class Recipe extends Api{
     }catch(\PDOException $e){
         parent::setHttpCode($e->getCode());
     }catch(\exception\NullPointerException $e){
+      var_dump($e->getMessage());
         header('HTTP/1.0 400 Bad Request');
         restore_error_handler();
     }

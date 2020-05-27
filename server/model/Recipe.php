@@ -70,7 +70,7 @@ class Recipe extends \model\Model{
       throw new \exception\ModelNullException("The value isApproved is null");
   }
 
-  public function setIs_approved(int $isApproved) : void{
+  public function setIs_approved(int $isApproved){
     $this->isApproved = $isApproved;
   }
 
@@ -82,7 +82,7 @@ class Recipe extends \model\Model{
       throw new \exception\ModelNullException("The value countrycode is null");
   }
 
-  public function setCountrycode(String $countrycode): void{
+  public function setCountrycode(String $countrycode){
     $this->countrycode = $countrycode;
   }
 
@@ -115,12 +115,12 @@ class Recipe extends \model\Model{
       throw new \exception\ModelNullException("The value religion_id is null");
   }
 
-  public function setReligion_id(Int $religion_id): void{
+  public function setReligion_id(Int $religion_id){
     $this->religion_id = $religion_id;
   }
 
-  public function setTime_of_day() : String{
-    return $this->time_of_day;
+  public function setTime_of_day(String $time_of_day){
+    $this->time_of_day = $time_of_day;
   }
 
   public function getTime_of_day() : String{
@@ -131,58 +131,87 @@ class Recipe extends \model\Model{
   }
 
   public function getVariables(){
-      return [['id'], ['name'], ['description'], [' isApproved'], ['countrycode'], ['username'], ['mealtype_name'], ['religion_id'],
+      return [['id'], ['name'], ['description'], ['isApproved'], ['countrycode'], ['username'], ['mealtype_name'], ['religion_id'],
       ['time_of_day']];
   }
 
   public function jsonSerialize(){
 
-    $json_name = "'name' => $this->name,";
-    $json_description = "'description' => $this->description,";
-    $json_is_aproved = "'isApproved' => $this->isApproved,";
-    $json_countrycode = "'countrycode' => $this->countrycode,";
-    $json_username= "'username' => $this->username,";
-    $json_mealtype= "mealtype_name = > $this->mealtype_name,";
-    $json_religion_id = "'religion_id' => $this->religion_id,";
-    $json_time_of_day = "'time_of_day' => $this->time_of_day,";
+    $json_id = '"id" : ' . '"' . $this->id . '"';
+    $json_name = '"name" : ' . '"' . $this->name . '"';
+    $json_description = '"description" : ' . '"' . $this->description . '"';
+    $json_is_approved = '"isApproved" : ' . '"' . $this->isApproved . '"';
+    $json_countrycode = '"countrycode" : ' . '"' . $this->countrycode . '"';
+    $json_username = '"username" : ' . '"' . $this->username . '"';
+    $json_mealtype_name= '"mealtype_name" : ' . '"' . $this->mealtype_name . '"';
+    $json_religion_id = '"religion_id" : ' . '"' . $this->religion_id . '"';
+    $json_time_of_day = '"time_of_day" : ' . '"' . $this->time_of_day . '"';
 
-    $final_string = "[";
+    $final_string = "{";
 
-    if($json_name != null){
+    if($this->id != null){
+      $final_string .= $json_id;
+    }
+
+    if($this->name != null){
+      if($this->id !== null){
+        $final_string .= ",";
+      }
       $final_string .= $json_name;
     }
 
-    if($json_description != null){
+    if($this->description != null){
+      if($this->name !== null  || $this->id !== null){
+        $final_string .= ",";
+      }
       $final_string .= $json_description;
     }
 
-    if($json_is_aproved != null){
-      $final_string .= $json_is_aproved;
+    if($this->isApproved !== null){
+      if($this->description !== null  || $this->name !== null  || $this->id !== null){
+        $final_string .= ",";
+      }
+      $final_string .=  $json_is_approved;
     }
 
-    if($json_countrycode != null){
+    if($this->countrycode != null){
+      if($this->isApproved !== null  || $this->description !== null  || $this->name !== null  || $this->id !== null){
+        $final_string .= ",";
+      }
       $final_string .= $json_countrycode;
     }
 
-    if($json_username != null){
+    if($this->username != null){
+      if($this->countrycode !== null  || $this->isApproved !== null  || $this->description !== null  || $this->name !== null  || $this->id !== null){
+        $final_string .= ",";
+      }
       $final_string .= $json_username;
     }
 
-    if($json_mealtype != null){
-      $final_string .= $json_mealtype;
+    if($this->mealtype_name != null){
+      if($this->username !== null  || $this->countrycode !== null  || $this->isApproved !== null  || $this->description !== null  || $this->name !== null  || $this->id !== null){
+        $final_string .= ",";
+      }
+      $final_string .= $json_mealtype_name;
     }
 
-    if($json_religion_id != null){
+    if($this->religion_id !== null){
+      if($this->mealtype_name !== null  || $this->username !== null  || $this->countrycode !== null  || $this->isApproved !== null  || $this->description !== null  || $this->name !== null  || $this->id !== null){
+        $final_string .= ",";
+      }
       $final_string .= $json_religion_id;
     }
 
-    if($json_time_of_day != null){
+    if($this->time_of_day != null){
+      if($this->religion_id !== null  || $this->mealtype_name !== null  || $this->username !== null  || $this->countrycode !== null  || $this->isApproved !== null  || $this->description !== null  || $this->name !== null  || $this->id !== null){
+        $final_string .= ",";
+      }
       $final_string .= $json_time_of_day;
     }
 
 
-
-    $final_string .= "]";
+    $final_string .= "}";
+    //\var_dump($final_string);
     return \json_decode($final_string);
   }
 }

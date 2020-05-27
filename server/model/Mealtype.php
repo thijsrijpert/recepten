@@ -25,14 +25,14 @@ class Mealtype extends \model\Model{
     }
 
     public function jsonSerialize() {
-      $json_name = "'name' => $this->name,";
-      $final_string = "[";
+      $json_name = '"name" : ' . '"' . $this->name . '"';
+      $final_string = "{";
 
-      if($json_name != null){
+      if($this->name != null){
         $final_string .= $json_name;
       }
 
-      $final_string .= "]";
-      return \json_encode($final_string);
+      $final_string .= "}";
+      return \json_decode($final_string);
     }
 }
