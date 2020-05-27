@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
 
 /**
@@ -18,7 +19,7 @@ import com.nl.recipeapp.R;
 public class Login extends Fragment {
 
     View view;
-
+    private Fragment fragment_register;
     public Login() {
         // Required empty public constructor
     }
@@ -28,13 +29,22 @@ public class Login extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_login, container, false);
 
+        fragment_register = new com.nl.recipeapp.login.Register();
+
         TextView t2 = (TextView) view.findViewById(R.id.login_textView_registratie);
-        t2.setMovementMethod(LinkMovementMethod.getInstance());
+        t2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         // Inflate the layout for this fragment
         return view;
 
-
-
     }
+
+
+    //    return inflater.inflate(R.layout.fragment_register, container, false);
+
 }
