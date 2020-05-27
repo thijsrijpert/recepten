@@ -3,7 +3,8 @@ namespace model;
 require_once('User.php');
 require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 require_once(dirname(__FILE__,1) . '/Model.php');
-class Review extends \model\Model{
+require_once(dirname(__FILE__,1) . '/Update.php');
+class Review extends \model\Model implements \model\Update{
 
     protected $title, $description, $rating, $username, $id, $review_date, $recipe_id;
     public function __construct(String $title = null, float $rating = null, User $username = null, Recipe $recipe_id = null, String $description = null, \DateTime $review_date = null, int $id = null){
@@ -96,12 +97,24 @@ class Review extends \model\Model{
     public function getVariables(){
         return [['title'], ['description'], ['rating'], ['id'], ['username'], ['review_date'], ['recipe_id']];
     }
+
+    public function getUpdateVariables() : array{
+        return [['title'], ['description'], ['rating']];
+    }
     //return the result of this object to the UI
     public function jsonSerialize() {
         $vars = get_object_vars($this);
-        $vars["recipe_id"] = ($this->recipe_id !== null ? $this->recipe_id->getId() : null);
         $vars["review_date"] = ($this->review_date !== null ? $this->review_date->format('d-m-Y') : null);
-        $vars["username"] = ($this->username !== null ? $this->username->getUsername() : null);
+        try{
+          $vars["recipe_id"] = ($this->recipe_id !== null ? $this->recipe_id->getId() : null);
+        }catch(\exception\ModelNullException $e){
+            $vars["recipe_id"] = null;
+        }
+        try{
+            $vars["username"] = ($this->username !== null ? $this->username->getUsername() : null);
+        }catch(\exception\ModelNullException $e){
+            $vars["username"] = null;
+        }
         $json = parent::setUpJson($vars);
         return $json;
     }

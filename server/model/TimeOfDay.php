@@ -1,8 +1,9 @@
 <?php
 namespace model;
 require_once(dirname(__FILE__,1) . '/Model.php');
+require_once(dirname(__FILE__,1) . '/Update.php');
 require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
-class TimeOfDay extends \model\Model{
+class TimeOfDay extends \model\Model implements \model\Update{
   //the name of the dish time, eg. lunch, brunch, diner
     private $name;
 
@@ -22,6 +23,11 @@ class TimeOfDay extends \model\Model{
     }
     //get the columns this entity has
     public function getVariables(){
+        return [['name']];
+    }
+
+    //get the columns this entity has
+    public function getUpdateVariables() : array{
         return [['name']];
     }
     //return the object to the UI

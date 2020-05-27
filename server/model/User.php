@@ -1,12 +1,14 @@
 <?php
 namespace model;
-class User {
+require_once(dirname(__FILE__, 1) . '/Model.php');
+require_once(dirname(__FILE__, 2) . '/exception/ModelNullException.php');
+class User extends Model{
     private $username;
     private $password;
     private $role;
     private $token;
 
-    public function __construct(String $username = null, \api\Hash $password = null, \model\Role $role = null, String $token = null){
+    public function __construct(String $username = null, \api\Hash $password = null, String $token = null, \model\Role $role = null){
         $this->username = $username;
         $this->password = $password;
         $this->role = $role;
@@ -63,6 +65,17 @@ class User {
     {
         $this->token = $token;
     }
-
+    //get the columns this entity has
+    public function getVariables(){
+        return [['username'], ['password'], ['token'], ['role']];
+    }
+    //return the object to the UI
+    public function jsonSerialize() {
+        $vars = get_object_vars($this);
+        $vars['password'] = null;
+        $vars['username'] = null;
+        $json = parent::setUpJson($vars);
+        return $json;
+    }
 }
 ?>

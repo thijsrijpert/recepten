@@ -1,8 +1,5 @@
 <?php
 namespace api;
-ini_set('display_startup_errors', 1);
-ini_set('display_errors', 1);
-error_reporting(E_ALL | E_STRICT);
 require_once(dirname(__FILE__,2) . '/model/Review.php');
 require_once(dirname(__FILE__,2) . '/model/User.php');
 require_once(dirname(__FILE__,2) . '/model/Recipe.php');
@@ -17,7 +14,7 @@ class Review extends Api implements CRInterface{
         set_error_handler(array($this, 'error_handler'));
     }
 
-    public function insert() : void{
+    public function insert() {
       try{
           //load all get parameters into the model
           $this->model = new \model\Review($_GET['title'], $_GET['rating'], new \model\User($_GET['username']), new \model\Recipe($_GET['recipeId']), $_GET['description']);
@@ -39,7 +36,7 @@ class Review extends Api implements CRInterface{
       }
     }
 
-    public function select() : void{
+    public function select() {
         try{
             //rebuild the get parameters in useful queries
             $this->model = new \model\Review();
@@ -116,6 +113,6 @@ $review = new Review();
 if(isset($_GET['title'])){
     $review->insert();
 }else{
-    $review->select();
+    //$review->select();
 }
  ?>

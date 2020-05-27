@@ -18,7 +18,7 @@ class Religion extends Api implements CRInterface{
         set_error_handler(array($this, 'error_handler'));
     }
 
-    function insert() : void{
+    function insert() {
         try{
             $this->model = new \model\Religion($_GET['name']);
             //create a new database statement and execute it
@@ -40,7 +40,7 @@ class Religion extends Api implements CRInterface{
         }
     }
 
-    public function select() : void{
+    public function select() {
       try{
           //extract all data from the get parameters so it can be used
           $this->model = new \model\Religion();
@@ -95,6 +95,6 @@ $religion = new Religion();
 if(isset($_GET['name'])){
     $religion->insert();
 }else{
-    $religion->select();
+    //$religion->select();
 }
 ?>

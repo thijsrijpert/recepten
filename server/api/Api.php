@@ -4,7 +4,9 @@ if(!defined('TESING')){
     define('TESTING', false);
 }
 require_once(dirname(__FILE__, 2) . '/database/Query.php');
+require_once(dirname(__FILE__, 2) . '/database/QueryUpdate.php');
 require_once(dirname(__FILE__, 2) . '/database/QueryBuilder.php');
+require_once(dirname(__FILE__, 2) . '/database/QueryBuilderUpdate.php');
 require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
   class Api {
       public function __construct(){
@@ -17,7 +19,7 @@ require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
         ini_set('display_errors', 1);
         error_reporting(E_ALL | E_STRICT);
       }
-      public function setHttpCode($code) : void{
+      public function setHttpCode($code) {
           switch($code){
               case '00':
                   //SQL query succesful
@@ -104,11 +106,45 @@ require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
           $queryBuilder->generateSql();
           return $queryBuilder;
       }
+
+      public function buildUpdate(\model\Model $entity) : \database\QueryBuilderUpdate{
+          $query = new \database\QueryUpdate($entity);
+          //check if the user passed a set restriction
+          if(isset($_GET['set'])){
+              //rebuild the arguments in array form
+              $arguments = $this->rebuildArguments($_GET['set']);
+              //if all arguments are valid continue else throw exception
+              if(!$query->setSetArguments($arguments)){
+                  throw new \exception\NullPointerException("Select has invalid argument");
+              }
+          }else {
+            //set is required throw null pointer if it was not passed
+              throw new NullPointerException("Set parameter is not passed");
+          }
+          //check if the user passed a where clause
+          if(isset($_GET['where'])){
+              //rebuild arguments in array form
+              $arguments = $this->rebuildArguments($_GET['where']);
+              //if all arguments are valid continue else throw exception
+              if(!$query->setWhereArguments($arguments)){
+                  throw new \exception\NullPointerException("Where has invalid argument");
+              }
+          }else {
+            //where is required throw null pointer if it was not passed
+              throw new \exception\NullPointerException("Where argument was not passed");
+          }
+
+          $queryBuilder = new \database\QueryBuilderUpdate($query);
+          $queryBuilder->generateSql();
+          return $queryBuilder;
+      }
+
+
       //rebuild the arguments from string to array
       public function rebuildArguments(String $get_parameter) : array{
-          // $parameterFull = urlencode($get_parameter);
-          // $parameterFull = str_replace("+", "%2B", $parameterFull);
-          // $parameterFull = urldecode($parameterFull);
+          $parameterFull = urlencode($get_parameter);
+          $parameterFull = str_replace(" ", "%20", $parameterFull);
+          $parameterFull = urldecode($parameterFull);
 
           //seperate the different columns
           $parameters = \explode('.', $get_parameter);
