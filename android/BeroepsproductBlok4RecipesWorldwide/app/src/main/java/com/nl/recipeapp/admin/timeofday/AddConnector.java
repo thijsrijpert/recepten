@@ -62,7 +62,7 @@ public class AddConnector {
      */
     public boolean editTimeOfDay(String oldName, String newName) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/timeofday.php?name=" + newName + "&where=name-eq-" + oldName + "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/timeofday.php?set=name-" + newName + "&where=name-eq-" + oldName + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 success = true;
