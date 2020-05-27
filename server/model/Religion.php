@@ -10,29 +10,29 @@ require_once(dirname(__FILE__,1) . '/Model.php');
         $this->name = $name;
         $this->id = $id;
     }
-
+    //the name of the religion
     public function getName() : String{
         if($this->name !== null){
             return $this->name;
         }
         throw new \exception\ModelNullException("The value name is null");
     }
-
+    //the name of the religion
     public function setName(String $name){
         $this->name = $name;
     }
-
+    //the id of the religion
     public function getId() : int{
         if($this->id !== null){
             return $this->id;
         }
         throw new \exception\ModelNullException("The value id is null");
     }
-
+    //the id of the religion
     public function setId(int $id) {
         $this->id = $id;
     }
-
+    //all columns of this enity
     public function getVariables(){
         return [['name'], ['id']];
     }

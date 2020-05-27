@@ -11,9 +11,8 @@ namespace database;
   class Review extends CRUD implements CRInterface{
 
       function __construct(QueryBuilder $query = null){
-          $sql = "INSERT INTO Review (title, description, rating, username, recipe_id) VALUES (:title, :description, :rating, :username, :recipe_id)";
+          $sql = "INSERT INTO Review (title, description, rating, username, recipe_id, review_date) VALUES (:title, :description, :rating, :username, :recipe_id, NULL)";
           $this->stmt = \database\Database::getConnection()->prepare($sql);
-
           parent::__construct($query);
       }
 
@@ -37,7 +36,6 @@ namespace database;
           $this->stmt->bindParam(':rating', $rating);
           $this->stmt->bindParam(':username', $rating);
           $this->stmt->bindParam(':recipe_id', $recipeId);
-
           $this->stmt->execute();
 
           return $this->stmt->errorCode();
@@ -73,7 +71,6 @@ namespace database;
         $this->select[0]->execute();
 
         $results = $this->select[0]->fetchAll(\PDO::FETCH_CLASS, 'model\ReviewPDO');
-
         return array($this->select[0]->errorCode(), array($results));
       }
 
