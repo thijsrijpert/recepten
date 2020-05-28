@@ -11,11 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".user.User"></activity>
         <activity android:name=".review.Add" />
         <activity android:name=".recipe.DetailedView" />
         <activity android:name=".search.Search" />
         <activity android:name=".admin.Admin" />
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

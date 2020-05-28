@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Ingredient;
@@ -61,28 +62,7 @@ public class Add extends Fragment {
      */
     private void initializeInputFields() {
         // Create the listener on recipeDescription's EditText, so the character counter changes when the user is typing
-        edittext_ingredientDescription.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textview_ingredientDescriptionCharacterCount.setText(edittext_ingredientDescription.getText().length() + " / 65.535", null);
-
-                if (edittext_ingredientDescription.getText().length() > 65535) {
-                    textview_ingredientDescriptionCharacterCount.setTextColor(Color.RED);
-                } else {
-                    textview_ingredientDescriptionCharacterCount.setTextColor(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        edittext_ingredientDescription.addTextChangedListener(new CharacterCountListener(textview_ingredientDescriptionCharacterCount,  edittext_ingredientDescription));
     }
 
     private void initializeButtons() {

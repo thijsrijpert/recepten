@@ -1,4 +1,4 @@
-package com.nl.recipeapp.login;
+package com.nl.recipeapp.user.review;
 
 import android.os.Bundle;
 
@@ -13,17 +13,21 @@ import com.nl.recipeapp.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Register extends Fragment {
+public class Manage extends Fragment {
+    private View view;
 
-    public Register() {
+    public Manage() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        view = inflater.inflate(R.layout.fragment_manage_user_reviews, container, false);
+
+
+
+        return view;
     }
 }

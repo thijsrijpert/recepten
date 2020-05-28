@@ -2,15 +2,12 @@ package com.nl.recipeapp.admin.recipe;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.GeneralMethods;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Country;
@@ -72,13 +70,13 @@ public class Manage extends Fragment {
     // Class variables (B means these variables are for managing a recipe)
     private EditText edittext_B_name, edittext_B_description, edittext_B_username;
     private TextView textview_B_descriptionCharCount;
-    private Spinner spinner_B_approvedRecipes, spinner_B_mealtype, spinner_B_religion, spinner_B_country, spinner_B_timeOfDay;
-    private Button button_B_saveChanges;
+    private Spinner spinner_B_approvedRecipes, spinner_B_mealtype, spinner_B_religion, spinner_B_country, spinner_B_timeOfDay, spinner_B_isApproved;
+    private Button button_B_saveChanges, button_B_delete;
     private RecyclerView recyclerview_B_ingredients;
     private ManageRecyclerViewAdapterB recyclerview_B_ingredients_adapter;
     private ArrayList<Ingredient> arraylist_ingredientsBoundToRecipe_B;
-    private ArrayList<String> arraylist_approvedRecipeNames;
-    private ArrayAdapter<String> arrayadapter_approvedRecipes;
+    private ArrayList<String> arraylist_approvedRecipeNames, arraylist_isApproved;
+    private ArrayAdapter<String> arrayadapter_approvedRecipes, arrayadapter_B_isApproved;
 
     private ArrayAdapter<Religion> arrayadapter_B_religion;
     private ArrayAdapter<Country> arrayadapter_B_country;
@@ -93,7 +91,7 @@ public class Manage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_manage_recipes, container, false);
+        view =  inflater.inflate(R.layout.fragment_manage_admin_recipes, container, false);
 
         connectorRecipes = new Connector(this.getContext()); // Create the webserver connector for transferring queries and getting data from the database
         connectorIngredients = new com.nl.recipeapp.admin.ingredients.Connector(this.getContext()); // Create the webserver connector for getting Ingredients. (Mostly used for checking purposes)
@@ -109,6 +107,10 @@ public class Manage extends Fragment {
         arraylist_religions = new ArrayList<>();
         arraylist_mealtypes = new ArrayList<>();
         arraylist_timeofday = new ArrayList<>();
+
+        arraylist_isApproved = new ArrayList<>();
+        arraylist_isApproved.add("Ja");
+        arraylist_isApproved.add("Nee");
 
         addConnectorRecipe.setManageRecipe(this);
 
@@ -150,28 +152,7 @@ public class Manage extends Fragment {
 
         textview_A_descriptionCharCount = view.findViewById(R.id.manageRecipes_A_textview_receptomschrijvingCharacterCount);
         edittext_A_description = view.findViewById(R.id.manageRecipes_A_edittext_description);
-        edittext_A_description.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textview_A_descriptionCharCount.setText(edittext_A_description.getText().length() + " / 65535", null);
-
-                if (edittext_A_description.getText().length() > 65535) {
-                    textview_A_descriptionCharCount.setTextColor(Color.RED);
-                } else {
-                    textview_A_descriptionCharCount.setTextColor(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        edittext_A_description.addTextChangedListener(new CharacterCountListener(textview_A_descriptionCharCount, edittext_A_description));
     }
 
     /**
@@ -403,28 +384,7 @@ public class Manage extends Fragment {
 
         textview_B_descriptionCharCount = view.findViewById(R.id.manageRecipes_B_textview_receptomschrijvingCharacterCount);
         edittext_B_description = view.findViewById(R.id.manageRecipes_B_edittext_description);
-        edittext_B_description.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textview_B_descriptionCharCount.setText(edittext_B_description.getText().length() + " / 65535", null);
-
-                if (edittext_B_description.getText().length() > 65535) {
-                    textview_B_descriptionCharCount.setTextColor(Color.RED);
-                } else {
-                    textview_B_descriptionCharCount.setTextColor(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        edittext_B_description.addTextChangedListener(new CharacterCountListener(textview_B_descriptionCharCount, edittext_B_description));
     }
 
     /**
@@ -443,10 +403,11 @@ public class Manage extends Fragment {
     private void initializeViewContent_B_Spinners() {
         // Initialize the Spinners
         spinner_B_approvedRecipes = view.findViewById(R.id.manageRecipes_B_spinner_approvedRecipes);
-        spinner_B_mealtype = view.findViewById(R.id.manageRecipes_B_spinner_mealtype);
+        spinner_B_mealtype = view.findViewById(R.id.manageRecipes_B_spinner_recipeMealtype);
         spinner_B_religion = view.findViewById(R.id.manageRecipes_B_spinner_recipeReligion);
         spinner_B_country = view.findViewById(R.id.manageRecipes_B_spinner_recipeCountry);
         spinner_B_timeOfDay = view.findViewById(R.id.manageRecipes_B_spinner_recipeMealDaypart);
+        spinner_B_isApproved = view.findViewById(R.id.manageRecipes_B_spinner_recipeIsApproved);
 
         // Initialize the Spinners' listeners
         spinner_B_approvedRecipes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -524,6 +485,9 @@ public class Manage extends Fragment {
 
         arrayadapter_B_timeofday = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_timeofday);
         spinner_B_timeOfDay.setAdapter(arrayadapter_B_timeofday);
+
+        arrayadapter_B_isApproved = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_isApproved);
+        spinner_B_isApproved.setAdapter(arrayadapter_B_isApproved);
     }
 
     /**
@@ -545,18 +509,33 @@ public class Manage extends Fragment {
                             Recipe recipe = null;
                             for (int c = 0; c < arraylist_approvedRecipes.size(); c++) {
                                 if (spinner_B_approvedRecipes.getSelectedItem().toString().equals(arraylist_approvedRecipes.get(c).getName())) {
+                                    int approved = 1;
+                                    if (spinner_B_isApproved.getSelectedItem().toString().equals("Ja")) {
+                                        approved = 1;
+                                    } else {
+                                        approved = 0;
+                                    }
+
                                     recipe = arraylist_approvedRecipes.get(c);
+                                    recipe.setMealtypeName(spinner_B_mealtype.getSelectedItem().toString());
+                                    recipe.setName(edittext_B_name.getText().toString());
+                                    recipe.setCountryCode(generalMethods.getCountryCodeFromName(spinner_B_country.getSelectedItem().toString()));
+                                    recipe.setReligionId(generalMethods.getReligionIdFromName(spinner_B_religion.getSelectedItem().toString()));
+                                    recipe.setTimeOfDay(spinner_B_timeOfDay.getSelectedItem().toString());
+                                    recipe.setDescription(edittext_B_description.getText().toString());
+                                    recipe.setApproved(approved);
+                                    break;
                                 }
                             }
 
                             boolean succeeded = connectorRecipes.updateRecipe(recipe);
 
                             if (succeeded) {
-                                Toast.makeText(view.getContext(), recipe.getName() + " is afgekeurd", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(view.getContext(), recipe.getName() + " is geüpdatet", Toast.LENGTH_SHORT).show();
                                 initializeArrayLists();
                                 updateViewContent_B();
                             } else {
-                                Toast.makeText(view.getContext(), recipe.getName() + " kon niet worden afgekeurd", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(view.getContext(), recipe.getName() + " kon niet worden geüpdatet", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -569,6 +548,48 @@ public class Manage extends Fragment {
                     builder.show();
                 } else {
                     Toast.makeText(view.getContext(), "Er zijn geen recepten om te beheren", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        button_B_delete = view.findViewById(R.id.manageRecipes_B_button_deleteRecipe);
+        button_B_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (spinner_B_approvedRecipes.getCount() > 0) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext(), R.style.myDialog);
+                    builder.setMessage("Weet u zeker dat u dit recept wilt verwijderen?");
+                    builder.setTitle("Recept verwijderen");
+                    builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Recipe recipe = null;
+                            for (int c = 0; c < arraylist_approvedRecipes.size(); c++) {
+                                if (spinner_B_approvedRecipes.getSelectedItem().toString().equals(arraylist_approvedRecipes.get(c).getName())) {
+                                    recipe = arraylist_approvedRecipes.get(c);
+                                }
+                            }
+
+                            boolean succeeded = connectorRecipes.deleteRecipe(recipe);
+
+                            if (succeeded) {
+                                Toast.makeText(view.getContext(), recipe.getName() + " is verwijderd", Toast.LENGTH_SHORT).show();
+                                initializeArrayLists();
+                                updateViewContent_B();
+                            } else {
+                                Toast.makeText(view.getContext(), recipe.getName() + " kon niet worden verwijderd", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
+                } else {
+                    Toast.makeText(view.getContext(), "Er zijn geen recepten om te verwijderen", Toast.LENGTH_SHORT).show();
                 }
             }
         });

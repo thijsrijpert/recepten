@@ -2,13 +2,10 @@ package com.nl.recipeapp.admin.ingredients;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Ingredient;
 
@@ -60,7 +58,7 @@ public class Manage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_manage_ingredients, container, false);
+        view = inflater.inflate(R.layout.fragment_manage_admin_ingredients, container, false);
 
         connectorIngredients = new Connector(this.getContext()); // Create the webserver connector for transferring queries and getting data from the database
 
@@ -103,28 +101,7 @@ public class Manage extends Fragment {
 
         textview_A_descriptionCharCount = view.findViewById(R.id.manageIngredients_A_textview_ingredientDescriptionCharacterCount);
         edittext_A_description = view.findViewById(R.id.manageIngredients_A_edittext_description);
-        edittext_A_description.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textview_A_descriptionCharCount.setText(edittext_A_description.getText().length() + " / 65535", null);
-
-                if (edittext_A_description.getText().length() > 65535) {
-                    textview_A_descriptionCharCount.setTextColor(Color.RED);
-                } else {
-                    textview_A_descriptionCharCount.setTextColor(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        edittext_A_description.addTextChangedListener(new CharacterCountListener(textview_A_descriptionCharCount, edittext_A_description));
     }
 
     /**
@@ -276,28 +253,7 @@ public class Manage extends Fragment {
 
         textview_B_descriptionCharCount = view.findViewById(R.id.manageIngredients_B_textview_ingredientDescriptionCharacterCount);
         edittext_B_description = view.findViewById(R.id.manageIngredients_B_edittext_description);
-        edittext_B_description.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textview_B_descriptionCharCount.setText(edittext_B_description.getText().length() + " / 65535", null);
-
-                if (edittext_B_description.getText().length() > 65535) {
-                    textview_B_descriptionCharCount.setTextColor(Color.RED);
-                } else {
-                    textview_B_descriptionCharCount.setTextColor(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        edittext_B_description.addTextChangedListener(new CharacterCountListener(textview_B_descriptionCharCount, edittext_B_description));
     }
 
     /**
