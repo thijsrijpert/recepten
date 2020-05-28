@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nl.recipeapp.R;
+import com.nl.recipeapp.ingredient.AddConnector;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,7 +22,7 @@ public class Register extends Fragment {
     View view;
 
     private EditText edit_login, edit_password;
-
+    private Connector connector;
     public Register() {
         // Required empty public constructor
     }
@@ -34,6 +35,8 @@ public class Register extends Fragment {
 
         edit_login = view.findViewById(R.id.edit_login);
         edit_password = view.findViewById(R.id.edit_password);
+
+        connector = new Connector(this.getContext(), view);
 
         Button login_btn_register = view.findViewById(R.id.login_btn_register);
         login_btn_register.setOnClickListener(new View.OnClickListener() {
@@ -51,13 +54,8 @@ public class Register extends Fragment {
                     Toast.makeText(getActivity(), "Uw moet uw wachtwoord invullen", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                else {
-                    edit_login.setText("");
-                    edit_password.setText("");
-
-                }
-            }
+                connector.addUsername();
+             }
         });
 
         return view;

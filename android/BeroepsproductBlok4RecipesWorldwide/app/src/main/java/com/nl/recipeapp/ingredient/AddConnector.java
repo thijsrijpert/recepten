@@ -26,8 +26,8 @@ public class AddConnector {
      * @param view The View of the Fragment that created this class. This way, objects on that Fragment can be accessed, such as EditTexts, Spinners etc.
      */
     public AddConnector(Context context, View view) {
-        this.context = context;
-        edittext_ingredientName = view.findViewById(R.id.addIngredient_edittext_ingredientName);
+            this.context = context;
+            edittext_ingredientName = view.findViewById(R.id.addIngredient_edittext_ingredientName);
     }
 
     /**
