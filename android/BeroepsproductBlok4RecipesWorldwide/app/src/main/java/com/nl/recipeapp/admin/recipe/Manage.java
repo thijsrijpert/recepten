@@ -619,12 +619,7 @@ public class Manage extends Fragment {
      */
     private void initializeArrayLists() {
         // Unapproved Recipes
-        arraylist_unapprovedRecipeNames.clear();
         connectorRecipes.getUnapprovedRecipes("ManageRecipe");
-        for (int c = 0; c < arraylist_unapprovedRecipes.size(); c++) {
-            arraylist_unapprovedRecipeNames.add(arraylist_unapprovedRecipes.get(c).getName());
-        }
-        arrayadapter_unapprovedRecipes.notifyDataSetChanged();
 
         // Approved Recipes
         arraylist_approvedRecipeNames.clear();

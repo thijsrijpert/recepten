@@ -101,6 +101,12 @@ public class Connector {
                         case "ManageRecipe":
                             manageRecipe.getArraylist_unapprovedRecipes().clear();
                             manageRecipe.getArraylist_unapprovedRecipes().addAll(arraylist_unapprovedRecipes);
+
+                            manageRecipe.getArraylist_unapprovedRecipeNames().clear();
+                            for (int c = 0; c < arraylist_unapprovedRecipes.size(); c++) {
+                                manageRecipe.getArraylist_unapprovedRecipeNames().add(arraylist_unapprovedRecipes.get(c).getName());
+                            }
+
                             manageRecipe.getArrayAdapter_unapprovedRecipes().notifyDataSetChanged();
                             break;
                     }
