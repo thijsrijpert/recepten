@@ -113,6 +113,7 @@ public class Manage extends Fragment {
         arraylist_isApproved.add("Nee");
 
         addConnectorRecipe.setManageRecipe(this);
+        connectorRecipes.setManageRecipe(this);
 
         // Start the initialization methods for A: Approving or denying recipes
         arraylist_ingredientsBoundToRecipe_A = new ArrayList<>();
@@ -509,11 +510,11 @@ public class Manage extends Fragment {
                             Recipe recipe = null;
                             for (int c = 0; c < arraylist_approvedRecipes.size(); c++) {
                                 if (spinner_B_approvedRecipes.getSelectedItem().toString().equals(arraylist_approvedRecipes.get(c).getName())) {
-                                    int approved = 1;
+                                    String approved = "1";
                                     if (spinner_B_isApproved.getSelectedItem().toString().equals("Ja")) {
-                                        approved = 1;
+                                        approved = "1";
                                     } else {
-                                        approved = 0;
+                                        approved = "0";
                                     }
 
                                     recipe = arraylist_approvedRecipes.get(c);
@@ -619,7 +620,7 @@ public class Manage extends Fragment {
     private void initializeArrayLists() {
         // Unapproved Recipes
         arraylist_unapprovedRecipeNames.clear();
-        arraylist_unapprovedRecipes = connectorRecipes.getUnapprovedRecipes();
+        connectorRecipes.getUnapprovedRecipes("ManageRecipe");
         for (int c = 0; c < arraylist_unapprovedRecipes.size(); c++) {
             arraylist_unapprovedRecipeNames.add(arraylist_unapprovedRecipes.get(c).getName());
         }
@@ -689,5 +690,13 @@ public class Manage extends Fragment {
 
     public ArrayList<TimeOfDay> getArrayList_timeofday() {
         return arraylist_timeofday;
+    }
+
+    public ArrayList<Recipe> getArraylist_unapprovedRecipes() {
+        return arraylist_unapprovedRecipes;
+    }
+
+    public ArrayAdapter<String> getArrayAdapter_unapprovedRecipes() {
+        return arrayadapter_unapprovedRecipes;
     }
 }

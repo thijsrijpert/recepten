@@ -76,7 +76,7 @@ public class AddConnector {
                     return;
                 }
 
-                Toast.makeText(context, "AddTijdvak_WebserverConnector: Het tijdvak kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "AddTijdvak_WebserverConnector: Het tijdvak kon niet worden gewijzigd.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
 
             }

@@ -96,6 +96,7 @@ public class Edit extends Fragment {
                 if (value) {
                     Toast.makeText(getContext(), "Tijdvak '" + spinner_timeofday.getSelectedItem().toString() + "' succesvol gewijzigd naar '" + edittext_name.getText().toString() + "'", Toast.LENGTH_SHORT).show();
                     edittext_name.setText("");
+                    initializeArrayLists();
                 }
             }
         });

@@ -2,8 +2,6 @@ package com.nl.recipeapp.user.recipe;
 
 import android.content.Context;
 
-import com.nl.recipeapp.model.Recipe;
-
 public class Connector {
     private Context context;
     private boolean result;

@@ -3,18 +3,19 @@ package com.nl.recipeapp.model;
 import java.io.Serializable;
 
 public class Recipe implements Serializable {
-    private String id, name, description, countryCode, username, mealtypeName, religionId, timeOfDay;
-    private boolean isApproved;
+    private String id, name, description, countrycode, username, mealtype_name, religion_id, time_of_day, isApproved;
+//    private boolean isApproved;
 
-    public Recipe(String id, String name, String description, String countryCode, String username, String mealtypeName, String religionId, String timeOfDay) {
+    public Recipe(String id, String name, String description, String countrycode, String username, String mealtype_name, String religion_id, String time_of_day, String isApproved) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.countryCode = countryCode;
+        this.countrycode = countrycode;
         this.username = username;
-        this.mealtypeName = mealtypeName;
-        this.religionId = religionId;
-        this.timeOfDay = timeOfDay;
+        this.mealtype_name = mealtype_name;
+        this.religion_id = religion_id;
+        this.time_of_day = time_of_day;
+        this.isApproved = isApproved;
     }
 
     public String getId() {
@@ -42,11 +43,11 @@ public class Recipe implements Serializable {
     }
 
     public String getCountryCode() {
-        return countryCode;
+        return countrycode;
     }
 
     public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+        this.countrycode = countryCode;
     }
 
     public String getUsername() {
@@ -58,39 +59,34 @@ public class Recipe implements Serializable {
     }
 
     public String getMealtypeName() {
-        return mealtypeName;
+        return mealtype_name;
     }
 
-    public void setMealtypeName(String mealtypeName) {
-        this.mealtypeName = mealtypeName;
+    public void setMealtypeName(String mealtype_name) {
+        this.mealtype_name = mealtype_name;
     }
 
     public String getReligionId() {
-        return religionId;
+        return religion_id;
     }
 
-    public void setReligionId(String religionId) {
-        this.religionId = religionId;
+    public void setReligionId(String religion_id) {
+        this.religion_id = religion_id;
     }
 
     public String getTimeOfDay() {
-        return timeOfDay;
+        return time_of_day;
     }
 
-    public void setTimeOfDay(String timeOfDay) {
-        this.timeOfDay = timeOfDay;
+    public void setTimeOfDay(String time_of_day) {
+        this.time_of_day = time_of_day;
     }
 
-    public boolean isApproved() {
+    public String isApproved() {
         return isApproved;
     }
 
-    public void setApproved(int approved) {
-        if (approved == 0) {
-            this.isApproved = false;
-        } else {
-            this.isApproved = true;
-        }
-
+    public void setApproved(String approved) {
+        isApproved = approved;
     }
 }
