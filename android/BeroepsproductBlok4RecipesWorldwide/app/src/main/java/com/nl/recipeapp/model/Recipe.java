@@ -1,17 +1,19 @@
 package com.nl.recipeapp.model;
 
-public class Recipe {
-    private String id, name, description, countrycode, username, mealtype_name, religion_id, timeOfDay;
+import java.io.Serializable;
+
+public class Recipe implements Serializable {
+    private String id, name, description, countryCode, username, mealtypeName, religionId, timeOfDay;
     private boolean isApproved;
 
-    public Recipe(String id, String name, String description, String countrycode, String username, String mealtype_name, String religion_id, String timeOfDay) {
+    public Recipe(String id, String name, String description, String countryCode, String username, String mealtypeName, String religionId, String timeOfDay) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.countrycode = countrycode;
+        this.countryCode = countryCode;
         this.username = username;
-        this.mealtype_name = mealtype_name;
-        this.religion_id = religion_id;
+        this.mealtypeName = mealtypeName;
+        this.religionId = religionId;
         this.timeOfDay = timeOfDay;
     }
 
@@ -39,12 +41,12 @@ public class Recipe {
         this.description = description;
     }
 
-    public String getCountrycode() {
-        return countrycode;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setCountrycode(String countrycode) {
-        this.countrycode = countrycode;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     public String getUsername() {
@@ -55,20 +57,20 @@ public class Recipe {
         this.username = username;
     }
 
-    public String getMealtype_name() {
-        return mealtype_name;
+    public String getMealtypeName() {
+        return mealtypeName;
     }
 
-    public void setMealtype_name(String mealtype_name) {
-        this.mealtype_name = mealtype_name;
+    public void setMealtypeName(String mealtypeName) {
+        this.mealtypeName = mealtypeName;
     }
 
-    public String getReligion_id() {
-        return religion_id;
+    public String getReligionId() {
+        return religionId;
     }
 
-    public void setReligion_id(String religion_id) {
-        this.religion_id = religion_id;
+    public void setReligionId(String religionId) {
+        this.religionId = religionId;
     }
 
     public String getTimeOfDay() {

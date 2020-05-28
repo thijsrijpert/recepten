@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.admin.recipe.Manage;
-import com.nl.recipeapp.admin.tijdvakken.Add;
 
 public class AdminPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -25,15 +24,13 @@ public class AdminPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new AdminGeneralOptions();
+                return new AdminGeneralOption();
             case 1:
-                return new Add();
+                return new com.nl.recipeapp.admin.user.Manage();
             case 2:
                 return new Manage();
             case 3:
                 return new com.nl.recipeapp.admin.ingredients.Manage();
-            case 4:
-                return new Add();
             default:
                 return null;
         }
@@ -41,21 +38,19 @@ public class AdminPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return 4;
     }
 
     public CharSequence getPageTitle(int position){
         switch(position){
             case 0:
-                return context.getString(R.string.tabs_administrator_addTijdvak);
+                return context.getString(R.string.tabs_administrator_addValues);
             case 1:
                 return context.getString(R.string.tabs_administrator_manageUsers);
             case 2:
                 return context.getString(R.string.tabs_administrator_manageRecipes);
             case 3:
                 return context.getString(R.string.tabs_administrator_manageIngredients);
-            case 4:
-                return context.getString(R.string.tabs_administrator_other);
             default:
                 return null;
         }

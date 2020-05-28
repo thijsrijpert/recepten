@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.R;
 
 /**
@@ -43,7 +44,7 @@ public class Add extends Fragment {
         textview_countryDescription = view.findViewById(R.id.addCountry_textview_countryDescriptionCharacterCount);
 
         // Create the connector that will pass requests towards the database
-        addCountry_webserverConnector = new AddConnector(this.getContext(), view);
+        addCountry_webserverConnector = new AddConnector(this.getContext());
 
         // Launch the initialization methods
         initializeInputFields();
@@ -57,28 +58,7 @@ public class Add extends Fragment {
      */
     private void initializeInputFields() {
         // Create the listener on recipeDescription's EditText, so the character counter changes when the user is typing
-        edittext_countryDescription.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textview_countryDescription.setText(edittext_countryDescription.getText().length() + " / 65.535", null);
-
-                if (edittext_countryDescription.getText().length() > 65535) {
-                    textview_countryDescription.setTextColor(Color.RED);
-                } else {
-                    textview_countryDescription.setTextColor(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        edittext_countryDescription.addTextChangedListener(new CharacterCountListener(textview_countryDescription, edittext_countryDescription));
     }
 
     /**
@@ -105,6 +85,7 @@ public class Add extends Fragment {
                 boolean value = addCountry_webserverConnector.addCountry(edittext_countryCode.getText().toString(), edittext_countryName.getText().toString(), edittext_countryDescription.getText().toString());
 
                 if (value) {
+                    Toast.makeText(getContext(), "Land '" + edittext_countryName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
                     edittext_countryName.setText("");
                 }
             }

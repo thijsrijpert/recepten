@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user.recipe.Manage">
+
+    <ScrollView
+        android:id="@+id/manageUserRecipes_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/manageUserRecipes_constraintLayout_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <!-- Textviews (title and subtext) -->
+            <LinearLayout
+                android:id="@+id/manageUserRecipes_linearLayout_textviews"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/manageUserRecipes_constraintLayout_scrollview">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/manageUserRecipes_title"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/manageUserRecipes_subtext"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorText"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/manageUserRecipes_view_divider1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/colorBorder"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_linearLayout_textviews"/>
+
+            <!-- Title for approving or denying ingredients -->
+            <TextView
+                android:id="@+id/manageUserRecipes_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/manageUserRecipes_subtitle"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorText"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_view_divider1"/>
+
+            <!-- Approved Recipes -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageUserRecipes_constraintLayout_approvedRecipes"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_title">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/manageRecipes_unapprovedRecipes"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/manageUserRecipes_spinner_approvedRecipes"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="@id/manageUserRecipes_constraintLayout_approvedRecipes"
+                app:layout_constraintEnd_toEndOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageUserRecipes_constraintLayout_approvedRecipes" />
+
+            <!-- Recipe Type -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageUserRecipes_constraintLayout_recipeType"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_constraintLayout_approvedRecipes">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/addRecipe_recipeType"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/manageUserRecipes_spinner_recipeMealtype"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="@id/manageUserRecipes_constraintLayout_recipeType"
+                app:layout_constraintEnd_toEndOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageUserRecipes_constraintLayout_recipeType" />
+
+            <!-- Recipe Name -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageUserRecipes_constraintLayout_recipeName"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_constraintLayout_recipeType">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/addRecipe_recipeName"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/manageUserRecipes_edittext_recipeName"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:ems="10"
+                android:hint="@string/addRecipe_recipeNameHint"
+                android:inputType="textPersonName"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/manageUserRecipes_constraintLayout_recipeName"
+                app:layout_constraintEnd_toEndOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageUserRecipes_constraintLayout_recipeName" />
+
+            <!-- Country -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageUserRecipes_constraintLayout_recipeCountry"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_constraintLayout_recipeName">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/addRecipe_recipeCountry"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/manageUserRecipes_spinner_recipeCountry"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="@id/manageUserRecipes_constraintLayout_recipeCountry"
+                app:layout_constraintEnd_toEndOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageUserRecipes_constraintLayout_recipeCountry" />
+
+            <!-- Religion -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageUserRecipes_constraintLayout_recipeReligion"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_constraintLayout_recipeCountry">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/addRecipe_recipeReligion"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/manageUserRecipes_spinner_recipeReligion"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="@id/manageUserRecipes_constraintLayout_recipeReligion"
+                app:layout_constraintEnd_toEndOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageUserRecipes_constraintLayout_recipeReligion" />
+
+            <!-- Meal Daypart -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/manageUserRecipes_constraintLayout_recipeMealDaypart"
+                android:layout_width="180dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorGreenBackground"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_spinner_recipeReligion">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:text="@string/addRecipe_recipeMealDaypart"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/manageUserRecipes_spinner_recipeMealDaypart"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:background="@drawable/inputfields"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toBottomOf="@id/manageUserRecipes_constraintLayout_recipeMealDaypart"
+                app:layout_constraintEnd_toEndOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintStart_toEndOf="@id/manageUserRecipes_constraintLayout_recipeMealDaypart" />
+
+            <!-- Recipe description -->
+            <EditText
+                android:id="@+id/manageUserRecipes_edittext_description"
+                android:layout_width="0dp"
+                android:layout_height="76dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/inputfields"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/addRecipe_recipeDescriptionHint"
+                android:inputType="textMultiLine"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/manageUserRecipes_spinner_recipeMealDaypart"
+                app:layout_constraintStart_toStartOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_constraintLayout_recipeMealDaypart" />
+
+            <TextView
+                android:id="@+id/manageUserRecipes_textview_receptomschrijvingCharacterCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/character_count"
+                android:textColor="@color/colorText"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/manageUserRecipes_edittext_description"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_edittext_description" />
+
+            <!-- Ingredients Recyclerview -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/manageUserRecipes_recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/inputfields"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                app:layout_constraintEnd_toEndOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintStart_toStartOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_textview_receptomschrijvingCharacterCount" />
+
+            <!-- Buttons to approve or delete a recipe or save changes -->
+            <Button
+                android:id="@+id/manageUserRecipes_button_applyRecipeChanges"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="160dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/saveChanges"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/colorText"
+                app:layout_constraintEnd_toEndOf="@id/manageUserRecipes_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_recyclerView" />
+
+            <Button
+                android:id="@+id/manageUserRecipes_button_deleteRecipe"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="160dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/delete"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/colorText"
+                app:layout_constraintEnd_toStartOf="@id/manageUserRecipes_button_applyRecipeChanges"
+                app:layout_constraintTop_toBottomOf="@id/manageUserRecipes_recyclerView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

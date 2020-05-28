@@ -1,20 +1,20 @@
 package com.nl.recipeapp.model;
 
 public class Country {
-    private String code, name, description;
+    private String countryCode, name, description;
 
-    public Country(String code, String name, String description) {
-        this.code = code;
+    public Country(String countryCode, String name, String description) {
+        this.countryCode = countryCode;
         this.name = name;
         this.description = description;
     }
 
-    public String getCode() {
-        return code;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     public String getName() {
@@ -31,5 +31,10 @@ public class Country {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

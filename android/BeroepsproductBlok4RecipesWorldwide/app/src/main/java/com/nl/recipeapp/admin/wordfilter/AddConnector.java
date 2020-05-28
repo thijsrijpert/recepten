@@ -1,4 +1,4 @@
-package com.nl.recipeapp.admin.tijdvakken;
+package com.nl.recipeapp.admin.wordfilter;
 
 import android.content.Context;
 import android.view.View;
@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class AddConnector {
     private Context context;
-    private boolean succesfullyAddedTijdvak;
-    private EditText edittext_tijdvakName;
+    private boolean succesfullyAddedWord;
+    private EditText edittext_wordName;
 
     /**
      * RecipeHTTP Constructor
@@ -26,32 +26,32 @@ public class AddConnector {
      */
     public AddConnector(Context context, View view) {
         this.context = context;
-        edittext_tijdvakName = view.findViewById(R.id.addTijdvak_edittext_tijdvakName);
+        edittext_wordName = view.findViewById(R.id.addWord_edittext_wordName);
     }
 
     /**
-     * Adds a TimeOfDay to the database
+     * Adds a word to the database
      */
-    public boolean addTimeOfDay(String tijdvakName) {
+    public boolean addWordfilter(String wordName) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/thijs/api/TimeOfDay.php?name="+ tijdvakName + "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Wordfilter.php?word="+ wordName + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Tijdvak '" + edittext_tijdvakName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Woord '" + edittext_wordName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
 //              System.out.println(response);
-                succesfullyAddedTijdvak = true;
+                succesfullyAddedWord = true;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                succesfullyAddedTijdvak = false;
+                succesfullyAddedWord = false;
 
                 if (error.networkResponse.statusCode == 400) {
-                    Toast.makeText(context, "Tijdvak '" + edittext_tijdvakName.getText() + "' bestaat al.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Woord '" + edittext_wordName.getText() + "' bestaat al.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Toast.makeText(context, "AddTijdvak_WebserverConnector: Het tijdvak '" + edittext_tijdvakName.getText() + "' kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "AddWordfilter_WebserverConnector: Het woord '" + edittext_wordName.getText() + "' kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
 
             }
@@ -59,14 +59,14 @@ public class AddConnector {
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
-        return succesfullyAddedTijdvak;
+        return succesfullyAddedWord;
     }
 
     /**
      * Gets all Ingredients from the database
      * @return An ArrayList<Ingredient> with all Ingredients
      */
-    public ArrayList<String> getAllTimeOfDayValues() {
+    public ArrayList<String> getAllWordfilterValues() {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
             @Override
@@ -76,7 +76,7 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "AddTijdvak_WebserverConnector: Tijdvakken konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "AddWordfilter_WebserverConnector: Wordfilter kon niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
             }
         });
@@ -84,10 +84,10 @@ public class AddConnector {
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
 
-        ArrayList<String> arraylist_timeOfDay = new ArrayList<>();
+        ArrayList<String> arraylist_wordfilter = new ArrayList<>();
 
-        // Fill the ArrayList with the arraylist_timeOfDay
+        // Fill the ArrayList with the arraylist_wordfilter
 
-        return arraylist_timeOfDay;
+        return arraylist_wordfilter;
     }
 }

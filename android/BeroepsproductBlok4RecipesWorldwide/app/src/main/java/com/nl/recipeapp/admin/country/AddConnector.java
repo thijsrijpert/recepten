@@ -18,11 +18,9 @@ import java.util.ArrayList;
 public class AddConnector {
     private Context context;
     private boolean succesfullyAddedCountry;
-    private EditText edittext_countryName;
 
-    public AddConnector(Context context, View view) {
+    public AddConnector(Context context) {
         this.context = context;
-        edittext_countryName = view.findViewById(R.id.addCountry_edittext_countryName);
     }
 
     /**
@@ -33,14 +31,14 @@ public class AddConnector {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/country.php?countrycode="+ countryCode + "&name=" + countryName + "&description=" + countryDescription + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Land '" + edittext_countryName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Het land is succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
 //              System.out.println(response);
                 succesfullyAddedCountry = true;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "AddCountry_WebserverConnector: Het land '" + edittext_countryName.getText() + "' kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "AddCountry_WebserverConnector: Het land kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
                 succesfullyAddedCountry = false;
             }
@@ -52,31 +50,26 @@ public class AddConnector {
     }
 
     /**
-     * Gets all Countries from the database
-     * @return An ArrayList<Country> with all Countries
+     * Edits an existing Country in the database
      */
-    public ArrayList<Country> getCountries() {
+    public boolean editCountry(String oldCountryName, String countryCode, String newCountryName, String countryDescription) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/country.php?countrycode="+ countryCode + "&name=" + newCountryName + "&description=" + countryDescription + "&where=name-eq-" + oldCountryName + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//              System.out.println(response);
+                succesfullyAddedCountry = true;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Landen konden niet worden opgehaald uit de database.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "AddCountry_WebserverConnector: Het land kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
+                succesfullyAddedCountry = false;
             }
         });
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
-
-        ArrayList<Country> countries = new ArrayList<>();
-
-        // Fill the ArrayList with the countries
-
-        return countries;
+        return succesfullyAddedCountry;
     }
 }

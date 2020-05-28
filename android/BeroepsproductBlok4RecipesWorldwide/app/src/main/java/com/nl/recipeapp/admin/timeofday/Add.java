@@ -1,4 +1,4 @@
-package com.nl.recipeapp.admin.tijdvakken;
+package com.nl.recipeapp.admin.timeofday;
 
 
 import android.os.Bundle;
@@ -33,10 +33,10 @@ public class Add extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_time_of_day, container, false);
 
         // Initialize the Class variables
-        edittext_tijdvakName = view.findViewById(R.id.addTijdvak_edittext_tijdvakName);
+        edittext_tijdvakName = view.findViewById(R.id.addTimeOfDay_edittext_timeOfDayName);
 
         // Create the connector that will pass requests towards the database
-        addConnector = new AddConnector(this.getContext(), view);
+        addConnector = new AddConnector(this.getContext());
 
         // Launch the initialization methods
         initializeButtons();
@@ -45,7 +45,7 @@ public class Add extends Fragment {
     }
 
     private void initializeButtons() {
-        Button button_applyTijdvak = view.findViewById(R.id.addTijdvak_btn_applyTijdvak);
+        Button button_applyTijdvak = view.findViewById(R.id.addTimeOfDay_btn_applyTimeOfDay);
         button_applyTijdvak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +59,7 @@ public class Add extends Fragment {
                 boolean value = addConnector.addTimeOfDay(edittext_tijdvakName.getText().toString());
 
                 if (value) {
+                    Toast.makeText(getContext(), "Tijdvak '" + edittext_tijdvakName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
                     edittext_tijdvakName.setText("");
                 }
             }

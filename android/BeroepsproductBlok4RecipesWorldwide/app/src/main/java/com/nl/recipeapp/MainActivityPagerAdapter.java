@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.nl.recipeapp.home.Home;
+import com.nl.recipeapp.login.Login;
 import com.nl.recipeapp.recipe.Add;
 
 public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
@@ -23,14 +24,12 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new Home();
+                return new Login();
             case 1:
                 return new Home();
             case 2:
-                return new Home();
-            case 3:
                 return new Add();
-            case 4:
+            case 3:
                 return new com.nl.recipeapp.ingredient.Add();
             default:
                 return null;
@@ -39,20 +38,18 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return 4;
     }
 
     public CharSequence getPageTitle(int position){
         switch(position){
             case 0:
-                return context.getString(R.string.tabs_home_register);
-            case 1:
                 return context.getString(R.string.tabs_home_login);
-            case 2:
+            case 1:
                 return context.getString(R.string.tabs_home_home);
-            case 3:
+            case 2:
                 return context.getString(R.string.tabs_home_addRecipe);
-            case 4:
+            case 3:
                 return context.getString(R.string.tabs_home_addIngredient);
             default:
                 return null;
