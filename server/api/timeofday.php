@@ -45,7 +45,6 @@ class TimeOfDay extends Api implements CRUInterface{
 
 
           $codeAndResult = (new \database\TimeOfDay($queryBuilder))->select($this->model);
-
           $code = substr($codeAndResult[0], 0, 2);
 
           if($code === '00'){
@@ -140,7 +139,7 @@ if(isset($_GET['name'])){
 }else if(isset($_GET['set'])){
     $timeOfDay->update();
 }else{
-    //$timeOfDay->select();
+    $timeOfDay->select();
 }
 
  ?>

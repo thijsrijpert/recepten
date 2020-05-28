@@ -44,7 +44,7 @@ class Query extends QueryParent{
       if(count($arguments) != 0 && count($arguments) <= count($approvedArguments)){
           for($i = 0; $i <= count($arguments) - 1; $i++){
               for($k = 0; $k <= count($approvedArguments) - 1; $k++){
-                  if(count($arguments[0]) == 2){
+                  if(count($arguments[$i]) > 0){
                       if($arguments[$i][0] == $approvedArguments[$k][0]){
                           $this->orderArguments[$i][0] = $approvedArguments[$k][0];
                           $this->orderArguments[$i][1] = $this->getOrderOperator($arguments[$i][1]);

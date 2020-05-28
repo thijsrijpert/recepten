@@ -20,7 +20,7 @@ class QueryBuilderUpdate extends QueryBuilderParent{
 
     public function generateSet() : bool{
         $setArguments = $this->query->getSetArguments();
-        var_dump($setArguments);
+
         if(count($setArguments) > 0){
             $this->sql .= " SET " . $setArguments[0][0] . " = " . ":" . $setArguments[0][0] . "Update";
 
@@ -30,10 +30,8 @@ class QueryBuilderUpdate extends QueryBuilderParent{
                 }
             }
         }else{
-            echo 'Hallotjes';
             return false;
         }
-        echo 'WHYYYYYYYYYYYYYYYY';
         return true;
     }
 

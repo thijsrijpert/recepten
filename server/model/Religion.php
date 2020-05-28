@@ -2,7 +2,8 @@
 namespace model;
 require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 require_once(dirname(__FILE__,1) . '/Model.php');
-  class Religion extends \model\Model{
+require_once(dirname(__FILE__,1) . '/Update.php');
+  class Religion extends \model\Model implements \model\Update{
     private $name;
     private $id;
 
@@ -36,6 +37,12 @@ require_once(dirname(__FILE__,1) . '/Model.php');
     public function getVariables(){
         return [['name'], ['id']];
     }
+
+    //all updatable columns of this enity
+    public function getUpdateVariables() : array{
+        return [['name']];
+    }
+
 
     public function jsonSerialize() {
         if($this->name != null && $this->id != null){

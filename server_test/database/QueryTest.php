@@ -56,7 +56,7 @@ final class QueryTest extends TestCase
 
     public function testSetWhereArguments(): void
     {
-        $good_input = [['name', 'eq'], ['id', 'gr']];
+        $good_input = [['name', 'eq', 'test'], ['id', 'gr', 'test']];
         $good_output = [['name', '='], ['id', '>']];
         $this->assertEquals(
             true,
@@ -70,7 +70,7 @@ final class QueryTest extends TestCase
 
     public function testSetWhereArgumentsBadArguments(): void
     {
-        $bad_input = [['illigal_column_name', 'eq'], ['id', 'eq']];
+        $bad_input = [['illigal_column_name', 'eq', 'test'], ['id', 'eq']];
         $this->assertEquals(
             false,
             $this->query->setWhereArguments($bad_input)
@@ -84,8 +84,8 @@ final class QueryTest extends TestCase
 
     public function testSetWhereArgumentsNoEquals(): void
     {
-        $bad_input = [['name'], ['id', 'eq']];
-        $this->expectException(\exception\NullPointerException::class);
+        $bad_input = [['name'], ['id', 'eq', 'test']];
+        //$this->expectException(\exception\NullPointerException::class);
         $this->assertEquals(
             false,
             $this->query->setWhereArguments($bad_input)
@@ -99,7 +99,7 @@ final class QueryTest extends TestCase
 
     public function testSetWhereArgumentsIlligalOperator(): void
     {
-        $bad_input = [['name', 'not_existing_operator'], ['id', 'eq']];
+        $bad_input = [['name', 'not_existing_operator', 'test'], ['id', 'eq', 'test']];
         $this->expectException(\exception\NullPointerException::class);
         $this->assertEquals(
             false,
@@ -113,7 +113,7 @@ final class QueryTest extends TestCase
 
     public function testSetWhereArgumentsTooManyColumns(): void
     {
-        $bad_input = [['name', 'gr'], ['id', 'eq'], ['name', 'gr']];
+        $bad_input = [['name', 'gr', 'test'], ['id', 'eq', 'test'], ['name', 'gr', 'test']];
         $this->assertEquals(
             false,
             $this->query->setWhereArguments($bad_input)
@@ -126,7 +126,7 @@ final class QueryTest extends TestCase
 
     public function testSetWhereArgumentsValidFewerColumns(): void
     {
-        $good_input = [['name', 'gr']];
+        $good_input = [['name', 'gr', 'test']];
         $good_output = [['name', '>']];
         $this->assertEquals(
             true,

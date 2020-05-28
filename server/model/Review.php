@@ -82,8 +82,8 @@ class Review extends \model\Model implements \model\Update{
         $this->username = $username;
     }
     //the date the review was written
-    public function setReviewDate(\DateTime $date) {
-        $this->reviewDate = $reviewDate;
+    public function setReviewDate(\DateTime $reviewDate) {
+        $this->review_date = $reviewDate;
     }
     //the id of the review
     public function setId(int $id){

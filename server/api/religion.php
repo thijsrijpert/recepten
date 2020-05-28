@@ -6,10 +6,10 @@ error_reporting(E_ALL | E_STRICT);
 require_once(dirname(__FILE__,2) . '/model/Religion.php');
 require_once(dirname(__FILE__,2) . '/database/Religion.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
-require_once(dirname(__FILE__,1) . '/CRInterface.php');
+require_once(dirname(__FILE__,1) . '/CRUInterface.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
 
-class Religion extends Api implements CRInterface{
+class Religion extends Api implements CRUInterface{
 
     private $model;
 
@@ -43,21 +43,8 @@ class Religion extends Api implements CRInterface{
     public function select() {
       try{
           //extract all data from the get parameters so it can be used
-          $this->model = new \model\Religion();
+          $this->model = $this->getWhereModel();
           $queryBuilder = parent::buildQuery($this->model);
-
-          //I don't know how to get the decoded arguments to the database, so I will call rebuildArguments again
-          if(null != $_GET['where']){
-              $arguments = parent::rebuildArguments($_GET['where']);
-              $approvedArguments = $this->model->getVariables();
-              foreach($arguments as $value){
-                  if($value[0] == 'id'){
-                      $this->model->setId($value[2]);
-                  }else if($value[0] == 'name'){
-                      $this->model->setName($value[2]);
-                  }
-              }
-          }
 
           $religionStatement = new \database\Religion($queryBuilder);
           $codeAndResult = $religionStatement->select($this->model);
@@ -82,6 +69,76 @@ class Religion extends Api implements CRInterface{
       }
     }
 
+    function update(){
+      try{
+          $modelOld = $this->getWhereModel();
+          $modelNew = $this->getSetModel();
+
+          $queryBuilderSelect = parent::buildQuery($modelOld);
+          $queryBuilderUpdate = parent::buildUpdate($modelNew);
+
+          $statement = new \database\Religion($queryBuilderSelect, $queryBuilderUpdate);
+
+          $result = $statement->select($modelOld);
+
+          if(count($result[1][0]) == 1){
+              $resultUpdate = $statement->update($modelNew, $modelOld);
+              parent::setHttpCode($resultUpdate);
+          }else{
+              throw new \exception\NullPointerException("The request changed more than one record, please change your where scope");
+          }
+
+        }catch(\PDOException $e){
+            parent::setHttpCode($e->getCode());
+        }catch(\exception\NullPointerException $e){
+            header('HTTP/1.0 400 Bad Request');
+            //set the datatype to json for consistancy with all select query's
+            header('Content-Type: application/json');
+            //return the error code for easy debug
+            echo json_encode($e->getMessage());
+            restore_error_handler();
+        }
+
+    }
+
+    function getWhereModel() : \model\Model {
+        $model =  new \model\Religion();
+
+        //I don't know how to get the decoded arguments to the database, so I will call rebuildArguments again
+        if(null != $_GET['where']){
+            $arguments = parent::rebuildArguments($_GET['where']);
+            $approvedArguments = $model->getVariables();
+            $model = $this->getModel($model, $arguments, $approvedArguments);
+        }
+
+        return $model;
+    }
+
+    function getSetModel() : \model\Model {
+      $model =  new \model\Religion();
+
+      //I don't know how to get the decoded arguments to the database, so I will call rebuildArguments again
+      if(null != $_GET['set']){
+          $arguments = parent::rebuildArguments($_GET['set']);
+          $approvedArguments = $model->getUpdateVariables();
+          $model = $this->getModel($model, $arguments, $approvedArguments);
+      }
+
+      return $model;
+    }
+
+    function getModel(\model\Model $model, array $arguments, array $approvedArguments) : \model\Model {
+      foreach($arguments as $value){
+          if($value[0] == 'id'){
+              $model->setId(end($value));
+          }else if($value[0] == 'name'){
+              $model->setName(end($value));
+          }
+      }
+
+      return $model;
+    }
+
     function error_handler($errno, $errstr, $errfile, $errline){
         if($errstr == 'Undefined index: name'){
             throw new \exception\NullPointerException("Name value isn't passed");
@@ -94,7 +151,9 @@ class Religion extends Api implements CRInterface{
 $religion = new Religion();
 if(isset($_GET['name'])){
     $religion->insert();
+}else if(isset($_GET['set'])){
+    $religion->update();
 }else{
-    //$religion->select();
+    $religion->select();
 }
 ?>

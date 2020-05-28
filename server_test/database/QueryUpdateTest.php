@@ -16,26 +16,26 @@ final class QueryUpdateTest extends TestCase
 
     public function testSetSetArguments(): void
     {
-        $good_input = [['title']];
+        $good_input = [['title', 'test']];
         $this->assertEquals(
             true,
             $this->query->setSetArguments($good_input)
         );
         $this->assertEquals(
-            $good_input,
+            [['title']],
             $this->query->getSetArguments()
         );
     }
 
     public function testSetSetArgumentsMultiple(): void
     {
-        $good_input = [['title'], ['rating']];
+        $good_input = [['title', 'test'], ['rating', 'test']];
         $this->assertEquals(
             true,
             $this->query->setSetArguments($good_input)
         );
         $this->assertEquals(
-            $good_input,
+            [['title'], ['rating']],
             $this->query->getSetArguments()
         );
     }

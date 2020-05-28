@@ -11,6 +11,7 @@ abstract class QueryParent{
     if(count($arguments) != 0 && count($arguments) <= count($approvedArguments)){
         for($i = 0; $i <= count($arguments) - 1; $i++){
             for($k = 0; $k <= count($approvedArguments) - 1; $k++){
+
                 if(count($arguments[$i]) == 3){
                     if($arguments[$i][0] == $approvedArguments[$k][0]){
                         $this->whereArguments[$i][0] = $approvedArguments[$k][0];

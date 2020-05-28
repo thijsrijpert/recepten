@@ -15,7 +15,6 @@ class CRUD {
     }
 
     public function addSelectStatement($query){
-        echo 'test';
         if(gettype($query) ===  'array'){
             foreach($query as $value){
                 $this->addSelectStatement($value);
@@ -26,13 +25,9 @@ class CRUD {
     }
 
     public function assignStatement(QueryBuilderParent $query){
-        echo 'hallo';
         if($query->getSql() != null || $query->generateSql()){
-          //to deal with mock objects
-            //if(substr(substr(get_class($query), 4), 1,  -9) === 'QueryBuilder'){
-          //production if statement
-          echo get_class($query);
-            if(get_class($query) === 'database\QueryBuilder'){
+            //first condition serves for unit testing with mock objects, second condition for prod enviorment
+            if(substr(substr(get_class($query), 4), 1,  -9) === 'QueryBuilder' || get_class($query) === 'database\QueryBuilder'){
                 $this->select[] = Database::getConnection()->prepare($query->getSql());
             }else{
                 $this->update[] = Database::getConnection()->prepare($query->getSql());

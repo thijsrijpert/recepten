@@ -115,7 +115,7 @@ require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
               $arguments = $this->rebuildArguments($_GET['set']);
               //if all arguments are valid continue else throw exception
               if(!$query->setSetArguments($arguments)){
-                  throw new \exception\NullPointerException("Select has invalid argument");
+                  throw new \exception\NullPointerException("Set has invalid argument");
               }
           }else {
             //set is required throw null pointer if it was not passed
