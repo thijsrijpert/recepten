@@ -209,9 +209,7 @@ class Recipe extends \model\Model{
       $final_string .= $json_time_of_day;
     }
 
-
     $final_string .= "}";
-    //\var_dump($final_string);
     return \json_decode($final_string);
   }
 }

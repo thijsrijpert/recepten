@@ -55,12 +55,12 @@ class ReceptIngredient extends Api{
         $recipe_ingredientStatement = new \database\RecipeIngredient($queryBuilder);
         $codeAndResult = $recipe_ingredientStatement->select($this->model);
 
-        if($codeAndResult[0][1] == '00'){
+        if($codeAndResult[0] == '00'){
             header('Content-Type: application/json');
             echo json_encode($codeAndResult[1][0]);
         }
 
-        $code = substr($code, 0, 2);
+        $code = substr($codeAndResult[0],0,2);
 
         parent::setHttpCode($code);
     }catch(\PDOException $e){

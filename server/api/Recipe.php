@@ -63,6 +63,7 @@ class Recipe extends Api{
                   $this->model->setReligion_id($value[2]);
               }else if($value[0] == 'time_of_day'){
                   $this->model->setTime_of_day($value[2]);
+
         }
           }
       }
@@ -70,12 +71,12 @@ class Recipe extends Api{
       $recipeStatement = new \database\Recipe($queryBuilder);
       $codeAndResult = $recipeStatement->select($this->model);
 
-      if($codeAndResult[0][1] == '00'){
+      if($codeAndResult[0] == '00'){
           header('Content-Type: application/json');
           echo json_encode($codeAndResult[1][0]);
       }
 
-      $code = substr($code, 0, 2);
+      $code = substr($codeAndResult[0],0,2);
 
       parent::setHttpCode($code);
     }catch(\PDOException $e){

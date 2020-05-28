@@ -7,7 +7,6 @@ require_once(dirname(__FILE__,2) . '/model/RecipeIngredient.php');
 require_once(dirname(__FILE__,2) . '/database/RecipeIngredient.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
-
 class RecipeIngredient extends Api{
 
   private $model;
@@ -17,9 +16,9 @@ class RecipeIngredient extends Api{
       set_error_handler(array($this, 'error_handler'));
   }
 
-  public function insert() : void{
+  public function insert(){
       try{
-          $this->model = new \model\RecipeIngredient($_GET['recipe_id'], $_GET['ingredient_name']);
+          $this->model = new \model\Recipe_Ingredient($_GET['recipe_id'], $_GET['ingredient_name']);
 
           $recipe_ingredientStatement = new \database\RecipeIngredient();
           $code = $recipe_ingredientStatement->insert($this->model);
@@ -38,7 +37,7 @@ class RecipeIngredient extends Api{
 
   public function select(){
     try{
-        $this->model = new \model\RecipeIngredient();
+        $this->model = new \model\Recipe_Ingredient();
         $queryBuilder = parent::buildQuery($this->model);
 
         //I don't know how to get the decoded arguments to the database, so I will call rebuildArguments again
@@ -74,7 +73,7 @@ class RecipeIngredient extends Api{
   }
 
   function error_handler($errno, $errstr, $errfile, $errline){
-      if($errstr == 'Undefined index: recipe_id'){
+      if($errstr == 'Undefined index: recipe_id' || $errstr == 'Undefined index: recipe_id') {
           throw new \exception\NullPointerException("Get value isn't passed");
       }else{
           restore_error_handler();

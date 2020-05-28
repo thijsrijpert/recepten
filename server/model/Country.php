@@ -1,8 +1,9 @@
 <?php
 namespace model;
 require_once(dirname(__FILE__,1) . '/Model.php');
+require_once(dirname(__FILE__,1) . '/Update.php');
 require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
-class Country extends \model\Model{
+class Country extends \model\Model implements \model\Model\Update{
     private $countrycode;
     private $name;
     private $description;
@@ -47,6 +48,10 @@ class Country extends \model\Model{
     }
 
     public function getVariables(){
+        return [['countrycode'], ['name'], ['description']];
+    }
+
+    public function getUpdateVariables() : array{
         return [['countrycode'], ['name'], ['description']];
     }
 
