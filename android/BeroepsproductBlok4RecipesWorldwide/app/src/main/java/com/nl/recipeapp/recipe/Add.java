@@ -278,7 +278,7 @@ public class Add extends Fragment {
                     }
 
                     // Create the Recipe object and send it to the database
-                    Recipe recipe = new Recipe(null, edittext_recipeName.getText().toString(), edittext_recipeDescription.getText().toString(), countryCode, ((MainActivity)getActivity()).getCurrentUser().getUsername(), spinner_mealTypes.getSelectedItem().toString(), religionId, spinner_timeofday.getSelectedItem().toString());
+                    Recipe recipe = new Recipe(null, edittext_recipeName.getText().toString(), edittext_recipeDescription.getText().toString(), countryCode, ((MainActivity)getActivity()).getCurrentUser().getUsername(), spinner_mealTypes.getSelectedItem().toString(), religionId, spinner_timeofday.getSelectedItem().toString(), "0");
                     boolean value = addConnector.addRecipe(recipe);
 
                     // Reset the Spinners and EditTexts to let the User know the data has been sent to the Administrator
