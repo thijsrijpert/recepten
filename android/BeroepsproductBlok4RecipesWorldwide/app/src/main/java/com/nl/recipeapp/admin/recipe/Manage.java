@@ -699,4 +699,8 @@ public class Manage extends Fragment {
     public ArrayAdapter<String> getArrayAdapter_unapprovedRecipes() {
         return arrayadapter_unapprovedRecipes;
     }
+
+    public ArrayList<String> getArraylist_unapprovedRecipeNames() {
+        return arraylist_unapprovedRecipeNames;
+    }
 }

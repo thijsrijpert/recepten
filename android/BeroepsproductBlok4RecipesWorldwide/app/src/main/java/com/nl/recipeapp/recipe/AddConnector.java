@@ -353,6 +353,8 @@ public class AddConnector {
                         case "EditTimeOfDay":
                             editTimeOfDay.getArraylist_timeofday().clear();
                             editTimeOfDay.getArraylist_timeofday().addAll(arraylist_timeofday);
+                            editTimeOfDay.getArrayAdapter_timeofday().clear();
+                            editTimeOfDay.getArrayAdapter_timeofday().addAll(arraylist_timeofday);
                             editTimeOfDay.getArrayAdapter_timeofday().notifyDataSetChanged();
                             break;
                         case "ManageUserRecipe":
