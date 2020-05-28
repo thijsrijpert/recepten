@@ -186,7 +186,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-// religie spinner
+
             <Spinner
                 android:id="@+id/addRecipe_spinner_recipeReligion"
                 android:layout_width="0dp"
@@ -197,7 +197,7 @@
                 app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
                 app:layout_constraintStart_toEndOf="@id/addRecipe_constraintLayout_recipeReligion" />
 
-            <!-- Mea Daypart -->
+            <!-- Meal Daypart -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/addRecipe_constraintLayout_recipeMealDaypart"
                 android:layout_width="180dp"
@@ -230,7 +230,7 @@
                 app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
                 app:layout_constraintStart_toEndOf="@id/addRecipe_constraintLayout_recipeMealDaypart" />
 
-            <!-- Ingrediëntnaam -->
+            <!-- IngredientName -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/addRecipe_constraintLayout_bindIngredient"
                 android:layout_width="180dp"
@@ -264,7 +264,7 @@
                 app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
                 app:layout_constraintStart_toEndOf="@id/addRecipe_constraintLayout_bindIngredient" />
 
-            <!-- Ingrediënt Toevoeging -->
+            <!-- Bind ingredient -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/addRecipe_constraintLayout_bindIngredientAddition"
                 android:layout_width="180dp"
@@ -318,7 +318,7 @@
                 app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
                 app:layout_constraintTop_toBottomOf="@id/addRecipe_edittext_bindIngredientAddition" />
 
-            <!-- Recept omschrijving -->
+            <!-- Recipe description -->
             <EditText
                 android:id="@+id/addRecipe_edittext_description"
                 android:layout_width="0dp"
@@ -339,7 +339,7 @@
                 app:layout_constraintTop_toBottomOf="@id/addRecipe_btn_bindIngredient" />
 
             <TextView
-                android:id="@+id/addRecipe_textview_receptomschrijvingCharacterCount"
+                android:id="@+id/addRecipe_textview_recipeDescriptionCharacterCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/character_count"
@@ -348,7 +348,7 @@
                 app:layout_constraintStart_toStartOf="@id/addRecipe_edittext_description"
                 app:layout_constraintTop_toBottomOf="@id/addRecipe_edittext_description" />
 
-            <!-- Ingrediënten Recyclerview -->
+            <!-- Ingredient Recyclerview -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/addRecipe_recyclerView"
                 android:layout_width="0dp"
@@ -361,9 +361,9 @@
                 android:paddingBottom="10dp"
                 app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
                 app:layout_constraintStart_toStartOf="@id/addRecipe_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addRecipe_textview_receptomschrijvingCharacterCount" />
+                app:layout_constraintTop_toBottomOf="@id/addRecipe_textview_recipeDescriptionCharacterCount" />
 
-            <!-- Recept aanmelden -->
+            <!-- Recipe registration -->
             <Button
                 android:id="@+id/addRecipe_btn_applyRecipe"
                 style="?android:attr/borderlessButtonStyle"

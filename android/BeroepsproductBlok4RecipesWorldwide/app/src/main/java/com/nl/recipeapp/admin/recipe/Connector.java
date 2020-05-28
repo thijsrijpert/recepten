@@ -2,6 +2,7 @@ package com.nl.recipeapp.admin.recipe;
 
 import android.content.Context;
 
+import com.nl.recipeapp.model.Ingredient;
 import com.nl.recipeapp.model.Recipe;
 
 import java.util.ArrayList;
@@ -14,7 +15,34 @@ public class Connector {
         this.context = context;
     }
 
+    /**
+     * Approves a given recipe
+     * @param recipe The recipe object
+     * @return A true or false boolean, depending on whether approving succeeded or not
+     */
     public boolean approveRecipe(Recipe recipe) {
+
+
+        return result;
+    }
+
+    /**
+     * Denies a given recipe
+     * @param recipe The recipe object
+     * @return A true or false boolean, depending on whether denying succeeded or not
+     */
+    public boolean denyRecipe(Recipe recipe) {
+
+
+        return result;
+    }
+
+    /**
+     * Updates a given recipe
+     * @param recipe The recipe object
+     * @return A true or false boolean, depending on whether updating succeeded or not
+     */
+    public boolean updateRecipe(Recipe recipe) {
 
 
         return result;
@@ -42,5 +70,18 @@ public class Connector {
 
 
         return approvedRecipes;
+    }
+
+    /**
+     * When the RecyclerView in ManageRecipes has to be filled with its corresponding ingredients, this method is called
+     * @param recipeId The recipe ID that has to be used when getting its corresponding ingredients
+     * @return An ArrayList<Ingredient> of Ingredients (both approved and unapproved)
+     */
+    public ArrayList<Ingredient> getIngredientsBoundToRecipe(String recipeId) {
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+
+
+        return ingredients;
     }
 }

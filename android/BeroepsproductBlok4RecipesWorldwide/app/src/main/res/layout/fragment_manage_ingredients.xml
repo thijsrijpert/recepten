@@ -145,7 +145,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
-                android:id="@+id/manageRecipes_A_edittext_addedByUser"
+                android:id="@+id/manageIngredients_A_edittext_addedByUser"
                 android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:background="@drawable/inputfields"
@@ -248,7 +248,7 @@
                 app:layout_constraintTop_toBottomOf="@id/manageIngredients_A_textview_ingredientDescriptionCharacterCount" />
 
             <Button
-                android:id="@+id/manageIngredients_button_denyIngredient"
+                android:id="@+id/manageIngredients_A_button_denyIngredient"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="160dp"
                 android:layout_height="38dp"
@@ -350,7 +350,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
-                android:id="@+id/manageRecipes_B_edittext_addedByUser"
+                android:id="@+id/manageIngredients_B_edittext_addedByUser"
                 android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:background="@drawable/inputfields"
