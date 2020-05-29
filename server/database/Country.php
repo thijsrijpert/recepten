@@ -48,39 +48,27 @@ require_once(dirname(__FILE__,2) . '/model/Country.php');
       function update(\model\Model $model, \model\Model $modelOld) : String{
         try{
             $this->update[0]->bindParam(':countrycodeUpdate', $model->getCountrycode());
-        }catch(\exception\ModelNullException $e){
-            throw new NullPointerException($e->getMessage());
-        }
+        }catch(\exception\ModelNullException $e){}
 
         try{
             $this->update[0]->bindParam(':countrycode', $modelOld->getCountrycode());
-        }catch(\exception\ModelNullException $e){
-            throw new NullPointerException($e->getMessage());
-        }
+        }catch(\exception\ModelNullException $e){}
 
         try{
             $this->update[0]->bindParam(':nameUpdate', $model->getName());
-        }catch(\exception\ModelNullException $e){
-            throw new NullPointerException($e->getMessage());
-        }
+        }catch(\exception\ModelNullException $e){}
 
         try{
             $this->update[0]->bindParam(':name', $modelOld->getName());
-        }catch(\exception\ModelNullException $e){
-            throw new NullPointerException($e->getMessage());
-        }
+        }catch(\exception\ModelNullException $e){}
 
         try{
             $this->update[0]->bindParam('descriptionUpdate', $model->getDescription());
-        }catch(\exception\ModelNullException $e){
-            throw new NullPointerException($e->getMessage());
-        }
+        }catch(\exception\ModelNullException $e){}
 
         try{
             $this->update[0]->bindParam(':description', $modelOld->getDescription());
-        }catch(\exception\ModelNullException $e){
-            throw new NullPointerException($e->getMessage());
-        }
+        }catch(\exception\ModelNullException $e){}
 
         $this->update[0]->execute();
 

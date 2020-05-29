@@ -45,27 +45,19 @@ class RecipeIngredient extends CRUD{
 
     try{
         $this->select[0]->bindParam(':recipe_id', $model->getRecipeId());
-    }catch(\exception\ModelNullException $e){
-        throw new NullPointerException($e->getMessage());
-    }
+    }catch(\exception\ModelNullException $e){}
 
     try{
         $this->select[0]->bindParam(':recipe_id', $modelOld->getRecipeId());
-    }catch(\exception\ModelNullException $e){
-        throw new NullPointerException($e->getMessage());
-    }
+    }catch(\exception\ModelNullException $e){}
 
     try{
         $this->select[0]->bindParam(':ingredient_name', $model->getIngredientName());
-    }catch(\exception\ModelNullException $e){
-        throw new NullPointerException($e->getMessage());
-    }
+    }catch(\exception\ModelNullException $e){}
 
     try{
         $this->select[0]->bindParam(':ingredient_name', $modelold->getIngredientName());
-    }catch(\exception\ModelNullException $e){
-        throw new NullPointerException($e->getMessage());
-    }
+    }catch(\exception\ModelNullException $e){}
 
       $this->update[0]->execute();
 
