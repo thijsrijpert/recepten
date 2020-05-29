@@ -72,26 +72,26 @@ class Recipe extends Api{
 
       if(null != $_GET['set']){
           $arguments = parent::rebuildArguments($_GET['set']);
-          $approvedArguments = $this->model->getVariables();
+          $approvedArguments = $this->modelNew->getVariables();
           foreach($arguments as $value){
               if($value[0] == 'id'){
-                  $this->model->setId($value[2]);
+                  $model->setId($value[2]);
               }else if($value[0] == 'name'){
-                  $this->model->setName($value[2]);
+                  $model->setName($value[2]);
               }else if($value[0] == 'description'){
-                  $this->model->setDescription($value[2]);
+                  $model->setDescription($value[2]);
               }else if($value[0] == 'isApproved'){
-                  $this->model->setIs_approved($value[2]);
+                  $model->setIs_approved($value[2]);
               }else if($value[0] == 'countrycode'){
-                  $this->model->setCountrycode($value[2]);
+                  $model->setCountrycode($value[2]);
               }else if($value[0] == 'username'){
-                  $this->model->setUsername($value[2]);
+                  $model->setUsername($value[2]);
               }else if($value[0] == 'mealtype_name'){
-                  $this->model->setMealtype_name($value[2]);
+                  $model->setMealtype_name($value[2]);
               }else if($value[0] == 'religion_id'){
-                  $this->model->setReligion_id($value[2]);
+                  $model->setReligion_id($value[2]);
               }else if($value[0] == 'time_of_day'){
-                  $this->model->setTime_of_day($value[2]);
+                  $model->setTime_of_day($value[2]);
 
           }
         }

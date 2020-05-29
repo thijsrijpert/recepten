@@ -70,16 +70,16 @@ public function update(){
 
     if(null != $_GET['set']){
         $arguments = parent::rebuildArguments($_GET['set']);
-        $approvedArguments = $this->model->getVariables();
+        $approvedArguments = $this->$modelNew->getVariables();
         foreach($arguments as $value){
             if($value[0] == 'username'){
-                $this->model->setUsername($value[2]);
+                $model->setUsername($value[2]);
             }else if($value[0] == 'is_approved'){
-                $this->model->setIs_approved($value[2]);
+                $model->setIs_approved($value[2]);
             }else if($value[0] == 'description'){
-              $this->model->setDescription($value[2]);
+              $model->setDescription($value[2]);
           }else if($value[0] == 'name'){
-            $this->model->setName($value[2]);
+            $model->setName($value[2]);
           }
         }
     }
