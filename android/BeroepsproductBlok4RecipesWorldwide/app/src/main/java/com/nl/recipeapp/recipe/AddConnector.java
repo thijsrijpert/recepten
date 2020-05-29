@@ -147,6 +147,8 @@ public class AddConnector {
                         case "EditMealtype":
                             editMealtype.getArraylist_mealtypes().clear();
                             editMealtype.getArraylist_mealtypes().addAll(arraylist_mealtypes);
+                            editMealtype.getArrayadapter_mealtypes().clear();
+                            editMealtype.getArrayadapter_mealtypes().addAll(arraylist_mealtypes);
                             editMealtype.getArrayadapter_mealtypes().notifyDataSetChanged();
                             break;
                         case "ManageUserRecipe":
@@ -217,6 +219,8 @@ public class AddConnector {
                         case "EditCountry":
                             editCountry.getArraylist_countries().clear();
                             editCountry.getArraylist_countries().addAll(arraylist_countries);
+                            editCountry.getArrayadapter_countries().clear();
+                            editCountry.getArrayadapter_countries().addAll(arraylist_countries);
                             editCountry.getArrayadapter_countries().notifyDataSetChanged();
                             break;
                         case "ManageUserRecipe":

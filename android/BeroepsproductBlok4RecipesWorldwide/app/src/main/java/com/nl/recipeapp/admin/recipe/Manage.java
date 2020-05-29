@@ -59,7 +59,7 @@ public class Manage extends Fragment {
     private RecyclerView recyclerview_A_ingredients;
     private ManageRecyclerViewAdapterA recyclerview_A_ingredients_adapter;
     private ArrayList<String> arraylist_unapprovedRecipeNames;
-    private ArrayList<Ingredient> arraylist_ingredientsBoundToRecipe_A;
+    private ArrayList<Ingredient> arraylist_ingredientsBoundToRecipe_A, arraylist_unapprovedIngredients;
     private ArrayAdapter<String> arrayadapter_unapprovedRecipes;
 
     private ArrayAdapter<Religion> arrayadapter_A_religion;
@@ -114,6 +114,7 @@ public class Manage extends Fragment {
 
         addConnectorRecipe.setManageRecipe(this);
         connectorRecipes.setManageRecipe(this);
+        connectorIngredients.setManageRecipe(this);
 
         // Start the initialization methods for A: Approving or denying recipes
         arraylist_ingredientsBoundToRecipe_A = new ArrayList<>();
@@ -267,8 +268,8 @@ public class Manage extends Fragment {
             public void onClick(View v) {
                 // First, check if there are ingredients that have to be approved. If there are these have to be either approved or denied. If this is not done, there could be a
                 // foreign key constraint error: a recipe could be added that has an ingredient that isn't in the database yet (not approved, anyway).
-                ArrayList<Ingredient> unapprovedIngredients = connectorIngredients.getUnapprovedIngredients(); // Make sure to fill this variable with the number of unapproved ingredients. Get these from the database?
-                if (unapprovedIngredients.size() > 0) {
+                connectorIngredients.getUnapprovedIngredients("ManageRecipe"); // Make sure to fill this variable with the number of unapproved ingredients.
+                if (arraylist_unapprovedIngredients.size() > 0) {
                     Toast.makeText(view.getContext(), "Er zijn nog ingrediënten die beheerd moeten worden", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -618,16 +619,9 @@ public class Manage extends Fragment {
      * Initializes the ArrayLists, used in the Buttons in parts A and B. This method is called once in the onCreate() and again every time the onStart() is called to refresh its contents
      */
     private void initializeArrayLists() {
-        // Unapproved Recipes
+        // Unapproved and Approved Recipes
         connectorRecipes.getUnapprovedRecipes("ManageRecipe");
-
-        // Approved Recipes
-        arraylist_approvedRecipeNames.clear();
-        arraylist_approvedRecipes = connectorRecipes.getApprovedRecipes();
-        for (int c = 0; c < arraylist_approvedRecipes.size(); c++) {
-            arraylist_approvedRecipeNames.add(arraylist_approvedRecipes.get(c).getName());
-        }
-        arrayadapter_approvedRecipes.notifyDataSetChanged();
+        connectorRecipes.getApprovedRecipes("ManageRecipe");
 
         addConnectorRecipe.getTimeOfDay("ManageRecipe");
         addConnectorRecipe.getMealTypes("ManageRecipe");
@@ -687,6 +681,7 @@ public class Manage extends Fragment {
         return arraylist_timeofday;
     }
 
+    // Unapproved Recipes
     public ArrayList<Recipe> getArraylist_unapprovedRecipes() {
         return arraylist_unapprovedRecipes;
     }
@@ -697,5 +692,23 @@ public class Manage extends Fragment {
 
     public ArrayList<String> getArraylist_unapprovedRecipeNames() {
         return arraylist_unapprovedRecipeNames;
+    }
+
+    // Approved Recipes
+    public ArrayList<Recipe> getArraylist_approvedRecipes() {
+        return arraylist_approvedRecipes;
+    }
+
+    public ArrayAdapter<String> getArrayAdapter_approvedRecipes() {
+        return arrayadapter_approvedRecipes;
+    }
+
+    public ArrayList<String> getArraylist_approvedRecipeNames() {
+        return arraylist_approvedRecipeNames;
+    }
+
+    // Unapproved Ingredients
+    public ArrayList<Ingredient> getArraylist_unapprovedIngredients() {
+        return arraylist_unapprovedIngredients;
     }
 }

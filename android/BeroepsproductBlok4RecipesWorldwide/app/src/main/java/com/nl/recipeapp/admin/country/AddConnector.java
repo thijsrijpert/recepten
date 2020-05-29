@@ -1,23 +1,18 @@
 package com.nl.recipeapp.admin.country;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.nl.recipeapp.R;
 import com.nl.recipeapp.RequestQueueHolder;
-import com.nl.recipeapp.model.Country;
-
-import java.util.ArrayList;
 
 public class AddConnector {
     private Context context;
-    private boolean succesfullyAddedCountry;
+    private Add addCountry;
+    private Edit editCountry;
 
     public AddConnector(Context context) {
         this.context = context;
@@ -26,50 +21,57 @@ public class AddConnector {
     /**
      * Adds a Country to the database
      */
-    public boolean addCountry(String countryCode, String countryName, String countryDescription) {
+    public void addCountry(String code, final String name, String description) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/country.php?countrycode="+ countryCode + "&name=" + countryName + "&description=" + countryDescription + "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/country.php?countrycode="+ code + "&name=" + name + "&description=" + description + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Het land is succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
-//              System.out.println(response);
-                succesfullyAddedCountry = true;
+                Toast.makeText(context, "Land '" + name + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
+                addCountry.getEdittextFields(0).setText("");
+                addCountry.getEdittextFields(1).setText("");
+                addCountry.getEdittextFields(2).setText("");
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "AddCountry_WebserverConnector: Het land kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
-//                System.out.println(error.getMessage());
-                succesfullyAddedCountry = false;
+                Toast.makeText(context, "admin.country.AddConnector: Het land kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
-        return succesfullyAddedCountry;
     }
 
     /**
      * Edits an existing Country in the database
      */
-    public boolean editCountry(String oldCountryName, String countryCode, String newCountryName, String countryDescription) {
+    public void editCountry(String oldCode, final String oldName, String newCode, final String newName, String newDescription) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/country.php?countrycode="+ countryCode + "&name=" + newCountryName + "&description=" + countryDescription + "&where=name-eq-" + oldCountryName + "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/country.php?set=countrycode-"+ newCode + "&name-" + newName + "&description-" + newDescription + "&where=countrycode-eq-" + oldCode + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                succesfullyAddedCountry = true;
+                Toast.makeText(context, "Land '" + oldName + "' succesvol gewijzigd naar '" + newName + "'", Toast.LENGTH_SHORT).show();
+                editCountry.getEdittextFields(0).setText("");
+                editCountry.getEdittextFields(1).setText("");
+                editCountry.getEdittextFields(2).setText("");
+                editCountry.initializeArrayLists();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "AddCountry_WebserverConnector: Het land kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
-//                System.out.println(error.getMessage());
-                succesfullyAddedCountry = false;
+                Toast.makeText(context, "admin.country.AddConnector: Het land kon niet worden gewijzigd.", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
-        return succesfullyAddedCountry;
+    }
+
+    public void setEditCountry(Edit editCountry) {
+        this.editCountry = editCountry;
+    }
+
+    public void setAddCountry(Add addCountry) {
+        this.addCountry = addCountry;
     }
 }
