@@ -1,11 +1,13 @@
 package com.nl.recipeapp.admin.ingredients;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.nl.recipeapp.RequestQueueHolder;
 import com.nl.recipeapp.model.Ingredient;
@@ -18,7 +20,6 @@ import java.util.ArrayList;
 
 public class Connector {
     private Context context;
-    private boolean result;
     private ArrayList<Ingredient> arraylist_approvedIngredients, arraylist_unapprovedIngredients;
     private Manage manageIngredients;
     private com.nl.recipeapp.admin.recipe.Manage manageRecipe;
@@ -29,24 +30,41 @@ public class Connector {
         arraylist_unapprovedIngredients = new ArrayList<>();
     }
 
-    public boolean approveIngredient(Ingredient ingredient) {
+    public void approveIngredient(Ingredient ingredient) {
 
 
-        return result;
+
     }
 
 
-    public boolean denyIngredient(Ingredient ingredient) {
+    public void denyIngredient(Ingredient ingredient) {
 
 
-        return result;
+
     }
 
 
-    public boolean updateIngredient(Ingredient ingredient) {
+    public void updateIngredient(final String oldName, final String newName, String newDescription) {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?set=name-"+ newName + ".description-" + newDescription + "&where=name-eq-" + oldName, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context, "Ingrediënt '" + oldName + "' succesvol gewijzigd naar '" + newName + "'.", Toast.LENGTH_SHORT).show();
+                manageIngredients.getEdittexts(2).setText("");
+                manageIngredients.getEdittexts(3).setText("");
+                manageIngredients.initializeArrayLists();
+                manageIngredients.updateViewContent_A();
+                manageIngredients.updateViewContent_B();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "admin.ingredients.Connector: Het ingrediënt kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-
-        return result;
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
     }
 
     /**
@@ -54,7 +72,7 @@ public class Connector {
      */
     public void getUnapprovedIngredients(final String calledFrom) {
         // Request a string response from the provided URL.
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=isApproved-eq-0", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=is_approved-eq-0", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
@@ -110,7 +128,7 @@ public class Connector {
      */
     public void getApprovedIngredients(final String calledFrom) {
         // Request a string response from the provided URL.
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=isApproved-eq-1", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=is_approved-eq-1", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();

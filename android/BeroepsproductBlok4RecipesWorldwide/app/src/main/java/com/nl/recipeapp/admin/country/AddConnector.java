@@ -23,7 +23,7 @@ public class AddConnector {
      */
     public void addCountry(String code, final String name, String description) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/country.php?countrycode="+ code + "&name=" + name + "&description=" + description + "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Country.php?countrycode="+ code + "&name=" + name + "&description=" + description + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Land '" + name + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
@@ -47,7 +47,7 @@ public class AddConnector {
      */
     public void editCountry(String oldCode, final String oldName, String newCode, final String newName, String newDescription) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/country.php?set=countrycode-"+ newCode + "&name-" + newName + "&description-" + newDescription + "&where=countrycode-eq-" + oldCode + "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Country.php?set=countrycode-"+ newCode + "&name-" + newName + "&description-" + newDescription + "&where=countrycode-eq-" + oldCode + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Land '" + oldName + "' succesvol gewijzigd naar '" + newName + "'", Toast.LENGTH_SHORT).show();
