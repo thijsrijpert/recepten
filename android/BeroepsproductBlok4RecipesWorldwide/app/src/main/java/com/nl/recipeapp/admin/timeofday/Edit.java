@@ -51,6 +51,7 @@ public class Edit extends Fragment {
         addConnector_recipe.setEditTimeOfDay(this);
 
         addConnector_timeofday = new com.nl.recipeapp.admin.timeofday.AddConnector(this.getContext()); // Create the AddConnector from the admin.timeofday package, so a TimeOfDay object may be changed
+        addConnector_timeofday.setEditTimeOfDay(this);
 
         // Call the initialization methods
         initializeSpinner();
@@ -91,12 +92,7 @@ public class Edit extends Fragment {
                     return;
                 }
 
-                boolean value = addConnector_timeofday.editTimeOfDay(spinner_timeofday.getSelectedItem().toString(), edittext_name.getText().toString());
-
-                if (value) {
-                    Toast.makeText(getContext(), "Tijdvak '" + spinner_timeofday.getSelectedItem().toString() + "' succesvol gewijzigd naar '" + edittext_name.getText().toString() + "'", Toast.LENGTH_SHORT).show();
-                    edittext_name.setText("");
-                }
+                addConnector_timeofday.editTimeOfDay(spinner_timeofday.getSelectedItem().toString(), edittext_name.getText().toString());
             }
         });
     }
@@ -105,7 +101,7 @@ public class Edit extends Fragment {
      * Initializes the ArrayLists, used in the Spinners. This method is called once in the onCreate() and again every time the onStart() is called to refresh its contents
      * Every time this method is called, the ArrayLists with names are cleared first to prevent the list from filling with the wrong (or duplicate) items
      */
-    private void initializeArrayLists() {
+    public void initializeArrayLists() {
         addConnector_recipe.getTimeOfDay("EditTimeOfDay");
     }
 
@@ -115,5 +111,9 @@ public class Edit extends Fragment {
 
     public ArrayAdapter<TimeOfDay> getArrayAdapter_timeofday() {
         return arrayAdapter_timeofday;
+    }
+
+    public EditText getEdittext_name() {
+        return edittext_name;
     }
 }

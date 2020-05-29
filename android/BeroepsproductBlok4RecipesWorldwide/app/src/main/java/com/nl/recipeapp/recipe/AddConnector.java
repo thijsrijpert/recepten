@@ -110,7 +110,7 @@ public class AddConnector {
      */
     public void getMealTypes(final String calledFrom) {
         // Request a string response from the provided URL.
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/mealtype.php", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Mealtype.php", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
@@ -353,6 +353,8 @@ public class AddConnector {
                         case "EditTimeOfDay":
                             editTimeOfDay.getArraylist_timeofday().clear();
                             editTimeOfDay.getArraylist_timeofday().addAll(arraylist_timeofday);
+                            editTimeOfDay.getArrayAdapter_timeofday().clear();
+                            editTimeOfDay.getArrayAdapter_timeofday().addAll(arraylist_timeofday);
                             editTimeOfDay.getArrayAdapter_timeofday().notifyDataSetChanged();
                             break;
                         case "ManageUserRecipe":

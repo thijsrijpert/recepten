@@ -8,8 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Review;
@@ -40,7 +42,10 @@ public class Add extends AppCompatActivity {
 
     private void initializeInputFields() {
         edittext_title = findViewById(R.id.addReview_edittext_title);
+
+        TextView textview_charactercount = findViewById(R.id.addReview_textview_characterCount);
         edittext_description = findViewById(R.id.addReview_edittext_description);
+        edittext_description.addTextChangedListener(new CharacterCountListener(textview_charactercount, edittext_description));
 
         // Create the ArrayList with the ratings and the Spinner + its adapter
         ArrayList<String> arraylist_ratings = new ArrayList<>();

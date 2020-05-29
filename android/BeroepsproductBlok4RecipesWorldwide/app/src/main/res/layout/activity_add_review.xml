@@ -170,6 +170,16 @@
                 app:layout_constraintStart_toStartOf="@id/addReview_linearLayout_textviews"
                 app:layout_constraintTop_toBottomOf="@id/addReview_constraintLayout_description" />
 
+            <TextView
+                android:id="@+id/addReview_textview_characterCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/character_count"
+                android:textColor="@color/colorText"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/addReview_edittext_description"
+                app:layout_constraintTop_toBottomOf="@id/addReview_edittext_description" />
+
             <!-- Button to add a new Review -->
             <Button
                 android:id="@+id/addReview_button_addReview"
@@ -185,7 +195,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/colorText"
                 app:layout_constraintStart_toStartOf="@id/addReview_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addReview_edittext_description" />
+                app:layout_constraintTop_toBottomOf="@id/addReview_textview_characterCount" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
