@@ -39,7 +39,7 @@ public class Connector {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/user.php?username=" + edit_login.getText().toString() + "&password=" + edit_password.getText().toString() + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Username '" + edit_login.getText().toString() + " Prima gebruikersnaam", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Username '" + edit_login.getText().toString() + " is geregistreerd", Toast.LENGTH_SHORT).show();
                 succesfullyAddedUsername = true;
 
             }
