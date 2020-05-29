@@ -61,6 +61,7 @@ public class Manage extends Fragment {
         view = inflater.inflate(R.layout.fragment_manage_admin_ingredients, container, false);
 
         connectorIngredients = new Connector(this.getContext()); // Create the webserver connector for transferring queries and getting data from the database
+        connectorIngredients.setManageIngredients(this);
 
         // Create the ArrayLists used in both parts A and B
         arraylist_A_unapprovedIngredientNames = new ArrayList<>();
@@ -358,20 +359,34 @@ public class Manage extends Fragment {
      * Initializes the ArrayLists, used in the Buttons in parts A and B. This method is called once in the onCreate() and again every time the onStart() is called to refresh its contents
      */
     private void initializeArrayLists() {
-        // Unapproved ingredients
-        arraylist_A_unapprovedIngredientNames.clear();
-        arraylist_A_unapprovedIngredients = connectorIngredients.getUnapprovedIngredients();
-        for (int c = 0; c < arraylist_A_unapprovedIngredients.size(); c++) {
-            arraylist_A_unapprovedIngredientNames.add(arraylist_A_unapprovedIngredients.get(c).getName());
-        }
-        arrayadapter_A_unapprovedIngredients.notifyDataSetChanged();
+        // Unapproved and Approved Ingredients
+        connectorIngredients.getUnapprovedIngredients("ManageIngredient");
+        connectorIngredients.getApprovedIngredients("ManageIngredient");
+    }
 
-        // Approved ingredients
-        arraylist_B_approvedIngredientNames.clear();
-        arraylist_B_approvedIngredients = connectorIngredients.getApprovedIngredients();
-        for (int c = 0; c < arraylist_B_approvedIngredients.size(); c++) {
-            arraylist_B_approvedIngredientNames.add(arraylist_B_approvedIngredients.get(c).getName());
-        }
-        arrayadapter_B_approvedIngredients.notifyDataSetChanged();
+    // Unapproved Ingredients
+    public ArrayList<Ingredient> getArraylist_unapprovedIngredients() {
+        return arraylist_A_unapprovedIngredients;
+    }
+
+    public ArrayAdapter<String> getArrayAdapter_unapprovedIngredients() {
+        return arrayadapter_A_unapprovedIngredients;
+    }
+
+    public ArrayList<String> getArraylist_unapprovedIngredientNames() {
+        return arraylist_A_unapprovedIngredientNames;
+    }
+
+    // Approved Ingredients
+    public ArrayList<Ingredient> getArraylist_approvedIngredients() {
+        return arraylist_B_approvedIngredients;
+    }
+
+    public ArrayAdapter<String> getArrayAdapter_approvedIngredients() {
+        return arrayadapter_B_approvedIngredients;
+    }
+
+    public ArrayList<String> getArraylist_approvedIngredientNames() {
+        return arraylist_B_approvedIngredientNames;
     }
 }

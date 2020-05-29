@@ -21,11 +21,13 @@ public class Connector {
     private boolean result;
 
     private ArrayList<Recipe> arraylist_unapprovedRecipes;
+    private ArrayList<Recipe> arraylist_approvedRecipes;
     private Manage manageRecipe;
 
     public Connector(Context context) {
         this.context = context;
         arraylist_unapprovedRecipes = new ArrayList<>();
+        arraylist_approvedRecipes = new ArrayList<>();
     }
 
     /**
@@ -101,6 +103,12 @@ public class Connector {
                         case "ManageRecipe":
                             manageRecipe.getArraylist_unapprovedRecipes().clear();
                             manageRecipe.getArraylist_unapprovedRecipes().addAll(arraylist_unapprovedRecipes);
+
+                            manageRecipe.getArraylist_unapprovedRecipeNames().clear();
+                            for (int c = 0; c < arraylist_unapprovedRecipes.size(); c++) {
+                                manageRecipe.getArraylist_unapprovedRecipeNames().add(arraylist_unapprovedRecipes.get(c).getName());
+                            }
+
                             manageRecipe.getArrayAdapter_unapprovedRecipes().notifyDataSetChanged();
                             break;
                     }
@@ -124,12 +132,52 @@ public class Connector {
      * When the Spinner in ManageRecipes has to be filled with approved recipes only (recipes that have the 'isApproved' column on '1'), this is the method which is called
      * @return An ArrayList<Recipe> which returns all approved recipes
      */
-    public ArrayList<Recipe> getApprovedRecipes() {
-        ArrayList<Recipe> approvedRecipes = new ArrayList<>();
+    public void getApprovedRecipes(final String calledFrom) {
+        // Request a string response from the provided URL.
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?where=isApproved-eq-1", new JSONArray(), new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Gson gson = new Gson();
 
+                arraylist_approvedRecipes.clear(); // Clear the local ArrayList, so no duplicates will be added
 
+                try {
+                    for (int c = 0; c < response.length(); c++) {
+                        JSONObject object = response.getJSONObject(c);
+                        Recipe recipe = gson.fromJson(object.toString(), Recipe.class);
+                        arraylist_approvedRecipes.add(recipe);
+                    }
 
-        return approvedRecipes;
+                    // Clear the ArrayLists, so they only get filled once (and not stacked with new object on top of the old ones)
+                    // Add the Mealtypes to the necessary ArrayLists
+                    // Notify the corresponding adapters that the ArrayLists have been changed and they need to be updated
+                    switch (calledFrom) {
+                        case "ManageRecipe":
+                            manageRecipe.getArraylist_approvedRecipes().clear();
+                            manageRecipe.getArraylist_approvedRecipes().addAll(arraylist_approvedRecipes);
+
+                            manageRecipe.getArraylist_approvedRecipeNames().clear();
+                            for (int c = 0; c < arraylist_approvedRecipes.size(); c++) {
+                                manageRecipe.getArraylist_approvedRecipeNames().add(arraylist_approvedRecipes.get(c).getName());
+                            }
+
+                            manageRecipe.getArrayAdapter_approvedRecipes().notifyDataSetChanged();
+                            break;
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Connector (admin/recipe): Goedgekeurde recepten konden niet worden opgehaald uit de database.");
+            }
+        });
+
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request);
     }
 
     /**

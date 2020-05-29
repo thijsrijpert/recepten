@@ -19,7 +19,7 @@ import com.nl.recipeapp.R;
  */
 public class Add extends Fragment {
     private View view;
-    private EditText edittext_tijdvakName;
+    private EditText edittext_name;
     private AddConnector addConnector;
 
     public Add() {
@@ -33,10 +33,11 @@ public class Add extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_time_of_day, container, false);
 
         // Initialize the Class variables
-        edittext_tijdvakName = view.findViewById(R.id.addTimeOfDay_edittext_timeOfDayName);
+        edittext_name = view.findViewById(R.id.addTimeOfDay_edittext_timeOfDayName);
 
         // Create the connector that will pass requests towards the database
         addConnector = new AddConnector(this.getContext());
+        addConnector.setAddTimeOfDay(this);
 
         // Launch the initialization methods
         initializeButtons();
@@ -50,19 +51,18 @@ public class Add extends Fragment {
             @Override
             public void onClick(View v) {
                 // First, check if all the fields are filled in. If not, display a Toast accordingly
-                if (edittext_tijdvakName.getText().toString().equals("")) {
+                if (edittext_name.getText().toString().equals("")) {
                     // Check if a name is entered
                     Toast.makeText(getActivity(), "U moet een tijdvak naam invullen", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                boolean value = addConnector.addTimeOfDay(edittext_tijdvakName.getText().toString());
-
-                if (value) {
-                    Toast.makeText(getContext(), "Tijdvak '" + edittext_tijdvakName.getText() + "' succesvol toegevoegd.", Toast.LENGTH_SHORT).show();
-                    edittext_tijdvakName.setText("");
-                }
+                addConnector.addTimeOfDay(edittext_name.getText().toString());
             }
         });
+    }
+
+    public EditText getEdittext_name() {
+        return edittext_name;
     }
 }

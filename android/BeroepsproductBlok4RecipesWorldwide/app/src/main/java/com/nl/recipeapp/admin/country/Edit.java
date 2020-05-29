@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nl.recipeapp.CharacterCountListener;
+import com.nl.recipeapp.GeneralMethods;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Country;
 import com.nl.recipeapp.recipe.AddConnector;
@@ -28,6 +29,7 @@ public class Edit extends Fragment {
     private View view;
     private AddConnector addConnector_recipe;
     private com.nl.recipeapp.admin.country.AddConnector addConnector_country;
+    private GeneralMethods generalMethods;
 
     private EditText edittext_code, edittext_name, edittext_description;
 
@@ -52,7 +54,11 @@ public class Edit extends Fragment {
         // Create the neseccary connectors
         addConnector_recipe = new AddConnector(this.getContext());
         addConnector_recipe.setEditCountry(this);
+
         addConnector_country = new com.nl.recipeapp.admin.country.AddConnector(this.getContext());
+        addConnector_country.setEditCountry(this);
+
+        generalMethods = new GeneralMethods(this.getContext());
 
         // Call the initialization methods
         initializeEditTexts();
@@ -102,17 +108,12 @@ public class Edit extends Fragment {
                     return;
                 }
 
-                boolean value = addConnector_country.editCountry(spinner_countries.getSelectedItem().toString(), edittext_code.getText().toString(), edittext_name.getText().toString(), edittext_description.getText().toString());
-
-                if (value) {
-                    Toast.makeText(getContext(), "Land '" + spinner_countries.getSelectedItem().toString() + "' succesvol gewijzigd naar '" + edittext_name.getText().toString() + "'", Toast.LENGTH_SHORT).show();
-                    edittext_name.setText("");
-                }
+                addConnector_country.editCountry(generalMethods.getCountryCodeFromName(spinner_countries.getSelectedItem().toString()), spinner_countries.getSelectedItem().toString(), edittext_code.getText().toString(), edittext_name.getText().toString(), edittext_description.getText().toString());
             }
         });
     }
 
-    private void initializeArrayLists() {
+    public void initializeArrayLists() {
         addConnector_recipe.getCountries("EditCountry");
     }
 
@@ -122,5 +123,22 @@ public class Edit extends Fragment {
 
     public ArrayAdapter<Country> getArrayadapter_countries() {
         return arrayadapter_countries;
+    }
+
+    public EditText getEdittextFields(int value) {
+        EditText edittext = null;
+        switch (value) {
+            case 0:
+                edittext = edittext_code;
+            break;
+            case 1:
+                edittext = edittext_name;
+            break;
+            case 2:
+                edittext = edittext_description;
+            break;
+        }
+
+        return edittext;
     }
 }
