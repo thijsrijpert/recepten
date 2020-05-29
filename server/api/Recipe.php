@@ -75,24 +75,23 @@ class Recipe extends Api{
           $approvedArguments = $modelNew->getVariables();
           foreach($arguments as $value){
               if($value[0] == 'id'){
-                  $model->setId($value[1]);
+                  $modelNew->setId($value[1]);
               }else if($value[0] == 'name'){
-                  $model->setName($value[1]);
+                  $modelNew->setName($value[1]);
               }else if($value[0] == 'description'){
-                  $model->setDescription($value[1]);
+                  $modelNew->setDescription($value[1]);
               }else if($value[0] == 'isApproved'){
-                  $model->setIs_approved($value[1]);
+                  $modelNew->setIs_approved($value[1]);
               }else if($value[0] == 'countrycode'){
-                  $model->setCountrycode($value[1]);
+                  $modelNew->setCountrycode($value[1]);
               }else if($value[0] == 'username'){
-                  $model->setUsername($value[1]);
+                  $modelNew->setUsername($value[1]);
               }else if($value[0] == 'mealtype_name'){
-                  $model->setMealtype_name($value[1]);
+                  $modelNew->setMealtype_name($value[1]);
               }else if($value[0] == 'religion_id'){
-                  $model->setReligion_id($value[1]);
+                  $modelNew->setReligion_id($value[1]);
               }else if($value[0] == 'time_of_day'){
-                  $model->setTime_of_day($value[1]);
-
+                  $modelNew->setTime_of_day($value[1]);
           }
         }
     }

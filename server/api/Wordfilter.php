@@ -116,7 +116,7 @@ require_once(dirname(__FILE__,1) . '/Api.php');
             $approvedArguments = $model->getVariables();
             foreach($arguments as $value){
                 if($value[0] == 'word'){
-                    $model->setWord($value[2]);
+                    $modelNew->setWord($value[2]);
                 }
             }
         }

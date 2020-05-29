@@ -69,11 +69,11 @@ class Country extends Api implements CRUInterface{
         $approvedArguments = $modelNew->getVariables();
         foreach($arguments as $value){
             if($value[0] == 'countrycode'){
-                $model->setCountrycode($value[1]);
+                $modelNew->setCountrycode($value[1]);
             }else if($value[0] == 'name'){
-                $model->setName($value[1]);
+                $modelNew->setName($value[1]);
             }elseif($value[0] == 'description'){
-              $model->setDescription($value[1]);
+              $modelNew->setDescription($value[1]);
             }
       }
     }

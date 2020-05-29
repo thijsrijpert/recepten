@@ -73,13 +73,13 @@ public function update(){
         $approvedArguments = $modelNew->getVariables();
         foreach($arguments as $value){
             if($value[0] == 'username'){
-                $model->setUsername($value[1]);
+                $modelNew->setUsername($value[1]);
             }else if($value[0] == 'is_approved'){
-                $model->setIs_approved($value[1]);
+                $modelNew->setIs_approved($value[1]);
             }else if($value[0] == 'description'){
-              $model->setDescription($value[1]);
+              $modelNew->setDescription($value[1]);
           }else if($value[0] == 'name'){
-            $model->setName($value[1]);
+            $modelNew->setName($value[1]);
           }
         }
     }

@@ -74,9 +74,9 @@ class ReceptIngredient extends Api implements CRUInterface{
             $approvedArguments = $modelNew->getVariables();
             foreach($arguments as $value){
                 if($value[0] == 'recipe_id'){
-                    $model->setRecipeId($value[2]);
+                    $modelNew->setRecipeId($value[2]);
                 }else if($value[0] == 'ingredient_name'){
-                    $model->setIngredientName($value[1]);
+                    $modelNew->setIngredientName($value[1]);
                 }
             }
         }
