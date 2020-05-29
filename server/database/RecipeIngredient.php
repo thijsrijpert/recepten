@@ -5,7 +5,7 @@ require_once(dirname(__FILE__,1) . '/CRUD.php');
 require_once(dirname(__FILE__,2) . '/model/RecipeIngredient.php');
 class RecipeIngredient extends CRUD{
 
-  function __construct(QueryBuilder $query = null){
+  function __construct(QueryBuilderParent ...$query){
     $sql = "INSERT INTO Recipe_Ingredient (recipe_id, ingredient_name) VALUES (:recipe_id , :ingredient_name)";
     $this->stmt = \database\Database::getConnection()->prepare($sql);
 

@@ -6,7 +6,7 @@ require_once(dirname(__FILE__, 1) . '/CRUInterface.php');
 require_once(dirname(__FILE__,2) . '/model/Ingredient.php');
 class Ingredient extends CRUD{
 
-  function __construct(QueryBuilder $query = null){
+  function __construct(QueryBuilderParent ...$query){
         $sql = "INSERT INTO Ingredient (name, description, is_approved, username) VALUES (:name , :description,
         :is_approved, :username)";
         $this->stmt = \database\Database::getConnection()->prepare($sql);

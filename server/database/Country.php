@@ -6,7 +6,7 @@ require_once(dirname(__FILE__,1) . '/CRUD.php');
 require_once(dirname(__FILE__,2) . '/model/Country.php');
   class Country extends CRUD implements CRUInterface{
 
-    function __construct(QueryBuilder $query = null){
+    function __construct(QueryBuilderParent ...$query){
           $sql = "INSERT INTO Country (countrycode, name, description) VALUES (:countrycode, :name, :description)";
           $this->stmt = \database\Database::getConnection()->prepare($sql);
 

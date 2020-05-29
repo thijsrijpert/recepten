@@ -5,7 +5,7 @@ require_once(dirname(__FILE__,1) . '/CRUD.php');
 require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
   class Wordfilter extends CRUD{
 
-    function __construct(QueryBuilder $query = null){
+    function __construct(QueryBuilderParent ...$query){
           $sql = "INSERT INTO Wordfilter (word) VALUES (:word)";
           $this->stmt = \database\Database::getConnection()->prepare($sql);
 
@@ -45,7 +45,7 @@ require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
         }catch(\exception\ModelNullException $e){
             throw new NullPointerException($e->getMessage());
         }
-        
+
         $this->update[0]->execute();
 
         return $this->update[0]->errorCode();
