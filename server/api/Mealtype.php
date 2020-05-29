@@ -74,7 +74,7 @@ class Mealtype extends Api implements CRUInterface{
             $approvedArguments = $modelNew->getVariables();
             foreach($arguments as $value){
                 if($value[0] == 'name'){
-                    $model->setName($value[2]);
+                    $model->setName($value[1]);
                 }
             }
         }

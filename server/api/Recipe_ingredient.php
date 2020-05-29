@@ -76,7 +76,7 @@ class ReceptIngredient extends Api implements CRUInterface{
                 if($value[0] == 'recipe_id'){
                     $model->setRecipeId($value[2]);
                 }else if($value[0] == 'ingredient_name'){
-                    $model->setIngredientName($value[2]);
+                    $model->setIngredientName($value[1]);
                 }
             }
         }
