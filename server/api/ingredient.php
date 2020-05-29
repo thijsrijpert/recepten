@@ -119,7 +119,7 @@ public function update(){
 
     if(null != $_GET['where']){
         $arguments = parent::rebuildArguments($_GET['where']);
-        $approvedArguments = $this->model->getVariables();
+        $approvedArguments = $model->getVariables();
         foreach($arguments as $value){
             if($value[0] == 'username'){
                 $this->model->setUsername($value[2]);
