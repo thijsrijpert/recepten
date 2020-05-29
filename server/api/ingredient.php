@@ -139,6 +139,8 @@ public function update(){
 $ingredient = new Ingredient();
 if(isset($_GET['name'])){
   $ingredient->insert();
+}else if(isset($_GET['set'])){
+  $ingredient->update();
 }else{
   $ingredient->select();
 }
