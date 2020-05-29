@@ -83,6 +83,120 @@ class Recipe extends CRUD{
       return array($this->select[0]->errorCode(), array($results));
   }
 
+    function update(){
+      try{
+          $this->select[0]->bindParam(':id', $model->getId());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':id', $modelOld->getId());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':name', $model->getName());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':name', $modelOld->getName());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':description', $model->getDescription());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':description', $modelOld->getDescription());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':isApproved', $model->getIs_approved());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':isApproved', $modelOld->getIs_approved());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':countrycode', $model->getCountrycode());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':countrycode', $modelold->getCountrycode());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':username', $model->getUsername());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':username', $modelOld->getUsername());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':mealtype_name', $model->getMealtype_name());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':mealtype_name', $modelOld->getMealtype_name());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':religion_id', $model->getReligion_id());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':religion_id', $modelOld->getReligion_id());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':time_of_day', $model->getTime_of_day());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      try{
+          $this->select[0]->bindParam(':time_of_day', $modelOld->getTime_of_day());
+      }catch(\exception\ModelNullException $e){
+          throw new NullPointerException($e->getMessage());
+      }
+
+      $this->update[0]->execute();
+
+      return $this->update[0]->errorCode();
+    }
+
   function error_handler($errno, $errstr, $errfile, $errline){
 
   }

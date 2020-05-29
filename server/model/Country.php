@@ -3,7 +3,7 @@ namespace model;
 require_once(dirname(__FILE__,1) . '/Model.php');
 require_once(dirname(__FILE__,1) . '/Update.php');
 require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
-class Country extends \model\Model implements \model\Model\Update{
+class Country extends \model\Model implements \model\Update{
     private $countrycode;
     private $name;
     private $description;

@@ -2,6 +2,7 @@
 namespace model;
 
 require_once(dirname(__FILE__,1) . '/Model.php');
+require_once(dirname(__FILE__,1) . '/Update.php');
 require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 
 class Recipe extends \model\Model{
@@ -131,6 +132,11 @@ class Recipe extends \model\Model{
   }
 
   public function getVariables(){
+      return [['id'], ['name'], ['description'], ['isApproved'], ['countrycode'], ['username'], ['mealtype_name'], ['religion_id'],
+      ['time_of_day']];
+  }
+
+  public function getUpdateVariables(){
       return [['id'], ['name'], ['description'], ['isApproved'], ['countrycode'], ['username'], ['mealtype_name'], ['religion_id'],
       ['time_of_day']];
   }

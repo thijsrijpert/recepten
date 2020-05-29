@@ -32,6 +32,25 @@ require_once(dirname(__FILE__,2) . '/model/Mealtype.php');
         return array($this->select[0]->errorCode(), array($results));
     }
 
+    function update(\model\Model $model, \model\Model $modelOld) : String{
+        try{
+            $this->update[0]->bindParam(':nameUpdate', $model->getName());
+        }catch(\exception\ModelNullException $e){
+            throw new NullPointerException($e->getMessage());
+        }
+
+        try{
+            $this->update[0]->bindParam(':name', $modelOld->getName());
+        }catch(\exception\ModelNullException $e){
+            throw new NullPointerException($e->getMessage());
+        }
+
+        $this->update[0]->execute();
+
+        return $this->update[0]->errorCode();
+    }
+
+
     function error_handler($errno, $errstr, $errfile, $errline){
 
     }

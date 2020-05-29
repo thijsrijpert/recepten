@@ -21,7 +21,7 @@ require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
     }
 
     function select(\model\Model $model) : array{
-      
+
         try{
             $this->select[0]->bindParam(':word', $model->getWord());
         }catch(\exception\ModelNullException $e){}
@@ -31,6 +31,24 @@ require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
         $results = $this->select[0]->fetchAll(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'model\Wordfilter');
 
         return array($this->select[0]->errorCode(), array($results));
+    }
+
+    function update(\model\Model $model, \model\Model $modelOld) : String{
+        try{
+            $this->select[0]->bindParam(':word', $model->getWord());
+        }catch(\exception\ModelNullException $e){
+            throw new NullPointerException($e->getMessage());
+        }
+
+        try{
+            $this->select[0]->bindParam(':word', $modelOld->getWord());
+        }catch(\exception\ModelNullException $e){
+            throw new NullPointerException($e->getMessage());
+        }
+        
+        $this->update[0]->execute();
+
+        return $this->update[0]->errorCode();
     }
 
     function error_handler($errno, $errstr, $errfile, $errline){

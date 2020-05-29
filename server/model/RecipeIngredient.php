@@ -1,6 +1,7 @@
 <?php
 namespace model;
 require_once(dirname(__FILE__,1) . '/Model.php');
+require_once(dirname(__FILE__,1) . '/Update.php');
 require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 
 class Recipe_Ingredient extends  \model\Model{
@@ -36,6 +37,10 @@ class Recipe_Ingredient extends  \model\Model{
   }
 
   public function getVariables(){
+      return [['recipe_id'], ['ingredient_name']];
+  }
+
+  public function getUpdateVariables(){
       return [['recipe_id'], ['ingredient_name']];
   }
 

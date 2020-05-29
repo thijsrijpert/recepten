@@ -1,6 +1,7 @@
 <?php
 namespace model;
 require_once(dirname(__FILE__,1) . '/Model.php');
+require_once(dirname(__FILE__,1) . '/Update.php');
 require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
 
 class Wordfilter extends \model\Model{
@@ -22,6 +23,10 @@ class Wordfilter extends \model\Model{
   }
 
   public function getVariables(){
+      return [['word']];
+  }
+
+  public function getUpdateVariables(){
       return [['word']];
   }
 

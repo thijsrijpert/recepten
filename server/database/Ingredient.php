@@ -2,6 +2,7 @@
 namespace database;
 require_once(dirname(__FILE__,1) . '/Database.php');
 require_once(dirname(__FILE__,1) . '/CRUD.php');
+require_once(dirname(__FILE__, 1) . '/CRUInterface.php');
 require_once(dirname(__FILE__,2) . '/model/Ingredient.php');
 class Ingredient extends CRUD{
 
@@ -53,6 +54,51 @@ class Ingredient extends CRUD{
 
 
   }
+
+  function update(\model\Model $model, \model\Model $modelOld) : String{
+
+    try{
+        $this->update[0]->bindParam(':nameUpdate', $model->getName());
+    }catch(\exception\ModelNullException $e){
+        throw new NullPointerException($e->getMessage());
+    }
+
+    try{
+        $this->update[0]->bindParam(':name', $modelOld->getName());
+    }catch(\exception\ModelNullException $e){
+        throw new NullPointerException($e->getMessage());
+    }
+
+    try{
+        $this->select[0]->bindParam(':description', $model->getDescription());
+    }catch(\exception\ModelNullException $e){
+        throw new NullPointerException($e->getMessage());
+    }
+
+    try{
+        $this->select[0]->bindParam(':description', $modelOld->getDescription());
+    }catch(\exception\ModelNullException $e){
+        throw new NullPointerException($e->getMessage());
+    }
+
+    try{
+        $this->select[0]->bindParam(':username', $model->getUsername());
+    }catch(\exception\ModelNullException $e){
+        throw new NullPointerException($e->getMessage());
+    }
+
+    try{
+        $this->select[0]->bindParam(':username', $modelOld->getUsername());
+    }catch(\exception\ModelNullException $e){
+        throw new NullPointerException($e->getMessage());
+    }
+
+
+      $this->update[0]->execute();
+
+      return $this->update[0]->errorCode();
+  }
+
 
   function error_handler($errno, $errstr, $errfile, $errline){
 
