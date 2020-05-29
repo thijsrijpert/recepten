@@ -70,7 +70,7 @@ public function update(){
 
     if(null != $_GET['set']){
         $arguments = parent::rebuildArguments($_GET['set']);
-        $approvedArguments = $this->$modelNew->getVariables();
+        $approvedArguments = $modelNew->getVariables();
         foreach($arguments as $value){
             if($value[0] == 'username'){
                 $model->setUsername($value[2]);

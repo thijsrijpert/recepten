@@ -70,7 +70,7 @@ require_once(dirname(__FILE__,1) . '/Api.php');
 
           if(null != $_GET['set']){
               $arguments = parent::rebuildArguments($_GET['set']);
-              $approvedArguments = $this->modelNew->getVariables();
+              $approvedArguments = $modelNew->getVariables();
               foreach($arguments as $value){
                   if($value[0] == 'word'){
                       $model->setWord($value[2]);
