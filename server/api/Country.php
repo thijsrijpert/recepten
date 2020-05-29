@@ -111,14 +111,14 @@ function getWhereModel() : \model\Model {
 
     if(null != $_GET['where']){
       $arguments = parent::rebuildArguments($_GET['where']);
-      $approvedArguments = $this->model->getVariables();
+      $approvedArguments = $model->getVariables();
       foreach($arguments as $value){
           if($value[0] == 'countrycode'){
-              $this->model->setCountrycode($value[2]);
+              $model->setCountrycode($value[2]);
           }else if($value[0] == 'name'){
-              $this->model->setName($value[2]);
+              $model->setName($value[2]);
           }elseif($value[0] == 'description'){
-            $this->model->setDescription($value[2]);
+            $model->setDescription($value[2]);
           }
     }
   }

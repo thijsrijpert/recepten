@@ -116,12 +116,12 @@ class ReceptIngredient extends Api implements CRUInterface{
 
       if(null != $_GET['where']){
           $arguments = parent::rebuildArguments($_GET['where']);
-          $approvedArguments = $this->model->getVariables();
+          $approvedArguments = $model->getVariables();
           foreach($arguments as $value){
               if($value[0] == 'recipe_id'){
-                  $this->model->setRecipeId($value[2]);
+                  $model->setRecipeId($value[2]);
               }else if($value[0] == 'ingredient_name'){
-                  $this->model->setIngredientName($value[2]);
+                  $model->setIngredientName($value[2]);
               }
           }
       }

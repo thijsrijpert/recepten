@@ -113,10 +113,10 @@ require_once(dirname(__FILE__,1) . '/Api.php');
 
         if(null != $_GET['where']){
             $arguments = parent::rebuildArguments($_GET['where']);
-            $approvedArguments = $this->model->getVariables();
+            $approvedArguments = $model->getVariables();
             foreach($arguments as $value){
                 if($value[0] == 'word'){
-                    $this->model->setWord($value[2]);
+                    $model->setWord($value[2]);
                 }
             }
         }
