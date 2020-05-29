@@ -159,16 +159,16 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            boolean succeeded = connectorIngredients.approveIngredient(ingredient);
+                            connectorIngredients.approveIngredient(ingredient);
 
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " is goedgekeurd", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                                updateViewContent_A();
-                                updateViewContent_B();
-                            } else {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden goedgekeurd", Toast.LENGTH_SHORT).show();
-                            }
+//                            if (succeeded) {
+//                                Toast.makeText(view.getContext(), ingredient.getName() + " is goedgekeurd", Toast.LENGTH_SHORT).show();
+//                                initializeArrayLists();
+//                                updateViewContent_A();
+//                                updateViewContent_B();
+//                            } else {
+//                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden goedgekeurd", Toast.LENGTH_SHORT).show();
+//                            }
                         }
                     });
                     builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
@@ -202,15 +202,15 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            boolean succeeded = connectorIngredients.denyIngredient(ingredient);
+                            connectorIngredients.denyIngredient(ingredient);
 
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " is afgekeurd", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                                updateViewContent_B();
-                            } else {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden afgekeurd", Toast.LENGTH_SHORT).show();
-                            }
+//                            if (succeeded) {
+//                                Toast.makeText(view.getContext(), ingredient.getName() + " is afgekeurd", Toast.LENGTH_SHORT).show();
+//                                initializeArrayLists();
+//                                updateViewContent_B();
+//                            } else {
+//                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden afgekeurd", Toast.LENGTH_SHORT).show();
+//                            }
                         }
                     });
                     builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
