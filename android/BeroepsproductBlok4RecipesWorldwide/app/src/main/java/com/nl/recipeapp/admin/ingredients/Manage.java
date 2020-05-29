@@ -159,16 +159,16 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            boolean succeeded = connectorIngredients.approveIngredient(ingredient);
+                            connectorIngredients.approveIngredient(ingredient);
 
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " is goedgekeurd", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                                updateViewContent_A();
-                                updateViewContent_B();
-                            } else {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden goedgekeurd", Toast.LENGTH_SHORT).show();
-                            }
+//                            if (succeeded) {
+//                                Toast.makeText(view.getContext(), ingredient.getName() + " is goedgekeurd", Toast.LENGTH_SHORT).show();
+//                                initializeArrayLists();
+//                                updateViewContent_A();
+//                                updateViewContent_B();
+//                            } else {
+//                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden goedgekeurd", Toast.LENGTH_SHORT).show();
+//                            }
                         }
                     });
                     builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
@@ -202,15 +202,15 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            boolean succeeded = connectorIngredients.denyIngredient(ingredient);
+                            connectorIngredients.denyIngredient(ingredient);
 
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " is afgekeurd", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                                updateViewContent_B();
-                            } else {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden afgekeurd", Toast.LENGTH_SHORT).show();
-                            }
+//                            if (succeeded) {
+//                                Toast.makeText(view.getContext(), ingredient.getName() + " is afgekeurd", Toast.LENGTH_SHORT).show();
+//                                initializeArrayLists();
+//                                updateViewContent_B();
+//                            } else {
+//                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden afgekeurd", Toast.LENGTH_SHORT).show();
+//                            }
                         }
                     });
                     builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
@@ -230,7 +230,7 @@ public class Manage extends Fragment {
     /**
      * Updates part A after approving or denying an ingredient
      */
-    private void updateViewContent_A() {
+    public void updateViewContent_A() {
         arrayadapter_A_unapprovedIngredients.notifyDataSetChanged();
 
         if (spinner_A_unapprovedIngredients.getCount() > 0) {
@@ -311,16 +311,7 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            boolean succeeded = connectorIngredients.updateIngredient(ingredient);
-
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " is gewijzigd", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                                updateViewContent_A();
-                                updateViewContent_B();
-                            } else {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden gewijzigd", Toast.LENGTH_SHORT).show();
-                            }
+                            connectorIngredients.updateIngredient(spinner_B_approvedIngredients.getSelectedItem().toString(), edittext_B_name.getText().toString(), edittext_B_description.getText().toString());
                         }
                     });
                     builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
@@ -340,7 +331,7 @@ public class Manage extends Fragment {
     /**
      * Updates part B after approving or denying an ingredient
      */
-    private void updateViewContent_B() {
+    public void updateViewContent_B() {
         arrayadapter_B_approvedIngredients.notifyDataSetChanged();
 
         if (spinner_B_approvedIngredients.getCount() > 0) {
@@ -358,10 +349,31 @@ public class Manage extends Fragment {
     /**
      * Initializes the ArrayLists, used in the Buttons in parts A and B. This method is called once in the onCreate() and again every time the onStart() is called to refresh its contents
      */
-    private void initializeArrayLists() {
+    public void initializeArrayLists() {
         // Unapproved and Approved Ingredients
         connectorIngredients.getUnapprovedIngredients("ManageIngredient");
         connectorIngredients.getApprovedIngredients("ManageIngredient");
+    }
+
+    public EditText getEdittexts(int value) {
+        EditText edittext = null;
+
+        switch (value) {
+            case 0:
+                edittext = edittext_A_name;
+            break;
+            case 1:
+                edittext = edittext_A_description;
+            break;
+            case 2:
+                edittext = edittext_B_name;
+                break;
+            case 3:
+                edittext = edittext_B_description;
+                break;
+        }
+
+        return edittext;
     }
 
     // Unapproved Ingredients

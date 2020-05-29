@@ -2,9 +2,9 @@ package com.nl.recipeapp.model;
 
 public class Ingredient {
     private String name, description, username;
-    private boolean isApproved;
+    private int isApproved;
 
-    public Ingredient(String name, String description, boolean isApproved, String username) {
+    public Ingredient(String name, String description, int isApproved, String username) {
         this.name = name;
         this.description = description;
         this.isApproved = isApproved;
@@ -19,11 +19,11 @@ public class Ingredient {
         this.username = username;
     }
 
-    public boolean isApproved() {
+    public int isApproved() {
         return isApproved;
     }
 
-    public void setApproved(boolean approved) {
+    public void setApproved(int approved) {
         isApproved = approved;
     }
 

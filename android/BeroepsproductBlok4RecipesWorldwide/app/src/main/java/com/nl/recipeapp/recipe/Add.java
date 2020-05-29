@@ -144,25 +144,11 @@ public class Add extends Fragment {
         arrayAdapter_timeofday = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_timeofday);
         spinner_timeofday.setAdapter(arrayAdapter_timeofday);
 
-        // Makes sure which ingredients are displayed:
-        // - Administrators should see all ingredients: approved as well as unapproved
-        // - Users should see some ingredients: approved and only the unapproved ones they submitted
-        if (((MainActivity)getActivity()).getCurrentUser() == null) {
-            // If the user is not logged in, display approved Ingredients only
-            addConnector.getApprovedIngredients("AddRecipe");
-        } else if (((MainActivity)getActivity()).getCurrentUser().isAdministrator()) {
-            // If the user is also an Administrator, display ALL ingredients
-            addConnector.getAllIngredients("AddRecipe");
-        } else {
-            // If the user is not an Administrator, display approved ingredients + unapproved ingredients submitted by THIS user
-            addConnector.getIngredientsForSpecificUser(((MainActivity)getActivity()).getCurrentUser().getUsername(), "AddRecipe");
-        }
-
         arrayadapter_ingredients = new ArrayAdapter<Ingredient>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_ingredients) {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(!arraylist_ingredients.get(position).isApproved()) {
+                if(arraylist_ingredients.get(position).isApproved() == 0) {
                     // Set the item text color
                     tv.setTextColor(Color.RED);
                 }
@@ -188,6 +174,20 @@ public class Add extends Fragment {
         addConnector.getMealTypes("AddRecipe");
         addConnector.getCountries("AddRecipe");
         addConnector.getReligions("AddRecipe");
+
+        // Makes sure which ingredients are displayed:
+        // - Administrators should see all ingredients: approved as well as unapproved
+        // - Users should see some ingredients: approved and only the unapproved ones they submitted
+        if (((MainActivity)getActivity()).getCurrentUser() == null) {
+            // If the user is not logged in, display approved Ingredients only
+            addConnector.getApprovedIngredients("AddRecipe");
+        } else if (((MainActivity)getActivity()).getCurrentUser().isAdministrator()) {
+            // If the user is also an Administrator, display ALL ingredients
+            addConnector.getAllIngredients("AddRecipe");
+        } else {
+            // If the user is not an Administrator, display approved ingredients + unapproved ingredients submitted by THIS user
+            addConnector.getIngredientsForSpecificUser(((MainActivity)getActivity()).getCurrentUser().getUsername(), "AddRecipe");
+        }
     }
 
     /**
