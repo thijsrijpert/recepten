@@ -66,22 +66,31 @@ class Ingredient extends CRUD implements CRUInterface{
     }catch(\exception\ModelNullException $e){}
 
     try{
-        $this->select[0]->bindParam(':description', $model->getDescription());
+        $this->update[0]->bindParam(':descriptionUpdate', $model->getDescription());
     }catch(\exception\ModelNullException $e){}
 
     try{
-        $this->select[0]->bindParam(':description', $modelOld->getDescription());
+        $this->update[0]->bindParam(':description', $modelOld->getDescription());
     }catch(\exception\ModelNullException $e){}
 
     try{
-        $this->select[0]->bindParam(':username', $model->getUsername());
+          $this->update[0]->bindParam(':is_approvedUpdate', $model->getIs_approved());
     }catch(\exception\ModelNullException $e){}
 
     try{
-        $this->select[0]->bindParam(':username', $modelOld->getUsername());
+            $this->update[0]->bindParam(':is_approved', $modelOld->getIs_approved());
+    }catch(\exception\ModelNullException $e){}
+
+    try{
+        $this->update[0]->bindParam(':usernameUpdate', $model->getUsername());
+    }catch(\exception\ModelNullException $e){}
+
+    try{
+        $this->update[0]->bindParam(':username', $modelOld->getUsername());
     }catch(\exception\ModelNullException $e){}
 
 
+      \var_dump(  $this->update[0]);
       $this->update[0]->execute();
 
       return $this->update[0]->errorCode();

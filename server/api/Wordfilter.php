@@ -73,7 +73,7 @@ require_once(dirname(__FILE__,1) . '/Api.php');
               $approvedArguments = $modelNew->getVariables();
               foreach($arguments as $value){
                   if($value[0] == 'word'){
-                      $model->setWord($value[1]);
+                      $modelNew->setWord($value[1]);
                   }
               }
           }
@@ -82,7 +82,9 @@ require_once(dirname(__FILE__,1) . '/Api.php');
           $result = $statement->select($modelOld);
 
           if(count($result[1][0]) === 1){
-          $code = substr($statement->update($modelNew, $modelOld), 0, 2);
+            $updatestaement = $statement->update($modelNew, $modelOld);
+            $code = substr($updatestaement,0,2);
+            \var_dump($updatestaement);
           parent::setHttpCode($code);
           }else{
             throw new \exception\NullPointerException("The request changed more than one record, please change your where scope");
@@ -116,7 +118,7 @@ require_once(dirname(__FILE__,1) . '/Api.php');
             $approvedArguments = $model->getVariables();
             foreach($arguments as $value){
                 if($value[0] == 'word'){
-                    $modelNew->setWord($value[2]);
+                    $model->setWord($value[2]);
                 }
             }
         }

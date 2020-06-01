@@ -36,13 +36,13 @@ require_once(dirname(__FILE__,2) . '/model/Wordfilter.php');
 
     function update(\model\Model $model, \model\Model $modelOld) : String{
         try{
-            $this->select[0]->bindParam(':word', $model->getWord());
+            $this->update[0]->bindParam(':word', $model->getWord());
         }catch(\exception\ModelNullException $e){
             throw new NullPointerException($e->getMessage());
         }
 
         try{
-            $this->select[0]->bindParam(':word', $modelOld->getWord());
+            $this->update[0]->bindParam(':word', $modelOld->getWord());
         }catch(\exception\ModelNullException $e){
             throw new NullPointerException($e->getMessage());
         }

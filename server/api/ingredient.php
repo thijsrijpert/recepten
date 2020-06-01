@@ -88,7 +88,9 @@ public function update(){
     $result = $statement->select($modelOld);
 
     if(count($result[1][0]) === 1){
-        $code = substr($statement->update($modelNew, $modelOld), 0, 2);
+        $updatestaement = $statement->update($modelNew, $modelOld);
+        $code = substr($updatestaement,0,2);
+        \var_dump($updatestaement);
         parent::setHttpCode($code);
     }else{
         throw new \exception\NullPointerException("The request changed more than one record, please change your where scope");
@@ -133,6 +135,7 @@ public function update(){
         }
       }
         return $model;
+        \var_dump($model);
   }
 }
 

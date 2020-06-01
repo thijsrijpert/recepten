@@ -58,7 +58,7 @@ class Country extends Api implements CRUInterface{
 
   public function update (){
     try{
-      $modelNew = new \model\Model\Country();
+      $modelNew = new \model\Country();
       $modelOld = $this->getWhereModel();
 
       $queryBuilderSelect = parent::buildQuery($modelOld);
@@ -79,7 +79,7 @@ class Country extends Api implements CRUInterface{
     }
 
     $statement = new \database\Country($queryBuilderSelect, $queryBuilderUpdate);
-    $result = $statement->select($this->$modelOld);
+    $result = $statement->select($modelOld);
 
     if(count($result[1][0]) === 1){
         $code = substr($statement->update($modelNew, $modelOld), 0, 2);

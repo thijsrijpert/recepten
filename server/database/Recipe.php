@@ -86,75 +86,75 @@ class Recipe extends CRUD  implements CRUInterface{
 
     function update(\model\Model $model, \model\Model $modelOld) : String{
       try{
-          $this->select[0]->bindParam(':idUpdate', $model->getId());
+          $this->update[0]->bindParam(':idUpdate', $model->getId());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':id', $modelOld->getId());
+          $this->update[0]->bindParam(':id', $modelOld->getId());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':nameUpdate', $model->getName());
+          $this->update[0]->bindParam(':nameUpdate', $model->getName());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':name', $modelOld->getName());
+          $this->update[0]->bindParam(':name', $modelOld->getName());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':descriptionUpdate', $model->getDescription());
+          $this->update[0]->bindParam(':descriptionUpdate', $model->getDescription());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':description', $modelOld->getDescription());
+          $this->update[0]->bindParam(':description', $modelOld->getDescription());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':isApprovedUpdate', $model->getIs_approved());
+          $this->update[0]->bindParam(':isApprovedUpdate', $model->getIs_approved());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':isApproved', $modelOld->getIs_approved());
+          $this->update[0]->bindParam(':isApproved', $modelOld->getIs_approved());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':countrycodeUpdate', $model->getCountrycode());
+          $this->update[0]->bindParam(':countrycodeUpdate', $model->getCountrycode());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':countrycode', $modelOld->getCountrycode());
+          $this->update[0]->bindParam(':countrycode', $modelOld->getCountrycode());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':usernameUpdate', $model->getUsername());
+          $this->update[0]->bindParam(':usernameUpdate', $model->getUsername());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':username', $modelOld->getUsername());
+          $this->update[0]->bindParam(':username', $modelOld->getUsername());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':mealtype_nameUpdate', $model->getMealtype_name());
+          $this->update[0]->bindParam(':mealtype_nameUpdate', $model->getMealtype_name());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':mealtype_name', $modelOld->getMealtype_name());
+          $this->update[0]->bindParam(':mealtype_name', $modelOld->getMealtype_name());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':religion_idUpdate', $model->getReligion_id());
+          $this->update[0]->bindParam(':religion_idUpdate', $model->getReligion_id());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':religion_id', $modelOld->getReligion_id());
+          $this->update[0]->bindParam(':religion_id', $modelOld->getReligion_id());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':time_of_dayUpdate', $model->getTime_of_day());
+          $this->update[0]->bindParam(':time_of_dayUpdate', $model->getTime_of_day());
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':time_of_day', $modelOld->getTime_of_day());
+          $this->update[0]->bindParam(':time_of_day', $modelOld->getTime_of_day());
       }catch(\exception\ModelNullException $e){}
 
       $this->update[0]->execute();

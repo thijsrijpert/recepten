@@ -45,19 +45,19 @@ class RecipeIngredient extends CRUD implements CRUInterface{
   function update(\model\Model $model, \model\Model $modelOld) : String{
 
     try{
-        $this->select[0]->bindParam(':recipe_id', $model->getRecipeId());
+        $this->update[0]->bindParam(':recipe_id', $model->getRecipeId());
     }catch(\exception\ModelNullException $e){}
 
     try{
-        $this->select[0]->bindParam(':recipe_id', $modelOld->getRecipeId());
+        $this->update[0]->bindParam(':recipe_id', $modelOld->getRecipeId());
     }catch(\exception\ModelNullException $e){}
 
     try{
-        $this->select[0]->bindParam(':ingredient_name', $model->getIngredientName());
+        $this->update[0]->bindParam(':ingredient_name', $model->getIngredientName());
     }catch(\exception\ModelNullException $e){}
 
     try{
-        $this->select[0]->bindParam(':ingredient_name', $modelOld->getIngredientName());
+        $this->update[0]->bindParam(':ingredient_name', $modelOld->getIngredientName());
     }catch(\exception\ModelNullException $e){}
 
       $this->update[0]->execute();

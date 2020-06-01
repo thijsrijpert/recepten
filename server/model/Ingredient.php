@@ -65,7 +65,7 @@ class Ingredient extends \model\Model{
   }
 
   public function getUpdateVariables(){
-      return [['name'], ['description'], ['is_approved'], ['username']];
+      return [['name'], ['description'], ['is_approved']];
   }
 
   public function jsonSerialize(){
