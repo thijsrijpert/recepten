@@ -2,8 +2,9 @@
 namespace database;
 require_once(dirname(__FILE__,1) . '/Database.php');
 require_once(dirname(__FILE__,1) . '/CRUD.php');
+require_once(dirname(__FILE__,1) . '/CRUInterface.php');
 require_once(dirname(__FILE__,2) . '/model/Recipe.php');
-class Recipe extends CRUD{
+class Recipe extends CRUD  implements CRUInterface{
 
   function __construct(QueryBuilderParent ...$query){
         $sql = "INSERT INTO Recipe (name, description, countrycode, username, mealtype_name, religion_id, time_of_day, isApproved )
