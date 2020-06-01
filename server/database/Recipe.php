@@ -85,7 +85,7 @@ class Recipe extends CRUD{
 
     function update(\model\Model $model, \model\Model $modelOld) : String{
       try{
-          $this->select[0]->bindParam(':id', $model->getId());
+          $this->select[0]->bindParam(':idUpdate', $model->getId());
       }catch(\exception\ModelNullException $e){}
 
       try{
@@ -93,7 +93,7 @@ class Recipe extends CRUD{
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':name', $model->getName());
+          $this->select[0]->bindParam(':nameUpdate', $model->getName());
       }catch(\exception\ModelNullException $e){}
 
       try{
@@ -101,7 +101,7 @@ class Recipe extends CRUD{
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':description', $model->getDescription());
+          $this->select[0]->bindParam(':descriptionUpdate', $model->getDescription());
       }catch(\exception\ModelNullException $e){}
 
       try{
@@ -109,7 +109,7 @@ class Recipe extends CRUD{
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':isApproved', $model->getIs_approved());
+          $this->select[0]->bindParam(':isApprovedUpdate', $model->getIs_approved());
       }catch(\exception\ModelNullException $e){}
 
       try{
@@ -117,7 +117,7 @@ class Recipe extends CRUD{
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':countrycode', $model->getCountrycode());
+          $this->select[0]->bindParam(':countrycodeUpdate', $model->getCountrycode());
       }catch(\exception\ModelNullException $e){}
 
       try{
@@ -125,7 +125,7 @@ class Recipe extends CRUD{
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':username', $model->getUsername());
+          $this->select[0]->bindParam(':usernameUpdate', $model->getUsername());
       }catch(\exception\ModelNullException $e){}
 
       try{
@@ -133,7 +133,7 @@ class Recipe extends CRUD{
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':mealtype_name', $model->getMealtype_name());
+          $this->select[0]->bindParam(':mealtype_nameUpdate', $model->getMealtype_name());
       }catch(\exception\ModelNullException $e){}
 
       try{
@@ -141,7 +141,7 @@ class Recipe extends CRUD{
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':religion_id', $model->getReligion_id());
+          $this->select[0]->bindParam(':religion_idUpdate', $model->getReligion_id());
       }catch(\exception\ModelNullException $e){}
 
       try{
@@ -149,7 +149,7 @@ class Recipe extends CRUD{
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':time_of_day', $model->getTime_of_day());
+          $this->select[0]->bindParam(':time_of_dayUpdate', $model->getTime_of_day());
       }catch(\exception\ModelNullException $e){}
 
       try{
