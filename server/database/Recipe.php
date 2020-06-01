@@ -83,7 +83,7 @@ class Recipe extends CRUD{
       return array($this->select[0]->errorCode(), array($results));
   }
 
-    function update(){
+    function update(\model\Model $model, \model\Model $modelOld) : String{
       try{
           $this->select[0]->bindParam(':id', $model->getId());
       }catch(\exception\ModelNullException $e){}
