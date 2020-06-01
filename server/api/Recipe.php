@@ -74,6 +74,7 @@ class Recipe extends Api{
           $arguments = parent::rebuildArguments($_GET['set']);
           $approvedArguments = $modelNew->getVariables();
           foreach($arguments as $value){
+
               if($value[0] == 'id'){
                   $modelNew->setId($value[1]);
               }else if($value[0] == 'name'){

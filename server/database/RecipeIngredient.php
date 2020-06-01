@@ -2,8 +2,9 @@
 namespace database;
 require_once(dirname(__FILE__,1) . '/Database.php');
 require_once(dirname(__FILE__,1) . '/CRUD.php');
+require_once(dirname(__FILE__,1) . '/CRUInterface.php');
 require_once(dirname(__FILE__,2) . '/model/RecipeIngredient.php');
-class RecipeIngredient extends CRUD{
+class RecipeIngredient extends CRUD implements CRUInterface{
 
   function __construct(QueryBuilderParent ...$query){
     $sql = "INSERT INTO Recipe_Ingredient (recipe_id, ingredient_name) VALUES (:recipe_id , :ingredient_name)";
@@ -56,7 +57,7 @@ class RecipeIngredient extends CRUD{
     }catch(\exception\ModelNullException $e){}
 
     try{
-        $this->select[0]->bindParam(':ingredient_name', $modelold->getIngredientName());
+        $this->select[0]->bindParam(':ingredient_name', $modelOld->getIngredientName());
     }catch(\exception\ModelNullException $e){}
 
       $this->update[0]->execute();

@@ -2,7 +2,7 @@
 namespace database;
 require_once(dirname(__FILE__,1) . '/Database.php');
 require_once(dirname(__FILE__,1) . '/CRUD.php');
-  require_once(dirname(__FILE__, 1) . '/CRUInterface.php');require_once(dirname(__FILE__, 1) . '/CRUInterface.php');
+  require_once(dirname(__FILE__, 1) . '/CRUInterface.php');
 require_once(dirname(__FILE__,2) . '/model/Country.php');
   class Country extends CRUD implements CRUInterface{
 

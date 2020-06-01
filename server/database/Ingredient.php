@@ -4,7 +4,7 @@ require_once(dirname(__FILE__,1) . '/Database.php');
 require_once(dirname(__FILE__,1) . '/CRUD.php');
 require_once(dirname(__FILE__, 1) . '/CRUInterface.php');
 require_once(dirname(__FILE__,2) . '/model/Ingredient.php');
-class Ingredient extends CRUD{
+class Ingredient extends CRUD implements CRUInterface{
 
   function __construct(QueryBuilderParent ...$query){
         $sql = "INSERT INTO Ingredient (name, description, is_approved, username) VALUES (:name , :description,

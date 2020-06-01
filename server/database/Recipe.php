@@ -122,7 +122,7 @@ class Recipe extends CRUD  implements CRUInterface{
       }catch(\exception\ModelNullException $e){}
 
       try{
-          $this->select[0]->bindParam(':countrycode', $modelold->getCountrycode());
+          $this->select[0]->bindParam(':countrycode', $modelOld->getCountrycode());
       }catch(\exception\ModelNullException $e){}
 
       try{
