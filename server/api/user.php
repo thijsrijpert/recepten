@@ -1,30 +1,42 @@
 <?php
 namespace api;
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(E_ALL | E_STRICT);
 require_once(dirname(__FILE__, 1) . '/Api.php');
 require_once(dirname(__FILE__, 2) . '/database/User.php');
 require_once(dirname(__FILE__, 2) . '/model/User.php');
+require_once(dirname(__FILE__, 1) . '/CRInterface.php');
+require_once(dirname(__FILE__, 1) . '/Hashing.php');
+require_once(dirname(__FILE__, 2) . '/exception/ModelNullException.php');
+require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
 class User extends Api implements CRInterface{
     private $model;
     private $chars;
     public function __construct(){
       parent::__construct();
-      $chars = array_merge(range('A', 'Z'), range('0','9'));
+      $this->chars = array_merge(range('A', 'Z'), range('0','9'));
+      var_dump($this->chars);
       set_error_handler(array($this, 'error_handler'));
     }
 
     public function insert() {
+      echo 'test';
         header('Content-Type: application/json');
         try{
-            $hash = Hash::hashing_generate($_GET['password']);
-            $token = generateToken();
-            $this->model = new \model\User($_GET['username'], $hash, $token);
-
-            $code = (new \database\User())->insert($model);
-
-            parent::setHttpCode(substr($code, 0, 2));
-
-            if($code == '00'){
+            $this->model = new \model\User($_GET['username'], $_GET['password'], $this->generateToken());
+            var_dump($this->model);
+            //$this->model->setPassword($_GET['password']);
+            //$this->model->setSalt(random_int(0,100000));
+            //$this->model->setIteration(random_int(0,100));
+            $this->model = Hash::hashing_generate($this->model);
+            var_dump($this->model);
+            $statement = new \database\User();
+            $code = $statement->insert($this->model);
+            var_dump($code);
+            if(substr($code, 0, 2) == '00'){
                 echo json_encode($this->model);
+                parent::setHttpCode(substr($code, 0, 2));
             }
         }catch(PDOException $e) {
             parent::setHttpCode($e->getCode());
@@ -44,37 +56,73 @@ class User extends Api implements CRInterface{
                 $arguments = parent::rebuildArguments($_GET['where']);
                 $approvedArguments = $this->model->getVariables();
                 foreach($arguments as $value){
+                    echo 'dit is een test';
+                    var_dump($value[0]);
                     switch($value[0]){
                         case 'username':
                             $this->model->setUsername($value[2]);
                             break;
                         case 'password':
-                            header('HTTP/1.0 403 Forbidden');
-                            echo json_encode("Password cannot be used in the where clause");
-                            die;
+                            //password cannot be in the where clause so it cannot be set right here
+                            $password = $value[2];
+                            echo 'hallo';
                             break;
                         case 'role':
                             header('HTTP/1.0 403 Forbidden');
                             echo json_encode("Role cannot be used in the where clause");
+                            die;
+                            break;
+                        case 'salt':
+                            header('HTTP/1.0 403 Forbidden');
+                            echo json_encode("Salt cannot be used in the where clause");
+                            die;
+                            break;
+                        case 'iteration':
+                            header('HTTP/1.0 403 Forbidden');
+                            echo json_encode("Iteration cannot be used in the where clause");
+                            die;
                             break;
                         case 'token':
-                            $this->model->setToken($value[2]);
+                            header('HTTP/1.0 403 Forbidden');
+                            echo json_encode("Token cannot be used in the where clause, if the entity is user");
+                            die;
                             break;
                     }
                 }
             }else{
-                header('HTTP/1.0 403 Forbidden');
+                header('HTTP/1.0 400 Bad Request');
                 echo \json_encode("The request should contain an where clause");
                 die;
             }
             $queryBuilder = parent::buildQuery($this->model);
 
+            var_dump($queryBuilder);
+
+            var_dump($this->model);
             $codeAndResult = (new \database\User($queryBuilder))->select($this->model);
+            var_dump($codeAndResult);
+            $this->model->setPassword($password);
+
 
             $code = substr($codeAndResult[0], 0, 2);
 
             if($code === '00' && count($codeAndResult[1][0]) === 1){
-                echo json_encode($codeAndResult[1][0]);
+                if(isset($password)){
+                    $this->model->setPassword($password);
+                    if(Hash::hashing_verify($this->model, $codeAndResult[1][0][0])){
+                        echo json_encode($codeAndResult[1][0]);
+                        die;
+                    }else{
+                        header('HTTP/1.0 403 Forbidden');
+                        echo json_encode("The password is invalid");
+                        die;
+                    }
+                }else{
+                  header('HTTP/1.0 400 Bad Request');
+                  echo json_encode("You must pass a password otherwise the request is invalid");
+                  die;
+                }
+
             }else if ($codeAndResult[1][0] > 1){
                 header('HTTP/1.0 403 Forbidden');
                 echo json_encode("The result set is too large to be valid, requests should be limited to one user");
@@ -105,9 +153,11 @@ class User extends Api implements CRInterface{
 
     public function generateToken() : String {
         $token = "";
-        for($i = 0; $i <= 20; $i++){
-            $token += (String) $chars[random_int(0,35)];
+        for($i = 0; $i <= 15; $i++){
+          var_dump($token);
+            $token .= (String) $this->chars[random_int(0,35)];
         }
+
         return $token;
     }
 }
@@ -115,7 +165,7 @@ $user = new \api\User();
 if(isset($_GET['username'])){
     $user->insert();
 }else{
-    //$user->select();
+    $user->select();
 }
 
  ?>
