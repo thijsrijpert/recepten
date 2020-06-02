@@ -119,6 +119,35 @@ class Recipe extends Api{
     }
   }
 
+  public function delete(){
+      try{
+          $model = new \model\Recipe();
+          echo 'test';
+          if(null != $_GET['delete']){
+              $arguments = parent::rebuildArguments($_GET['delete']);
+              foreach($arguments as $value){
+                  if($value[0] == 'id'){
+                      $model->setId($value[1]);
+                  }
+              }
+          }
+          $statement = new \database\Recipe();
+          $code = $statement->delete($model);
+          $code = substr($code, 0, 2);
+          echo $code;
+          parent::setHttpCode($code);
+      }catch(\PDOException $e){
+          parent::setHttpCode($e->getCode());
+      }catch(\exception\NullPointerException $e){
+          header('HTTP/1.0 400 Bad Request');
+          //set the datatype to json for consistancy with all select query's
+          header('Content-Type: application/json');
+          //return the error code for easy debug
+          echo json_encode($e->getMessage());
+          restore_error_handler();
+      }
+  }
+
   function error_handler($errno, $errstr, $errfile, $errline){
       if($errstr == 'Undefined index: name' || $errstr == 'Undefined index: description' || $errstr == 'Undefined index: isApproved' || $errstr == 'Undefined index: countrycode'|| $errstr == 'Undefined index: username' || $errstr == 'Undefined index: mealtype_name'
      || $errstr == 'Undefined index: religion_id'|| $errstr == 'Undefined index: time_of_day'){

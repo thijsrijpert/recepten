@@ -162,6 +162,16 @@ class Recipe extends CRUD  implements CRUInterface{
       return $this->update[0]->errorCode();
     }
 
+    function delete(\model\Model $model) : String{
+        try{
+            $this->delete->bindParam(':id', $model->getId());
+        }catch(\exception\ModelNullException $e){}
+
+        $this->delete->execute();
+
+        return $this->delete->errorCode();
+    }
+
   function error_handler($errno, $errstr, $errfile, $errline){
 
   }
