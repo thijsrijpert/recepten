@@ -4,15 +4,18 @@ namespace database;
   require_once(dirname(__FILE__,2) . '/model/Review.php');
   require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
   require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
-  require_once(dirname(__FILE__,1) . '/CRUInterface.php');
+  require_once(dirname(__FILE__,1) . '/CRUDInterface.php');
   require_once(dirname(__FILE__,1) . '/CRUD.php');
 
 
-  class Review extends CRUD implements CRUInterface{
+  class Review extends CRUD implements CRUDInterface{
 
       function __construct(QueryBuilderParent ...$query){
           $sql = "INSERT INTO Review (title, description, rating, username, recipe_id, review_date) VALUES (:title, :description, :rating, :username, :recipe_id, NULL)";
           $this->stmt = \database\Database::getConnection()->prepare($sql);
+
+          $sql = "DELETE FROM Review WHERE id = :id";
+          $this->delete = \database\Database::getConnection()->prepare($sql);
           parent::__construct($query);
       }
 
@@ -118,6 +121,16 @@ namespace database;
           $this->update[0]->execute();
 
           return $this->update[0]->errorCode();
+      }
+
+      function delete(\model\Model $model) : String{
+          try{
+              $this->delete->bindParam(':id', $model->getId());
+          }catch(\exception\ModelNullException $e){}
+
+          $this->delete->execute();
+
+          return $this->delete->errorCode();
       }
 
       function error_handler($errno, $errstr, $errfile, $errline){

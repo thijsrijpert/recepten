@@ -1,10 +1,16 @@
 <?php
 namespace database;
+require_once(dirname(__FILE__, 2) . '/exception/ModelNullException.php');
+require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
+require_once(dirname(__FILE__, 2) . '/database/CRInterface.php');
+require_once(dirname(__FILE__, 2) . '/database/Database.php');
+require_once(dirname(__FILE__, 2) . '/model/User.php');
+require_once(dirname(__FILE__, 2) . '/database/CRUD.php');
 class User extends CRUD implements CRInterface{
-    function __construct($query = null){
+    function __construct(QueryBuilderParent ...$query){
         parent::__construct($query);
 
-        $sql = "INSERT INTO User (username, password, token, role ) VALUES (:username, :password, :token, :role)";
+        $sql = "INSERT INTO User (username, password, token, salt, iteration) VALUES (:username, :password, :token, :salt, :iteration )";
         $this->stmt = Database::getConnection()->prepare($sql);
     }
 
@@ -13,40 +19,54 @@ class User extends CRUD implements CRInterface{
             $username = $model->getUsername();
             $password = $model->getPassword();
             $token = $model->getToken();
-            $role = $model->getRole();
-        }catch(ModelNullException $e){
-            throw new NullPointerException($e);
+            $salt = $model->getSalt();
+            $iteration = $model->getIteration();
+        }catch(\exception\ModelNullException $e){
+            throw new \exception\NullPointerException($e);
         }
-
+        var_dump($model);
         $this->stmt->bindParam(':username', $username);
         $this->stmt->bindParam(':password', $password);
         $this->stmt->bindParam(':token', $token);
-        $this->stmt->bindParam(':role', $role);
+        $this->stmt->bindParam(':salt', $salt);
+        $this->stmt->bindParam(':iteration', $iteration);
+
         $this->stmt->execute();
 
         return $this->stmt->errorCode();
     }
 
     public function select(\model\Model $model) : array {
+        var_dump($this->select);
         try{
             $this->select[0]->bindParam(':username', $model->getUsername());
-        }catch(ModelNullException $e){}
+        }catch(\exception\ModelNullException $e){}
 
         try{
             $this->select[0]->bindParam(':password', $model->getPassword());
-        }catch(ModelNullException $e){}
+        }catch(\exception\ModelNullException $e){}
 
         try{
             $this->select[0]->bindParam(':token', $model->getToken());
-        }catch(ModelNullException $e){}
+        }catch(\exception\ModelNullException $e){}
 
         try{
             $this->select[0]->bindParam(':role', $model->getRole());
-        }catch(ModelNullException $e){}
+        }catch(\exception\ModelNullException $e){}
+
+        try{
+            $this->select[0]->bindParam(':salt', $model->getSalt());
+        }catch(\exception\ModelNullException $e){}
+
+        try{
+            $this->select[0]->bindParam(':iteration', $model->getIteration());
+        }catch(\exception\ModelNullException $e){}
 
         $this->select[0]->execute();
 
         $results = $this->select[0]->fetchAll(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'model\User');
+
+        var_dump($results);
 
         return array($this->select[0]->errorCode(), array($results));
     }

@@ -3,63 +3,38 @@ namespace Api;
 
 class Hash{
 
-  private $salt;
-  private final $secretnum = 10;
-  private $hash;
-  private $iterration;
+  private static $secretnum = 10;
 
-function __construct(int $salt, int $iterration){
-  $this->salt = $salt;
-  $this->iterration = $iterration;
-}
+private static function hashing(\model\User $user){
+  echo 'unhashed user';
+  var_dump($user);
 
-private function getHash(){
-  return $this->hash;
-}
-
-private function getSalt(){
-  return $this->salt;
-}
-
-private function getItteration(){
-  return $this->iterration;
-}
-
-
-private function hashing(String $password){
-
-  $hasharray = \unpack("C*", $password);
+  $hasharray = \unpack("C*", $user->getPassword());
+  $hash = "";
   for($i = 0; $i < \count($hasharray); $i++ ){
-
-    $this->hash .= chr($hasharray[$i] * $this->secretnum + $this->salt % 128);
-
-
+    $hash .= dechex(ord(chr(($hasharray[$i] * self::$secretnum + $user->getSalt()) % 128)));
+    var_dump($hash);
   }
+  $user->setPassword($hash);
+  return $user;
+}
 
+static function hashing_generate(\model\User $user){
 
+  $user->setIteration(\random_int(5,10));
+  $user->setSalt(\random_int(1000,9000));
+  self::hashing($user);
+  return $user;
 
 }
 
-static function hashing_generate(String $password){
+static function hashing_verify(\model\User $newuser, \model\User $olduser){
 
-  $salt = (\random_int(1000000000000000000,9000000000000000000));
-  $iterration = (\random_int(5,10));
-
-  $hash = new Hash($salt,$iterration);
-  $hash->hashing($password);
-  return $hash;
-
-}
-
-static function hashing_verify(String $password, Hash $hash){
-  $hash->getHash();
-  $hash->getSalt();
-  $hash->getItteration();
-
-  $newhash = new Hash($hash->getSalt(),$hash->getItteration());
-  $newhash->hashing($password);
-
-  return $hash->getHash() === $newhash->getHash();
+  $newuser->setSalt($olduser->getSalt());
+  $newuser->setIteration($olduser->getIteration());
+  $newuser = self::hashing($newuser);
+  var_dump($olduser->getPassword());
+  return $olduser->getPassword() === $newuser->getPassword();
 
 }
 

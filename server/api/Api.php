@@ -136,6 +136,7 @@ require_once(dirname(__FILE__, 2) . '/exception/NullPointerException.php');
 
           $queryBuilder = new \database\QueryBuilderUpdate($query);
           $queryBuilder->generateSql();
+          
           return $queryBuilder;
       }
 

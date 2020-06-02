@@ -1,14 +1,19 @@
 <?php
 namespace api;
+echo 'testtestetest';
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(E_ALL | E_STRICT);
+
 require_once(dirname(__FILE__,2) . '/model/Review.php');
 require_once(dirname(__FILE__,2) . '/model/User.php');
 require_once(dirname(__FILE__,2) . '/model/Recipe.php');
 require_once(dirname(__FILE__,2) . '/database/Review.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
-require_once(dirname(__FILE__,1) . '/CRUInterface.php');
+//require_once(dirname(__FILE__,1) . '/CRUDInterface.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
 
-class Review extends Api implements CRUInterface{
+class Review extends Api{
     public function __construct(){
         parent::__construct();
         set_error_handler(array($this, 'error_handler'));
@@ -94,8 +99,37 @@ class Review extends Api implements CRUInterface{
             echo json_encode($e->getMessage());
             restore_error_handler();
         }
-
     }
+
+    public function delete(){
+        try{
+            $model = new \model\Review();
+            echo 'test';
+            if(null != $_GET['delete']){
+                $arguments = parent::rebuildArguments($_GET['delete']);
+                foreach($arguments as $value){
+                    if($value[0] == 'id'){
+                        $model->setId($value[1]);
+                    }
+                }
+            }
+            $statement = new \database\Review();
+            $code = $statement->delete($model);
+            $code = substr($code, 0, 2);
+            echo $code;
+            parent::setHttpCode($code);
+        }catch(\PDOException $e){
+            parent::setHttpCode($e->getCode());
+        }catch(\exception\NullPointerException $e){
+            header('HTTP/1.0 400 Bad Request');
+            //set the datatype to json for consistancy with all select query's
+            header('Content-Type: application/json');
+            //return the error code for easy debug
+            echo json_encode($e->getMessage());
+            restore_error_handler();
+        }
+    }
+
     function getWhereModel() : \model\Model{
       $model = new \model\Review();
         //I don't know how to get the decoded arguments to the database, so I will call rebuildArguments again
@@ -161,12 +195,14 @@ class Review extends Api implements CRUInterface{
         }
     }
 }
-
+echo 'test';
 $review = new Review();
 if(isset($_GET['title'])){
     $review->insert();
 }else if(isset($_GET['set'])){
     $review->update();
+}else if(isset($_GET['delete'])){
+    $review->delete();
 }else{
     $review->select();
 }
