@@ -197,6 +197,8 @@ if(isset($_GET['name'])){
     $recipe->insert();
 }else if(isset($_GET['set'])){
   $recipe->update();
+}else if (isset($_GET['delete'])){
+  $recipe->delete();
 }else{
   $recipe->select();
 }
