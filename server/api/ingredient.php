@@ -107,6 +107,9 @@ public function update(){
   }
 }
 
+
+
+
   function error_handler($errno, $errstr, $errfile, $errline){
       if($errstr == 'Undefined index: name' || $errstr == 'Undefined index: description' || $errstr == 'Undefined index: is_approved' || $errstr == 'Undefined index: username'){
           throw new \exception\NullPointerException("Get value isn't passed");

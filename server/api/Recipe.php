@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(E_ALL | E_STRICT);
 require_once(dirname(__FILE__,2) . '/model/Recipe.php');
-require_once(dirname(__FILE__, 1) . '/CRUInterface.php');
+require_once(dirname(__FILE__, 1) . '/CRUDInterface.php');
 require_once(dirname(__FILE__,2) . '/database/Recipe.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
@@ -122,11 +122,11 @@ class Recipe extends Api{
   public function delete(){
       try{
           $model = new \model\Recipe();
-          echo 'test';
           if(null != $_GET['delete']){
               $arguments = parent::rebuildArguments($_GET['delete']);
               foreach($arguments as $value){
                   if($value[0] == 'id'){
+
                       $model->setId($value[1]);
                   }
               }

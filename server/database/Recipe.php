@@ -1,16 +1,23 @@
 <?php
 namespace database;
 require_once(dirname(__FILE__,1) . '/Database.php');
-require_once(dirname(__FILE__,1) . '/CRUD.php');
-require_once(dirname(__FILE__,1) . '/CRUInterface.php');
 require_once(dirname(__FILE__,2) . '/model/Recipe.php');
-class Recipe extends CRUD  implements CRUInterface{
+require_once(dirname(__FILE__,2) . '/exception/ModelNullException.php');
+require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
+require_once(dirname(__FILE__,1) . '/CRUDInterface.php');
+require_once(dirname(__FILE__,1) . '/CRUD.php');
+
+
+
+class Recipe extends CRUD  implements CRUDInterface{
 
   function __construct(QueryBuilderParent ...$query){
         $sql = "INSERT INTO Recipe (name, description, countrycode, username, mealtype_name, religion_id, time_of_day, isApproved )
         VALUES (:name , :description, :countrycode , :username , :mealtype_name , :religion_id , :time_of_day , :isApproved)";
         $this->stmt = \database\Database::getConnection()->prepare($sql);
 
+        $sql = "DELETE FROM Recipe WHERE id = :id";
+        $this->delete = \database\Database::getConnection()->prepare($sql);
         parent::__construct($query);
   }
 

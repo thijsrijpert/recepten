@@ -97,6 +97,36 @@ class Country extends Api implements CRUInterface{
     }
   }
 
+  public function delete(){
+    try{
+      $model = new \model\Country();
+      if(null != $_GET['delete']){
+        $arguments = parent::rebuildArguments($_GET['delete']);
+        foreach ($arguments as $value) {
+          if($value[0] == 'countrycode'){
+            $model->setCountrycode($value[1]);
+          }
+        }
+      }
+      $statement = new \database\Country();
+      $code = $statement->delete($model);
+      $code = substr($code, 0, 2);
+      echo $code;
+      parent::setHttpCode($code);
+    }catch(\PDOException $e){
+        parent::setHttpCode($e->getCode());
+    }catch(\exception\NullPointerException $e){
+        header('HTTP/1.0 400 Bad Request');
+        //set the datatype to json for consistancy with all select query's
+        header('Content-Type: application/json');
+        //return the error code for easy debug
+        echo json_encode($e->getMessage());
+        restore_error_handler();
+    }
+  }
+
+
+
 function error_handler($errno, $errstr, $errfile, $errline){
     if($errstr == 'Undefined index: countrycode' || $errstr == 'Undefined index: name' || $errstr == 'Undefined index: description'){
         throw new \exception\NullPointerException("Get value isn't passed");
