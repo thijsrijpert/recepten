@@ -22,9 +22,9 @@ import java.util.ArrayList;
 
 public class AddConnector {
     private Context context;
-    private boolean succesfullyAddedReligion;
+    private View view;
     private EditText edittext_religionName;
-
+    private Edit editReligion;
     /**
      * RecipeHTTP Constructor
      * @param context Context of the MainActivity
@@ -38,29 +38,53 @@ public class AddConnector {
     /**
      * Adds an ingredient to the database
      */
-    public boolean addReligion(String religionName) {
+    public void addReligion(String religionName) {
         System.out.println(religionName);
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/religion.php?name=" + religionName + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Religie '" + edittext_religionName.getText().toString() + "' succesvol aangemeld. ", Toast.LENGTH_SHORT).show();
-//              System.out.println(response);
-                succesfullyAddedReligion = true;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context, "Het religie '" + edittext_religionName.getText().toString() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
-//                System.out.println(error.getMessage());
-                succesfullyAddedReligion = false;
             }
         });
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
-        return succesfullyAddedReligion;
+
     }
+
+    public void editReligion(final String oldWord, final String newWord) {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/religion.php?set=name-" + newWord + "&where=name-eq-" + oldWord + "", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context, "Religie '" + oldWord + "' succesvol gewijzigd naar '" + newWord + "'", Toast.LENGTH_SHORT).show();
+                editReligion.getEdittext_religion().setText("");
+                editReligion.initializeArrayLists();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.networkResponse.statusCode == 400) {
+                    Toast.makeText(context, "Deze religie bestaat al.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Errorcode toevoegen die weergeven moet worden wanneer een woord te lang is
+
+                Toast.makeText(context, "admin.wordfilter.AddConnector: Het woord '" + oldWord + "' kon niet worden gewijzigd.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
+    }
+
     /**
      * Gets all Ingredients from the database
      * @return An ArrayList<Ingredient> with all Ingredients
@@ -89,6 +113,9 @@ public class AddConnector {
                         System.out.println(religion.getId());
                         System.out.println(religion.getName());
                     }
+                    editReligion.getArraylist_religion().clear();
+                    editReligion.getArraylist_religion().addAll(religions);
+                    editReligion.getArrayadapter_religion().notifyDataSetChanged();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -106,5 +133,9 @@ public class AddConnector {
         // Fill the ArrayList with the religions
 
         return religions;
+    }
+
+    public void setEdittext_religionName(com.nl.recipeapp.religion.Edit editReligion) {
+        this.editReligion = editReligion;
     }
 }

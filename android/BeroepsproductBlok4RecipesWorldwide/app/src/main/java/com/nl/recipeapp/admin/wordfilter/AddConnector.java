@@ -145,4 +145,7 @@ public class AddConnector {
     public void setAddWord(Add addWord) {
         this.addWord = addWord;
     }
+
+    public void setEditWord(com.nl.recipeapp.religion.Edit edit) {
+    }
 }

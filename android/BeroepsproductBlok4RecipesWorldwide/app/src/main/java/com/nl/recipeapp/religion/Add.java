@@ -63,12 +63,7 @@ public class Add extends Fragment {
 //                        }
 //                    }
                 }
-
-                boolean value = addConnector.addReligion(edittext_religieName.getText().toString());
-
-                if (value) {
-                    edittext_religieName.setText("");
-                }
+                addConnector.addReligion(edittext_religieName.getText().toString());
             }
         });
     }
