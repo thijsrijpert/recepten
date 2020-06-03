@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 public class ManageRecyclerViewAdapterB extends RecyclerView.Adapter<com.nl.recipeapp.admin.recipe.ManageRecyclerViewAdapterB.ViewHolder> {
     private View view;
-    private ArrayList<Ingredient> ingredients_recyclerview;
+    private ArrayList<Ingredient> arraylist_ingredients_recyclerview;
 
-    public ManageRecyclerViewAdapterB(ArrayList<Ingredient> ingredients_recyclerview) {
-        this.ingredients_recyclerview = ingredients_recyclerview;
+    public ManageRecyclerViewAdapterB(ArrayList<Ingredient> arraylist_ingredients_recyclerview) {
+        this.arraylist_ingredients_recyclerview = arraylist_ingredients_recyclerview;
     }
 
     @NonNull
@@ -32,13 +32,21 @@ public class ManageRecyclerViewAdapterB extends RecyclerView.Adapter<com.nl.reci
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.nl.recipeapp.admin.recipe.ManageRecyclerViewAdapterB.ViewHolder holder, int position) {
-        holder.textView.setText(ingredients_recyclerview.get(position).getName());
+    public void onBindViewHolder(@NonNull com.nl.recipeapp.admin.recipe.ManageRecyclerViewAdapterB.ViewHolder holder, final int position) {
+        holder.textView.setText(arraylist_ingredients_recyclerview.get(position).getName());
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arraylist_ingredients_recyclerview.remove(position);
+                notifyItemRemoved(position);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return ingredients_recyclerview.size();
+        return arraylist_ingredients_recyclerview.size();
     }
 
     /**

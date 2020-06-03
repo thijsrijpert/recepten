@@ -169,8 +169,6 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            System.out.println("admin.ingredients.Manage: oldName > " + oldName);
-
                             connectorIngredients.approveIngredient(ingredient, oldName);
                         }
                     });

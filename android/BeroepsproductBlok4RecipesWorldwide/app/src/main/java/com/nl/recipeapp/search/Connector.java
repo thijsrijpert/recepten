@@ -47,13 +47,13 @@ public class Connector {
         // tablename.php?select=kolomnaam --> selecteert alles uit een specifieke kolom (kolomnaam)
         // tablename.php?select=kolomnaam&where=kolomnaam-eq-waardenaam --> selecteert alles uit een specifieke kolom, waar de waarde uit de kolom gelijk is aan de waardenaam
 
-        url = "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?";
-        String url_mealtype = "&where=mealtype_name-eq-" + mealtype;
-        String url_country = "&where=countrycode-eq-" + country;
-        String url_religion = "&where=religion_id-eq-" + religion;
-        String url_timeOfDay = "&where=time_of_day-eq-" + timeOfDay;
+        url = "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?&where=isApproved-eq-1";
+        String url_mealtype = ".mealtype_name-eq-" + mealtype;
+        String url_country = ".countrycode-eq-" + country;
+        String url_religion = ".religion_id-eq-" + religion;
+        String url_timeOfDay = ".time_of_day-eq-" + timeOfDay;
 
-        if (!mealtype.equals("Selecteer een maaltijdsoort")) {
+        if (!mealtype.equals("null")) {
             url += url_mealtype;
         }
 

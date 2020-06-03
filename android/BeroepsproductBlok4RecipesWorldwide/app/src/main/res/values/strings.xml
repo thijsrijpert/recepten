@@ -99,6 +99,9 @@
 
     <!-- Strings for Home -->
     <string name="home_notLoggedIn">U bent niet ingelogd</string>
+    <string name="home_button_searchRecipe">Recepten zoeken</string>
+    <string name="home_button_adminArea">Administrator Omgeving</string>
+    <string name="home_button_userArea">Gebruiker Omgeving</string>
 
     <!-- Strings for AddIngredient -->
     <string name="addIngredient_title">Ingrediënt Toevoegen</string>

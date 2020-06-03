@@ -68,48 +68,28 @@ public class Add extends Fragment {
         button_applyIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (((MainActivity)getActivity()).getCurrentUser() == null) {
-//                    Toast.makeText(getActivity(), "U moet ingelogd zijn om een ingrediënt toe te voegen", Toast.LENGTH_SHORT).show();
-//                    return;
-//                } else {
-//                    // First, check if all the fields are filled in. If not, display a Toast accordingly
-//                    if (edittext_ingredientName.getText().toString().equals("")) {
-//                        // Check if a name is entered
-//                        Toast.makeText(getActivity(), "U moet een ingrediënt naam invullen", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//
-//                    // Second, check if the description field isn't more than 65.535 characters. If it is, display a Toast
-//                    if (edittext_ingredientDescription.getText().length() > 65535) {
-//                        Toast.makeText(getActivity(), "Uw ingrediënt omschrijving mag niet meer dan 65.535 karakters bevatten", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//
-//                    Ingredient ingredient = new Ingredient(edittext_ingredientName.getText().toString(), edittext_ingredientDescription.getText().toString(), false, ((MainActivity)getActivity()).getCurrentUser().getUsername());
-//                    boolean value = addConnector.addIngredient(ingredient);
-//
-//                    if (value) {
-//                        edittext_ingredientName.setText("");
-//                        edittext_ingredientDescription.setText("");
-//                    }
-//                }
-
-                // First, check if all the fields are filled in. If not, display a Toast accordingly
-                if (edittext_name.getText().toString().equals("")) {
-                    // Check if a name is entered
-                    Toast.makeText(getActivity(), "U moet een ingrediënt naam invullen", Toast.LENGTH_SHORT).show();
+                if (((MainActivity)getActivity()).getCurrentUser() == null) {
+                    Toast.makeText(getActivity(), "U moet ingelogd zijn om een ingrediënt toe te voegen", Toast.LENGTH_SHORT).show();
                     return;
+                } else {
+                    // First, check if all the fields are filled in. If not, display a Toast accordingly
+                    if (edittext_name.getText().toString().equals("")) {
+                        // Check if a name is entered
+                        Toast.makeText(getActivity(), "U moet een ingrediënt naam invullen", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Second, check if the description field isn't more than 65.535 characters. If it is, display a Toast
+                    if (edittext_description.getText().length() > 65535) {
+                        Toast.makeText(getActivity(), "Uw ingrediënt omschrijving mag niet meer dan 65.535 karakters bevatten", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Ingredient ingredient = new Ingredient(edittext_name.getText().toString(), edittext_description.getText().toString(), 0, ((MainActivity)getActivity()).getCurrentUser().getUsername());
+                    addConnector.addIngredient(ingredient);
                 }
 
-                // Second, check if the description field isn't more than 65.535 characters. If it is, display a Toast
-                if (edittext_description.getText().length() > 65535) {
-                    Toast.makeText(getActivity(), "Uw ingrediënt omschrijving mag niet meer dan 65.535 karakters bevatten", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
-//                Ingredient ingredient = new Ingredient(edittext_name.getText().toString(), edittext_description.getText().toString(), false, ((MainActivity)getActivity()).getCurrentUser().getUsername());
-                Ingredient ingredient = new Ingredient(edittext_name.getText().toString(), edittext_description.getText().toString(), 0, "joshuacok");
-                addConnector.addIngredient(ingredient);
             }
         });
     }

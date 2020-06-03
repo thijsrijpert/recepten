@@ -246,9 +246,14 @@ public class Add extends Fragment {
                         return;
                     }
 
-                    // Second, check if the description field isn't more than 255 characters. If it is, display a Toast
+                    // Second, check if the description field isn't more than 255 characters, or if it's ending with a dot [.] (this causes errors in the hyperlink when sending data to the database). If it is, display a Toast
                     if (edittext_recipeDescription.getText().length() > 65535) {
                         Toast.makeText(getActivity(), "Uw receptomschrijving mag niet meer dan 65.535 karakters bevatten", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (edittext_recipeDescription.getText().toString().contains(".")) {
+                        Toast.makeText(getActivity(), "Uw receptomschrijving mag geen punten bevatten", Toast.LENGTH_SHORT).show();
                         return;
                     }
 

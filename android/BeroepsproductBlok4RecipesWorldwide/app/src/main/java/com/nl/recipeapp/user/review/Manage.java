@@ -18,6 +18,7 @@ import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Review;
+import com.nl.recipeapp.user.User;
 
 import java.util.ArrayList;
 
@@ -147,7 +148,7 @@ public class Manage extends Fragment {
 
     private void initializeArrayLists() {
         arraylist_reviewNames.clear();
-//        connector_userReview.getReviewsForSpecificUser(((MainActivity)getActivity()).getCurrentUser().getUsername(), "ManageUserReview");
+        connector_userReview.getReviewsForSpecificUser(((User)getActivity()).getUsername(), "ManageUserReview");
         for (int c = 0; c < arraylist_reviews.size(); c++) {
             arraylist_reviewNames.add(arraylist_reviews.get(c).getTitle());
         }

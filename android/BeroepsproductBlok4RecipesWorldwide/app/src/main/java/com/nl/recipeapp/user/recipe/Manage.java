@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.GeneralMethods;
+import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.admin.recipe.Connector;
 import com.nl.recipeapp.model.Country;
@@ -30,6 +31,7 @@ import com.nl.recipeapp.model.Recipe;
 import com.nl.recipeapp.model.Religion;
 import com.nl.recipeapp.model.TimeOfDay;
 import com.nl.recipeapp.recipe.AddConnector;
+import com.nl.recipeapp.user.User;
 
 import java.util.ArrayList;
 
@@ -75,6 +77,7 @@ public class Manage extends Fragment {
 
         connector_recipe = new AddConnector(this.getContext()); // Create the connector to fill the Spinner ArrayLists
         connector_recipeAdmin = new Connector(this.getContext());
+        connector_recipeAdmin.setManageUserRecipe(this);
         connector_recipeUser = new com.nl.recipeapp.user.recipe.Connector(this.getContext());
         generalMethods = new GeneralMethods(this.getContext()); // Create the GeneralMethods class, used for figuring out corresponding id's and names
 
@@ -262,7 +265,7 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            connector_recipeAdmin.updateRecipe(recipe);
+                            connector_recipeAdmin.updateRecipe(recipe, "ManageUserRecipe");
                         }
                     });
                     builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
@@ -279,15 +282,8 @@ public class Manage extends Fragment {
         });
     }
 
-    private void initializeArrayLists() {
-        arraylist_recipeNames.clear();
-
-//        connector_recipeUser.getRecipesForSpecificUser(((MainActivity)getActivity()).getCurrentUser().getUsername());
-        for (int c = 0; c < arraylist_recipes.size(); c++) {
-            arraylist_recipeNames.add(arraylist_recipes.get(c).getName());
-        }
-        arrayadapter_recipeNames.notifyDataSetChanged();
-
+    public void initializeArrayLists() {
+        connector_recipeUser.getRecipesForSpecificUser(((User)getActivity()).getUsername(), "ManageUserRecipe");
         connector_recipe.getTimeOfDay("ManageUserRecipe");
         connector_recipe.getMealTypes("ManageUserRecipe");
         connector_recipe.getCountries("ManageUserRecipe");
@@ -328,5 +324,18 @@ public class Manage extends Fragment {
 
     public ArrayList<TimeOfDay> getArrayList_timeofday() {
         return arraylist_timeofday;
+    }
+
+    // Recipes
+    public ArrayList<Recipe> getArrayList_recipes() {
+        return arraylist_recipes;
+    }
+
+    public ArrayList<String> getArrayList_recipeNames() {
+        return arraylist_recipeNames;
+    }
+
+    public ArrayAdapter<String> getArrayAdapter_recipeNames() {
+        return arrayadapter_recipeNames;
     }
 }

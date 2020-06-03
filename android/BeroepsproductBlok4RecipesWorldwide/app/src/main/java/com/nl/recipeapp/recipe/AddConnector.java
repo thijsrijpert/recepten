@@ -482,8 +482,9 @@ public class AddConnector {
      * Gets all approved Ingredients + unapproved Ingredients submitted by the Current User from the database
      */
     public void getIngredientsForSpecificUser(String username, final String calledFrom) {
+        // Get all ingredients where isApproved == 1
         // Request a string response from the provided URL.
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=is_approved-eq-1&where=username-eq-" + username + "", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=is_approved-eq-1", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
@@ -521,6 +522,46 @@ public class AddConnector {
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request);
+
+        // Get all ingredients where username is equal to a given username
+        // Request a string response from the provided URL.
+        JsonArrayRequest request2 = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=username-eq-" + username + "", new JSONArray(), new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Gson gson = new Gson();
+
+                arraylist_ingredientsForSpecificUser.clear(); // Clear the local ArrayList, so no duplicates will be added
+
+                try {
+                    for (int c = 0; c < response.length(); c++) {
+                        JSONObject object = response.getJSONObject(c);
+                        Ingredient ingredient = gson.fromJson(object.toString(), Ingredient.class);
+                        arraylist_ingredientsForSpecificUser.add(ingredient);
+                    }
+
+                    // Clear the ArrayLists, so they only get filled once (and not stacked with new object on top of the old ones)
+                    // Add the Ingredients to the necessary ArrayLists
+                    // Notify the corresponding adapters that the ArrayLists have been changed and they need to be updated
+                    switch (calledFrom) {
+                        case "AddRecipe":
+                            addRecipe.getArrayList_ingredients().addAll(arraylist_ingredientsForSpecificUser);
+                            addRecipe.getArrayAdapter_ingredients().notifyDataSetChanged();
+                            break;
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("AddConnector (recipe): Ingrediënten voor specifieke gebruiker konden niet worden opgehaald uit de database.");
+            }
+        });
+
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request2);
     }
 
     /**

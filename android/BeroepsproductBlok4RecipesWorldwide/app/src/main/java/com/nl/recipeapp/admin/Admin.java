@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.nl.recipeapp.R;
@@ -16,6 +17,9 @@ public class Admin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administrator);
+
+        TextView textview_loggedInUser = findViewById(R.id.administrator_textview_loggedInUser);
+        textview_loggedInUser.setText(getIntent().getStringExtra("USERNAME") + " is ingelogd.");
 
         viewPager = findViewById(R.id.administrator_viewpager);
         TabLayout tabLayout = findViewById(R.id.administrator_tablayout);

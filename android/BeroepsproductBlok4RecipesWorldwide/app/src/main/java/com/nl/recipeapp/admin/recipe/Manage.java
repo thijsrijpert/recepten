@@ -61,6 +61,7 @@ public class Manage extends Fragment {
     private ArrayList<String> arraylist_unapprovedRecipeNames;
     private ArrayList<Ingredient> arraylist_ingredientsBoundToRecipe_A, arraylist_unapprovedIngredients;
     private ArrayAdapter<String> arrayadapter_unapprovedRecipes;
+    private String oldName; // An old name variable to make sure an ingredient gets updated (in case the new name is updated)
 
     private ArrayAdapter<Religion> arrayadapter_A_religion;
     private ArrayAdapter<Country> arrayadapter_A_country;
@@ -233,6 +234,8 @@ public class Manage extends Fragment {
                         int positionTimeOfDay = arrayadapter_A_timeofday.getPosition(timeofday);
                         spinner_A_timeOfDay.setSelection(positionTimeOfDay);
 
+                        oldName = arraylist_unapprovedRecipes.get(c).getName();
+
                         // Initialize the items on the RecyclerView and notify its adapter that the data has been changed
                         arraylist_ingredientsBoundToRecipe_A = connectorRecipes.getIngredientsBoundToRecipe(arraylist_unapprovedRecipes.get(c).getId());
                         recyclerview_A_ingredients_adapter.notifyDataSetChanged();
@@ -290,12 +293,29 @@ public class Manage extends Fragment {
                         public void onClick(DialogInterface dialog, int which) {
                             Recipe recipe = null;
                             for (int c = 0; c < arraylist_unapprovedRecipes.size(); c++) {
+                                if (edittext_A_description.getText().toString().contains(".")) {
+                                    Toast.makeText(getActivity(), "Uw receptomschrijving mag geen punten bevatten", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
                                 if (spinner_A_unapprovedRecipes.getSelectedItem().toString().equals(arraylist_unapprovedRecipes.get(c).getName())) {
-                                    recipe = arraylist_unapprovedRecipes.get(c);
+                                    recipe = new Recipe(arraylist_unapprovedRecipes.get(c).getId(), edittext_A_name.getText().toString(), edittext_A_description.getText().toString(), generalMethods.getCountryCodeFromName(spinner_A_country.getSelectedItem().toString()), edittext_A_username.getText().toString(), spinner_A_mealtype.getSelectedItem().toString(), generalMethods.getReligionIdFromName(spinner_A_religion.getSelectedItem().toString()), spinner_A_timeOfDay.getSelectedItem().toString(), "1");
                                 }
                             }
 
-                            connectorRecipes.approveRecipe(recipe);
+                            connectorRecipes.updateRecipe(recipe, "ManageRecipe");
+
+                            // Clear the EditTexts and the Spinner
+                            if (arraylist_unapprovedRecipes.size() == 0) {
+                                edittext_A_username.setText("");
+                                edittext_A_name.setText("");
+                                edittext_A_description.setText("");
+                                spinner_A_country.setSelection(0);
+                                spinner_A_mealtype.setSelection(0);
+                                spinner_A_religion.setSelection(0);
+                                spinner_A_timeOfDay.setSelection(0);
+                            }
+
                         }
                     });
                     builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -502,6 +522,11 @@ public class Manage extends Fragment {
                             Recipe recipe = null;
                             for (int c = 0; c < arraylist_approvedRecipes.size(); c++) {
                                 if (spinner_B_approvedRecipes.getSelectedItem().toString().equals(arraylist_approvedRecipes.get(c).getName())) {
+                                    if (edittext_B_description.getText().toString().contains(".")) {
+                                        Toast.makeText(getActivity(), "Uw receptomschrijving mag geen punten bevatten", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+
                                     String approved = "1";
                                     if (spinner_B_isApproved.getSelectedItem().toString().equals("Ja")) {
                                         approved = "1";
@@ -521,7 +546,7 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            connectorRecipes.updateRecipe(recipe);
+                            connectorRecipes.updateRecipe(recipe, "ManageRecipe");
                         }
                     });
                     builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

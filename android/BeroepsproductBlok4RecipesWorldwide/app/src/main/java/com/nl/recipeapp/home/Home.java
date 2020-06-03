@@ -38,6 +38,20 @@ public class Home extends Fragment {
         button_administrator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                System.out.println(((MainActivity)getActivity()).getCurrentUser().getUsername());
+//                System.out.println(((MainActivity)getActivity()).getCurrentUser().getUserRole());
+
+                // Activeer deze code zodra alles correct werkt (Nu zijn er geen checks benodigd zodat controleren sneller kan)
+//                if (((MainActivity)getActivity()).getCurrentUser() == null) {
+//                    Toast.makeText(getActivity(), "U moet ingelogd zijn als een administrator", Toast.LENGTH_SHORT).show();
+//                } else if (!((MainActivity)getActivity()).getCurrentUser().getUserRole().equals("administrator")) {
+//                    Toast.makeText(getActivity(), "Test", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Intent intent = new Intent(v.getContext(), Admin.class);
+//                    intent.putExtra("USERNAME", ((MainActivity)getActivity()).getCurrentUser().getUsername());
+//                    startActivity(intent);
+//                }
+
                 Intent intent = new Intent(v.getContext(), Admin.class);
                 startActivity(intent);
             }
@@ -57,18 +71,14 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 // Activeer deze code zodra alles correct werkt (Nu zijn er geen checks benodigd zodat controleren sneller kan)
-//                if (((MainActivity)getActivity()).getCurrentUser() == null) {
-//                    Toast.makeText(getActivity(), "U moet ingelogd zijn om naar uw gebruikersomgeving te gaan", Toast.LENGTH_SHORT).show();
-//                    return;
-//                } else {
-//                    Intent intent = new Intent(v.getContext(), User.class);
-//                    startActivity(intent);
-//                }
-
-                // Verwijder onderstaande code zodra alles werkt
-                Intent intent = new Intent(v.getContext(), User.class);
-                startActivity(intent);
-
+                if (((MainActivity)getActivity()).getCurrentUser() == null) {
+                    Toast.makeText(getActivity(), "U moet ingelogd zijn om naar uw gebruikersomgeving te gaan", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    Intent intent = new Intent(v.getContext(), User.class);
+                    intent.putExtra("USERNAME", ((MainActivity)getActivity()).getCurrentUser().getUsername());
+                    startActivity(intent);
+                }
             }
         });
 

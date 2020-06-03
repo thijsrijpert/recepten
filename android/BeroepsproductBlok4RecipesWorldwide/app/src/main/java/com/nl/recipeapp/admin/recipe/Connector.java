@@ -24,6 +24,7 @@ public class Connector {
     private ArrayList<Recipe> arraylist_unapprovedRecipes;
     private ArrayList<Recipe> arraylist_approvedRecipes;
     private Manage manageRecipe;
+    private com.nl.recipeapp.user.recipe.Manage manageUserRecipe;
 
     public Connector(Context context) {
         this.context = context;
@@ -60,15 +61,24 @@ public class Connector {
      * Updates a given recipe
      * @param recipe The recipe object
      */
-    public void updateRecipe(final Recipe recipe) {
+    public void updateRecipe(final Recipe recipe, final String calledFrom) {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?set=name-"+ recipe.getName() + ".description-" + recipe.getDescription() + ".isApproved-" + recipe.isApproved() + ".countrycode-" + recipe.getCountryCode() + ".mealtype_name-" + recipe.getMealtypeName() + ".religion_id-" + recipe.getReligionId() + ".time_of_day-" + recipe.getTimeOfDay() + "&where=id-eq-" + recipe.getId(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Recept '" + recipe.getName() + "' is succesvol gewijzigd", Toast.LENGTH_SHORT).show();
-                manageRecipe.initializeArrayLists();
-                manageRecipe.updateViewContent_A();
-                manageRecipe.updateViewContent_B();
+
+                switch (calledFrom) {
+                    case "ManageUserRecipe":
+                        manageUserRecipe.initializeArrayLists();
+                    break;
+                    case "ManageRecipe":
+                        manageRecipe.initializeArrayLists();
+                        manageRecipe.updateViewContent_A();
+                        manageRecipe.updateViewContent_B();
+                    break;
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -227,5 +237,9 @@ public class Connector {
 
     public void setManageRecipe(Manage manageRecipe) {
         this.manageRecipe = manageRecipe;
+    }
+
+    public void setManageUserRecipe(com.nl.recipeapp.user.recipe.Manage manageUserRecipe) {
+        this.manageUserRecipe = manageUserRecipe;
     }
 }

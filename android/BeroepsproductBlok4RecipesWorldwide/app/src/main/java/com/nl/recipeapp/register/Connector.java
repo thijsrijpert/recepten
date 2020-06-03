@@ -48,8 +48,8 @@ public class Connector {
             public void onErrorResponse(VolleyError error) {
                 if (error.networkResponse.statusCode == 400) {
                     Toast.makeText(context, "Data duplicaat OF leeg. Error: 400", Toast.LENGTH_SHORT).show();
-                } else {
-
+                } else if (error.networkResponse.statusCode == 403) {
+                    Toast.makeText(context, "Gebruikersnaam bestaat al", Toast.LENGTH_SHORT).show();
                 }
                 Toast.makeText(context, "Het gebruikernaam is niet juist '" + edit_login.getText().toString() + "' kon niet worden geregistreerd.", Toast.LENGTH_SHORT).show();
                 succesfullyAddedUsername = false;
