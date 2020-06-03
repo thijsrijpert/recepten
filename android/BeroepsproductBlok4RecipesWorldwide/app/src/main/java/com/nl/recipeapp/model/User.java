@@ -3,6 +3,7 @@ package com.nl.recipeapp.model;
 public class User {
     private String username;
     private boolean isAdministrator;
+    private String token;
 
     public User(String username, boolean isAdministrator) {
         this.username = username;
@@ -23,5 +24,8 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public User()    {
     }
 }
