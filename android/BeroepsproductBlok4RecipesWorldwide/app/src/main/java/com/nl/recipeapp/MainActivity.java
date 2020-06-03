@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.nl.recipeapp.admin.Admin;
@@ -15,13 +16,16 @@ import com.nl.recipeapp.model.User;
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private User currentUser;
+    private TextView main_textview_loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        main_textview_loggedInUser = findViewById(R.id.main_textview_loggedInUser);
         viewPager = findViewById(R.id.main_viewpager);
+
         TabLayout tabLayout = findViewById(R.id.main_tablayout);
         MainActivityPagerAdapter adapter = new MainActivityPagerAdapter(getSupportFragmentManager(), this.getBaseContext());
 
@@ -86,4 +90,9 @@ public class MainActivity extends AppCompatActivity {
     public void setCurrentUser(User user) {
         currentUser = user;
     }
+
+    public TextView getMain_textview_loggedInUser() {
+        return main_textview_loggedInUser;
+    }
+
 }
