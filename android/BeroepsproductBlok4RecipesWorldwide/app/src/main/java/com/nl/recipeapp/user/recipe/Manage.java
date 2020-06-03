@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.GeneralMethods;
-import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.admin.recipe.Connector;
 import com.nl.recipeapp.model.Country;
@@ -140,7 +139,7 @@ public class Manage extends Fragment {
                         // Initialize the Spinners
                         Country country = null;
                         for (int i = 0; i < arraylist_countries.size(); i++) {
-                            if (arraylist_recipes.get(c).getCountryCode().equals(arraylist_countries.get(i).getCountryCode())) {
+                            if (arraylist_recipes.get(c).getCountryCode().equals(arraylist_countries.get(i).getCountrycode())) {
                                 country = arraylist_countries.get(i);
                             }
                         }
@@ -222,14 +221,7 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            boolean succeeded = connector_recipeAdmin.deleteRecipe(recipe);
-
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), recipe.getName() + " is verwijderd", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                            } else {
-                                Toast.makeText(view.getContext(), recipe.getName() + " kon niet worden verwijderd", Toast.LENGTH_SHORT).show();
-                            }
+                            connector_recipeAdmin.deleteRecipe(recipe);
                         }
                     });
                     builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
@@ -270,14 +262,7 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            boolean succeeded = connector_recipeAdmin.updateRecipe(recipe);
-
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), recipe.getName() + " is geüpdatet", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                            } else {
-                                Toast.makeText(view.getContext(), recipe.getName() + " kon niet worden geüpdatet", Toast.LENGTH_SHORT).show();
-                            }
+                            connector_recipeAdmin.updateRecipe(recipe);
                         }
                     });
                     builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {

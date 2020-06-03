@@ -9,10 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -148,14 +145,14 @@ public class Add extends Fragment {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(arraylist_ingredients.get(position).isApproved() == 0) {
+                if (arraylist_ingredients.get(position).isApproved() == 0) {
                     // Set the item text color
                     tv.setTextColor(Color.RED);
                 }
                 else {
                     // Set the alternate item text color
-//                    tv.setTextColor(Color.parseColor("#404041"));
-                    tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorText));
+                    tv.setTextColor(Color.BLACK);
+//                    tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorText));
                 }
                 return view;
             }
@@ -265,7 +262,7 @@ public class Add extends Fragment {
                     String countryCode = "0";
                     for (int c = 0; c < arraylist_countries.size(); c++) {
                         if (arraylist_countries.get(c).getName().equals(spinner_countries.getSelectedItem().toString())) {
-                            countryCode = arraylist_countries.get(c).getCountryCode();
+                            countryCode = arraylist_countries.get(c).getCountrycode();
                         }
                     }
 

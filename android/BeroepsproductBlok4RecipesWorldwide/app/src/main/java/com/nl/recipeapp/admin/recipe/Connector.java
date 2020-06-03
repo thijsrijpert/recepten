@@ -1,11 +1,13 @@
 package com.nl.recipeapp.admin.recipe;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.nl.recipeapp.RequestQueueHolder;
 import com.nl.recipeapp.model.Ingredient;
@@ -18,7 +20,6 @@ import java.util.ArrayList;
 
 public class Connector {
     private Context context;
-    private boolean result;
 
     private ArrayList<Recipe> arraylist_unapprovedRecipes;
     private ArrayList<Recipe> arraylist_approvedRecipes;
@@ -33,45 +34,76 @@ public class Connector {
     /**
      * Approves a given recipe
      * @param recipe The recipe object
-     * @return A true or false boolean, depending on whether approving succeeded or not
      */
-    public boolean approveRecipe(Recipe recipe) {
+    public void approveRecipe(final Recipe recipe) {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?set=isApproved-1&where=id-eq-" + recipe.getId(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context, "Recept '" + recipe.getName() + "' is goedgekeurd", Toast.LENGTH_SHORT).show();
+                manageRecipe.initializeArrayLists();
+                manageRecipe.updateViewContent_A();
+                manageRecipe.updateViewContent_B();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "admin.recipe.Connector: Het recept kon niet worden goedgekeurd.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-
-        return result;
-    }
-
-    /**
-     * Denies a given recipe
-     * @param recipe The recipe object
-     * @return A true or false boolean, depending on whether denying succeeded or not
-     */
-    public boolean denyRecipe(Recipe recipe) {
-
-
-        return result;
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
     }
 
     /**
      * Updates a given recipe
      * @param recipe The recipe object
-     * @return A true or false boolean, depending on whether updating succeeded or not
      */
-    public boolean updateRecipe(Recipe recipe) {
+    public void updateRecipe(final Recipe recipe) {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?set=name-"+ recipe.getName() + ".description-" + recipe.getDescription() + ".isApproved-" + recipe.isApproved() + ".countrycode-" + recipe.getCountryCode() + ".mealtype_name-" + recipe.getMealtypeName() + ".religion_id-" + recipe.getReligionId() + ".time_of_day-" + recipe.getTimeOfDay() + "&where=id-eq-" + recipe.getId(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context, "Recept '" + recipe.getName() + "' is succesvol gewijzigd", Toast.LENGTH_SHORT).show();
+                manageRecipe.initializeArrayLists();
+                manageRecipe.updateViewContent_A();
+                manageRecipe.updateViewContent_B();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "admin.recipe.Connector: Het recept kon niet worden gewijzigd.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-
-        return result;
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
     }
 
     /**
      * Deletes a recipe with the given recipe ID
      * @param recipe The recipe that has to be deleted
-     * @return A true or false boolean, depending on whether deleting the recipe succeeded or not
      */
-    public boolean deleteRecipe(Recipe recipe) {
+    public void deleteRecipe(final Recipe recipe) {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?delete=id-" + recipe.getId(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context, "Recept '" + recipe.getName() + "' is succesvol verwijderd", Toast.LENGTH_SHORT).show();
+                manageRecipe.initializeArrayLists();
+                manageRecipe.updateViewContent_A();
+                manageRecipe.updateViewContent_B();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "admin.recipe.Connector: Het recept kon niet worden verwijderd.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-
-        return result;
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
     }
 
     /**

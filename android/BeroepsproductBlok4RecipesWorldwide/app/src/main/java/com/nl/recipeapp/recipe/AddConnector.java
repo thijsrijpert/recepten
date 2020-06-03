@@ -84,7 +84,7 @@ public class AddConnector {
      */
     public boolean addRecipe(Recipe recipe) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?name="+ recipe.getName() + "&description=" + recipe.getDescription() + "&isApproved=0&countrycode=" + recipe.getCountryCode() + "&username=" + recipe.getUsername() + "&mealtype_name=" + recipe.getMealtypeName() + "&religion_id=" + recipe.getReligionId() + "&time_of_day=" + recipe.getTimeOfDay() + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Recept '" + edittext_recipeName.getText() + "' succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
@@ -94,7 +94,7 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Het recept '" + edittext_recipeName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "recipeapp.recipe.AddConnector: Het recept '" + edittext_recipeName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
                 succesfullyAddedRecipe = false;
             }
@@ -141,6 +141,7 @@ public class AddConnector {
                             break;
                         case "SearchRecipe":
                             searchRecipe.getArrayList_mealtypes().clear();
+                            searchRecipe.getArrayList_mealtypes().add(new Mealtype("Selecteer een maaltijdsoort"));
                             searchRecipe.getArrayList_mealtypes().addAll(arraylist_mealtypes);
                             searchRecipe.getArrayAdapter_mealtypes().notifyDataSetChanged();
                             break;
@@ -209,12 +210,14 @@ public class AddConnector {
                             break;
                         case "SearchRecipe":
                             searchRecipe.getArrayList_countries().clear();
+                            searchRecipe.getArrayList_countries().add(new Country("000", "Selecteer een land", ""));
                             searchRecipe.getArrayList_countries().addAll(arraylist_countries);
                             searchRecipe.getArrayAdapter_countries().notifyDataSetChanged();
                             break;
                         case "GeneralMethods":
                             generalMethods.getArrayList_Countries().clear();
                             generalMethods.getArrayList_Countries().addAll(arraylist_countries);
+                            generalMethods.getDetailedView().setInputFieldContents();
                             break;
                         case "EditCountry":
                             editCountry.getArraylist_countries().clear();
@@ -286,6 +289,7 @@ public class AddConnector {
                             break;
                         case "SearchRecipe":
                             searchRecipe.getArrayList_religions().clear();
+                            searchRecipe.getArrayList_religions().add(new Religion("0", "Selecteer een religie"));
                             searchRecipe.getArrayList_religions().addAll(arraylist_religions);
                             searchRecipe.getArrayAdapter_religions().notifyDataSetChanged();
                             break;
@@ -351,6 +355,7 @@ public class AddConnector {
                             break;
                         case "SearchRecipe":
                             searchRecipe.getArrayList_timeofday().clear();
+                            searchRecipe.getArrayList_timeofday().add(new TimeOfDay("Selecteer een tijdvak"));
                             searchRecipe.getArrayList_timeofday().addAll(arraylist_timeofday);
                             searchRecipe.getArrayAdapter_timeofday().notifyDataSetChanged();
                             break;

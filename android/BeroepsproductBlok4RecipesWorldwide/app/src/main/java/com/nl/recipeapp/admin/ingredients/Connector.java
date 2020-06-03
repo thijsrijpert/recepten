@@ -30,10 +30,27 @@ public class Connector {
         arraylist_unapprovedIngredients = new ArrayList<>();
     }
 
-    public void approveIngredient(Ingredient ingredient) {
+    public void approveIngredient(final Ingredient ingredient, String oldName) {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?set=name-" + ingredient.getName() + ".is_approved-1.description-" + ingredient.getDescription() + "&where=name-eq-" + oldName, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context, "Ingrediënt '" + ingredient.getName() + "' is goedgekeurd", Toast.LENGTH_SHORT).show();
+                manageIngredients.initializeArrayLists();
+                manageIngredients.updateViewContent_A();
+                manageIngredients.updateViewContent_B();
+                manageIngredients.getEdittexts(0).setText("");
+                manageIngredients.getEdittexts(1).setText("");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "admin.ingredients.Connector: Het ingrediënt kon niet worden goedgekeurd.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-
-
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
     }
 
 

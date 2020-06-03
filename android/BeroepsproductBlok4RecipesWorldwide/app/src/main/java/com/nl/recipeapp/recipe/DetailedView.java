@@ -40,8 +40,14 @@ public class DetailedView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_view);
 
+        // Create the ArrayLists so no errors will occur later on
+        arraylist_ingredients = new ArrayList<>();
+        arraylist_reviews = new ArrayList<>();
+
         // Initialize the General Methods class, that's used for using similar methods
         generalMethods = new GeneralMethods(this);
+        generalMethods.setDetailedView(this);
+
         connector_addRecipe = new AddConnector(this);
         connector_addRecipe.setDetailedViewRecipe(this);
 
@@ -49,11 +55,10 @@ public class DetailedView extends AppCompatActivity {
         recipe = (Recipe) getIntent().getSerializableExtra("KEY");
 
         // Initialize the Ingredients and Reviews ArrayLists, which is used for displaying the Recipe's Ingredients and Reviews
-        initializeArrayLists();
-
         initializeInputFields();
         initializeButtons();
         initializeRecyclerViews();
+        initializeArrayLists();
 
         // Set the Recipe's data in the input fields
         setInputFieldContents();
@@ -83,16 +88,16 @@ public class DetailedView extends AppCompatActivity {
         edittext_description = findViewById(R.id.recipeDetailedView_edittext_description);
     }
 
-    private void setInputFieldContents() {
+    public void setInputFieldContents() {
         textview_name.setText(recipe.getName());
 
         edittext_username.setText(recipe.getUsername());
         edittext_mealtype.setText(recipe.getMealtypeName());
-        edittext_country.setText(generalMethods.getCountryNameFromCode(recipe.getCountryCode()));
-        edittext_religion.setText(generalMethods.getReligionNameFromId(recipe.getReligionId()));
         edittext_timeOfDay.setText(recipe.getTimeOfDay());
         edittext_description.setText(recipe.getDescription());
 
+        generalMethods.getCountryNameFromCode(recipe.getCountryCode(), "DetailedView");
+        generalMethods.getReligionNameFromId(recipe.getReligionId(), "DetailedView");
     }
 
     private void initializeButtons() {
@@ -135,5 +140,21 @@ public class DetailedView extends AppCompatActivity {
 
     public DetailedViewRecyclerViewAdapter_Reviews getRecyclerviewAdapter_reviews() {
         return recyclerviewAdapter_reviews;
+    }
+
+    // EditTexts
+    public EditText getEditTexts(int value) {
+        EditText edittext = null;
+
+        switch (value) {
+            case 0:
+                edittext = edittext_country;
+            break;
+            case 1:
+                edittext = edittext_religion;
+            break;
+        }
+
+        return edittext;
     }
 }

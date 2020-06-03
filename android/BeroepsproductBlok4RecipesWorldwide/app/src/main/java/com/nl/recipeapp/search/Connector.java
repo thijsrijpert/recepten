@@ -1,6 +1,7 @@
 package com.nl.recipeapp.search;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -17,7 +18,10 @@ import java.util.ArrayList;
 
 public class Connector {
     private Context context;
-    private ArrayList<Recipe> recipes;
+    private ArrayList<Recipe> arraylist_recipes;
+
+    private Search search;
+    private String url;
 
     /**
      * RecipeHTTP Constructor
@@ -25,7 +29,8 @@ public class Connector {
      */
     public Connector(Context context) {
         this.context = context;
-        recipes = new ArrayList<>();
+        arraylist_recipes = new ArrayList<>();
+        url = "";
     }
 
     /**
@@ -34,29 +39,56 @@ public class Connector {
      * @param country The countrycode
      * @param religion The religion id
      * @param timeOfDay The time of day name
-     * @return An ArrayList<Recipe> that contains the recipes as a result of the query
      */
-    public ArrayList<Recipe> searchRecipe(String mealtype, String country, String religion, String timeOfDay) {
+    public void searchRecipe(String mealtype, String country, String religion, String timeOfDay) {
         // Clear the ArrayList of Recipes, so recipes from a previous search aren't included anymore
-        recipes.clear();
 
         // tablename.php --> selecteert alles uit de tabel
         // tablename.php?select=kolomnaam --> selecteert alles uit een specifieke kolom (kolomnaam)
         // tablename.php?select=kolomnaam&where=kolomnaam-eq-waardenaam --> selecteert alles uit een specifieke kolom, waar de waarde uit de kolom gelijk is aan de waardenaam
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/test/api/recipe.php?select=mealtype_name-eq-" + mealtype + "&where=countrycode-eq-" + country + "&where=religion_id-eq-" + religion + "&where=time_of_day-eq-" + timeOfDay + "", new JSONArray(), new Response.Listener<JSONArray>() {
+        url = "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?";
+        String url_mealtype = "&where=mealtype_name-eq-" + mealtype;
+        String url_country = "&where=countrycode-eq-" + country;
+        String url_religion = "&where=religion_id-eq-" + religion;
+        String url_timeOfDay = "&where=time_of_day-eq-" + timeOfDay;
+
+        if (!mealtype.equals("Selecteer een maaltijdsoort")) {
+            url += url_mealtype;
+        }
+
+        if (!country.equals("null")) {
+            url += url_country;
+        }
+
+        if (!religion.equals("null")) {
+            url += url_religion;
+        }
+
+        if (!timeOfDay.equals("null")) {
+            url += url_timeOfDay;
+        }
+
+        System.out.println(url);
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 //                System.out.println("Response: " + response.toString());
                 Gson gson = new Gson();
 
+                arraylist_recipes.clear();
+
                 try {
                     for (int c = 0; c < response.length(); c++) {
                         JSONObject object = response.getJSONObject(c);
                         Recipe recipe = gson.fromJson(object.toString(), Recipe.class);
-
-                        recipes.add(recipe);
+                        arraylist_recipes.add(recipe);
                     }
+
+                    search.getArrayList_recipes().clear();
+                    search.getArrayList_recipes().addAll(arraylist_recipes);
+                    search.getRecyclerviewAdapter().notifyDataSetChanged();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -64,15 +96,15 @@ public class Connector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("Error: " + error.networkResponse.headers.toString());
+                Toast.makeText(context, "Er zijn geen recepten met deze kenmerken gevonden.", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request);
+    }
 
-        // Fill the ArrayList with the religions
-
-        return recipes;
+    public void setSearch(Search search) {
+        this.search = search;
     }
 }

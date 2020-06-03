@@ -5,6 +5,25 @@
     <string name="character_count">0 / 65.535</string>
     <string name="saveChanges">Wijzigingen opslaan</string>
     <string name="delete">Verwijderen</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+
+    <!-- Strings for Manage Ingredient dialog windows -->
+    <string name="dialog_admin_approveIngredientTitle">Ingrediënt goedkeuren</string>
+    <string name="dialog_admin_approveIngredient">Weet u zeker dat u dit ingrediënt wilt goedkeuren?</string>
+
+    <string name="dialog_admin_deleteIngredientTitle">Ingrediënt verwijderen</string>
+    <string name="dialog_admin_deleteIngredient">Weet u zeker dat u dit ingrediënt wilt verwijderen?\n\nLet op: Als dit ingrediënt gekoppeld zit aan recepten zal dit ingrediënt daarvan worden verwijderd</string>
+
+    <string name="dialog_admin_changeIngredientTitle">Ingrediënt wijzigen</string>
+    <string name="dialog_admin_changeIngredient">Weet u zeker dat u dit ingrediënt wilt wijzigen?</string>
+
+    <!-- Strings for Manage Recipe dialog windows -->
+    <string name="dialog_admin_approveRecipeTitle">Recept goedkeuren</string>
+    <string name="dialog_admin_approveRecipe">Weet u zeker dat u dit recept wilt goedkeuren?</string>
+
+    <string name="dialog_admin_deleteRecipeTitle">Recept verwijderen</string>
+    <string name="dialog_admin_deleteRecipe">Weet u zeker dat u dit recept wilt verwijderen?</string>
 
     <!-- Strings for home, administrator and user tabs -->
     <string name="tabs_home_register">Registreren</string>
@@ -49,7 +68,7 @@
     <string name="manageIngredients_title">Ingrediënten Beheren</string>
     <string name="manageIngredients_subtext">Op deze pagina kunt u ingrediënten goed- of afkeuren. Ook kunt u voor het goedkeuren wijzigingen doorvoeren (zoals spelfouten uit de naam halen), zodat het ingrediënt later niet nogmaals bewerkt hoeft te worden.</string>
     <string name="manageIngredients_buttonApproveIngredient">Ingrediënt goedkeuren</string>
-    <string name="manageIngredients_buttonDenyIngredient">Ingrediënt afkeuren</string>
+    <string name="manageIngredients_buttonDeleteIngredient">Ingrediënt verwijderen</string>
     <string name="manageIngredients_unapprovedIngredients">Ingrediënten te beheren</string>
 
     <string name="manageIngredients_titleApproveOrDenyIngredients">Ingrediënten goed- of afkeuren</string>

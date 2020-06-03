@@ -41,6 +41,7 @@ public class Manage extends Fragment {
     private Button button_A_approve, button_A_deny;
     private ArrayList<String> arraylist_A_unapprovedIngredientNames;
     private ArrayAdapter<String> arrayadapter_A_unapprovedIngredients;
+    private String oldName; // Used for creating the new Ingredient object and overwriting the old one in the database
 
     // Class variables (B means these variables are for managing an Ingredient)
     private EditText edittext_B_username, edittext_B_name, edittext_B_description;
@@ -122,6 +123,7 @@ public class Manage extends Fragment {
                         edittext_A_name.setText(arraylist_A_unapprovedIngredients.get(c).getName());
                         edittext_A_username.setText(arraylist_A_unapprovedIngredients.get(c).getUsername());
                         edittext_A_description.setText(arraylist_A_unapprovedIngredients.get(c).getDescription());
+                        oldName = arraylist_A_unapprovedIngredients.get(c).getName();
                     }
                 }
             }
@@ -145,36 +147,37 @@ public class Manage extends Fragment {
         button_A_approve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check if the ingredient name is empty. If so, display a Toast
+                if (edittext_A_name.getText().toString().equals("")) {
+                    Toast.makeText(view.getContext(), "Voer een ingrediënt naam in", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Check if there are any ingredients to approve. If there are none, display a Toast
                 if (spinner_A_unapprovedIngredients.getCount() > 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext(), R.style.myDialog);
-                    builder.setMessage("Weet u zeker dat u dit ingrediënt wilt goedkeuren?");
-                    builder.setTitle("Ingrediënt goedkeuren");
-                    builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    builder.setMessage(R.string.dialog_admin_approveIngredient);
+                    builder.setTitle(R.string.dialog_admin_approveIngredientTitle);
+                    builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Ingredient ingredient = null;
                             for (int c = 0; c < arraylist_A_unapprovedIngredients.size(); c++) {
                                 if (spinner_A_unapprovedIngredients.getSelectedItem().toString().equals(arraylist_A_unapprovedIngredients.get(c).getName())) {
-                                    ingredient = arraylist_A_unapprovedIngredients.get(c);
+                                    // Create a new Ingredient object, so any changes made before approving can be made
+                                    ingredient = new Ingredient(edittext_A_name.getText().toString(), edittext_A_description.getText().toString(), 0, arraylist_A_unapprovedIngredients.get(c).getUsername());
                                 }
                             }
 
-                            connectorIngredients.approveIngredient(ingredient);
+                            System.out.println("admin.ingredients.Manage: oldName > " + oldName);
 
-//                            if (succeeded) {
-//                                Toast.makeText(view.getContext(), ingredient.getName() + " is goedgekeurd", Toast.LENGTH_SHORT).show();
-//                                initializeArrayLists();
-//                                updateViewContent_A();
-//                                updateViewContent_B();
-//                            } else {
-//                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden goedgekeurd", Toast.LENGTH_SHORT).show();
-//                            }
+                            connectorIngredients.approveIngredient(ingredient, oldName);
                         }
                     });
-                    builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Toast.makeText(view.getContext(), "Goedkeuren geannuleerd", Toast.LENGTH_SHORT).show();
                         }
                     });
                     builder.show();
@@ -188,11 +191,18 @@ public class Manage extends Fragment {
         button_A_deny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check if the ingredient name is empty. If so, display a Toast
+                if (edittext_A_name.getText().toString().equals("")) {
+                    Toast.makeText(view.getContext(), "Voer een ingrediënt naam in", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Check if there are ingredients to deny. If there are none, display a Toast
                 if (spinner_A_unapprovedIngredients.getCount() > 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext(), R.style.myDialog);
-                    builder.setMessage("Weet u zeker dat u dit ingrediënt wilt afkeuren?");
-                    builder.setTitle("Ingrediënt afkeuren");
-                    builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    builder.setMessage(R.string.dialog_admin_deleteIngredient);
+                    builder.setTitle(R.string.dialog_admin_deleteIngredientTitle);
+                    builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Ingredient ingredient = null;
@@ -203,20 +213,12 @@ public class Manage extends Fragment {
                             }
 
                             connectorIngredients.denyIngredient(ingredient);
-
-//                            if (succeeded) {
-//                                Toast.makeText(view.getContext(), ingredient.getName() + " is afgekeurd", Toast.LENGTH_SHORT).show();
-//                                initializeArrayLists();
-//                                updateViewContent_B();
-//                            } else {
-//                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden afgekeurd", Toast.LENGTH_SHORT).show();
-//                            }
                         }
                     });
-                    builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Toast.makeText(view.getContext(), "Afkeuren geannuleerd", Toast.LENGTH_SHORT).show();
                         }
                     });
                     builder.show();
@@ -297,27 +299,27 @@ public class Manage extends Fragment {
         button_B_saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check if the ingredient name is empty. If so, display a Toast
+                if (edittext_B_name.getText().toString().equals("")) {
+                    Toast.makeText(view.getContext(), "Voer een ingrediënt naam in", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Check if there are ingrediënts to edit. If there are none, display a Toast
                 if (spinner_B_approvedIngredients.getCount() > 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext(), R.style.myDialog);
-                    builder.setMessage("Weet u zeker dat u dit ingrediënt wilt wijzigen?");
-                    builder.setTitle("Ingrediënt wijzigen");
-                    builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    builder.setMessage(R.string.dialog_admin_changeIngredient);
+                    builder.setTitle(R.string.dialog_admin_changeIngredientTitle);
+                    builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Ingredient ingredient = null;
-                            for (int c = 0; c < arraylist_B_approvedIngredients.size(); c++) {
-                                if (spinner_B_approvedIngredients.getSelectedItem().toString().equals(arraylist_B_approvedIngredients.get(c).getName())) {
-                                    ingredient = arraylist_B_approvedIngredients.get(c);
-                                }
-                            }
-
                             connectorIngredients.updateIngredient(spinner_B_approvedIngredients.getSelectedItem().toString(), edittext_B_name.getText().toString(), edittext_B_description.getText().toString());
                         }
                     });
-                    builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Toast.makeText(view.getContext(), "Wijzigen geannuleerd", Toast.LENGTH_SHORT).show();
                         }
                     });
                     builder.show();

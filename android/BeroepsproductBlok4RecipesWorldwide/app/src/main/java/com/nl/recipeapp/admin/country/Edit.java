@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,6 +91,24 @@ public class Edit extends Fragment {
 
         arrayadapter_countries = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_countries);
         spinner_countries.setAdapter(arrayadapter_countries);
+
+        spinner_countries.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                for (int c = 0; c < arraylist_countries.size(); c++) {
+                    if (spinner_countries.getSelectedItem().toString().equals(arraylist_countries.get(c).getName())) {
+                        edittext_name.setText(arraylist_countries.get(c).getName());
+                        edittext_description.setText(arraylist_countries.get(c).getDescription());
+                        edittext_code.setText(arraylist_countries.get(c).getCountrycode());
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void initializeButton() {

@@ -21,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Testdata, remove this once the login method is working correctly
+        User user = new User("joshuacok", false);
+        currentUser = user;
+
         viewPager = findViewById(R.id.main_viewpager);
         TabLayout tabLayout = findViewById(R.id.main_tablayout);
         MainActivityPagerAdapter adapter = new MainActivityPagerAdapter(getSupportFragmentManager(), this.getBaseContext());
