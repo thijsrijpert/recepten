@@ -198,7 +198,8 @@
     <string name="login_title">Login</string>
     <string name="login_hint_username">Gebruikersnaam</string>
     <string name="login_hint_password">********</string>
-    <string name="login_button_signIn">Aanmelden</string>
+    <string name="login_button_signIn">Inloggen</string>
+    <string name="login_button_signOut">Uitloggen</string>
     <string name="login_textView_registratie">registreren?</string>
 
     <!-- String for Register -->
