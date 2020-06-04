@@ -148,7 +148,6 @@
                 android:layout_height="38dp"
                 android:background="@drawable/inputfields"
                 android:ems="10"
-                android:enabled="false"
                 android:inputType="textPersonName"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"

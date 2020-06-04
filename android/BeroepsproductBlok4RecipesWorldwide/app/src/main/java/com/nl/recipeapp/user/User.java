@@ -12,14 +12,11 @@ import com.nl.recipeapp.R;
 public class User extends AppCompatActivity {
     // Variables for the ViewPager and related elements
     private ViewPager viewpager;
-    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
-        username = getIntent().getStringExtra("USERNAME");
 
         viewpager = findViewById(R.id.user_viewpager);
         TabLayout tablayout = findViewById(R.id.user_tablayout);
@@ -32,9 +29,5 @@ public class User extends AppCompatActivity {
         viewpager.setCurrentItem(0);
         tablayout.setupWithViewPager(viewpager);
         tablayout.bringToFront();
-    }
-
-    public String getUsername() {
-        return username;
     }
 }

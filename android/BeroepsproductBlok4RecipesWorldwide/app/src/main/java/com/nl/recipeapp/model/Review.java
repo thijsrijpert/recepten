@@ -1,15 +1,15 @@
 package com.nl.recipeapp.model;
 
 public class Review {
-    private String id, title, description, rating, recipe_id, date, username;
+    private String id, title, description, rating, recipe_id, review_date, username;
 
-    public Review(String id, String title, String description, String rating, String recipe_id, String date, String username) {
+    public Review(String id, String title, String description, String rating, String recipe_id, String review_date, String username) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.rating = rating;
         this.recipe_id = recipe_id;
-        this.date = date;
+        this.review_date = review_date;
         this.username = username;
     }
 
@@ -61,11 +61,11 @@ public class Review {
         this.username = username;
     }
 
-    public String getDate() {
-        return date;
+    public String getReview_date() {
+        return review_date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setReview_date(String review_date) {
+        this.review_date = review_date;
     }
 }

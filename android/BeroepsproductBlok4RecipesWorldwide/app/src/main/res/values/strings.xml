@@ -93,7 +93,7 @@
     <string name="addRecipe_recipeBindIngredientAdditionHint">bijv. 500 gram</string>
     <string name="addRecipe_recipeDescriptionHint">vul hier de omschrijving voor het recept in</string>
 
-    <string name="addRecipe_buttonAddIngredient">Ingrediënt toevoegen</string>
+    <string name="addRecipe_buttonAddIngredient">+</string>
     <string name="addRecipe_buttonAddNewIngredient">Nieuw ingrediënt toevoegen</string>
     <string name="addRecipe_buttonApplyRecipe">Recept aanmelden</string>
 

@@ -25,7 +25,7 @@ public class AddConnector {
 
     public void addReview(Review review) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/review.php?title=" + review.getTitle() + "&description=" + review.getDescription() + "&rating=" + review.getRating() + "&recipe_id=" + review.getRecipe_id() + "&username=" + review.getUsername(), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/review.php?title=" + review.getTitle() + "&description=" + review.getDescription() + "&rating=" + review.getRating() + "&recipeId=" + review.getRecipe_id() + "&username=" + review.getUsername(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Uw review is geplaatst", Toast.LENGTH_SHORT).show();

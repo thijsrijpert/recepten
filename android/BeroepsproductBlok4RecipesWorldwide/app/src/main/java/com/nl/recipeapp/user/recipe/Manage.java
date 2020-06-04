@@ -21,8 +21,8 @@ import android.widget.Toast;
 
 import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.GeneralMethods;
-import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
+import com.nl.recipeapp.SharedPreferencesManager;
 import com.nl.recipeapp.admin.recipe.Connector;
 import com.nl.recipeapp.model.Country;
 import com.nl.recipeapp.model.Ingredient;
@@ -65,6 +65,8 @@ public class Manage extends Fragment {
     private ArrayAdapter<TimeOfDay> arrayadapter_timeofday;
     private ArrayAdapter<String> arrayadapter_recipeNames;
 
+    private com.nl.recipeapp.model.User currentUser;
+
     public Manage() {
         // Required empty public constructor
     }
@@ -74,6 +76,8 @@ public class Manage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_manage_user_recipes, container, false);
+
+        currentUser = SharedPreferencesManager.getInstance(this.getActivity()).getPref();
 
         connector_recipe = new AddConnector(this.getContext()); // Create the connector to fill the Spinner ArrayLists
         connector_recipeAdmin = new Connector(this.getContext());
@@ -283,7 +287,7 @@ public class Manage extends Fragment {
     }
 
     public void initializeArrayLists() {
-        connector_recipeUser.getRecipesForSpecificUser(((User)getActivity()).getUsername(), "ManageUserRecipe");
+        connector_recipeUser.getRecipesForSpecificUser(currentUser.getUsername(), "ManageUserRecipe");
         connector_recipe.getTimeOfDay("ManageUserRecipe");
         connector_recipe.getMealTypes("ManageUserRecipe");
         connector_recipe.getCountries("ManageUserRecipe");

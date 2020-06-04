@@ -10,12 +10,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nl.recipeapp.GeneralMethods;
+import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
+import com.nl.recipeapp.SharedPreferencesManager;
 import com.nl.recipeapp.model.Ingredient;
 import com.nl.recipeapp.model.Recipe;
 import com.nl.recipeapp.model.Review;
+import com.nl.recipeapp.model.User;
 import com.nl.recipeapp.review.Add;
 
 import java.util.ArrayList;
@@ -34,11 +38,14 @@ public class DetailedView extends AppCompatActivity {
     private ArrayList<Review> arraylist_reviews;
 
     private Recipe recipe;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_view);
+
+        currentUser = SharedPreferencesManager.getInstance(this).getPref();
 
         // Create the ArrayLists so no errors will occur later on
         arraylist_ingredients = new ArrayList<>();
@@ -105,6 +112,12 @@ public class DetailedView extends AppCompatActivity {
         button_addReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check if a user is logged in
+                if (currentUser == null) {
+                    Toast.makeText(getApplicationContext(), "U moet ingelogd zijn voordat u een review kunt plaatsen.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent intent = new Intent(getApplicationContext(), Add.class);
                 intent.putExtra("RECIPE_ID", recipe.getId());
                 startActivity(intent);

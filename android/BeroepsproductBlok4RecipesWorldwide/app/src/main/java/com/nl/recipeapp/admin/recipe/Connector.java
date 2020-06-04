@@ -134,8 +134,6 @@ public class Connector {
                         JSONObject object = response.getJSONObject(c);
                         Recipe recipe = gson.fromJson(object.toString(), Recipe.class);
                         arraylist_unapprovedRecipes.add(recipe);
-
-                        System.out.println("ADMINISTRATOR ARRAYLIST SIZE: " + arraylist_unapprovedRecipes.size());
                     }
 
                     // Clear the ArrayLists, so they only get filled once (and not stacked with new object on top of the old ones)

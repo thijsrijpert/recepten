@@ -28,6 +28,7 @@ public class Connector {
 
     public void getRecipesForSpecificUser(String username, final String calledFrom) {
         // Request a string response from the provided URL.
+        System.out.println("recipeapp.user.recipe.Connector: Username > " + username);
         JsonArrayRequest request2 = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?where=username-eq-" + username + "", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

@@ -133,6 +133,9 @@ public class Manage extends Fragment {
         initializeViewContent_B_Spinners();
         initializeViewContent_B_Buttons();
 
+        updateViewContent_A();
+        updateViewContent_B();
+
         return view;
     }
 
@@ -304,6 +307,8 @@ public class Manage extends Fragment {
                             }
 
                             connectorRecipes.updateRecipe(recipe, "ManageRecipe");
+                            updateViewContent_A();
+                            updateViewContent_B();
 
                             // Clear the EditTexts and the Spinner
                             if (arraylist_unapprovedRecipes.size() == 0) {

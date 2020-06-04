@@ -642,11 +642,10 @@ public class AddConnector {
         // tablename.php --> selecteert alles uit de tabel
         // tablename.php?select=kolomnaam --> selecteert alles uit een specifieke kolom (kolomnaam)
         // tablename.php?select=kolomnaam&where=kolomnaam-eq-waardenaam --> selecteert alles uit een specifieke kolom, waar de waarde uit de kolom gelijk is aan de waardenaam
-
+        System.out.println("recipeapp.recipe.AddConnector: ID > " + recipeId);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/review.php?where=recipe_id-eq-" + recipeId, new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-//                System.out.println("Response: " + response.toString());
                 Gson gson = new Gson();
 
                 arraylist_reviews.clear();

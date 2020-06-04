@@ -36,7 +36,7 @@ public class DetailedViewRecyclerViewAdapter_Reviews extends RecyclerView.Adapte
         holder.textview_rating.setText(arraylist_reviews.get(position).getRating());
         holder.textview_description.setText(arraylist_reviews.get(position).getDescription());
         holder.textview_username.setText(arraylist_reviews.get(position).getUsername());
-        holder.textview_date.setText(arraylist_reviews.get(position).getDate());
+        holder.textview_date.setText(arraylist_reviews.get(position).getReview_date());
     }
 
     @Override
