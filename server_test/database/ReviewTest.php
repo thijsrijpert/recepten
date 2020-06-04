@@ -25,20 +25,20 @@ final class ReviewDatabaseTest extends TestCase
         $this->testobject1 = new model\ReviewPDO(
                                   'Het Beste Gerecht Ooit',
                                   5.0,
-                                  'user1',
+                                  'ramseybolton',
                                   1,
-                                  'Het beste wat ik ooit gegeten heb',
+                                  'Ik kon op dit moment geen Freys vinden dus ik heb gebruik gemaakt van riek',
                                   '2020-05-05',
                                   1
                               );
         $this->testobject2 = new model\ReviewPDO(
-                                  'Slecht',
+                                  'ARYYYAA!!!!',
                                   1.0,
-                                  'user2',
+                                  'sansastark',
                                   1,
-                                  'Het smaakte echt niet',
+                                  'I love joffery',
                                   '2020-05-05',
-                                  3
+                                  2
                               );
     }
 
@@ -86,23 +86,10 @@ final class ReviewDatabaseTest extends TestCase
       $this->mockUpdate->expects($this->any())->method('getSql')->will($this->returnValue("UPDATE Review SET title = :titleUpdate WHERE id = :id"));
       $this->timeOfDay = new database\Review($this->mockUpdate);
       $model = new \model\Review();
-      $model->setId(3);
+      $model->setId(2);
         $this->assertEquals(
             '00000',
-            $this->timeOfDay->update(new \model\Review('Best Redelijk'), $model)
-        );
-    }
-
-    public function testUpdate(): void
-    {
-      $this->mockUpdate->expects($this->any())->method('getSql')->will($this->returnValue("UPDATE Review SET rating = :ratingUpdate WHERE title = :title AND description = :description AND rating = :rating AND review_date = :review_date AND recipe_id = :recipe_id"));
-      $this->timeOfDay = new database\Review($this->mockUpdate);
-      var_dump(DateTime::createFromFormat('d-m-Y', '05-05-2020'));
-      $model = new \model\Review();
-      $model->setRating(3);
-        $this->assertEquals(
-            '00000',
-            $this->timeOfDay->update($model, new \model\Review('Slecht', 1, null, new \model\Recipe(1), 'Het smaakte echt niet', DateTime::createFromFormat('d-m-Y', '05-05-2020')))
+            $this->timeOfDay->update(new \model\Review('Seven Hells!'), $model)
         );
     }
 
@@ -113,11 +100,11 @@ final class ReviewDatabaseTest extends TestCase
 
         $this->assertEquals(
             '00000',
-            $this->review->insert(new \model\Review('Dit is een test', 3.5, new \model\User('test'), $recipe, 'dit is een test'))
+            $this->review->insert(new \model\Review('Kass fondue smaakt prima, COLIN!!', 3.5, new \model\User('joshuacok'), $recipe, 'Ik eet het vandaag, COLIN!!'))
         );
         $this->assertEquals(
             '23000',
-            $this->review->insert(new \model\Review('Dit is een test', 3.5, new \model\User('test'), $recipe, 'dit is een test'))
+            $this->review->insert(new \model\Review('Kass fondue smaakt prima, COLIN!!', 3.5, new \model\User('joshuacok'), $recipe, 'Ik eet het vandaag, COLIN!!'))
         );
         // $this->assertEquals(
         //     '22001',

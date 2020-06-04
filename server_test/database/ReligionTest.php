@@ -25,8 +25,8 @@ final class ReligionDatabaseTest extends TestCase
       $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Religion WHERE name = :name AND id > :id"));
       $this->religion = new database\Religion($this->mock);
         $this->assertEquals(
-            array('00000', array(array(new \model\Religion('Moslim', 20193)))),
-            $this->religion->select(new \model\Religion('Moslim', 0))
+            array('00000', array(array(new \model\Religion('Christendom', 1)))),
+            $this->religion->select(new \model\Religion('Christendom', 0))
         );
     }
 
@@ -35,8 +35,8 @@ final class ReligionDatabaseTest extends TestCase
       $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Religion WHERE name = :name"));
       $this->religion = new database\Religion($this->mock);
         $this->assertEquals(
-            array('00000', array(array(new \model\Religion('Moslim', 20193)))),
-            $this->religion->select(new \model\Religion('Moslim'))
+            array('00000', array(array(new \model\Religion('Christendom', 1)))),
+            $this->religion->select(new \model\Religion('Christendom'))
         );
     }
 
@@ -45,7 +45,7 @@ final class ReligionDatabaseTest extends TestCase
       $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Religion"));
       $this->religion = new database\Religion($this->mock);
         $this->assertEquals(
-            array('00000', array(array(new model\Religion('Geloof 2', 20195), new model\Religion('Geloof 3', 20197), new model\Religion('Geloof 4', 20199), new model\Religion('Moslim', 20193)))),
+            array('00000', array(array(new model\Religion('Christendom', 1), new model\Religion('Hinduïsme', 2),new model\Religion('Islam', 3), new model\Religion('Jodendom', 4),new model\Religion('Grote Spaghettimonster', 5), new model\Religion('Satanisme', 666)))),
             $this->religion->select(new \model\Religion())
         );
     }
@@ -55,7 +55,7 @@ final class ReligionDatabaseTest extends TestCase
       $this->religion = new database\Religion($this->mockUpdate);
         $this->assertEquals(
             '00000',
-            $this->religion->update(new \model\Religion('updateTest'), new \model\Religion(null,20199))
+            $this->religion->update(new \model\Religion('Kleine Spagettiemonster'), new \model\Religion(null,5))
         );
     }
 
@@ -63,11 +63,11 @@ final class ReligionDatabaseTest extends TestCase
     {
         $this->assertEquals(
             '00000',
-            $this->religion->insert(new \model\Religion('religieTest'))
+            $this->religion->insert(new \model\Religion('Boedisme'))
         );
         $this->assertEquals(
             '23000',
-            $this->religion->insert(new \model\Religion('religieTest'))
+            $this->religion->insert(new \model\Religion('Boedisme'))
         );
         // $this->assertEquals(
         //     '22001',

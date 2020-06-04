@@ -23,8 +23,8 @@ final class TimeOfDayDatabaseTest extends TestCase
       $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM TimeOfDay WHERE name = :name"));
       $this->timeOfDay = new database\TimeOfDay($this->mock);
         $this->assertEquals(
-            array('00000', array(array(new \model\TimeOfDay('diner')))),
-            $this->timeOfDay->select(new \model\TimeOfDay('diner'))
+            array('00000', array(array(new \model\TimeOfDay('Diner')))),
+            $this->timeOfDay->select(new \model\TimeOfDay('Diner'))
         );
     }
 
@@ -33,7 +33,7 @@ final class TimeOfDayDatabaseTest extends TestCase
       $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM TimeOfDay"));
       $this->timeOfDay = new database\TimeOfDay($this->mock);
         $this->assertEquals(
-            array('00000', array(array(new model\TimeOfDay('diner'), new model\TimeOfDay('lunch'), new model\TimeOfDay('ontbijt')))),
+            array('00000', array(array(new model\TimeOfDay('Diner'), new model\TimeOfDay('Lunch'), new model\TimeOfDay('Ontbijt')))),
             $this->timeOfDay->select(new \model\TimeOfDay())
         );
     }
@@ -44,7 +44,7 @@ final class TimeOfDayDatabaseTest extends TestCase
       $this->timeOfDay = new database\TimeOfDay($this->mockUpdate);
         $this->assertEquals(
             '00000',
-            $this->timeOfDay->update(new \model\TimeOfDay('updateTest'), new \model\TimeOfDay('diner'))
+            $this->timeOfDay->update(new \model\TimeOfDay('What about second breakfast?!'), new \model\TimeOfDay('Ontbijt'))
         );
     }
 
@@ -53,12 +53,12 @@ final class TimeOfDayDatabaseTest extends TestCase
 
         $this->assertEquals(
             '00000',
-            $this->timeOfDay->insert(new \model\TimeOfDay('tussendoortje'))
+            $this->timeOfDay->insert(new \model\TimeOfDay('Or supper'))
 
         );
         $this->assertEquals(
             '23000',
-            $this->timeOfDay->insert(new \model\TimeOfDay('tussendoortje'))
+            $this->timeOfDay->insert(new \model\TimeOfDay('Or supper'))
 
         );
         // $this->assertEquals(
