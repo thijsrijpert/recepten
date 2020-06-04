@@ -143,6 +143,8 @@ class Recipe extends \model\Model{
 
   public function jsonSerialize(){
 
+    
+
     $json_id = '"id" : ' . '"' . $this->id . '"';
     $json_name = '"name" : ' . '"' . $this->name . '"';
     $json_description = '"description" : ' . '"' . $this->description . '"';
@@ -152,6 +154,7 @@ class Recipe extends \model\Model{
     $json_mealtype_name= '"mealtype_name" : ' . '"' . $this->mealtype_name . '"';
     $json_religion_id = '"religion_id" : ' . '"' . $this->religion_id . '"';
     $json_time_of_day = '"time_of_day" : ' . '"' . $this->time_of_day . '"';
+
 
     $final_string = "{";
 

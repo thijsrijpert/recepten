@@ -76,6 +76,16 @@ require_once(dirname(__FILE__,2) . '/model/Country.php');
 
       }
 
+      function delete(\model\Model $model) : String{
+          try{
+              $this->delete->bindParam(':countrycode', $model->getCountrycode());
+          }catch(\exception\ModelNullException $e){}
+
+          $this->delete->execute();
+
+          return $this->delete->errorCode();
+      }
+
       function error_handler($errno, $errstr, $errfile, $errline){
 
       }

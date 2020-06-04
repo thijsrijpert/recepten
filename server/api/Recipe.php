@@ -4,8 +4,11 @@ ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(E_ALL | E_STRICT);
 require_once(dirname(__FILE__,2) . '/model/Recipe.php');
+require_once(dirname(__FILE__,2) . '/database/Query.php');
+require_once(dirname(__FILE__,2) . '/database/QueryBuilder.php');
 require_once(dirname(__FILE__, 1) . '/CRUDInterface.php');
 require_once(dirname(__FILE__,2) . '/database/Recipe.php');
+require_once(dirname(__FILE__,2) . '/database/RecipeIngredient.php');
 require_once(dirname(__FILE__,2) . '/exception/NullPointerException.php');
 require_once(dirname(__FILE__,1) . '/Api.php');
 
@@ -21,10 +24,36 @@ class Recipe extends Api{
   function insert(){
       try{
 
+          $entityBody = json_decode(file_get_contents('php://input'));
+          $modelSelect = new \model\Recipe(null, $_GET['name']);
           $this->model = new \model\Recipe(null, $_GET['name'], $_GET['description'], $_GET['isApproved'], $_GET['countrycode'], $_GET['username'], $_GET['mealtype_name'], $_GET['religion_id'], $_GET['time_of_day'] );
-          $recipeStatement = new \database\Recipe();
+          $wherestatement = "name-eq-12";
+          $selectcombo = "id";
+          $query = new \database\Query($modelSelect);
+          $query->setSelectArguments(parent::rebuildArguments($selectcombo));
+          $query->setWhereArguments(parent::rebuildArguments($wherestatement));
+          $dbbuilder = new \database\QueryBuilder($query);
+          $dbbuilder->generateSql();
+          \var_dump($dbbuilder);
+          $recipeStatement = new \database\Recipe($dbbuilder);
+
           $code = $recipeStatement->insert($this->model);
+
           $code = substr($code, 0, 2);
+          if($code === "00"){
+            $result = $recipeStatement->select($modelSelect);
+            \var_dump($result);
+            if($result[0] === "00000"){
+              echo "test";
+              $recipeingredient =  new \database\RecipeIngredient();
+              $recipeId = ($result[1][0][0])->getId();
+              $recipeingredient->insert($entityBody, $recipeId);
+            }else{
+              parent::setHttpCode($result[0]);
+            }
+          }else{
+            parent::setHttpCode($code);
+          }
 
           parent::setHttpCode($code);
 

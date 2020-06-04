@@ -88,6 +88,8 @@ class Recipe extends CRUD  implements CRUDInterface{
 
       $results = $this->select[0]->fetchAll(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'model\Recipe');
 
+        \var_dump($results);
+
       return array($this->select[0]->errorCode(), array($results));
   }
 
