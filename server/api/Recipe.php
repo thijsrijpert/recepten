@@ -34,7 +34,6 @@ class Recipe extends Api{
           $query->setWhereArguments(parent::rebuildArguments($wherestatement));
           $dbbuilder = new \database\QueryBuilder($query);
           $dbbuilder->generateSql();
-          \var_dump($dbbuilder);
           $recipeStatement = new \database\Recipe($dbbuilder);
 
           $code = $recipeStatement->insert($this->model);
@@ -42,9 +41,7 @@ class Recipe extends Api{
           $code = substr($code, 0, 2);
           if($code === "00"){
             $result = $recipeStatement->select($modelSelect);
-            \var_dump($result);
             if($result[0] === "00000"){
-              echo "test";
               $recipeingredient =  new \database\RecipeIngredient();
               $recipeId = ($result[1][0][0])->getId();
               $recipeingredient->insert($entityBody, $recipeId);
