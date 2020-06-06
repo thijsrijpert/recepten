@@ -45,7 +45,7 @@ final class ReligionDatabaseTest extends TestCase
       $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM Religion"));
       $this->religion = new database\Religion($this->mock);
         $this->assertEquals(
-            array('00000', array(array(new model\Religion('Christendom', 1), new model\Religion('Hinduïsme', 2),new model\Religion('Islam', 3), new model\Religion('Jodendom', 4),new model\Religion('Grote Spaghettimonster', 5), new model\Religion('Satanisme', 666)))),
+            array('00000', array(array(new model\Religion('Christendom', 1), new model\Religion('Grote Spaghettimonster', 5), new model\Religion('Hinduïsme', 2),new model\Religion('Islam', 3), new model\Religion('Jodendom', 4), new model\Religion('Satanisme', 666)))),
             $this->religion->select(new \model\Religion())
         );
     }

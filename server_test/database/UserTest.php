@@ -19,20 +19,20 @@ final class UserDatabaseTest extends TestCase
     public function testSelect(): void
     {
       $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM User WHERE username = :username"));
-      $this->timeOfDay = new database\User($this->mock);
+      $this->user = new database\User($this->mock);
         $this->assertEquals(
-            array('00000', array(array(new \model\User('diner')))),
-            $this->timeOfDay->select(new \model\TimeOfDay('diner'))
+            array('00000', array(array(new \model\User('user', 'ABCD', 'ABCDE','user', 123456789, 5)))),
+            $this->user->select(new \model\User('user'))
         );
     }
 
     public function testSelectNoWhere(): void
     {
       $this->mock->expects($this->any())->method('getSql')->will($this->returnValue("SELECT * FROM TimeOfDay"));
-      $this->timeOfDay = new database\TimeOfDay($this->mock);
+      $this->user = new database\User($this->mock);
         $this->assertEquals(
-            array('00000', array(array(new model\TimeOfDay('diner'), new model\TimeOfDay('lunch'), new model\TimeOfDay('ontbijt')))),
-            $this->timeOfDay->select(new \model\TimeOfDay())
+            array('00000', array(array(new \model\User('user', 'ABCD', 'ABCDE','user', 123456789, 5)))),
+            $this->user->select(new \model\User())
         );
     }
 
@@ -41,12 +41,12 @@ final class UserDatabaseTest extends TestCase
 
         $this->assertEquals(
             '00000',
-            $this->timeOfDay->insert(new \model\TimeOfDay('tussendoortje'))
+            $this->user->insert(new \model\User('user1', 'ABCDE', 'ABCDEF', null, 1234567890, 5))
 
         );
         $this->assertEquals(
             '23000',
-            $this->timeOfDay->insert(new \model\TimeOfDay('tussendoortje'))
+            $this->user->insert(new \model\User('user1', 'ABCDE', 'ABCDEF', null, 1234567890, 5))
 
         );
         // $this->assertEquals(

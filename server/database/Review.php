@@ -11,7 +11,7 @@ namespace database;
   class Review extends CRUD implements CRUDInterface{
 
       function __construct(QueryBuilderParent ...$query){
-          $sql = "INSERT INTO Review (title, description, rating, username, recipe_id, review_date) VALUES (:title, :description, :rating, :username, :recipe_id, NULL)";
+          $sql = "INSERT INTO Review (title, description, rating, username, recipe_id) VALUES (:title, :description, :rating, :username, :recipe_id)";
           $this->stmt = \database\Database::getConnection()->prepare($sql);
 
           $sql = "DELETE FROM Review WHERE id = :id";
@@ -34,10 +34,9 @@ namespace database;
           $this->stmt->bindParam(':title', $title);
           $this->stmt->bindParam(':description', $description);
           $this->stmt->bindParam(':rating', $rating);
-          $this->stmt->bindParam(':username', $rating);
+          $this->stmt->bindParam(':username', $username);
           $this->stmt->bindParam(':recipe_id', $recipeId);
           $this->stmt->execute();
-
           return $this->stmt->errorCode();
       }
 
@@ -46,14 +45,14 @@ namespace database;
             $this->select[0]->bindParam(':title', $model->getTitle());
         }catch(\exception\ModelNullException $e){}
         try{
-            $this->select[0]->bindParam(':description', $model->getId());
+            $this->select[0]->bindParam(':description', $model->getDescription());
         }catch(\exception\ModelNullException $e){}
         try{
             $this->select[0]->bindParam(':id', $model->getId());
         }catch(\exception\ModelNullException $e){}
 
         try{
-            $this->select[0]->bindParam(':recipe_id', $model->getRecipeId());
+            $this->select[0]->bindParam(':recipe_id', $model->getRecipeId()->getId());
         }catch(\exception\ModelNullException $e){}
         try{
             $this->select[0]->bindParam(':review_date', $model->getReviewDate()->format('Y-m-d'));
@@ -70,6 +69,7 @@ namespace database;
         $this->select[0]->execute();
 
         $results = $this->select[0]->fetchAll(\PDO::FETCH_CLASS, 'model\ReviewPDO');
+
         return array($this->select[0]->errorCode(), array($results));
       }
 
