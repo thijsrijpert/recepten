@@ -6,14 +6,12 @@ class Hash{
   private static $secretnum = 10;
 
 private static function hashing(\model\User $user){
-  echo 'unhashed user';
-  var_dump($user);
+
 
   $hasharray = \unpack("C*", $user->getPassword());
   $hash = "";
   for($i = 0; $i < \count($hasharray); $i++ ){
     $hash .= dechex(ord(chr(($hasharray[$i] * self::$secretnum + $user->getSalt()) % 128)));
-    var_dump($hash);
   }
   $user->setPassword($hash);
   return $user;
@@ -33,7 +31,6 @@ static function hashing_verify(\model\User $newuser, \model\User $olduser){
   $newuser->setSalt($olduser->getSalt());
   $newuser->setIteration($olduser->getIteration());
   $newuser = self::hashing($newuser);
-  var_dump($olduser->getPassword());
   return $olduser->getPassword() === $newuser->getPassword();
 
 }

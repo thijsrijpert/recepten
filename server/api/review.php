@@ -1,6 +1,5 @@
 <?php
 namespace api;
-echo 'testtestetest';
 ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(E_ALL | E_STRICT);
@@ -104,7 +103,6 @@ class Review extends Api{
     public function delete(){
         try{
             $model = new \model\Review();
-            echo 'test';
             if(null != $_GET['delete']){
                 $arguments = parent::rebuildArguments($_GET['delete']);
                 foreach($arguments as $value){
@@ -116,7 +114,6 @@ class Review extends Api{
             $statement = new \database\Review();
             $code = $statement->delete($model);
             $code = substr($code, 0, 2);
-            echo $code;
             parent::setHttpCode($code);
         }catch(\PDOException $e){
             parent::setHttpCode($e->getCode());
@@ -195,7 +192,6 @@ class Review extends Api{
         }
     }
 }
-echo 'test';
 $review = new Review();
 if(isset($_GET['title'])){
     $review->insert();

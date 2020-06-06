@@ -24,7 +24,6 @@ class User extends CRUD implements CRInterface{
         }catch(\exception\ModelNullException $e){
             throw new \exception\NullPointerException($e);
         }
-        var_dump($model);
         $this->stmt->bindParam(':username', $username);
         $this->stmt->bindParam(':password', $password);
         $this->stmt->bindParam(':token', $token);
@@ -37,7 +36,6 @@ class User extends CRUD implements CRInterface{
     }
 
     public function select(\model\Model $model) : array {
-        var_dump($this->select);
         try{
             $this->select[0]->bindParam(':username', $model->getUsername());
         }catch(\exception\ModelNullException $e){}
@@ -65,8 +63,6 @@ class User extends CRUD implements CRInterface{
         $this->select[0]->execute();
 
         $results = $this->select[0]->fetchAll(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, 'model\User');
-
-        var_dump($results);
 
         return array($this->select[0]->errorCode(), array($results));
     }

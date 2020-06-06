@@ -16,24 +16,16 @@ class User extends Api implements CRInterface{
     public function __construct(){
       parent::__construct();
       $this->chars = array_merge(range('A', 'Z'), range('0','9'));
-      var_dump($this->chars);
       set_error_handler(array($this, 'error_handler'));
     }
 
     public function insert() {
-      echo 'test';
         header('Content-Type: application/json');
         try{
             $this->model = new \model\User($_GET['username'], $_GET['password'], $this->generateToken());
-            var_dump($this->model);
-            //$this->model->setPassword($_GET['password']);
-            //$this->model->setSalt(random_int(0,100000));
-            //$this->model->setIteration(random_int(0,100));
             $this->model = Hash::hashing_generate($this->model);
-            var_dump($this->model);
             $statement = new \database\User();
             $code = $statement->insert($this->model);
-            var_dump($code);
             if(substr($code, 0, 2) == '00'){
                 echo json_encode($this->model);
                 parent::setHttpCode(substr($code, 0, 2));
@@ -56,8 +48,6 @@ class User extends Api implements CRInterface{
                 $arguments = parent::rebuildArguments($_GET['where']);
                 $approvedArguments = $this->model->getVariables();
                 foreach($arguments as $value){
-                    echo 'dit is een test';
-                    var_dump($value[0]);
                     switch($value[0]){
                         case 'username':
                             $this->model->setUsername($value[2]);
@@ -65,7 +55,6 @@ class User extends Api implements CRInterface{
                         case 'password':
                             //password cannot be in the where clause so it cannot be set right here
                             $password = $value[2];
-                            echo 'hallo';
                             break;
                         case 'role':
                             header('HTTP/1.0 403 Forbidden');
@@ -96,11 +85,8 @@ class User extends Api implements CRInterface{
             }
             $queryBuilder = parent::buildQuery($this->model);
 
-            var_dump($queryBuilder);
-
-            var_dump($this->model);
             $codeAndResult = (new \database\User($queryBuilder))->select($this->model);
-            var_dump($codeAndResult);
+
             $this->model->setPassword($password);
 
 
@@ -154,7 +140,6 @@ class User extends Api implements CRInterface{
     public function generateToken() : String {
         $token = "";
         for($i = 0; $i <= 15; $i++){
-          var_dump($token);
             $token .= (String) $this->chars[random_int(0,35)];
         }
 
