@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+}
+body, html, .container-fluid {
+  min-height: 100vh;
+}
+header {
+    height: 5vh;
+    background-color: #DEDA8B;
+    text-align: center;
+}
+
+header h1{
+    color: #CCCB30;
+}
+
+nav {
+    background-color: #CCCB30;
+    height: 95vh;
+}
+
+nav p {
+    margin: 20px auto;
+    width: 100px;
+    font-family: sans-serif;
+    color: #404041;
+}
+
+#content {
+    height: 85vh;
+    margin: 5vh 0;
+}
+#content .overview_row p{
+    padding: 1vh 0;
+    font-family: sans-serif;
+}
+#content .overview_row:nth-child(even){
+    background-color: #CCCB30;
+}
+
+#content .overview_row:nth-child(odd){
+    background-color: #DEDA8B;
+}
