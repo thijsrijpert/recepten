@@ -1,13 +1,10 @@
 package com.nl.recipeapp.ingredient;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +23,7 @@ import com.nl.recipeapp.model.Ingredient;
  */
 public class Add extends Fragment {
     private View view;
-    private EditText edittext_ingredientName, edittext_ingredientDescription;
+    private EditText edittext_name, edittext_description;
     private TextView textview_ingredientDescriptionCharacterCount;
 
     // Variables for the database connection
@@ -43,12 +40,13 @@ public class Add extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_ingredient, container, false);
 
         // Initialize the Class variables
-        edittext_ingredientName = view.findViewById(R.id.addIngredient_edittext_ingredientName);
-        edittext_ingredientDescription = view.findViewById(R.id.addIngredient_edittext_ingredientDescription);
+        edittext_name = view.findViewById(R.id.addIngredient_edittext_ingredientName);
+        edittext_description = view.findViewById(R.id.addIngredient_edittext_ingredientDescription);
         textview_ingredientDescriptionCharacterCount = view.findViewById(R.id.addIngredient_textview_ingredientDescriptionCharacterCount);
 
         // Create the connector that will pass requests towards the database
-        addConnector = new AddConnector(this.getContext(), view);
+        addConnector = new AddConnector(this.getContext());
+        addConnector.setAddIngredient(this);
 
         // Launch the initialization methods
         initializeInputFields();
@@ -62,7 +60,7 @@ public class Add extends Fragment {
      */
     private void initializeInputFields() {
         // Create the listener on recipeDescription's EditText, so the character counter changes when the user is typing
-        edittext_ingredientDescription.addTextChangedListener(new CharacterCountListener(textview_ingredientDescriptionCharacterCount,  edittext_ingredientDescription));
+        edittext_description.addTextChangedListener(new CharacterCountListener(textview_ingredientDescriptionCharacterCount, edittext_description));
     }
 
     private void initializeButtons() {
@@ -75,27 +73,39 @@ public class Add extends Fragment {
                     return;
                 } else {
                     // First, check if all the fields are filled in. If not, display a Toast accordingly
-                    if (edittext_ingredientName.getText().toString().equals("")) {
+                    if (edittext_name.getText().toString().equals("")) {
                         // Check if a name is entered
                         Toast.makeText(getActivity(), "U moet een ingrediënt naam invullen", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                     // Second, check if the description field isn't more than 65.535 characters. If it is, display a Toast
-                    if (edittext_ingredientDescription.getText().length() > 65535) {
+                    if (edittext_description.getText().length() > 65535) {
                         Toast.makeText(getActivity(), "Uw ingrediënt omschrijving mag niet meer dan 65.535 karakters bevatten", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    Ingredient ingredient = new Ingredient(edittext_ingredientName.getText().toString(), edittext_ingredientDescription.getText().toString(), false, ((MainActivity)getActivity()).getCurrentUser().getUsername());
-                    boolean value = addConnector.addIngredient(ingredient);
-
-                    if (value) {
-                        edittext_ingredientName.setText("");
-                        edittext_ingredientDescription.setText("");
-                    }
+                    Ingredient ingredient = new Ingredient(edittext_name.getText().toString(), edittext_description.getText().toString(), 0, ((MainActivity)getActivity()).getCurrentUser().getUsername());
+                    addConnector.addIngredient(ingredient);
                 }
+
+
             }
         });
+    }
+
+    public EditText getEdittexts(int value) {
+        EditText edittext = null;
+
+        switch (value) {
+            case 0:
+                edittext = edittext_name;
+            break;
+            case 1:
+                edittext = edittext_description;
+            break;
+        }
+
+        return edittext;
     }
 }

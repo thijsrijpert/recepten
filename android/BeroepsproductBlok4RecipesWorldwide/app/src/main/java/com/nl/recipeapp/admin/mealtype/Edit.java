@@ -52,6 +52,7 @@ public class Edit extends Fragment {
         addConnector_recipe.setEditMealtype(this);
 
         addConnector_mealtype = new com.nl.recipeapp.admin.mealtype.AddConnector(this.getContext());
+        addConnector_mealtype.setEditMealtype(this);
 
         // Call the initialization methods
         initializeEditTexts();
@@ -89,21 +90,16 @@ public class Edit extends Fragment {
                 // First, check if all the fields are filled in. If not, display a Toast accordingly
                 if (edittext_name.getText().toString().equals("")) {
                     // Check if a name is entered
-                    Toast.makeText(getActivity(), "U moet een tijdvak naam invullen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "U moet een maaltijdsoort invullen", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                boolean value = addConnector_mealtype.editMealtype(spinner_mealtypes.getSelectedItem().toString(), edittext_name.getText().toString());
-
-                if (value) {
-                    Toast.makeText(getContext(), "Maaltijdsoort '" + spinner_mealtypes.getSelectedItem().toString() + "' succesvol gewijzigd naar '" + edittext_name.getText().toString() + "'", Toast.LENGTH_SHORT).show();
-                    edittext_name.setText("");
-                }
+                addConnector_mealtype.editMealtype(spinner_mealtypes.getSelectedItem().toString(), edittext_name.getText().toString());
             }
         });
     }
 
-    private void initializeArrayLists() {
+    public void initializeArrayLists() {
         addConnector_recipe.getMealTypes("EditMealtype");
     }
 
@@ -113,5 +109,9 @@ public class Edit extends Fragment {
 
     public ArrayAdapter<Mealtype> getArrayadapter_mealtypes() {
         return arrayadapter_mealtypes;
+    }
+
+    public EditText getEdittext_name() {
+        return edittext_name;
     }
 }

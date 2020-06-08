@@ -1,20 +1,20 @@
 package com.nl.recipeapp.model;
 
 public class Country {
-    private String countryCode, name, description;
+    private String countrycode, name, description;
 
-    public Country(String countryCode, String name, String description) {
-        this.countryCode = countryCode;
+    public Country(String countrycode, String name, String description) {
+        this.countrycode = countrycode;
         this.name = name;
         this.description = description;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public String getCountrycode() {
+        return countrycode;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setCountrycode(String countrycode) {
+        this.countrycode = countrycode;
     }
 
     public String getName() {

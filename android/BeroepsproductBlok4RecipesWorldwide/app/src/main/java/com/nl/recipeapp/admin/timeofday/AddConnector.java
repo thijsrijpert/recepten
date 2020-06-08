@@ -40,7 +40,7 @@ public class AddConnector {
                     return;
                 }
 
-                Toast.makeText(context, "admin.recipe.AddConnector: Het tijdvak kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "admin.timeofday.AddConnector: Het tijdvak kon niet worden toegevoegd.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
 
             }
@@ -70,7 +70,7 @@ public class AddConnector {
                     return;
                 }
 
-                Toast.makeText(context, "admin.recipe.AddConnector: Het tijdvak kon niet worden gewijzigd.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "admin.timeofday.AddConnector: Het tijdvak kon niet worden gewijzigd.", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.nl.recipeapp.GeneralMethods;
+import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
 import com.nl.recipeapp.model.Country;
 import com.nl.recipeapp.model.Mealtype;
@@ -27,7 +28,7 @@ public class Search extends AppCompatActivity {
 
     // Variables which are of use in the RecyclerView
     private RecyclerView recyclerview;
-    private ArrayList<Recipe> recipes;
+    private ArrayList<Recipe> arraylist_recipes;
     private com.nl.recipeapp.search.Search_RecyclerViewAdapter recyclerviewAdapter;
 
     // Create the webconnectors
@@ -55,7 +56,7 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         // Initialize the ArrayLists, used for initializing the RecyclerView and Spinners
-        recipes = new ArrayList<>();
+        arraylist_recipes = new ArrayList<>();
         arraylist_mealtypes = new ArrayList<>();
         arraylist_timeofday = new ArrayList<>();
         arraylist_countries = new ArrayList<>();
@@ -63,8 +64,10 @@ public class Search extends AppCompatActivity {
 
         // Initialize the connectors, used for getting and sending data to the database
         connector_addRecipe = new AddConnector(this);
-        connector_search = new Connector(this);
         connector_addRecipe.setSearchRecipe(this);
+
+        connector_search = new Connector(this);
+        connector_search.setSearch(this);
 
         // Initialize the General Methods class, that's used for using similar methods
         generalMethods = new GeneralMethods(this);
@@ -134,8 +137,7 @@ public class Search extends AppCompatActivity {
                     timeOfDay = spinner_timeOfDay.getSelectedItem().toString();
                 }
 
-                recipes = connector_search.searchRecipe(mealtype, countrycode, religionId, timeOfDay);
-                recyclerviewAdapter.notifyDataSetChanged();
+                connector_search.searchRecipe(mealtype, countrycode, religionId, timeOfDay);
             }
         });
     }
@@ -145,7 +147,7 @@ public class Search extends AppCompatActivity {
      */
     private void initializeRecyclerView() {
         recyclerview = findViewById(R.id.searchRecipe_recyclerView);
-        recyclerviewAdapter = new com.nl.recipeapp.search.Search_RecyclerViewAdapter(recipes);
+        recyclerviewAdapter = new com.nl.recipeapp.search.Search_RecyclerViewAdapter(arraylist_recipes);
         recyclerview.setAdapter(recyclerviewAdapter);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -195,5 +197,14 @@ public class Search extends AppCompatActivity {
 
     public ArrayAdapter<TimeOfDay> getArrayAdapter_timeofday() {
         return arrayadapter_timeofday;
+    }
+
+    // Recipes
+    public ArrayList<Recipe> getArrayList_recipes()  {
+        return arraylist_recipes;
+    }
+
+    public Search_RecyclerViewAdapter getRecyclerviewAdapter() {
+        return recyclerviewAdapter;
     }
 }

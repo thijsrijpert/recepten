@@ -61,11 +61,29 @@
                     android:layout_marginStart="5dp"
                     android:hint="@string/login_hint_password"
                     android:inputType="textPassword" />
-                <Button
-                    android:id="@+id/login_btn_signIn"
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/login_button_signIn" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="5dp">
+
+                    <Button
+                        android:id="@+id/login_btn_signIn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/login_button_signIn" />
+
+                    <Button
+                        android:id="@+id/login_btn_logout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/login_button_signOut" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/login_textView_registratie"

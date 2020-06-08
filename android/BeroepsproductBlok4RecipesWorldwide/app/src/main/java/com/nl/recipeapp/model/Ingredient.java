@@ -2,12 +2,12 @@ package com.nl.recipeapp.model;
 
 public class Ingredient {
     private String name, description, username;
-    private boolean isApproved;
+    private int is_approved;
 
-    public Ingredient(String name, String description, boolean isApproved, String username) {
+    public Ingredient(String name, String description, int is_approved, String username) {
         this.name = name;
         this.description = description;
-        this.isApproved = isApproved;
+        this.is_approved = is_approved;
         this.username = username;
     }
 
@@ -19,12 +19,12 @@ public class Ingredient {
         this.username = username;
     }
 
-    public boolean isApproved() {
-        return isApproved;
+    public int isApproved() {
+        return is_approved;
     }
 
-    public void setApproved(boolean approved) {
-        isApproved = approved;
+    public void setApproved(int approved) {
+        is_approved = approved;
     }
 
     public String getDescription() {

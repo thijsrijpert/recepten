@@ -261,69 +261,43 @@
                 android:background="@drawable/inputfields"
                 android:spinnerMode="dropdown"
                 app:layout_constraintBottom_toBottomOf="@id/addRecipe_constraintLayout_bindIngredient"
-                app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
+                app:layout_constraintEnd_toStartOf="@id/addRecipe_btn_bindIngredient"
                 app:layout_constraintStart_toEndOf="@id/addRecipe_constraintLayout_bindIngredient" />
-
-            <!-- Bind ingredient -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/addRecipe_constraintLayout_bindIngredientAddition"
-                android:layout_width="180dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorGreenBackground"
-                android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="@id/addRecipe_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addRecipe_constraintLayout_bindIngredient">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:gravity="end"
-                    android:text="@string/addRecipe_recipeBindIngredientAddition"
-                    android:textColor="@color/colorText"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <EditText
-                android:id="@+id/addRecipe_edittext_bindIngredientAddition"
-                android:layout_width="0dp"
-                android:layout_height="38dp"
-                android:background="@drawable/inputfields"
-                android:ems="10"
-                android:enabled="false"
-                android:hint="@string/addRecipe_recipeBindIngredientAdditionHint"
-                android:inputType="textPersonName"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/addRecipe_constraintLayout_bindIngredientAddition"
-                app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
-                app:layout_constraintStart_toEndOf="@id/addRecipe_constraintLayout_bindIngredientAddition" />
 
             <Button
                 android:id="@+id/addRecipe_btn_bindIngredient"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="160dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/button"
+                android:layout_width="30dp"
+                android:layout_height="38dp"
+                android:background="@drawable/button_no_radius"
                 android:gravity="center|start"
                 android:paddingStart="10dp"
-                android:paddingEnd="10dp"
                 android:text="@string/addRecipe_buttonAddIngredient"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/colorText"
                 app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addRecipe_edittext_bindIngredientAddition" />
+                app:layout_constraintTop_toTopOf="@id/addRecipe_spinner_bindIngredient" />
+
+            <!-- Ingredient Recyclerview -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/addRecipe_recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/inputfields"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
+                app:layout_constraintStart_toStartOf="@id/addRecipe_linearLayout_textviews"
+                app:layout_constraintTop_toBottomOf="@id/addRecipe_constraintLayout_bindIngredient" />
 
             <!-- Recipe description -->
             <EditText
                 android:id="@+id/addRecipe_edittext_description"
                 android:layout_width="0dp"
-                android:layout_height="76dp"
+                android:layout_height="300dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/inputfields"
                 android:ems="10"
@@ -331,13 +305,13 @@
                 android:hint="@string/addRecipe_recipeDescriptionHint"
                 android:inputType="textMultiLine"
                 android:paddingStart="10dp"
-                android:paddingEnd="10dp"
                 android:paddingTop="10dp"
+                android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@id/addRecipe_spinner_bindIngredient"
+                app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
                 app:layout_constraintStart_toStartOf="@id/addRecipe_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addRecipe_btn_bindIngredient" />
+                app:layout_constraintTop_toBottomOf="@id/addRecipe_recyclerView" />
 
             <TextView
                 android:id="@+id/addRecipe_textview_recipeDescriptionCharacterCount"
@@ -348,21 +322,6 @@
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@id/addRecipe_edittext_description"
                 app:layout_constraintTop_toBottomOf="@id/addRecipe_edittext_description" />
-
-            <!-- Ingredient Recyclerview -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/addRecipe_recyclerView"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/inputfields"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
-                app:layout_constraintStart_toStartOf="@id/addRecipe_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addRecipe_textview_recipeDescriptionCharacterCount" />
 
             <!-- Recipe registration -->
             <Button
@@ -381,7 +340,7 @@
                 android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/addRecipe_linearLayout_textviews"
-                app:layout_constraintTop_toBottomOf="@id/addRecipe_recyclerView" />
+                app:layout_constraintTop_toBottomOf="@id/addRecipe_textview_recipeDescriptionCharacterCount" />
 
             <Button
                 android:id="@+id/addRecipe_btn_addNewIngredient"
@@ -389,7 +348,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/button"
                 android:gravity="center|start"
@@ -398,9 +356,8 @@
                 android:text="@string/addRecipe_buttonAddNewIngredient"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/colorText"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/addRecipe_btn_applyRecipe"
-                app:layout_constraintTop_toBottomOf="@id/addRecipe_recyclerView" />
+                app:layout_constraintBottom_toBottomOf="@id/addRecipe_btn_applyRecipe"
+                app:layout_constraintEnd_toStartOf="@id/addRecipe_btn_applyRecipe" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

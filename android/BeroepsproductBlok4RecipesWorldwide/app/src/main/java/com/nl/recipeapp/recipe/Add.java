@@ -9,10 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -144,32 +141,18 @@ public class Add extends Fragment {
         arrayAdapter_timeofday = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_timeofday);
         spinner_timeofday.setAdapter(arrayAdapter_timeofday);
 
-        // Makes sure which ingredients are displayed:
-        // - Administrators should see all ingredients: approved as well as unapproved
-        // - Users should see some ingredients: approved and only the unapproved ones they submitted
-        if (((MainActivity)getActivity()).getCurrentUser() == null) {
-            // If the user is not logged in, display approved Ingredients only
-            addConnector.getApprovedIngredients("AddRecipe");
-        } else if (((MainActivity)getActivity()).getCurrentUser().isAdministrator()) {
-            // If the user is also an Administrator, display ALL ingredients
-            addConnector.getAllIngredients("AddRecipe");
-        } else {
-            // If the user is not an Administrator, display approved ingredients + unapproved ingredients submitted by THIS user
-            addConnector.getIngredientsForSpecificUser(((MainActivity)getActivity()).getCurrentUser().getUsername(), "AddRecipe");
-        }
-
         arrayadapter_ingredients = new ArrayAdapter<Ingredient>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, arraylist_ingredients) {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(!arraylist_ingredients.get(position).isApproved()) {
+                if (arraylist_ingredients.get(position).isApproved() == 0) {
                     // Set the item text color
                     tv.setTextColor(Color.RED);
                 }
                 else {
                     // Set the alternate item text color
-//                    tv.setTextColor(Color.parseColor("#404041"));
-                    tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorText));
+                    tv.setTextColor(Color.BLACK);
+//                    tv.setTextColor(ContextCompat.getColor(getContext(), R.color.colorText));
                 }
                 return view;
             }
@@ -188,6 +171,20 @@ public class Add extends Fragment {
         addConnector.getMealTypes("AddRecipe");
         addConnector.getCountries("AddRecipe");
         addConnector.getReligions("AddRecipe");
+
+        // Makes sure which ingredients are displayed:
+        // - Administrators should see all ingredients: approved as well as unapproved
+        // - Users should see some ingredients: approved and only the unapproved ones they submitted
+        if (((MainActivity)getActivity()).getCurrentUser() == null) {
+            // If the user is not logged in, display approved Ingredients only
+            addConnector.getApprovedIngredients("AddRecipe");
+        } else if (((MainActivity)getActivity()).getCurrentUser().isAdministrator()) {
+            // If the user is also an Administrator, display ALL ingredients
+            addConnector.getAllIngredients("AddRecipe");
+        } else {
+            // If the user is not an Administrator, display approved ingredients + unapproved ingredients submitted by THIS user
+            addConnector.getIngredientsForSpecificUser(((MainActivity)getActivity()).getCurrentUser().getUsername(), "AddRecipe");
+        }
     }
 
     /**
@@ -249,9 +246,14 @@ public class Add extends Fragment {
                         return;
                     }
 
-                    // Second, check if the description field isn't more than 255 characters. If it is, display a Toast
+                    // Second, check if the description field isn't more than 255 characters, or if it's ending with a dot [.] (this causes errors in the hyperlink when sending data to the database). If it is, display a Toast
                     if (edittext_recipeDescription.getText().length() > 65535) {
                         Toast.makeText(getActivity(), "Uw receptomschrijving mag niet meer dan 65.535 karakters bevatten", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (edittext_recipeDescription.getText().toString().contains(".")) {
+                        Toast.makeText(getActivity(), "Uw receptomschrijving mag geen punten bevatten", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -265,7 +267,7 @@ public class Add extends Fragment {
                     String countryCode = "0";
                     for (int c = 0; c < arraylist_countries.size(); c++) {
                         if (arraylist_countries.get(c).getName().equals(spinner_countries.getSelectedItem().toString())) {
-                            countryCode = arraylist_countries.get(c).getCountryCode();
+                            countryCode = arraylist_countries.get(c).getCountrycode();
                         }
                     }
 
@@ -279,7 +281,8 @@ public class Add extends Fragment {
 
                     // Create the Recipe object and send it to the database
                     Recipe recipe = new Recipe(null, edittext_recipeName.getText().toString(), edittext_recipeDescription.getText().toString(), countryCode, ((MainActivity)getActivity()).getCurrentUser().getUsername(), spinner_mealTypes.getSelectedItem().toString(), religionId, spinner_timeofday.getSelectedItem().toString(), "0");
-                    boolean value = addConnector.addRecipe(recipe);
+
+                    boolean value = addConnector.addRecipe(recipe, arraylist_ingredients_recyclerview);
 
                     // Reset the Spinners and EditTexts to let the User know the data has been sent to the Administrator
                     if (value) {

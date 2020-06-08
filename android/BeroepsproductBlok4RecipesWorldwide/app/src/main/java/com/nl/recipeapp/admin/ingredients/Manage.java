@@ -41,6 +41,7 @@ public class Manage extends Fragment {
     private Button button_A_approve, button_A_deny;
     private ArrayList<String> arraylist_A_unapprovedIngredientNames;
     private ArrayAdapter<String> arrayadapter_A_unapprovedIngredients;
+    private String oldName; // Used for creating the new Ingredient object and overwriting the old one in the database
 
     // Class variables (B means these variables are for managing an Ingredient)
     private EditText edittext_B_username, edittext_B_name, edittext_B_description;
@@ -61,6 +62,7 @@ public class Manage extends Fragment {
         view = inflater.inflate(R.layout.fragment_manage_admin_ingredients, container, false);
 
         connectorIngredients = new Connector(this.getContext()); // Create the webserver connector for transferring queries and getting data from the database
+        connectorIngredients.setManageIngredients(this);
 
         // Create the ArrayLists used in both parts A and B
         arraylist_A_unapprovedIngredientNames = new ArrayList<>();
@@ -121,6 +123,7 @@ public class Manage extends Fragment {
                         edittext_A_name.setText(arraylist_A_unapprovedIngredients.get(c).getName());
                         edittext_A_username.setText(arraylist_A_unapprovedIngredients.get(c).getUsername());
                         edittext_A_description.setText(arraylist_A_unapprovedIngredients.get(c).getDescription());
+                        oldName = arraylist_A_unapprovedIngredients.get(c).getName();
                     }
                 }
             }
@@ -144,36 +147,35 @@ public class Manage extends Fragment {
         button_A_approve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check if the ingredient name is empty. If so, display a Toast
+                if (edittext_A_name.getText().toString().equals("")) {
+                    Toast.makeText(view.getContext(), "Voer een ingrediënt naam in", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Check if there are any ingredients to approve. If there are none, display a Toast
                 if (spinner_A_unapprovedIngredients.getCount() > 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext(), R.style.myDialog);
-                    builder.setMessage("Weet u zeker dat u dit ingrediënt wilt goedkeuren?");
-                    builder.setTitle("Ingrediënt goedkeuren");
-                    builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    builder.setMessage(R.string.dialog_admin_approveIngredient);
+                    builder.setTitle(R.string.dialog_admin_approveIngredientTitle);
+                    builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Ingredient ingredient = null;
                             for (int c = 0; c < arraylist_A_unapprovedIngredients.size(); c++) {
                                 if (spinner_A_unapprovedIngredients.getSelectedItem().toString().equals(arraylist_A_unapprovedIngredients.get(c).getName())) {
-                                    ingredient = arraylist_A_unapprovedIngredients.get(c);
+                                    // Create a new Ingredient object, so any changes made before approving can be made
+                                    ingredient = new Ingredient(edittext_A_name.getText().toString(), edittext_A_description.getText().toString(), 0, arraylist_A_unapprovedIngredients.get(c).getUsername());
                                 }
                             }
 
-                            boolean succeeded = connectorIngredients.approveIngredient(ingredient);
-
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " is goedgekeurd", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                                updateViewContent_A();
-                                updateViewContent_B();
-                            } else {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden goedgekeurd", Toast.LENGTH_SHORT).show();
-                            }
+                            connectorIngredients.approveIngredient(ingredient, oldName);
                         }
                     });
-                    builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Toast.makeText(view.getContext(), "Goedkeuren geannuleerd", Toast.LENGTH_SHORT).show();
                         }
                     });
                     builder.show();
@@ -187,11 +189,18 @@ public class Manage extends Fragment {
         button_A_deny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check if the ingredient name is empty. If so, display a Toast
+                if (edittext_A_name.getText().toString().equals("")) {
+                    Toast.makeText(view.getContext(), "Voer een ingrediënt naam in", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Check if there are ingredients to deny. If there are none, display a Toast
                 if (spinner_A_unapprovedIngredients.getCount() > 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext(), R.style.myDialog);
-                    builder.setMessage("Weet u zeker dat u dit ingrediënt wilt afkeuren?");
-                    builder.setTitle("Ingrediënt afkeuren");
-                    builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    builder.setMessage(R.string.dialog_admin_deleteIngredient);
+                    builder.setTitle(R.string.dialog_admin_deleteIngredientTitle);
+                    builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Ingredient ingredient = null;
@@ -201,21 +210,13 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            boolean succeeded = connectorIngredients.denyIngredient(ingredient);
-
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " is afgekeurd", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                                updateViewContent_B();
-                            } else {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden afgekeurd", Toast.LENGTH_SHORT).show();
-                            }
+                            connectorIngredients.denyIngredient(ingredient);
                         }
                     });
-                    builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Toast.makeText(view.getContext(), "Afkeuren geannuleerd", Toast.LENGTH_SHORT).show();
                         }
                     });
                     builder.show();
@@ -229,7 +230,7 @@ public class Manage extends Fragment {
     /**
      * Updates part A after approving or denying an ingredient
      */
-    private void updateViewContent_A() {
+    public void updateViewContent_A() {
         arrayadapter_A_unapprovedIngredients.notifyDataSetChanged();
 
         if (spinner_A_unapprovedIngredients.getCount() > 0) {
@@ -296,36 +297,27 @@ public class Manage extends Fragment {
         button_B_saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check if the ingredient name is empty. If so, display a Toast
+                if (edittext_B_name.getText().toString().equals("")) {
+                    Toast.makeText(view.getContext(), "Voer een ingrediënt naam in", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Check if there are ingrediënts to edit. If there are none, display a Toast
                 if (spinner_B_approvedIngredients.getCount() > 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext(), R.style.myDialog);
-                    builder.setMessage("Weet u zeker dat u dit ingrediënt wilt wijzigen?");
-                    builder.setTitle("Ingrediënt wijzigen");
-                    builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    builder.setMessage(R.string.dialog_admin_changeIngredient);
+                    builder.setTitle(R.string.dialog_admin_changeIngredientTitle);
+                    builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Ingredient ingredient = null;
-                            for (int c = 0; c < arraylist_B_approvedIngredients.size(); c++) {
-                                if (spinner_B_approvedIngredients.getSelectedItem().toString().equals(arraylist_B_approvedIngredients.get(c).getName())) {
-                                    ingredient = arraylist_B_approvedIngredients.get(c);
-                                }
-                            }
-
-                            boolean succeeded = connectorIngredients.updateIngredient(ingredient);
-
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " is gewijzigd", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                                updateViewContent_A();
-                                updateViewContent_B();
-                            } else {
-                                Toast.makeText(view.getContext(), ingredient.getName() + " kon niet worden gewijzigd", Toast.LENGTH_SHORT).show();
-                            }
+                            connectorIngredients.updateIngredient(spinner_B_approvedIngredients.getSelectedItem().toString(), edittext_B_name.getText().toString(), edittext_B_description.getText().toString());
                         }
                     });
-                    builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            Toast.makeText(view.getContext(), "Wijzigen geannuleerd", Toast.LENGTH_SHORT).show();
                         }
                     });
                     builder.show();
@@ -339,7 +331,7 @@ public class Manage extends Fragment {
     /**
      * Updates part B after approving or denying an ingredient
      */
-    private void updateViewContent_B() {
+    public void updateViewContent_B() {
         arrayadapter_B_approvedIngredients.notifyDataSetChanged();
 
         if (spinner_B_approvedIngredients.getCount() > 0) {
@@ -357,21 +349,56 @@ public class Manage extends Fragment {
     /**
      * Initializes the ArrayLists, used in the Buttons in parts A and B. This method is called once in the onCreate() and again every time the onStart() is called to refresh its contents
      */
-    private void initializeArrayLists() {
-        // Unapproved ingredients
-        arraylist_A_unapprovedIngredientNames.clear();
-        arraylist_A_unapprovedIngredients = connectorIngredients.getUnapprovedIngredients();
-        for (int c = 0; c < arraylist_A_unapprovedIngredients.size(); c++) {
-            arraylist_A_unapprovedIngredientNames.add(arraylist_A_unapprovedIngredients.get(c).getName());
-        }
-        arrayadapter_A_unapprovedIngredients.notifyDataSetChanged();
+    public void initializeArrayLists() {
+        // Unapproved and Approved Ingredients
+        connectorIngredients.getUnapprovedIngredients("ManageIngredient");
+        connectorIngredients.getApprovedIngredients("ManageIngredient");
+    }
 
-        // Approved ingredients
-        arraylist_B_approvedIngredientNames.clear();
-        arraylist_B_approvedIngredients = connectorIngredients.getApprovedIngredients();
-        for (int c = 0; c < arraylist_B_approvedIngredients.size(); c++) {
-            arraylist_B_approvedIngredientNames.add(arraylist_B_approvedIngredients.get(c).getName());
+    public EditText getEdittexts(int value) {
+        EditText edittext = null;
+
+        switch (value) {
+            case 0:
+                edittext = edittext_A_name;
+            break;
+            case 1:
+                edittext = edittext_A_description;
+            break;
+            case 2:
+                edittext = edittext_B_name;
+                break;
+            case 3:
+                edittext = edittext_B_description;
+                break;
         }
-        arrayadapter_B_approvedIngredients.notifyDataSetChanged();
+
+        return edittext;
+    }
+
+    // Unapproved Ingredients
+    public ArrayList<Ingredient> getArraylist_unapprovedIngredients() {
+        return arraylist_A_unapprovedIngredients;
+    }
+
+    public ArrayAdapter<String> getArrayAdapter_unapprovedIngredients() {
+        return arrayadapter_A_unapprovedIngredients;
+    }
+
+    public ArrayList<String> getArraylist_unapprovedIngredientNames() {
+        return arraylist_A_unapprovedIngredientNames;
+    }
+
+    // Approved Ingredients
+    public ArrayList<Ingredient> getArraylist_approvedIngredients() {
+        return arraylist_B_approvedIngredients;
+    }
+
+    public ArrayAdapter<String> getArrayAdapter_approvedIngredients() {
+        return arrayadapter_B_approvedIngredients;
+    }
+
+    public ArrayList<String> getArraylist_approvedIngredientNames() {
+        return arraylist_B_approvedIngredientNames;
     }
 }

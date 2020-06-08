@@ -1,15 +1,11 @@
 package com.nl.recipeapp.ingredient;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.nl.recipeapp.R;
 import com.nl.recipeapp.RequestQueueHolder;
 import com.nl.recipeapp.model.Ingredient;
 
@@ -17,30 +13,27 @@ import java.util.ArrayList;
 
 public class AddConnector {
     private Context context;
-    private boolean succesfullyAddedIngredient;
-    private EditText edittext_ingredientName;
+    private Add addIngredient;
 
     /**
      * RecipeHTTP Constructor
      * @param context Context of the MainActivity
-     * @param view The View of the Fragment that created this class. This way, objects on that Fragment can be accessed, such as EditTexts, Spinners etc.
      */
-    public AddConnector(Context context, View view) {
+    public AddConnector(Context context) {
             this.context = context;
-            edittext_ingredientName = view.findViewById(R.id.addIngredient_edittext_ingredientName);
     }
 
     /**
      * Adds an ingredient to the database
      */
-    public boolean addIngredient(Ingredient ingredient) {
+    public void addIngredient(final Ingredient ingredient) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?name="+ ingredient.getName() + "&description=" + ingredient.getDescription() + "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?name="+ ingredient.getName() + "&description=" + ingredient.getDescription() + "&is_approved=" + ingredient.isApproved() + "&username=" + ingredient.getUsername(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Ingrediënt '" + edittext_ingredientName.getText() + "' succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
-//              System.out.println(response);
-                succesfullyAddedIngredient = true;
+                Toast.makeText(context, "Ingrediënt '" + ingredient.getName() + "' succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
+                addIngredient.getEdittexts(0).setText("");
+                addIngredient.getEdittexts(1).setText("");
             }
         }, new Response.ErrorListener() {
             @Override
@@ -50,15 +43,12 @@ public class AddConnector {
                 } else {
 
                 }
-                Toast.makeText(context, "RecipeHTTP: Het ingrediënt '" + edittext_ingredientName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
-//                System.out.println(error.getMessage());
-                succesfullyAddedIngredient = false;
+                Toast.makeText(context, "RecipeHTTP: Het ingrediënt '" + ingredient.getName() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
-        return succesfullyAddedIngredient;
     }
 
     /**
@@ -88,5 +78,9 @@ public class AddConnector {
         // Fill the ArrayList with the ingredients
 
         return ingredients;
+    }
+
+    public void setAddIngredient(Add addIngredient) {
+        this.addIngredient = addIngredient;
     }
 }

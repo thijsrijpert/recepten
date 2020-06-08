@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -28,6 +29,7 @@ import com.nl.recipeapp.search.Search;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class AddConnector {
@@ -82,9 +84,9 @@ public class AddConnector {
     /**
      * Adds a recipe to the database
      */
-    public boolean addRecipe(Recipe recipe) {
+    public boolean addRecipe(Recipe recipe, final ArrayList<Ingredient> arraylist_boundIngredients) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?name="+ recipe.getName() + "&description=" + recipe.getDescription() + "&isApproved=0&countrycode=" + recipe.getCountryCode() + "&username=" + recipe.getUsername() + "&mealtype_name=" + recipe.getMealtypeName() + "&religion_id=" + recipe.getReligionId() + "&time_of_day=" + recipe.getTimeOfDay() + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(context, "Recept '" + edittext_recipeName.getText() + "' succesvol aangemeld. Een administrator zal het beoordelen.", Toast.LENGTH_SHORT).show();
@@ -94,11 +96,39 @@ public class AddConnector {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "RecipeHTTP: Het recept '" + edittext_recipeName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "recipeapp.recipe.AddConnector: Het recept '" + edittext_recipeName.getText() + "' kon niet worden aangemeld.", Toast.LENGTH_SHORT).show();
 //                System.out.println(error.getMessage());
                 succesfullyAddedRecipe = false;
             }
-        });
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    String string = "[";
+
+                    for (int c = 0; c < arraylist_boundIngredients.size(); c++) {
+                        if (c + 1 == arraylist_boundIngredients.size()) {
+                            string += "\"" + arraylist_boundIngredients.get(c).getName() + "\"";
+                        } else {
+                            string += "\"" + arraylist_boundIngredients.get(c).getName() + "\",";
+                        }
+                    }
+
+                    string += "]";
+
+                    System.out.println("recipeapp.recipe.AddConnector: BoundIngredientsString > " + string);
+
+                    return string == null ? null : string.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    System.out.println("recipeapp.recipe.AddConnector: addRecipe().getBody()");
+                    return null;
+                }
+            }};
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
@@ -141,12 +171,15 @@ public class AddConnector {
                             break;
                         case "SearchRecipe":
                             searchRecipe.getArrayList_mealtypes().clear();
+                            searchRecipe.getArrayList_mealtypes().add(new Mealtype("Selecteer een maaltijdsoort"));
                             searchRecipe.getArrayList_mealtypes().addAll(arraylist_mealtypes);
                             searchRecipe.getArrayAdapter_mealtypes().notifyDataSetChanged();
                             break;
                         case "EditMealtype":
                             editMealtype.getArraylist_mealtypes().clear();
                             editMealtype.getArraylist_mealtypes().addAll(arraylist_mealtypes);
+                            editMealtype.getArrayadapter_mealtypes().clear();
+                            editMealtype.getArrayadapter_mealtypes().addAll(arraylist_mealtypes);
                             editMealtype.getArrayadapter_mealtypes().notifyDataSetChanged();
                             break;
                         case "ManageUserRecipe":
@@ -176,7 +209,7 @@ public class AddConnector {
      */
     public void getCountries(final String calledFrom) {
         // Request a string response from the provided URL.
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Country.php", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Country.php?order=name", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
@@ -207,16 +240,20 @@ public class AddConnector {
                             break;
                         case "SearchRecipe":
                             searchRecipe.getArrayList_countries().clear();
+                            searchRecipe.getArrayList_countries().add(new Country("000", "Selecteer een land", ""));
                             searchRecipe.getArrayList_countries().addAll(arraylist_countries);
                             searchRecipe.getArrayAdapter_countries().notifyDataSetChanged();
                             break;
                         case "GeneralMethods":
                             generalMethods.getArrayList_Countries().clear();
                             generalMethods.getArrayList_Countries().addAll(arraylist_countries);
+                            generalMethods.getDetailedView().setInputFieldContents();
                             break;
                         case "EditCountry":
                             editCountry.getArraylist_countries().clear();
                             editCountry.getArraylist_countries().addAll(arraylist_countries);
+                            editCountry.getArrayadapter_countries().clear();
+                            editCountry.getArrayadapter_countries().addAll(arraylist_countries);
                             editCountry.getArrayadapter_countries().notifyDataSetChanged();
                             break;
                         case "ManageUserRecipe":
@@ -251,7 +288,7 @@ public class AddConnector {
         // tablename.php?select=kolomnaam --> selecteert alles uit een specifieke kolom (kolomnaam)
         // tablename.php?select=kolomnaam&where=kolomnaam-eq-waardenaam --> selecteert alles uit een specifieke kolom, waar de waarde uit de kolom gelijk is aan de waardenaam
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/religion.php", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/religion.php?order=name", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
@@ -282,6 +319,7 @@ public class AddConnector {
                             break;
                         case "SearchRecipe":
                             searchRecipe.getArrayList_religions().clear();
+                            searchRecipe.getArrayList_religions().add(new Religion("0", "Selecteer een religie"));
                             searchRecipe.getArrayList_religions().addAll(arraylist_religions);
                             searchRecipe.getArrayAdapter_religions().notifyDataSetChanged();
                             break;
@@ -347,6 +385,7 @@ public class AddConnector {
                             break;
                         case "SearchRecipe":
                             searchRecipe.getArrayList_timeofday().clear();
+                            searchRecipe.getArrayList_timeofday().add(new TimeOfDay("Selecteer een tijdvak"));
                             searchRecipe.getArrayList_timeofday().addAll(arraylist_timeofday);
                             searchRecipe.getArrayAdapter_timeofday().notifyDataSetChanged();
                             break;
@@ -429,7 +468,7 @@ public class AddConnector {
      */
     public void getApprovedIngredients(final String calledFrom) {
         // Request a string response from the provided URL.
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=isapproved-eq-1", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=is_approved-eq-1", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
@@ -473,8 +512,9 @@ public class AddConnector {
      * Gets all approved Ingredients + unapproved Ingredients submitted by the Current User from the database
      */
     public void getIngredientsForSpecificUser(String username, final String calledFrom) {
+        // Get all ingredients where isApproved == 1
         // Request a string response from the provided URL.
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=isapproved-eq-1&where=username-eq-" + username + "", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=is_approved-eq-1", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
@@ -512,6 +552,46 @@ public class AddConnector {
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request);
+
+        // Get all ingredients where username is equal to a given username
+        // Request a string response from the provided URL.
+        JsonArrayRequest request2 = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?where=username-eq-" + username + "", new JSONArray(), new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Gson gson = new Gson();
+
+                arraylist_ingredientsForSpecificUser.clear(); // Clear the local ArrayList, so no duplicates will be added
+
+                try {
+                    for (int c = 0; c < response.length(); c++) {
+                        JSONObject object = response.getJSONObject(c);
+                        Ingredient ingredient = gson.fromJson(object.toString(), Ingredient.class);
+                        arraylist_ingredientsForSpecificUser.add(ingredient);
+                    }
+
+                    // Clear the ArrayLists, so they only get filled once (and not stacked with new object on top of the old ones)
+                    // Add the Ingredients to the necessary ArrayLists
+                    // Notify the corresponding adapters that the ArrayLists have been changed and they need to be updated
+                    switch (calledFrom) {
+                        case "AddRecipe":
+                            addRecipe.getArrayList_ingredients().addAll(arraylist_ingredientsForSpecificUser);
+                            addRecipe.getArrayAdapter_ingredients().notifyDataSetChanged();
+                            break;
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("AddConnector (recipe): Ingrediënten voor specifieke gebruiker konden niet worden opgehaald uit de database.");
+            }
+        });
+
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(request2);
     }
 
     /**
@@ -519,7 +599,7 @@ public class AddConnector {
      */
     public void getIngredientsForSpecificRecipe(String recipeId, final String calledFrom) {
         // Selecteer alle ingredient namen die bij het recipeId horen uit de recipe_ingredient tabel en sla deze hier lokaal op
-        JsonArrayRequest request1 = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/recipe_ingredient.php?select=ingredient_name&where=recipe_id-eq-" + recipeId + "", new JSONArray(), new Response.Listener<JSONArray>() {
+        JsonArrayRequest request1 = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/recipe_ingredient.php?select=name&where=recipe_id-eq-" + recipeId + "", new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new Gson();
@@ -592,11 +672,10 @@ public class AddConnector {
         // tablename.php --> selecteert alles uit de tabel
         // tablename.php?select=kolomnaam --> selecteert alles uit een specifieke kolom (kolomnaam)
         // tablename.php?select=kolomnaam&where=kolomnaam-eq-waardenaam --> selecteert alles uit een specifieke kolom, waar de waarde uit de kolom gelijk is aan de waardenaam
-
+        System.out.println("recipeapp.recipe.AddConnector: ID > " + recipeId);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/review.php?where=recipe_id-eq-" + recipeId, new JSONArray(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-//                System.out.println("Response: " + response.toString());
                 Gson gson = new Gson();
 
                 arraylist_reviews.clear();

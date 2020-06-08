@@ -17,7 +17,9 @@ import android.widget.TextView;
 import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
+import com.nl.recipeapp.SharedPreferencesManager;
 import com.nl.recipeapp.model.Review;
+import com.nl.recipeapp.user.User;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,8 @@ public class Manage extends Fragment {
     private ArrayList<Review> arraylist_reviews;
     private ArrayList<String> arraylist_ratings, arraylist_reviewNames;
 
+    private com.nl.recipeapp.model.User currentUser;
+
     public Manage() {
         // Required empty public constructor
     }
@@ -44,6 +48,8 @@ public class Manage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_manage_user_reviews, container, false);
+
+        currentUser = SharedPreferencesManager.getInstance(this.getActivity()).getPref();
 
         // Initialize the Connectors, used to communicate data back and forth to and from the database
         connector_userReview = new Connector(this.getContext());
@@ -132,7 +138,14 @@ public class Manage extends Fragment {
         button_saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String id = "";
+                for (int c = 0; c < arraylist_reviews.size(); c++) {
+                    if (spinner_reviews.getSelectedItem().toString().equals(arraylist_reviews.get(c).getTitle())) {
+                        id = arraylist_reviews.get(c).getId();
+                    }
+                }
 
+                connector_userReview.saveChanges(edittext_title.getText().toString(), edittext_description.getText().toString(), spinner_ratings.getSelectedItem().toString(), id);
             }
         });
 
@@ -140,22 +153,33 @@ public class Manage extends Fragment {
         button_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String id = "";
+                for (int c = 0; c < arraylist_reviews.size(); c++) {
+                    if (spinner_reviews.getSelectedItem().toString().equals(arraylist_reviews.get(c).getTitle())) {
+                        id = arraylist_reviews.get(c).getId();
+                    }
+                }
 
+                connector_userReview.delete(id);
             }
         });
     }
 
     private void initializeArrayLists() {
         arraylist_reviewNames.clear();
-//        connector_userReview.getReviewsForSpecificUser(((MainActivity)getActivity()).getCurrentUser().getUsername(), "ManageUserReview");
-        for (int c = 0; c < arraylist_reviews.size(); c++) {
-            arraylist_reviewNames.add(arraylist_reviews.get(c).getTitle());
-        }
-        arrayadapter_reviewNames.notifyDataSetChanged();
+        connector_userReview.getReviewsForSpecificUser(currentUser.getUsername(), "ManageUserReview");
     }
 
     // Getters for the ArrayLists and Adapters
     public ArrayList<Review> getArrayList_reviews() {
         return arraylist_reviews;
+    }
+
+    public ArrayList<String> getArraylist_reviewNames() {
+        return arraylist_reviewNames;
+    }
+
+    public ArrayAdapter<String> getArrayadapter_reviewNames() {
+        return arrayadapter_reviewNames;
     }
 }

@@ -21,8 +21,8 @@ import android.widget.Toast;
 
 import com.nl.recipeapp.CharacterCountListener;
 import com.nl.recipeapp.GeneralMethods;
-import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
+import com.nl.recipeapp.SharedPreferencesManager;
 import com.nl.recipeapp.admin.recipe.Connector;
 import com.nl.recipeapp.model.Country;
 import com.nl.recipeapp.model.Ingredient;
@@ -31,6 +31,7 @@ import com.nl.recipeapp.model.Recipe;
 import com.nl.recipeapp.model.Religion;
 import com.nl.recipeapp.model.TimeOfDay;
 import com.nl.recipeapp.recipe.AddConnector;
+import com.nl.recipeapp.user.User;
 
 import java.util.ArrayList;
 
@@ -64,6 +65,8 @@ public class Manage extends Fragment {
     private ArrayAdapter<TimeOfDay> arrayadapter_timeofday;
     private ArrayAdapter<String> arrayadapter_recipeNames;
 
+    private com.nl.recipeapp.model.User currentUser;
+
     public Manage() {
         // Required empty public constructor
     }
@@ -74,8 +77,11 @@ public class Manage extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_manage_user_recipes, container, false);
 
+        currentUser = SharedPreferencesManager.getInstance(this.getActivity()).getPref();
+
         connector_recipe = new AddConnector(this.getContext()); // Create the connector to fill the Spinner ArrayLists
         connector_recipeAdmin = new Connector(this.getContext());
+        connector_recipeAdmin.setManageUserRecipe(this);
         connector_recipeUser = new com.nl.recipeapp.user.recipe.Connector(this.getContext());
         generalMethods = new GeneralMethods(this.getContext()); // Create the GeneralMethods class, used for figuring out corresponding id's and names
 
@@ -140,7 +146,7 @@ public class Manage extends Fragment {
                         // Initialize the Spinners
                         Country country = null;
                         for (int i = 0; i < arraylist_countries.size(); i++) {
-                            if (arraylist_recipes.get(c).getCountryCode().equals(arraylist_countries.get(i).getCountryCode())) {
+                            if (arraylist_recipes.get(c).getCountryCode().equals(arraylist_countries.get(i).getCountrycode())) {
                                 country = arraylist_countries.get(i);
                             }
                         }
@@ -222,14 +228,7 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            boolean succeeded = connector_recipeAdmin.deleteRecipe(recipe);
-
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), recipe.getName() + " is verwijderd", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                            } else {
-                                Toast.makeText(view.getContext(), recipe.getName() + " kon niet worden verwijderd", Toast.LENGTH_SHORT).show();
-                            }
+                            connector_recipeAdmin.deleteRecipe(recipe);
                         }
                     });
                     builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
@@ -270,14 +269,7 @@ public class Manage extends Fragment {
                                 }
                             }
 
-                            boolean succeeded = connector_recipeAdmin.updateRecipe(recipe);
-
-                            if (succeeded) {
-                                Toast.makeText(view.getContext(), recipe.getName() + " is geüpdatet", Toast.LENGTH_SHORT).show();
-                                initializeArrayLists();
-                            } else {
-                                Toast.makeText(view.getContext(), recipe.getName() + " kon niet worden geüpdatet", Toast.LENGTH_SHORT).show();
-                            }
+                            connector_recipeAdmin.updateRecipe(recipe, "ManageUserRecipe");
                         }
                     });
                     builder.setNegativeButton("Nee", new DialogInterface.OnClickListener() {
@@ -294,15 +286,8 @@ public class Manage extends Fragment {
         });
     }
 
-    private void initializeArrayLists() {
-        arraylist_recipeNames.clear();
-
-//        connector_recipeUser.getRecipesForSpecificUser(((MainActivity)getActivity()).getCurrentUser().getUsername());
-        for (int c = 0; c < arraylist_recipes.size(); c++) {
-            arraylist_recipeNames.add(arraylist_recipes.get(c).getName());
-        }
-        arrayadapter_recipeNames.notifyDataSetChanged();
-
+    public void initializeArrayLists() {
+        connector_recipeUser.getRecipesForSpecificUser(currentUser.getUsername(), "ManageUserRecipe");
         connector_recipe.getTimeOfDay("ManageUserRecipe");
         connector_recipe.getMealTypes("ManageUserRecipe");
         connector_recipe.getCountries("ManageUserRecipe");
@@ -343,5 +328,18 @@ public class Manage extends Fragment {
 
     public ArrayList<TimeOfDay> getArrayList_timeofday() {
         return arraylist_timeofday;
+    }
+
+    // Recipes
+    public ArrayList<Recipe> getArrayList_recipes() {
+        return arraylist_recipes;
+    }
+
+    public ArrayList<String> getArrayList_recipeNames() {
+        return arraylist_recipeNames;
+    }
+
+    public ArrayAdapter<String> getArrayAdapter_recipeNames() {
+        return arrayadapter_recipeNames;
     }
 }

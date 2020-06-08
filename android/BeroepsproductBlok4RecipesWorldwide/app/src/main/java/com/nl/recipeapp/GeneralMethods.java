@@ -5,6 +5,7 @@ import android.content.Context;
 import com.nl.recipeapp.model.Country;
 import com.nl.recipeapp.model.Religion;
 import com.nl.recipeapp.recipe.AddConnector;
+import com.nl.recipeapp.recipe.DetailedView;
 
 import java.util.ArrayList;
 
@@ -12,8 +13,12 @@ public class GeneralMethods {
     private AddConnector connector;
     private ArrayList<Religion> religions;
     private ArrayList<Country> countries;
+    private DetailedView detailedView;
 
     public GeneralMethods(Context context) {
+        religions = new ArrayList<>();
+        countries = new ArrayList<>();
+
         connector = new AddConnector(context);
         connector.setGeneralMethods(this);
         connector.getReligions("GeneralMethods");
@@ -25,13 +30,13 @@ public class GeneralMethods {
      * @param religionId The given Religion ID
      * @return The corresponding Religion name
      */
-    public String getReligionNameFromId(String religionId) {
+    public void getReligionNameFromId(String religionId, String calledFrom) {
         String name = null;
 
         // Check whether the religionId is similar to 'Selecteer een religie', which indicates the user hasn't made a choice
-        if (religionId.equals("Selecteer een religie")) {
-            return "null";
-        }
+//        if (religionId.equals("Selecteer een religie")) {
+//            return "null";
+//        }
 
         // If the religionId is not similar to the default line, extract the religion id
         for (int c = 0; c < religions.size(); c++) {
@@ -40,7 +45,11 @@ public class GeneralMethods {
             }
         }
 
-        return name;
+        switch (calledFrom) {
+            case "DetailedView":
+                detailedView.getEditTexts(1).setText(name);
+                break;
+        }
     }
 
     /**
@@ -69,24 +78,27 @@ public class GeneralMethods {
     /**
      * Gets the Country name that corresponds with the given code
      * @param countrycode The given countrycode
-     * @return The corresponding Country name
      */
-    public String getCountryNameFromCode(String countrycode) {
+    public void getCountryNameFromCode(String countrycode, final String calledFrom) {
         String name = null;
 
         // Check whether the countryName is similar to 'Selecteer een land', which indicates the user hasn't made a choice
-        if (countrycode.equals("Selecteer een land")) {
-            return "null";
-        }
+//        if (countrycode.equals("Selecteer een land")) {
+//            return "null";
+//        }
 
         // If the countrycode is not similar to the default line, extract the countrycode
         for (int c = 0; c < countries.size(); c++) {
-            if (countrycode.equals(countries.get(c).getCountryCode())) {
+            if (countrycode.equals(countries.get(c).getCountrycode())) {
                 name = countries.get(c).getName();
             }
         }
 
-        return name;
+        switch (calledFrom) {
+            case "DetailedView":
+                detailedView.getEditTexts(0).setText(name);
+            break;
+        }
     }
 
     /**
@@ -105,7 +117,7 @@ public class GeneralMethods {
         // If the countrycode is not similar to the default line, extract the countrycode
         for (int c = 0; c < countries.size(); c++) {
             if (countryName.equals(countries.get(c).getName())) {
-                code = countries.get(c).getCountryCode();
+                code = countries.get(c).getCountrycode();
             }
         }
 
@@ -118,5 +130,13 @@ public class GeneralMethods {
 
     public ArrayList<Country> getArrayList_Countries() {
         return countries;
+    }
+
+    public void setDetailedView(DetailedView detailedView) {
+        this.detailedView = detailedView;
+    }
+
+    public DetailedView getDetailedView() {
+        return detailedView;
     }
 }

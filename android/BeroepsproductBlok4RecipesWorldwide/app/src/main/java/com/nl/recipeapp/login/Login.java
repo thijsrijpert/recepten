@@ -15,7 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nl.recipeapp.MainActivity;
 import com.nl.recipeapp.R;
+import com.nl.recipeapp.SharedPreferencesManager;
+import com.nl.recipeapp.model.User;
 import com.nl.recipeapp.register.Register;
 
 /**
@@ -28,9 +31,12 @@ public class Login extends Fragment {
 
     private LinearLayout login_linearLayout_textviews;
     private EditText edit_login, edit_password;
-
+    private Button login_btn_signIn, button_logout;
+    private com.nl.recipeapp.login.Connector connector_login;
         // Loads the register fragment when clicked on register textfield
     private Fragment fragment_register;
+
+    private User currentUser;
 
     public Login() {
         // Required empty public constructor
@@ -51,6 +57,9 @@ public class Login extends Fragment {
         transaction.replace(R.id.login_framelayout, fragment_register);
         transaction.commit();
 
+        // Connector
+        connector_login = new Connector(this.getContext(), view,this);
+
         // Initialize the Class variables
         edit_login = view.findViewById(R.id.edit_login);
         edit_password = view.findViewById(R.id.edit_password);
@@ -69,7 +78,7 @@ public class Login extends Fragment {
             }
         });
 
-        Button login_btn_signIn = view.findViewById(R.id.login_btn_signIn);
+        login_btn_signIn = view.findViewById(R.id.login_btn_signIn);
         login_btn_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,12 +96,39 @@ public class Login extends Fragment {
                 }
 
                 else {
-                    edit_login.setText("");
-                    edit_password.setText("");
+                    connector_login.login();
+                    button_logout.setEnabled(true);
+                    login_btn_signIn.setEnabled(false);
                 }
             }
         });
 
+        button_logout = view.findViewById(R.id.login_btn_logout);
+        button_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).setCurrentUser(null);
+                SharedPreferencesManager.getInstance(getActivity()).removePref("USER");
+                ((MainActivity)getActivity()).getMain_textview_loggedInUser().setText("U bent niet ingelogd");
+                button_logout.setEnabled(false);
+                login_btn_signIn.setEnabled(true);
+            }
+        });
+
         return view;
+    }
+
+    public void onStart() {
+        super.onStart();
+
+        currentUser = SharedPreferencesManager.getInstance(this.getActivity()).getPref();
+
+        if (currentUser != null) {
+            button_logout.setEnabled(true);
+            login_btn_signIn.setEnabled(false);
+        } else {
+            button_logout.setEnabled(false);
+            login_btn_signIn.setEnabled(true);
+        }
     }
 }

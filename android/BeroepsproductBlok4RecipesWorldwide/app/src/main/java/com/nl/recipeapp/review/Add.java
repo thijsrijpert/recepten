@@ -30,6 +30,7 @@ public class Add extends AppCompatActivity {
         setContentView(R.layout.activity_add_review);
 
         addConnector = new AddConnector(getApplicationContext()); // Instantiate the AddConnector for this class, to pass a new review to the database
+        addConnector.setAddReview(this);
 
         getData();
         initializeInputFields();
@@ -77,16 +78,8 @@ public class Add extends AppCompatActivity {
                 }
 
                 // Create the review object and pass it to the addConnector class
-                Review review = new Review("", edittext_title.getText().toString(), edittext_description.getText().toString(), spinner_rating.getSelectedItem().toString(), "", "", ((MainActivity)getApplicationContext()).getCurrentUser().getUsername());
-                boolean success = addConnector.addReview(review);
-
-                if (success) {
-                    Toast.makeText(getBaseContext(), "Uw review is geplaatst", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getBaseContext(), "Uw review kon niet geplaatst worden", Toast.LENGTH_SHORT).show();
-                }
-
-                onBackPressed();
+                Review review = new Review("", edittext_title.getText().toString(), edittext_description.getText().toString(), spinner_rating.getSelectedItem().toString(), recipe_id, "", "joshuacok");
+                addConnector.addReview(review);
             }
         });
     }

@@ -12,14 +12,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nl.recipeapp.R;
-import com.nl.recipeapp.admin.wordfilter.AddConnector;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Add extends Fragment {
     private View view;
-    private EditText edittext_wordName;
+    private EditText edittext_word;
     private com.nl.recipeapp.admin.wordfilter.AddConnector addConnector;
 
     public Add() {
@@ -33,10 +32,11 @@ public class Add extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_word, container, false);
 
         // Initialize the Class variables
-        edittext_wordName = view.findViewById(R.id.addWord_edittext_wordName);
+        edittext_word = view.findViewById(R.id.addWord_edittext_wordName);
 
         // Create the connector that will pass requests towards the database
-        addConnector = new AddConnector(this.getContext(), view);
+        addConnector = new AddConnector(this.getContext());
+        addConnector.setAddWord(this);
 
         // Launch the initialization methods
         initializeButtons();
@@ -50,18 +50,18 @@ public class Add extends Fragment {
             @Override
             public void onClick(View v) {
                 // First, check if all the fields are filled in. If not, display a Toast accordingly
-                if (edittext_wordName.getText().toString().equals("")) {
+                if (edittext_word.getText().toString().equals("")) {
                     // Check if a name is entered
-                    Toast.makeText(getActivity(), "U moet een word invullen", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "U moet een woord invullen", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                boolean value = addConnector.addWordfilter(edittext_wordName.getText().toString());
-
-                if (value) {
-                    edittext_wordName.setText("");
-                }
+                addConnector.addWord(edittext_word.getText().toString());
             }
         });
+    }
+
+    public EditText getEdittext_word() {
+        return edittext_word;
     }
 }

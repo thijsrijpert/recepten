@@ -39,7 +39,7 @@ public class Connector {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/user.php?username=" + edit_login.getText().toString() + "&password=" + edit_password.getText().toString() + "", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context, "Username '" + edit_login.getText().toString() + " Prima gebruikersnaam", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Username '" + edit_login.getText().toString() + " is geregistreerd", Toast.LENGTH_SHORT).show();
                 succesfullyAddedUsername = true;
 
             }
@@ -47,11 +47,11 @@ public class Connector {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.networkResponse.statusCode == 400) {
-                    Toast.makeText(context, "RecipeHTTP: Data duplicaat OF leeg. Error: 400", Toast.LENGTH_SHORT).show();
-                } else {
-
+                    Toast.makeText(context, "Data duplicaat OF leeg. Error: 400", Toast.LENGTH_SHORT).show();
+                } else if (error.networkResponse.statusCode == 403) {
+                    Toast.makeText(context, "Gebruikersnaam bestaat al", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(context, "RecipeHTTP: Het gebruikernaam is niet juist '" + edit_login.getText().toString() + "' kon niet worden geregistreerd.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Het gebruikernaam is niet juist '" + edit_login.getText().toString() + "' kon niet worden geregistreerd.", Toast.LENGTH_SHORT).show();
                 succesfullyAddedUsername = false;
             }
         });
