@@ -98,6 +98,7 @@ public class Login extends Fragment {
                 else {
                     connector_login.login();
                     button_logout.setEnabled(true);
+                    login_btn_signIn.setEnabled(false);
                 }
             }
         });
@@ -110,6 +111,7 @@ public class Login extends Fragment {
                 SharedPreferencesManager.getInstance(getActivity()).removePref("USER");
                 ((MainActivity)getActivity()).getMain_textview_loggedInUser().setText("U bent niet ingelogd");
                 button_logout.setEnabled(false);
+                login_btn_signIn.setEnabled(true);
             }
         });
 
@@ -123,8 +125,10 @@ public class Login extends Fragment {
 
         if (currentUser != null) {
             button_logout.setEnabled(true);
+            login_btn_signIn.setEnabled(false);
         } else {
             button_logout.setEnabled(false);
+            login_btn_signIn.setEnabled(true);
         }
     }
 }

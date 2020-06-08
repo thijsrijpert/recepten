@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -28,6 +29,7 @@ import com.nl.recipeapp.search.Search;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class AddConnector {
@@ -82,7 +84,7 @@ public class AddConnector {
     /**
      * Adds a recipe to the database
      */
-    public boolean addRecipe(Recipe recipe) {
+    public boolean addRecipe(Recipe recipe, final ArrayList<Ingredient> arraylist_boundIngredients) {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/Recipe.php?name="+ recipe.getName() + "&description=" + recipe.getDescription() + "&isApproved=0&countrycode=" + recipe.getCountryCode() + "&username=" + recipe.getUsername() + "&mealtype_name=" + recipe.getMealtypeName() + "&religion_id=" + recipe.getReligionId() + "&time_of_day=" + recipe.getTimeOfDay() + "", new Response.Listener<String>() {
             @Override
@@ -98,7 +100,35 @@ public class AddConnector {
 //                System.out.println(error.getMessage());
                 succesfullyAddedRecipe = false;
             }
-        });
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    String string = "[";
+
+                    for (int c = 0; c < arraylist_boundIngredients.size(); c++) {
+                        if (c + 1 == arraylist_boundIngredients.size()) {
+                            string += "\"" + arraylist_boundIngredients.get(c).getName() + "\"";
+                        } else {
+                            string += "\"" + arraylist_boundIngredients.get(c).getName() + "\",";
+                        }
+                    }
+
+                    string += "]";
+
+                    System.out.println("recipeapp.recipe.AddConnector: BoundIngredientsString > " + string);
+
+                    return string == null ? null : string.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    System.out.println("recipeapp.recipe.AddConnector: addRecipe().getBody()");
+                    return null;
+                }
+            }};
 
         // Get the queue and give a request
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);

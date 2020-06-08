@@ -77,6 +77,9 @@ public class Edit extends Fragment {
         initializeArrayLists(); // Initializes the Spinner ArrayLists, which are used in the ArrayAdapters
     }
 
+    /**
+     * Initializes the EditTexts on this screen
+     */
     private void initializeEditTexts() {
         TextView textview_description = view.findViewById(R.id.editCountry_textview_countryDescriptionCharacterCount);
         edittext_code = view.findViewById(R.id.editCountry_edittext_countryCode);
@@ -85,6 +88,9 @@ public class Edit extends Fragment {
         edittext_description.addTextChangedListener(new CharacterCountListener(textview_description, edittext_description));
     }
 
+    /**
+     * Initializes the Spinners on this screen
+     */
     private void initializeSpinner() {
         spinner_countries = view.findViewById(R.id.editCountry_spinner_approvedCountries);
         initializeArrayLists();
@@ -111,6 +117,9 @@ public class Edit extends Fragment {
         });
     }
 
+    /**
+     * Initializes the Buttons on this screen
+     */
     private void initializeButton() {
         Button button_saveChanges = view.findViewById(R.id.editCountry_btn_saveChanges);
         button_saveChanges.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +141,9 @@ public class Edit extends Fragment {
         });
     }
 
+    /**
+     * Initializes the ArrayLists on this screen by communicating with the corresponding webconnector
+     */
     public void initializeArrayLists() {
         addConnector_recipe.getCountries("EditCountry");
     }
@@ -142,22 +154,5 @@ public class Edit extends Fragment {
 
     public ArrayAdapter<Country> getArrayadapter_countries() {
         return arrayadapter_countries;
-    }
-
-    public EditText getEdittextFields(int value) {
-        EditText edittext = null;
-        switch (value) {
-            case 0:
-                edittext = edittext_code;
-            break;
-            case 1:
-                edittext = edittext_name;
-            break;
-            case 2:
-                edittext = edittext_description;
-            break;
-        }
-
-        return edittext;
     }
 }

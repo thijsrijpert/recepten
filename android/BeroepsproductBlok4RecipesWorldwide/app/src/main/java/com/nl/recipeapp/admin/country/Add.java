@@ -85,6 +85,11 @@ public class Add extends Fragment {
         });
     }
 
+    /**
+     * Returns the EditText(s) requested
+     * @param value The value of the EditText that has to be returned
+     * @return The requested EditText
+     */
     public EditText getEdittextFields(int value) {
         EditText edittext = null;
         switch (value) {

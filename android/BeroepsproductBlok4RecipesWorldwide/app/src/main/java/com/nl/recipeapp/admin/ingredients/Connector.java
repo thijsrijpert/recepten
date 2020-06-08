@@ -30,6 +30,11 @@ public class Connector {
         arraylist_unapprovedIngredients = new ArrayList<>();
     }
 
+    /**
+     * Approves an Ingredient object and changes any fields the moderator wanted to change
+     * @param ingredient The new Ingredient object
+     * @param oldName The old name of the selected ingredient, used to update the correct ingredient.
+     */
     public void approveIngredient(final Ingredient ingredient, String oldName) {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?set=name-" + ingredient.getName() + ".is_approved-1.description-" + ingredient.getDescription() + "&where=name-eq-" + oldName, new Response.Listener<String>() {
@@ -53,11 +58,31 @@ public class Connector {
         RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
     }
 
+    /**
+     *
+     * @param ingredient
+     */
+    public void denyIngredient(final Ingredient ingredient) {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://beroepsproduct.rijpert-webdesign.nl/api/ingredient.php?delete=name-" + ingredient.getName(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context, "Ingrediënt '" + ingredient.getName() + "' is verwijderd", Toast.LENGTH_SHORT).show();
+                manageIngredients.getEdittexts(2).setText("");
+                manageIngredients.getEdittexts(3).setText("");
+                manageIngredients.initializeArrayLists();
+                manageIngredients.updateViewContent_A();
+                manageIngredients.updateViewContent_B();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "admin.ingredients.Connector: Het ingrediënt kon niet worden verwijderd.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-    public void denyIngredient(Ingredient ingredient) {
-
-
-
+        // Get the queue and give a request
+        RequestQueueHolder.getRequestQueueHolder(context).getQueue().add(stringRequest);
     }
 
 
