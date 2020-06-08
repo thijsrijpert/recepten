@@ -21,9 +21,14 @@ nav {
 
 nav p {
     margin: 20px auto;
-    width: 100px;
+    width: 10px;
+    padding: 0 45%;
     font-family: sans-serif;
     color: #404041;
+}
+
+nav p:hover {
+    background-color: #DEDA8B;
 }
 
 #content {

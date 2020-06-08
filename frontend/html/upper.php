@@ -17,7 +17,7 @@
     <div class="container-fluid">
       <header class="row">
           <div class="col-lg-12">
-              <h1>RecipesWorldWide</h1>
+              <h2>RecipesWorldWide</h2>
           </div>
       </header>
       <div class="row">
@@ -32,3 +32,4 @@
     </div>
 
 </body>
+</html>
