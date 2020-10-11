@@ -9,4 +9,5 @@ Schoolproject voor het tweede semester blok 4.
 # Auteurs
 * Backend: **Thijs Rijpert**, **Bram Wildenberg**
 * Android: **Jezrac**, **SavingPrivateHenk**
+* Web Frontend: **Thijs Rijpert**
 
