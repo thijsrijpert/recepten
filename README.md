@@ -7,6 +7,6 @@ Schoolproject voor het tweede semester blok 4.
 * **Doel**: De gebruiker kan met behulp van deze applicatie recepten opzoeken die binnen hun religie passen
 
 # Auteurs
-Backend: **Thijs Rijpert**, **Bram Wildenberg**
-Android: **Jezrac**, **SavingPrivateHenk**
+* Backend: **Thijs Rijpert**, **Bram Wildenberg**
+* Android: **Jezrac**, **SavingPrivateHenk**
 
